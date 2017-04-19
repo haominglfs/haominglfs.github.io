@@ -13,7 +13,7 @@
     
     <meta property="og:type" content="website">
 <meta property="og:title" content="haominglfs的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="https://haominglfs.github.io/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="haominglfs的博客">
@@ -22,11 +22,11 @@
     <link rel="alternative" href="/atom.xml" title="haominglfs的博客" type="application/atom+xml">
     
     
-    <link rel="icon" href="/img/favicon.ico">
+    <link rel="icon" href="/img/afe.jpg">
     
     
-    <link rel="apple-touch-icon" href="/img/jacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon" href="/img/fj.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/fj.jpg">
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -42,7 +42,7 @@
 			
 			<div id="textlogo">
 				<h1 class="site-name"><a href="/" title="haominglfs的博客">haominglfs的博客</a></h1>
-				<h2 class="blog-motto"></h2>
+				<h2 class="blog-motto">Let&#39;s coding!</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
@@ -50,18 +50,18 @@
 				<ul>
 					<ul>
 					 
-						<li><a href="/">Home</a></li>
+						<li><a href="/">主页</a></li>
 					
-						<li><a href="/archives">Archives</a></li>
+						<li><a href="/archives">归档</a></li>
 					
-						<li><a href="/about">About</a></li>
+						<li><a href="/about">简介</a></li>
 					
 					<li>
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:yoursite.com">
+						<input type="hidden" name="q" value="site:haominglfs.github.io">
 					</form>
 					
 					</li>
@@ -78,21 +78,24 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/17/测试hexo/" title="测试hexo" itemprop="url">测试hexo</a>
+      <a href="/2017/04/19/iTerm2/" title="iTerm2" itemprop="url">iTerm2</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="haominglfs" target="_blank" itemprop="author">haominglfs</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-17T13:48:23.000Z" itemprop="datePublished"> 发表于 2017-04-17</time>
+    <time datetime="2017-04-19T14:34:20.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>##测试hexo的使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public class Hexo&#123;</div><div class="line">	public static void main();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><img src="http://ww4.sinaimg.cn/large/006tKfTcly1feq0nwfz5xj30eu0m80ti.jpg" alt=""></p>
+        <p>#iTerm2配置</p>
+<ul>
+<li>配色<br>1.<code>git clone git@github.com:altercation/solarized.git</code><br>2.这里我们要使用的是iterm2-colors-solarized目录下的，包括Solarized         Dark.itermcolors和Solarized Light.itermcolors两个配置文件。<br>3.打开Preferences-&gt;Profiles-&gt;Color面板，在Color Presets中将以上  两个配置方案导入，然后选择Solarized Dark或者Solarized Light即可。一般推荐使用Solarized Dark，Solarized Light有种亮瞎的感觉。</li>
+<li>oh-my-zsh<br>1.接下来，用oh-my-zsh来武装zsh，一行命令搞定：<br><code>sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code><br>2.oh-my-zsh中提供了多套主题可供选择，有不同的输出样式及配色。默认应该是robbyrussell，感觉中规中矩没啥亮点。翻看了一下，发现了agnoster主题，感觉非常入眼。<br>接下来，编辑~/.zshrc，找到变量ZSH_THEME将其赋值改为agnoster即可。<br>3.为了显示正常，需要安装powerline字体，方法如下：<br><code>git clone git@github.com:powerline/fonts.git</code><br><code>cd fonts</code><br><code>./install</code><br>然后，在iTerm2-&gt;Preferences-&gt;Profiles-&gt;Text面板中将Non-ASCII Font改成Roboto Mono Powerline，显示就正常了！  </li>
+</ul>
 
         
         
@@ -129,28 +132,52 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/17/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2017/04/19/shadowsocks配置/" title="shadowsocks配置" itemprop="url">shadowsocks配置</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="haominglfs" target="_blank" itemprop="author">haominglfs</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-17T13:05:26.000Z" itemprop="datePublished"> 发表于 2017-04-17</time>
+    <time datetime="2017-04-19T14:30:33.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h2 id="shadowsocks配置"><a href="#shadowsocks配置" class="headerlink" title="#shadowsocks配置"></a>#shadowsocks配置</h2><ul>
+<li>第一步 用远程工具登录aws主机</li>
+<li><p>第二步：安装shadowsocks依赖</p>
+<ol>
+<li><code>sudo -s</code> //获取超级管理员权限</li>
+<li><code>apt-get update</code>//更新apt-get</li>
+<li><code>apt-get install python-pip</code>//安装pyton包管理工具</li>
+<li><code>pip install shadowsocks</code>//安装shadowsocks</li>
+<li><code>ssserver -c /etc/shadowsocks.json -d start</code>//启动shadowsocks</li>
+</ol>
+</li>
+<li><p>第三步:配置shadowsocks</p>
+<ol>
+<li><code>vi /etc/shadowsocks.json</code>//编辑配置文件</li>
+<li><p>单一端口配置</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</div><div class="line">    &quot;server_port&quot;:端口,</div><div class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;password&quot;:&quot;连接密码&quot;,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</div><div class="line">    &quot;fast_open&quot;:false</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>多端口配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;server&quot;:&quot;0.0.0.0&quot;,</div><div class="line">  &quot;port_password&quot;: &#123;</div><div class="line">      &quot;端口1&quot;: &quot;连接密码1&quot;,</div><div class="line">      &quot;端口2&quot; : &quot;连接密码2&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;timeout&quot;:300,</div><div class="line">  &quot;method&quot;:&quot;aes-256-cfb&quot;,</div><div class="line">  &quot;fast_open&quot;: false</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>开启aws 入站端口</p>
+<p>配置好shaodowsocks后，还需要将配置中的端口打开,这样客户端的服务才能链接得上EC2中的shadowsocks服务<br>首先打开正在运行的实例，向右滚动表格，看到最后一项，安全组，点击进入<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-0.png&amp;objectId=1190000003101075&amp;token=cdc26e8e1b55555923c613f33248fa51" alt=""></p>
+</li>
+</ul>
+<p><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-4.png&amp;objectId=1190000003101075&amp;token=a6157d5b581643cfb706a380e15816f7" alt=""></p>
+<p>默认是开启了一个22端口（这是给ssh访问的），再建一个如下图红框标示的端口，我的shadowsocks配置的端口是8388，所以这里就开启8388，<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-5.png&amp;objectId=1190000003101075&amp;token=9b7e5a2ca61848931c4b48136d7985da" alt=""></p>
+<ul>
+<li>配置文件编辑完成后，接下来就可以部署运行了：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssserver -c /etc/shadowsocks.json -d start</div></pre></td></tr></table></figure>
+<p>当然，我们可不希望每次重启服务器都手动启动 SS, 因此我们要把这条命令放到这个文件下：/etc/rc.d/rc.local，这样以后就能开机自动运行了。</p>
 
         
         
@@ -224,7 +251,7 @@
 
   <div class="weiboshow">
   <p class="asidetitle">新浪微博</p>
-    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
 </div>
 
 
@@ -233,20 +260,14 @@
     </div>
     <footer><div id="footer" >
 	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
 	
 	<section class="info">
-		<p> Hello ,I&#39;m Larry Page in Google. <br/>
-			This is my blog,believe it or not.</p>
+		<p> Hello ,World!. <br/>
+			Stay hungary,stay foolish.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">
 		
-		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
 		
 		
 		
@@ -256,6 +277,7 @@
 		
 		
 		
+		<a href="mailto:haominglfs@163.com" target="_blank" class="icon-email" title="Email Me"></a>
 		
 	</div>
 			
