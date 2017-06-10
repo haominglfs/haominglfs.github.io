@@ -4,19 +4,28 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>haominglfs的博客</title>
+    <title>设计模式-单例模式 | haominglfs的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="haominglfs">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="haominglfs的博客">
-<meta property="og:url" content="https://haominglfs.github.io/index.html">
+    <meta name="description" content="在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。类图如下：为了实现唯一性，该类有以下特性：1.将该类构造函数的可见性改为private。2.定义一个静态类型的Singtelon私有变量。3.增加一个共有的静态方法，用来获得该私有变量。   12345">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-单例模式">
+<meta property="og:url" content="https://haominglfs.github.io/2017/06/10/设计模式-单例模式/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
+<meta property="og:description" content="在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。类图如下：为了实现唯一性，该类有以下特性：1.将该类构造函数的可见性改为private。2.定义一个静态类型的Singtelon私有变量。3.增加一个共有的静态方法，用来获得该私有变量。   12345">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tKfTcly1fggelk7z6pj30ho07s3yq.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tKfTcly1fggfiiz8ikj30ny08mgm2.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tKfTcly1fggftodapfj30i608maag.jpg">
+<meta property="og:updated_time" content="2017-06-10T14:13:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="haominglfs的博客">
+<meta name="twitter:title" content="设计模式-单例模式">
+<meta name="twitter:description" content="在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。类图如下：为了实现唯一性，该类有以下特性：1.将该类构造函数的可见性改为private。2.定义一个静态类型的Singtelon私有变量。3.增加一个共有的静态方法，用来获得该私有变量。   12345">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/large/006tKfTcly1fggelk7z6pj30ho07s3yq.jpg">
 
     
     <link rel="alternative" href="/atom.xml" title="haominglfs的博客" type="application/atom+xml">
@@ -70,12 +79,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2017/06/10/设计模式-单例模式/" title="设计模式-单例模式" itemprop="url">设计模式-单例模式</a>
@@ -89,9 +96,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。<br>类图如下：<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1fggelk7z6pj30ho07s3yq.jpg" alt=""><br>为了实现唯一性，该类有以下特性：<br>1.将该类构造函数的可见性改为private。<br>2.定义一个静态类型的Singtelon私有变量。<br>3.增加一个共有的静态方法，用来获得该私有变量。  </p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一种更好的实现方式"><span class="toc-number">1.</span> <span class="toc-text">一种更好的实现方式</span></a></li></ol>
+		
+		</div>
+		
+		<p>在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。<br>类图如下：<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1fggelk7z6pj30ho07s3yq.jpg" alt=""><br>为了实现唯一性，该类有以下特性：<br>1.将该类构造函数的可见性改为private。<br>2.定义一个静态类型的Singtelon私有变量。<br>3.增加一个共有的静态方法，用来获得该私有变量。  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Singleton &#123;</div><div class="line"></div><div class="line">    private Singleton()&#123;&#125; //私有的构造函数</div><div class="line">    private static Singleton instance = null;//私有静态变量</div><div class="line"></div><div class="line">    public Singleton getInstance()&#123;</div><div class="line">        if(instance == null)&#123;</div><div class="line">            return new Singleton();</div><div class="line">        &#125;</div><div class="line">        return instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面的代码在多线程环境下会出现创建多个实例的情况。对此，有两种解决方案：<br>1.饿汉式单例模式<br><img src="http://ww3.sinaimg.cn/large/006tKfTcly1fggfiiz8ikj30ny08mgm2.jpg" alt=""></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class EagerSingleton &#123;   </div><div class="line">    private static final EagerSingleton instance = new EagerSingleton();   </div><div class="line">    private EagerSingleton() &#123; &#125;   </div><div class="line"></div><div class="line">    public static EagerSingleton getInstance() &#123;  </div><div class="line">        return instance;   </div><div class="line">    &#125;     </div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -103,14 +117,9 @@
 <h2 id="一种更好的实现方式"><a href="#一种更好的实现方式" class="headerlink" title="一种更好的实现方式"></a>一种更好的实现方式</h2><p>Initialization Demand Holder (IoDH)技术：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Singleton &#123;  </div><div class="line">    private Singleton() &#123;  </div><div class="line">    &#125;  </div><div class="line">    private static class HolderClass &#123;  </div><div class="line">            private final static Singleton instance = new Singleton();  </div><div class="line">    &#125;  </div><div class="line">    public static Singleton getInstance() &#123;  </div><div class="line">        return HolderClass.instance;  </div><div class="line">    &#125;&#125;</div></pre></td></tr></table></figure>
 <p>由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton，第一次调用getInstance()时将加载内部类HolderClass，在该内部类中定义了一个static类型的变量instance，此时会首先初始化这个成员变量，由Java虚拟机来保证其线程安全性，确保该成员变量只能初始化一次。由于getInstance()方法没有任何线程锁定，因此其性能不会造成任何影响。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -118,216 +127,43 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="https://haominglfs.github.io/2017/06/10/设计模式-单例模式/" data-title="设计模式-单例模式 | haominglfs的博客" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/30/git使用/" title="git使用" itemprop="url">git使用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="haominglfs" target="_blank" itemprop="author">haominglfs</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-30T03:35:33.000Z" itemprop="datePublished"> 发表于 2017-04-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h2><p>今天写了一个在在标签页显示数字的chrome扩展程序，打算提交到github,顺便学习了将一个已有的项目提交到github的方法。</p>
-<ul>
-<li>登录github，新建一个仓库<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1ff4kewj8khj31dq0qe78o.jpg" alt=""></li>
-<li><p>进入项目的本地目录，执行如下命令：</p>
-<p><code>git init</code><br><code>git remote add origin git@github.com:haominglfs/tab_number.git//与远程仓库建立关联</code><br><code>git add .</code><br><code>git commit -m &#39;tab_number extension of chrome v0.1&#39;</code><br><code>git push -u origin master //push到远程仓库</code> </p>
-</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/19/iTerm2/" title="iTerm2" itemprop="url">iTerm2</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="haominglfs" target="_blank" itemprop="author">haominglfs</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-19T14:34:20.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>#iTerm2配置</p>
-<ul>
-<li>配色<br>1.<code>git clone git@github.com:altercation/solarized.git</code><br>2.这里我们要使用的是iterm2-colors-solarized目录下的，包括Solarized         Dark.itermcolors和Solarized Light.itermcolors两个配置文件。<br>3.打开Preferences-&gt;Profiles-&gt;Color面板，在Color Presets中将以上  两个配置方案导入，然后选择Solarized Dark或者Solarized Light即可。一般推荐使用Solarized Dark，Solarized Light有种亮瞎的感觉。</li>
-<li>oh-my-zsh<br>1.接下来，用oh-my-zsh来武装zsh，一行命令搞定：<br><code>sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code><br>2.oh-my-zsh中提供了多套主题可供选择，有不同的输出样式及配色。默认应该是robbyrussell，感觉中规中矩没啥亮点。翻看了一下，发现了agnoster主题，感觉非常入眼。<br>接下来，编辑~/.zshrc，找到变量ZSH_THEME将其赋值改为agnoster即可。<br>3.为了显示正常，需要安装powerline字体，方法如下：<br><code>git clone git@github.com:powerline/fonts.git</code><br><code>cd fonts</code><br><code>./install</code><br>然后，在iTerm2-&gt;Preferences-&gt;Profiles-&gt;Text面板中将Non-ASCII Font改成Roboto Mono Powerline，显示就正常了！  </li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/04/30/git使用/" title="git使用">
+  <strong>上一篇：</strong><br/>
+  <span>
+  git使用</span>
+</a>
 </div>
 
 
+</nav>
 
-
-<div class="comments-count">
 	
-</div>
 
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/19/shadowsocks配置/" title="shadowsocks配置" itemprop="url">shadowsocks配置</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="haominglfs" target="_blank" itemprop="author">haominglfs</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-19T14:30:33.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="shadowsocks配置"><a href="#shadowsocks配置" class="headerlink" title="#shadowsocks配置"></a>#shadowsocks配置</h2><ul>
-<li>第一步 用远程工具登录aws主机</li>
-<li><p>第二步：安装shadowsocks依赖</p>
-<ol>
-<li><code>sudo -s</code> //获取超级管理员权限</li>
-<li><code>apt-get update</code>//更新apt-get</li>
-<li><code>apt-get install python-pip</code>//安装pyton包管理工具</li>
-<li><code>pip install shadowsocks</code>//安装shadowsocks</li>
-<li><code>ssserver -c /etc/shadowsocks.json -d start</code>//启动shadowsocks</li>
-</ol>
-</li>
-<li><p>第三步:配置shadowsocks</p>
-<ol>
-<li><code>vi /etc/shadowsocks.json</code>//编辑配置文件</li>
-<li><p>单一端口配置</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</div><div class="line">    &quot;server_port&quot;:端口,</div><div class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;password&quot;:&quot;连接密码&quot;,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</div><div class="line">    &quot;fast_open&quot;:false</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>多端口配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;server&quot;:&quot;0.0.0.0&quot;,</div><div class="line">  &quot;port_password&quot;: &#123;</div><div class="line">      &quot;端口1&quot;: &quot;连接密码1&quot;,</div><div class="line">      &quot;端口2&quot; : &quot;连接密码2&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;timeout&quot;:300,</div><div class="line">  &quot;method&quot;:&quot;aes-256-cfb&quot;,</div><div class="line">  &quot;fast_open&quot;: false</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>开启aws 入站端口</p>
-<p>配置好shaodowsocks后，还需要将配置中的端口打开,这样客户端的服务才能链接得上EC2中的shadowsocks服务<br>首先打开正在运行的实例，向右滚动表格，看到最后一项，安全组，点击进入<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-0.png&amp;objectId=1190000003101075&amp;token=cdc26e8e1b55555923c613f33248fa51" alt=""></p>
-</li>
-</ul>
-<p><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-4.png&amp;objectId=1190000003101075&amp;token=a6157d5b581643cfb706a380e15816f7" alt=""></p>
-<p>默认是开启了一个22端口（这是给ssh访问的），再建一个如下图红框标示的端口，我的shadowsocks配置的端口是8388，所以这里就开启8388，<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-5.png&amp;objectId=1190000003101075&amp;token=9b7e5a2ca61848931c4b48136d7985da" alt=""></p>
-<ul>
-<li>配置文件编辑完成后，接下来就可以部署运行了：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssserver -c /etc/shadowsocks.json -d start</div></pre></td></tr></table></figure>
-<p>当然，我们可不希望每次重启服务器都手动启动 SS, 因此我们要把这条命令放到这个文件下：/etc/rc.d/rc.local，这样以后就能开机自动运行了。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一种更好的实现方式"><span class="toc-number">1.</span> <span class="toc-text">一种更好的实现方式</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -445,6 +281,11 @@ $(document).ready(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
   
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
   $(window).resize(function(){
     getSize(); 
     if (myWidth >= 1024) {
@@ -453,12 +294,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -529,4 +447,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
