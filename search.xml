@@ -1,146 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[设计模式-职责链模式]]></title>
-    <url>%2F2018%2F04%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[定义避免请求发送者与接收者 耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。 UML Handler(抽象处理者):它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者 的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象(如结构图 中的successor)，作为其对下家的引用。通过该引用，处理者可以连成一条链。 ConcreteHandler(具体处理者):它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是 否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者;在具体处理 者中可以访问链中下一个对象，以便请求的转发。 总结 职责链模式的主要优点如下: 职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。 请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。 在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。 在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。 职责链模式的主要缺点如下: 由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理;一个请求也可能因职责链没有被正确配置而得不到处理。 对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。 如果建链不当，可能会造成循环调用，将导致系统陷入死循环。 适用场景 有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。 在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。 可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。]]></content>
+<search> 
+  
+    
+    <entry>
+      <title>js高级程序设计-读书笔记</title>
+      <link href="/2018/04/30/js%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <url>/2018/04/30/js%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h3 id="lt-script-gt-标签"><a href="#lt-script-gt-标签" class="headerlink" title="&lt;script&gt;标签"></a><code>&lt;script&gt;</code>标签</h3><ol><li>无论如何包含代码，只要不存在defer和async属性，浏览器都会按照<code>&lt;script&gt;</code>元素在页面中出现的先后顺序对他们依次进行解析。</li><li><p>在文档的<code>&lt;head&gt;</code>元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到<code>&lt;body&gt;</code>标签时才开始呈现内容），所以，一般都这样写：</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li><li><p>defer属性：脚本会被延迟到整个页面都解析完毕后再运行。因此，在<code>&lt;script&gt;</code>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行。defer属性只适用于外部脚本文件。在下面的代码中，虽然<code>&lt;script&gt;</code>放在了文档<code>&lt;head&gt;</code>元素中，但其中包含的脚本将延迟到浏览器遇到<code>&lt;/html&gt;</code>标签后再执行。HTML5规范要求脚本按照他们出现的先后顺序执行，因此第一个延迟脚本会先于第二个延迟脚本执行，而这两个脚本会先于DOMContentLoaded事件执行。在现实中，延迟脚本并不一定会按照顺序执行，也不一定会在DOMContentLoaded事件触发前执行，因此最好只包含一个延迟脚本。</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li><li><p>HTML5为<code>&lt;script&gt;</code>元素定义了async属性。async属性告诉浏览器立即下载文件，但并不保证按照他们的先后顺序执行。</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; async src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; async src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><p> 在以上代码中，第二个脚本可能会在第一个脚本之前执行，因此，确保两者之间互不依赖非常重要。指定async属性的目的是不让页面等待两个脚本下载和执行，从而异步加载页面其他内容。为此，建议异步脚本不要在加载期间修改DOM。</p></li></ol><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol><li>五种基本数据类型：Undefined、Null、Boolean、Number、String;一种复杂数据类型：Object。</li><li><p>在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var message;//这个变量声明之后默认取得了undefined值</span><br><span class="line">//下面这个变量并没有声明</span><br><span class="line">//var age</span><br><span class="line">alert(typeof message);  //&quot;undefined&quot;</span><br><span class="line">alert(typeof age);      //&quot;undefined&quot;</span><br></pre></td></tr></table></figure><p> 对未声明和未初始化的变量执行typeof操作符都返回了undifined值。</p></li><li><p>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检查null值就可以知道相应的变量是否已经保存了一个对象的引用，如下：</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(car != null)&#123;</span><br><span class="line">    //对car执行某些操作</span><br><span class="line">&#125;</span><br><span class="line">//实际上，undefined的值是派生自null值的</span><br><span class="line">alert(null == undefined) //true</span><br></pre></td></tr></table></figure></li><li><p>NaN,即非数值(Not a Number)是一个特殊的数值，这个数值用来表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。任何数值除以0会返回NaN；任何涉及NaN的操作（NaN/10）都会返回NaN;NaN与任何值都不相等，包括NaN本身。</p></li></ol>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> 读书笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[设计模式-装饰模式]]></title>
-    <url>%2F2018%2F04%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[定义动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。 UML Component(抽象构件):它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。 ConcreteComponent(具体构件):它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责(方法)。 Decorator(抽象装饰类):它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。 ConcreteDecorator(具体装饰类):它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，它可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。 总结 装饰模式的主要优点如下: 对于扩展一个对象的功能，装饰模式比继承更加灵活性，不会导致类的个数急剧增加。 可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的具体装饰类，从而实现不同的行为。 可以对一个对象进行多次装饰，通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合，得到功能更为强大的对象。 具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，原有类库代码无须改变，符合“开闭原则”。 装饰模式的主要缺点如下: 使用装饰模式进行系统设计时将产生很多小对象，这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同，大量小对象的产生势必会占用更多 的系统资源，在一定程序上影响程序的性能。 装饰模式提供了一种比继承更加灵活机动的解决方案，但同时也意味着比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为繁琐。 适用场景 在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。 当不能采用继承的方式对系统进行扩展或者采用继承不利于系统扩展和维护时可以使用装饰模式。不能采用继承的情况主要有两类:第一类是系统中存在大量独立的扩展，为支持每一种扩展或者扩展之间的组合将产生大量的子类，使得子类数目呈爆炸性增长;第二类是因 为类已定义为不能被继承(如Java语言中的final类)。]]></content>
+      
+      
+        <tags>
+            
+            <tag> js高级程序设计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-职责链模式</title>
+      <link href="/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>避免请求发送者与接收者 耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-06-chain.png" alt="chain"></p><ul><li>Handler(抽象处理者):它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者 的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象(如结构图 中的successor)，作为其对下家的引用。通过该引用，处理者可以连成一条链。</li><li>ConcreteHandler(具体处理者):它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是 否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者;在具体处理 者中可以访问链中下一个对象，以便请求的转发。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>职责链模式的主要优点如下:<ol><li>职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</li><li>请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。</li><li>在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。</li><li>在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。</li></ol></li><li>职责链模式的主要缺点如下:<ol><li>由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理;一个请求也可能因职责链没有被正确配置而得不到处理。</li><li>对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。</li><li>如果建链不当，可能会造成循环调用，将导致系统陷入死循环。</li></ol></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul><li>有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。</li><li>在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</li><li>可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。</li></ul>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[设计模式-建造者模式]]></title>
-    <url>%2F2018%2F04%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[定义将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。 UML Builder(抽象建造者):它为创建一个产品Product对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是buildPartX()，它们用于创建复杂对象的各个部件;另一 类方法是getResult()，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口。 ConcreteBuilder(具体建造者):它实现了Builder接口，实现各个部件的具体构造和装配方 法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。 Product(产品角色):它是被构建的复杂对象，包含多个组成部件，具体建造者创建该产品 的内部表示并定义它的装配过程。 Director(指挥者):指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其construct()建造方法中调用建造者对象的部件构造与装 配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建 造者的类型，并实例化具体建造者对象(也可以通过配置文件和反射机制)，然后通过指挥 者类的构造函数或者Setter方法将该对象传入指挥者类中。 总结 建造者模式的主要优点如下: 在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。 每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则” 可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。 建造者模式的主要缺点如下: 建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，例如很多组成部分都不相同，不适合使用建造者模式，因此其使用范围受到一定的限制。 如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大，增加系统的理解难度和运行成本。 适用场景 需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。 需要生成的产品对象的属性相互依赖，需要指定其生成顺序。 对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指 挥者类中，而不在建造者类和客户类中。 隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-装饰模式</title>
+      <link href="/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-06-decorator.png" alt="decorato"></p><ul><li>Component(抽象构件):它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。</li><li>ConcreteComponent(具体构件):它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责(方法)。</li><li>Decorator(抽象装饰类):它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。</li><li>ConcreteDecorator(具体装饰类):它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，它可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>装饰模式的主要优点如下:<ol><li>对于扩展一个对象的功能，装饰模式比继承更加灵活性，不会导致类的个数急剧增加。</li><li>可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的具体装饰类，从而实现不同的行为。</li><li>可以对一个对象进行多次装饰，通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合，得到功能更为强大的对象。</li><li>具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，原有类库代码无须改变，符合“开闭原则”。</li></ol></li><li>装饰模式的主要缺点如下:<ol><li>使用装饰模式进行系统设计时将产生很多小对象，这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同，大量小对象的产生势必会占用更多 的系统资源，在一定程序上影响程序的性能。</li><li>装饰模式提供了一种比继承更加灵活机动的解决方案，但同时也意味着比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为繁琐。</li></ol></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ol><li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li><li>当不能采用继承的方式对系统进行扩展或者采用继承不利于系统扩展和维护时可以使用装饰模式。不能采用继承的情况主要有两类:第一类是系统中存在大量独立的扩展，为支持每一种扩展或者扩展之间的组合将产生大量的子类，使得子类数目呈爆炸性增长;第二类是因 为类已定义为不能被继承(如Java语言中的final类)。</li></ol>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[设计模式-原型模式]]></title>
-    <url>%2F2018%2F04%2F01%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[定义使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。 UML Prototype(抽象原型类):它是声明克隆方法的接口，是所有具体原型类的公共父类，可以 是抽象类也可以是接口，甚至还可以是具体实现类。 ConcretePrototype(具体原型类):它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。 Client(客户类):让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直 接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。由于客户类针对抽象原型类Prototype编程，因此用户可以根据需要选择具体 原型类，系统具有较好的可扩展性，增加或更换具体原型类都很方便。 总结 原型模式的主要优点如下: (1) 当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。 (2) 扩展性较好，由于在原型模式中提供了抽象原型类，在客户端可以针对抽象原型类进行编程，而将具体原型类写在配置文件中，增加或减少产品类对原有系统都没有任何影响。 (3) 原型模式提供了简化的创建结构，工厂方法模式常常需要有一个与产品类等级结构相同的 工厂等级结构，而原型模式就不需要这样，原型模式中产品的复制是通过封装在原型类中的 克隆方法实现的，无须专门的工厂类来创建产品。 (4) 可以使用深克隆的方式保存对象的状态，使用原型模式将对象复制一份并将其状态保存起 来，以便在需要的时候使用(如恢复到某一历史状态)，可辅助实现撤销操作。 原型模式的主要缺点如下: (1) 需要为每一个类配备一个克隆方法，而且该克隆方法位于一个类的内部，当对已有的类进 行改造时，需要修改源代码，违背了“开闭原则”。 (2) 在实现深克隆时需要编写较为复杂的代码，而且当对象之间存在多重的嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来可能会比较麻烦。 适用场景(1) 创建新对象成本较大(如初始化需要占用较长的时间，占用太多的CPU资源或网络资 源)，新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对 其成员变量稍作修改。(2) 如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占用内存较少时，可以使用原型模式配合备忘录模式来实现。(3) 需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-建造者模式</title>
+      <link href="/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-06-builder.png" alt="builde"></p><ul><li>Builder(抽象建造者):它为创建一个产品Product对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是buildPartX()，它们用于创建复杂对象的各个部件;另一 类方法是getResult()，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口。</li><li>ConcreteBuilder(具体建造者):它实现了Builder接口，实现各个部件的具体构造和装配方 法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。</li><li>Product(产品角色):它是被构建的复杂对象，包含多个组成部件，具体建造者创建该产品 的内部表示并定义它的装配过程。</li><li>Director(指挥者):指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其construct()建造方法中调用建造者对象的部件构造与装 配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建 造者的类型，并实例化具体建造者对象(也可以通过配置文件和反射机制)，然后通过指挥 者类的构造函数或者Setter方法将该对象传入指挥者类中。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><p>建造者模式的主要优点如下:</p><ol><li>在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。</li><li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则”</li><li>可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。</li></ol></li><li><p>建造者模式的主要缺点如下:</p><ol><li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，例如很多组成部分都不相同，不适合使用建造者模式，因此其使用范围受到一定的限制。</li><li>如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大，增加系统的理解难度和运行成本。</li></ol></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ol><li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</li><li>需要生成的产品对象的属性相互依赖，需要指定其生成顺序。</li><li>对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指            挥者类中，而不在建造者类和客户类中。</li><li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li></ol>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[effective java读书笔记]]></title>
-    <url>%2F2017%2F09%2F27%2Feffective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[第52条：通过接口引用对象如果有合适的接口类型存在，那么对于参数、返回值、变量和成员变量来说，就都应该使用接口类型进行声明；如果你养成了用接口作为类型的习惯，你的程序将会更加灵活，当你决定更换实现时，所要做的就只是构造器中类的名称。有一点值得注意：如果原来的实现提供了某种特殊的功能，而这种功能并不是这个接口的通用约定所要求的，并且周围的代码又依赖于这种功能，那么新的实现也要提供相同的功能。类实现了接口，但是提供了接口中不存在的额外的方法–例如LinkedHashMap。如果程序依赖于这些额外的方法，这种类就应该只被用来引用它的实例。实际上，给定的对象是否具有适当的接口应该是很显然的。如果是，用接口引用对象就会使程序更加灵活；如果不是，则使用类层次结构中提供了必要功能的最基础的类。 第38条：检查参数的有效性每当编写方法或者构造器的时候，应该考虑它的参数有哪些限制，应该把这些限制写到文档中，并且在这个方法体的开头处，通过显式的检查来实施这些限制 第43条：返回0长度的数组或者集合，而不是Null返回类型为数组或集合的方法没理由返回null，应该返回一个零长度的数组或者集合。可以做成在每当需要返回空集合时，都返回同一个不可变的空集合。Collections.emptySet、emptyList、emptyMap提供的正是这种集合。public List&lt;Person&gt; getPersons(){ if(persons.isEmpty()){ return Collections.emptyList(); }else{ return persons; } } 第46条：for-each循环优先于传统的for循环for-each在简洁性和预防bug方面有着传统的for循环无法比拟的优势，并且没有性能损失，应该尽可能的使用for-each循环。有三种常见的情况无法使用for-each循环: 过滤:如果需要遍历集合，并删除选定的元素，就需要使用显示的迭代器，以便可以调用它的remove方法。 转换：如果需要遍历列表或者数组，并取代它部分或者全部的元素值，就需要列表迭代器或者数组索引，以便设定元素的值。 平行迭代：如果需要并行的遍历多个集合，就需要显示的控制迭代器或者索引变量，以便所有迭代器或者索引变量都可以得到同步前移。第48条：如果需要精确的答案，请避免使用float和double第49条：基本类型优先于装箱基本类型基本类型和装箱基本类型之间有三个主要的区别： 基本类型只有值，而装箱基本类型则具有与它们的值不同的地址。换句话说，两个装箱基本类型可以具有相同的值和不同的地址。 基本类型只有功能完备的值，而每个装箱基本类型除了它对应的基本类型的所有功能值外，还有个非功能值：null 基本类型通常比装箱基本类型更节省时间和空间. 1234567public static void main(String[] args)&#123; Long sum = 0L; for(long i=0;i&lt;Integer.MAX_VALUE;i++)&#123; sum += i; &#125; System.out.println(sum);&#125; 这个程序运行起来比预计的要慢一些，因为它不小心将一个局部变量(sum)声明为装箱基本类型Long,而不是基本类型long,变量被反复的装箱和拆箱，导致明显的性能下降。总之，当可以选择的时候，基本类型要优先于装箱基本类型。]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-原型模式</title>
+      <link href="/2018/04/01/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2018/04/01/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-01-prototype.png" alt="prototype"></p><ul><li>Prototype(抽象原型类):它是声明克隆方法的接口，是所有具体原型类的公共父类，可以 是抽象类也可以是接口，甚至还可以是具体实现类。</li><li>ConcretePrototype(具体原型类):它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。</li><li>Client(客户类):让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直 接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。由于客户类针对抽象原型类Prototype编程，因此用户可以根据需要选择具体 原型类，系统具有较好的可扩展性，增加或更换具体原型类都很方便。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><p>原型模式的主要优点如下:</p><p> (1) 当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。<br> (2) 扩展性较好，由于在原型模式中提供了抽象原型类，在客户端可以针对抽象原型类进行编程，而将具体原型类写在配置文件中，增加或减少产品类对原有系统都没有任何影响。<br> (3) 原型模式提供了简化的创建结构，工厂方法模式常常需要有一个与产品类等级结构相同的 工厂等级结构，而原型模式就不需要这样，原型模式中产品的复制是通过封装在原型类中的 克隆方法实现的，无须专门的工厂类来创建产品。<br> (4) 可以使用深克隆的方式保存对象的状态，使用原型模式将对象复制一份并将其状态保存起 来，以便在需要的时候使用(如恢复到某一历史状态)，可辅助实现撤销操作。</p></li><li><p>原型模式的主要缺点如下:</p><p> (1) 需要为每一个类配备一个克隆方法，而且该克隆方法位于一个类的内部，当对已有的类进 行改造时，需要修改源代码，违背了“开闭原则”。<br> (2) 在实现深克隆时需要编写较为复杂的代码，而且当对象之间存在多重的嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来可能会比较麻烦。</p></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>(1) 创建新对象成本较大(如初始化需要占用较长的时间，占用太多的CPU资源或网络资 源)，新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对 其成员变量稍作修改。<br>(2) 如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占用内存较少时，可以使用原型模式配合备忘录模式来实现。<br>(3) 需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。</p>]]></content>
+      
       <categories>
-        <category>读书笔记</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>effective-java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[设计模式-适配器模式]]></title>
-    <url>%2F2017%2F09%2F20%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[定义将一个接口转换成客户希望的另一个接口，使接口不兼容的哪些类可以一起工作，其别名为包装器（Wrapper）。 UML根据适配器类与适配者类的关系不同，适配器模式可分为对象 适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系;在类适配 器模式中，适配器与适配者之间是继承(或实现)关系。在实际开发中，对象适配器的使用 频率更高,对象适配器结构如下: Target(目标抽象类):目标抽象类定义客户所需接口，可以是一个抽象类或接口也可以是具体类。 Adapter(适配器类):适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个 Adaptee对象使二者产生联系。 Adaptee(适配者类):适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可 能没有适配者类的源代码。]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>effective java读书笔记</title>
+      <link href="/2017/09/27/effective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <url>/2017/09/27/effective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h5 id="第52条：通过接口引用对象"><a href="#第52条：通过接口引用对象" class="headerlink" title="第52条：通过接口引用对象"></a>第52条：通过接口引用对象</h5><p>如果有合适的接口类型存在，那么对于参数、返回值、变量和成员变量来说，就都应该使用接口类型进行声明；如果你养成了用接口作为类型的习惯，你的程序将会更加灵活，当你决定更换实现时，所要做的就只是构造器中类的名称。<br>有一点值得注意：如果原来的实现提供了某种特殊的功能，而这种功能并不是这个接口的通用约定所要求的，并且周围的代码又依赖于这种功能，那么新的实现也要提供相同的功能。<br>类实现了接口，但是提供了接口中不存在的额外的方法–例如LinkedHashMap。如果程序依赖于这些额外的方法，这种类就应该只被用来引用它的实例。<br>实际上，给定的对象是否具有适当的接口应该是很显然的。如果是，用接口引用对象就会使程序更加灵活；如果不是，则使用类层次结构中提供了必要功能的最基础的类。</p><h5 id="第38条：检查参数的有效性"><a href="#第38条：检查参数的有效性" class="headerlink" title="第38条：检查参数的有效性"></a>第38条：检查参数的有效性</h5><p>每当编写方法或者构造器的时候，应该考虑它的参数有哪些限制，应该把这些限制写到文档中，并且在这个方法体的开头处，通过显式的检查来实施这些限制</p><h5 id="第43条：返回0长度的数组或者集合，而不是Null"><a href="#第43条：返回0长度的数组或者集合，而不是Null" class="headerlink" title="第43条：返回0长度的数组或者集合，而不是Null"></a>第43条：返回0长度的数组或者集合，而不是Null</h5><p>返回类型为数组或集合的方法没理由返回null，应该返回一个零长度的数组或者集合。<br>可以做成在每当需要返回空集合时，都返回同一个不可变的空集合。Collections.emptySet、emptyList、emptyMap提供的正是这种集合。<br><code>public List&lt;Person&gt; getPersons(){        if(persons.isEmpty()){            return Collections.emptyList();        }else{            return persons;        }}</code></p><h5 id="第46条：for-each循环优先于传统的for循环"><a href="#第46条：for-each循环优先于传统的for循环" class="headerlink" title="第46条：for-each循环优先于传统的for循环"></a>第46条：for-each循环优先于传统的for循环</h5><p>for-each在简洁性和预防bug方面有着传统的for循环无法比拟的优势，并且没有性能损失，应该尽可能的使用for-each循环。<br>有三种常见的情况无法使用for-each循环:</p><ol><li>过滤:如果需要遍历集合，并删除选定的元素，就需要使用显示的迭代器，以便可以调用它的remove方法。</li><li>转换：如果需要遍历列表或者数组，并取代它部分或者全部的元素值，就需要列表迭代器或者数组索引，以便设定元素的值。</li><li>平行迭代：如果需要并行的遍历多个集合，就需要显示的控制迭代器或者索引变量，以便所有迭代器或者索引变量都可以得到同步前移。<h5 id="第48条：如果需要精确的答案，请避免使用float和double"><a href="#第48条：如果需要精确的答案，请避免使用float和double" class="headerlink" title="第48条：如果需要精确的答案，请避免使用float和double"></a>第48条：如果需要精确的答案，请避免使用float和double</h5><h5 id="第49条：基本类型优先于装箱基本类型"><a href="#第49条：基本类型优先于装箱基本类型" class="headerlink" title="第49条：基本类型优先于装箱基本类型"></a>第49条：基本类型优先于装箱基本类型</h5>基本类型和装箱基本类型之间有三个主要的区别：</li><li>基本类型只有值，而装箱基本类型则具有与它们的值不同的地址。换句话说，两个装箱基本类型可以具有相同的值和不同的地址。</li><li>基本类型只有功能完备的值，而每个装箱基本类型除了它对应的基本类型的所有功能值外，还有个非功能值：null</li><li>基本类型通常比装箱基本类型更节省时间和空间.</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">    Long sum = 0L;</span><br><span class="line">    for(long i=0;i&lt;Integer.MAX_VALUE;i++)&#123;</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这个程序运行起来比预计的要慢一些，因为它不小心将一个局部变量(sum)声明为装箱基本类型Long,而不是基本类型long,变量被反复的装箱和拆箱，导致明显的性能下降。<br>总之，当可以选择的时候，基本类型要优先于装箱基本类型。</p>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> 读书笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[设计模式-工厂方法模式]]></title>
-    <url>%2F2017%2F09%2F16%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[定义与简单工厂模式不同，在工厂方法模式中，不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。 UML Product(抽象产品):它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。 ProductA(具体产品):它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。 Factory(抽象工厂):在抽象工厂类中，声明了工厂方法（FactoryMethod)，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。 FactoryA(具体工厂):它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。 总结工厂方法模式的主要优点如下: 用户只需要关心所需产品对应的工厂，不需要关心创建细节。 系统中加入新产品时，无需修改抽象工厂和抽象产品类，只需要添加具体的产品类和工厂类，符合开闭原则。 工厂方法模式的主要缺点如下: 增加产品时，需要创建具体的产品类和具体的工厂类，增加了系统的复杂度。]]></content>
+      
+      
+        <tags>
+            
+            <tag> effective-java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-适配器模式</title>
+      <link href="/2017/09/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2017/09/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将一个接口转换成客户希望的另一个接口，使接口不兼容的哪些类可以一起工作，其别名为包装器（Wrapper）。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p>根据适配器类与适配者类的关系不同，适配器模式可分为对象 适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系;在类适配 器模式中，适配器与适配者之间是继承(或实现)关系。在实际开发中，对象适配器的使用 频率更高,对象适配器结构如下:<br><img src="/Users/haominglfs/Pictures/hexo-pic/adapter.png" alt="adapte"></p><ul><li>Target(目标抽象类):目标抽象类定义客户所需接口，可以是一个抽象类或接口也可以是具体类。</li><li>Adapter(适配器类):适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个 Adaptee对象使二者产生联系。</li><li>Adaptee(适配者类):适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可 能没有适配者类的源代码。</li></ul>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[jvm学习笔记]]></title>
-    <url>%2F2017%2F06%2F17%2Fjvm%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期： 执行了System.exit()方法 程序正常执行结束 程序在执行过程中遇到了异常或错误而异常终止 由于操作系统出现错误而导致java虚拟机进程结束 类的加载、链接与初始化 加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构，Class对象封装了类在方法区内的数据结构，并且向java程序员提供了访问方法区内的数据结构的接口 链接: 验证：确保被加载的类的正确性 准备:为类的静态变量分配内存，并将其初始化为默认值 解析:把类中的符号引用转变为直接引用 初始化：为类的静态变量赋予正确的初始值 java程序对类的使用方式分为两种: 主动使用(六种): 创建类的实例 访问某个类或接口的静态变量，或者对该静态变量赋值 调用类的静态方法 反射(如 Class.forName(“info.haominglfs.test”)) 初始化一个类的子类 java虚拟机启动时被表明为启动类的类(含有main方法) 被动使用，除了以上六种情况，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化 所有的java虚拟机实现必须在每个类或接口被java程序首次主动使用时才初始化他们，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化 加载.class文件的方式: 从本地系统中直接加载 通过网络下载.class文件 从zip,jar等归档文件中加载.class文件 从专有数据库中提取.class文件 将java原文件动态编译为.class文件]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-工厂方法模式</title>
+      <link href="/2017/09/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2017/09/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>与简单工厂模式不同，在工厂方法模式中，不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2017-09-17-factory.png" alt="factory"></p><ul><li>Product(抽象产品):它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。</li><li>ProductA(具体产品):它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。</li><li>Factory(抽象工厂):在抽象工厂类中，声明了工厂方法（FactoryMethod)，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。</li><li>FactoryA(具体工厂):它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式的主要优点如下:</p><ul><li>用户只需要关心所需产品对应的工厂，不需要关心创建细节。</li><li>系统中加入新产品时，无需修改抽象工厂和抽象产品类，只需要添加具体的产品类和工厂类，符合开闭原则。</li></ul><p>工厂方法模式的主要缺点如下:</p><ul><li>增加产品时，需要创建具体的产品类和具体的工厂类，增加了系统的复杂度。</li></ul>]]></content>
+      
       <categories>
-        <category>读书笔记</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>jvm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[设计模式-简单工厂模式]]></title>
-    <url>%2F2017%2F06%2F11%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[定义简单工厂模式:定义一个工厂类，他可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法模式。 UML Prodcut(抽象产品角色)：它是所有工厂类所创建的所有对象的父类，封装了各种产品对象的共有方法。 ProductA(具体产品角色)：它是简单工厂模式的创建目标，继承了抽象产品角色。 Factory(工厂角色）：简单工厂模式的核心，负责实现创建所有产品实例的内部逻辑，可以被外界直接调用，提供了静态工厂方法。 简单工厂模式的简化有时候，为了简化简单工厂模式，可以将抽象产品类和工厂类合并，将静态工厂方法移至抽象产品类中。 总结 简单工厂模式的主要优点如下:(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。(2) 客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可， 对于一些复杂的类名，通过简单工厂模式可以在一定程度减少使用者的记忆量。(3) 通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类， 在一定程度上提高了系统的灵活性。 简单工厂模式的主要缺点如下(1) 由于工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受 到影响(2) 使用简单工厂模式势必会增加系统中类的个数(引入了新的工厂类)，增加了系统的复杂 度和理解难度。(3) 系统扩展困难，一旦添加新产品就不得不修改工厂逻辑，在产品类型较多时，有可能造成 工厂逻辑过于复杂，不利于系统的扩展和维护。(4) 简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。 试用场景(1) 工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太 过复杂(2) 客户端只知道传入工厂类的参数，对于如何创建对象并不关心。]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>jvm学习笔记</title>
+      <link href="/2017/06/17/jvm%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>/2017/06/17/jvm%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h2 id="java虚拟机与程序的生命周期"><a href="#java虚拟机与程序的生命周期" class="headerlink" title="java虚拟机与程序的生命周期"></a>java虚拟机与程序的生命周期</h2><p>在如下几种情况下，java虚拟机将结束生命周期：</p><ul><li>执行了System.exit()方法</li><li>程序正常执行结束</li><li>程序在执行过程中遇到了异常或错误而异常终止</li><li>由于操作系统出现错误而导致java虚拟机进程结束</li></ul><h2 id="类的加载、链接与初始化"><a href="#类的加载、链接与初始化" class="headerlink" title="类的加载、链接与初始化"></a>类的加载、链接与初始化</h2><ul><li>加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构，Class对象封装了类在方法区内的数据结构，并且向java程序员提供了访问方法区内的数据结构的接口</li><li><p>链接:  </p><ol><li>验证：确保被加载的类的正确性</li><li>准备:为类的<strong>静态变量</strong>分配内存，并将其初始化为默认值</li><li>解析:把类中的符号引用转变为直接引用</li></ol></li><li><p>初始化：为类的静态变量赋予正确的初始值</p></li></ul><h2 id="java程序对类的使用方式分为两种"><a href="#java程序对类的使用方式分为两种" class="headerlink" title="java程序对类的使用方式分为两种:"></a>java程序对类的使用方式分为两种:</h2><ol><li>主动使用(六种):<ul><li>创建类的实例</li><li>访问某个类或接口的静态变量，或者对该静态变量赋值</li><li>调用类的静态方法</li><li>反射(如 Class.forName(“info.haominglfs.test”))</li><li>初始化一个类的子类</li><li>java虚拟机启动时被表明为启动类的类(含有main方法)</li></ul></li><li>被动使用，除了以上六种情况，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化</li><li>所有的java虚拟机实现必须在每个类或接口被java程序<strong>首次主动使用</strong>时才初始化他们，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化</li></ol><h2 id="加载-class文件的方式"><a href="#加载-class文件的方式" class="headerlink" title="加载.class文件的方式:"></a>加载.class文件的方式:</h2><ul><li>从本地系统中直接加载</li><li>通过网络下载.class文件</li><li>从zip,jar等归档文件中加载.class文件</li><li>从专有数据库中提取.class文件</li><li>将java原文件动态编译为.class文件</li></ul>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> 读书笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[设计模式-单例模式]]></title>
-    <url>%2F2017%2F06%2F10%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。类图如下：为了实现唯一性，该类有以下特性：1.将该类构造函数的可见性改为private。2.定义一个静态类型的Singtelon私有变量。3.增加一个共有的静态方法，用来获得该私有变量。 123456789101112class Singleton &#123; private Singleton()&#123;&#125; //私有的构造函数 private static Singleton instance = null;//私有静态变量 public Singleton getInstance()&#123; if(instance == null)&#123; return new Singleton(); &#125; return instance; &#125;&#125; 上面的代码在多线程环境下会出现创建多个实例的情况。对此，有两种解决方案：1.饿汉式单例模式 12345678class EagerSingleton &#123; private static final EagerSingleton instance = new EagerSingleton(); private EagerSingleton() &#123; &#125; public static EagerSingleton getInstance() &#123; return instance; &#125; &#125; 2.懒汉式单例模式(使用双重检查锁) 12345678910111213141516171819class LazySingleton &#123; private volatile static LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton getInstance() &#123; //第一重判断 if (instance == null) &#123; //锁定代码块 synchronized (LazySingleton.class) &#123; //第二重判断 if (instance == null) &#123; instance = new LazySingleton(); //创建单例实例 &#125; &#125; &#125; return instance; &#125; &#125; 需要注意的是，如果使用双重检查锁定来实现懒汉式单例类，需要在静态成员变量instance之前增加修饰符volatile，被volatile修饰的成员变量可以确保多个线程都能够正确处理，且该代码只能在JDK 1.5及以上版本中才能正确执行。由于volatile关键字会屏蔽Java虚拟机所做的一些代码优化，可能会导致系统运行效率降低，因此即使使用双重检查锁定来实现单例模式也不是一种完美的实现方式。 饿汉式单例类在类被加载时就将自己实例化，它的优点在于无须考虑多线程访问问题，可以确保实例的唯一性；从调用速度和反应时间角度来讲，由于单例对象一开始就得以创建，因此要优于懒汉式单例。但是无论系统在运行时是否需要使用该单例对象，由于在类加载时该对象就需要创建，因此从资源利用效率角度来讲，饿汉式单例不及懒汉式单例，而且在系统加载时由于需要创建饿汉式单例对象，加载时间可能会比较长。 懒汉式单例类在第一次使用时创建，无须一直占用系统资源，实现了延迟加载，但是必须处理好多个线程同时访问的问题，特别是当单例类作为资源控制器，在实例化时必然涉及资源初始化，而资源初始化很有可能耗费大量时间，这意味着出现多线程同时首次引用此类的机率变得较大，需要通过双重检查锁定等机制进行控制，这将导致系统性能受到一定影响。 一种更好的实现方式Initialization Demand Holder (IoDH)技术： 123456789class Singleton &#123; private Singleton() &#123; &#125; private static class HolderClass &#123; private final static Singleton instance = new Singleton(); &#125; public static Singleton getInstance() &#123; return HolderClass.instance; &#125;&#125; 由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton，第一次调用getInstance()时将加载内部类HolderClass，在该内部类中定义了一个static类型的变量instance，此时会首先初始化这个成员变量，由Java虚拟机来保证其线程安全性，确保该成员变量只能初始化一次。由于getInstance()方法没有任何线程锁定，因此其性能不会造成任何影响。]]></content>
+      
+      
+        <tags>
+            
+            <tag> jvm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-简单工厂模式</title>
+      <link href="/2017/06/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2017/06/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>简单工厂模式:定义一个工厂类，他可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fjl9vz0n4aj315c0q9dgn.jpg" alt=""></p><ul><li>Prodcut(抽象产品角色)：它是所有工厂类所创建的所有对象的父类，封装了各种产品对象的共有方法。</li><li>ProductA(具体产品角色)：它是简单工厂模式的创建目标，继承了抽象产品角色。</li><li>Factory(工厂角色）：简单工厂模式的核心，负责实现创建所有产品实例的内部逻辑，可以被外界直接调用，提供了静态工厂方法。</li></ul><h3 id="简单工厂模式的简化"><a href="#简单工厂模式的简化" class="headerlink" title="简单工厂模式的简化"></a>简单工厂模式的简化</h3><p>有时候，为了简化简单工厂模式，可以将抽象产品类和工厂类合并，将静态工厂方法移至抽象产品类中。<br><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fjlapzy2vqj30y40kt0t4.jpg" alt=""></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol><li><p>简单工厂模式的主要优点如下:<br>(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。<br>(2) 客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可， 对于一些复杂的类名，通过简单工厂模式可以在一定程度减少使用者的记忆量。<br>(3) 通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类， 在一定程度上提高了系统的灵活性。</p></li><li><p>简单工厂模式的主要缺点如下<br>(1) 由于工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受 到影响<br>(2) 使用简单工厂模式势必会增加系统中类的个数(引入了新的工厂类)，增加了系统的复杂 度和理解难度。<br>(3) 系统扩展困难，一旦添加新产品就不得不修改工厂逻辑，在产品类型较多时，有可能造成 工厂逻辑过于复杂，不利于系统的扩展和维护。<br>(4) 简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。</p></li><li>试用场景<br>(1) 工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太 过复杂<br>(2) 客户端只知道传入工厂类的参数，对于如何创建对象并不关心。</li></ol>]]></content>
+      
       <categories>
-        <category>java</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[git使用]]></title>
-    <url>%2F2017%2F04%2F30%2Fgit%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[git使用今天写了一个在在标签页显示数字的chrome扩展程序，打算提交到github,顺便学习了将一个已有的项目提交到github的方法。 登录github，新建一个仓库 进入项目的本地目录，执行如下命令： git initgit remote add origin git@github.com:haominglfs/tab_number.git//与远程仓库建立关联git add .git commit -m &#39;tab_number extension of chrome v0.1&#39;git push -u origin master //push到远程仓库]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>设计模式-单例模式</title>
+      <link href="/2017/06/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2017/06/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<p>在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。<br>类图如下：<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1fggelk7z6pj30ho07s3yq.jpg" alt=""><br>为了实现唯一性，该类有以下特性：<br>1.将该类构造函数的可见性改为private。<br>2.定义一个静态类型的Singtelon私有变量。<br>3.增加一个共有的静态方法，用来获得该私有变量。  </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Singleton &#123;</span><br><span class="line"></span><br><span class="line">    private Singleton()&#123;&#125; //私有的构造函数</span><br><span class="line">    private static Singleton instance = null;//私有静态变量</span><br><span class="line"></span><br><span class="line">    public Singleton getInstance()&#123;</span><br><span class="line">        if(instance == null)&#123;</span><br><span class="line">            return new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面的代码在多线程环境下会出现创建多个实例的情况。对此，有两种解决方案：<br>1.饿汉式单例模式<br><img src="http://ww3.sinaimg.cn/large/006tKfTcly1fggfiiz8ikj30ny08mgm2.jpg" alt=""></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class EagerSingleton &#123;   </span><br><span class="line">    private static final EagerSingleton instance = new EagerSingleton();   </span><br><span class="line">    private EagerSingleton() &#123; &#125;   </span><br><span class="line"></span><br><span class="line">    public static EagerSingleton getInstance() &#123;  </span><br><span class="line">        return instance;   </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>2.懒汉式单例模式(使用双重检查锁)<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1fggftodapfj30i608maag.jpg" alt=""></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class LazySingleton &#123;   </span><br><span class="line">    private volatile static LazySingleton instance = null;   </span><br><span class="line"></span><br><span class="line">    private LazySingleton() &#123; &#125;   </span><br><span class="line"></span><br><span class="line">    public static LazySingleton getInstance() &#123;   </span><br><span class="line">        //第一重判断  </span><br><span class="line">        if (instance == null) &#123;  </span><br><span class="line">            //锁定代码块  </span><br><span class="line">            synchronized (LazySingleton.class) &#123;  </span><br><span class="line">                //第二重判断  </span><br><span class="line">                if (instance == null) &#123;  </span><br><span class="line">                    instance = new LazySingleton(); //创建单例实例  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        return instance;   </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>需要注意的是，如果使用双重检查锁定来实现懒汉式单例类，需要在静态成员变量instance之前增加修饰符volatile，被volatile修饰的成员变量可以确保多个线程都能够正确处理，且该代码只能在JDK 1.5及以上版本中才能正确执行。由于volatile关键字会屏蔽Java虚拟机所做的一些代码优化，可能会导致系统运行效率降低，因此即使使用双重检查锁定来实现单例模式也不是一种完美的实现方式。</p><p>饿汉式单例类在类被加载时就将自己实例化，它的优点在于无须考虑多线程访问问题，可以确保实例的唯一性；从调用速度和反应时间角度来讲，由于单例对象一开始就得以创建，因此要优于懒汉式单例。但是无论系统在运行时是否需要使用该单例对象，由于在类加载时该对象就需要创建，因此从资源利用效率角度来讲，饿汉式单例不及懒汉式单例，而且在系统加载时由于需要创建饿汉式单例对象，加载时间可能会比较长。</p><p>懒汉式单例类在第一次使用时创建，无须一直占用系统资源，实现了延迟加载，但是必须处理好多个线程同时访问的问题，特别是当单例类作为资源控制器，在实例化时必然涉及资源初始化，而资源初始化很有可能耗费大量时间，这意味着出现多线程同时首次引用此类的机率变得较大，需要通过双重检查锁定等机制进行控制，这将导致系统性能受到一定影响。</p><h2 id="一种更好的实现方式"><a href="#一种更好的实现方式" class="headerlink" title="一种更好的实现方式"></a>一种更好的实现方式</h2><p>Initialization Demand Holder (IoDH)技术：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Singleton &#123;  </span><br><span class="line">    private Singleton() &#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">    private static class HolderClass &#123;  </span><br><span class="line">            private final static Singleton instance = new Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    public static Singleton getInstance() &#123;  </span><br><span class="line">        return HolderClass.instance;  </span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure><p>由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton，第一次调用getInstance()时将加载内部类HolderClass，在该内部类中定义了一个static类型的变量instance，此时会首先初始化这个成员变量，由Java虚拟机来保证其线程安全性，确保该成员变量只能初始化一次。由于getInstance()方法没有任何线程锁定，因此其性能不会造成任何影响。</p>]]></content>
+      
       <categories>
-        <category>git</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[iTerm2]]></title>
-    <url>%2F2017%2F04%2F19%2FiTerm2%2F</url>
-    <content type="text"><![CDATA[#iTerm2配置 配色1.git clone git@github.com:altercation/solarized.git2.这里我们要使用的是iterm2-colors-solarized目录下的，包括Solarized Dark.itermcolors和Solarized Light.itermcolors两个配置文件。3.打开Preferences-&gt;Profiles-&gt;Color面板，在Color Presets中将以上 两个配置方案导入，然后选择Solarized Dark或者Solarized Light即可。一般推荐使用Solarized Dark，Solarized Light有种亮瞎的感觉。 oh-my-zsh1.接下来，用oh-my-zsh来武装zsh，一行命令搞定：sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;2.oh-my-zsh中提供了多套主题可供选择，有不同的输出样式及配色。默认应该是robbyrussell，感觉中规中矩没啥亮点。翻看了一下，发现了agnoster主题，感觉非常入眼。接下来，编辑~/.zshrc，找到变量ZSH_THEME将其赋值改为agnoster即可。3.为了显示正常，需要安装powerline字体，方法如下：git clone git@github.com:powerline/fonts.gitcd fonts./install然后，在iTerm2-&gt;Preferences-&gt;Profiles-&gt;Text面板中将Non-ASCII Font改成Roboto Mono Powerline，显示就正常了！]]></content>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>git使用</title>
+      <link href="/2017/04/30/git%E4%BD%BF%E7%94%A8/"/>
+      <url>/2017/04/30/git%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<h2 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h2><p>今天写了一个在在标签页显示数字的chrome扩展程序，打算提交到github,顺便学习了将一个已有的项目提交到github的方法。</p><ul><li>登录github，新建一个仓库<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1ff4kewj8khj31dq0qe78o.jpg" alt=""></li><li><p>进入项目的本地目录，执行如下命令：</p><p><code>git init</code><br><code>git remote add origin git@github.com:haominglfs/tab_number.git//与远程仓库建立关联</code><br><code>git add .</code><br><code>git commit -m &#39;tab_number extension of chrome v0.1&#39;</code><br><code>git push -u origin master //push到远程仓库</code> </p></li></ul>]]></content>
+      
       <categories>
-        <category>iTerm2</category>
+          
+          <category> git </category>
+          
       </categories>
-      <tags>
-        <tag>iTerm2配置</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[shadowsocks配置]]></title>
-    <url>%2F2017%2F04%2F19%2Fshadowsocks%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[#shadowsocks配置 第一步 用远程工具登录aws主机 第二步：安装shadowsocks依赖 sudo -s //获取超级管理员权限 apt-get update//更新apt-get apt-get install python-pip//安装pyton包管理工具 pip install shadowsocks//安装shadowsocks ssserver -c /etc/shadowsocks.json -d start//启动shadowsocks 第三步:配置shadowsocks vi /etc/shadowsocks.json//编辑配置文件 单一端口配置 12345678910&#123; &quot;server&quot;:&quot;0.0.0.0&quot;, &quot;server_port&quot;:端口, &quot;local_address&quot;:&quot;127.0.0.1&quot;, &quot;local_port&quot;:1080, &quot;password&quot;:&quot;连接密码&quot;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast_open&quot;:false &#125; 多端口配置 12345678910&#123; &quot;server&quot;:&quot;0.0.0.0&quot;, &quot;port_password&quot;: &#123; &quot;端口1&quot;: &quot;连接密码1&quot;, &quot;端口2&quot; : &quot;连接密码2&quot; &#125;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast_open&quot;: false &#125; 开启aws 入站端口 配置好shaodowsocks后，还需要将配置中的端口打开,这样客户端的服务才能链接得上EC2中的shadowsocks服务首先打开正在运行的实例，向右滚动表格，看到最后一项，安全组，点击进入 默认是开启了一个22端口（这是给ssh访问的），再建一个如下图红框标示的端口，我的shadowsocks配置的端口是8388，所以这里就开启8388， 配置文件编辑完成后，接下来就可以部署运行了： 1ssserver -c /etc/shadowsocks.json -d start 当然，我们可不希望每次重启服务器都手动启动 SS, 因此我们要把这条命令放到这个文件下：/etc/rc.d/rc.local，这样以后就能开机自动运行了。]]></content>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>iTerm2</title>
+      <link href="/2017/04/19/iTerm2/"/>
+      <url>/2017/04/19/iTerm2/</url>
+      <content type="html"><![CDATA[<p>#iTerm2配置</p><ul><li>配色<br>1.<code>git clone git@github.com:altercation/solarized.git</code><br>2.这里我们要使用的是iterm2-colors-solarized目录下的，包括Solarized         Dark.itermcolors和Solarized Light.itermcolors两个配置文件。<br>3.打开Preferences-&gt;Profiles-&gt;Color面板，在Color Presets中将以上  两个配置方案导入，然后选择Solarized Dark或者Solarized Light即可。一般推荐使用Solarized Dark，Solarized Light有种亮瞎的感觉。</li><li>oh-my-zsh<br>1.接下来，用oh-my-zsh来武装zsh，一行命令搞定：<br><code>sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code><br>2.oh-my-zsh中提供了多套主题可供选择，有不同的输出样式及配色。默认应该是robbyrussell，感觉中规中矩没啥亮点。翻看了一下，发现了agnoster主题，感觉非常入眼。<br>接下来，编辑~/.zshrc，找到变量ZSH_THEME将其赋值改为agnoster即可。<br>3.为了显示正常，需要安装powerline字体，方法如下：<br><code>git clone git@github.com:powerline/fonts.git</code><br><code>cd fonts</code><br><code>./install</code><br>然后，在iTerm2-&gt;Preferences-&gt;Profiles-&gt;Text面板中将Non-ASCII Font改成Roboto Mono Powerline，显示就正常了！  </li></ul>]]></content>
+      
       <categories>
-        <category>vpn</category>
+          
+          <category> iTerm2 </category>
+          
       </categories>
-      <tags>
-        <tag>shadowsocks</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> iTerm2配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>shadowsocks配置</title>
+      <link href="/2017/04/19/shadowsocks%E9%85%8D%E7%BD%AE/"/>
+      <url>/2017/04/19/shadowsocks%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h2 id="shadowsocks配置"><a href="#shadowsocks配置" class="headerlink" title="#shadowsocks配置"></a>#shadowsocks配置</h2><ul><li>第一步 用远程工具登录aws主机</li><li><p>第二步：安装shadowsocks依赖</p><ol><li><code>sudo -s</code> //获取超级管理员权限</li><li><code>apt-get update</code>//更新apt-get</li><li><code>apt-get install python-pip</code>//安装pyton包管理工具</li><li><code>pip install shadowsocks</code>//安装shadowsocks</li><li><code>ssserver -c /etc/shadowsocks.json -d start</code>//启动shadowsocks</li></ol></li><li><p>第三步:配置shadowsocks</p><ol><li><code>vi /etc/shadowsocks.json</code>//编辑配置文件</li><li><p>单一端口配置</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:端口,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;连接密码&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;:false</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li><li><p>多端口配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">  &quot;port_password&quot;: &#123;</span><br><span class="line">      &quot;端口1&quot;: &quot;连接密码1&quot;,</span><br><span class="line">      &quot;端口2&quot; : &quot;连接密码2&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;timeout&quot;:300,</span><br><span class="line">  &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">  &quot;fast_open&quot;: false</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li></ol></li><li><p>开启aws 入站端口</p><p>配置好shaodowsocks后，还需要将配置中的端口打开,这样客户端的服务才能链接得上EC2中的shadowsocks服务<br>首先打开正在运行的实例，向右滚动表格，看到最后一项，安全组，点击进入<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-0.png&amp;objectId=1190000003101075&amp;token=cdc26e8e1b55555923c613f33248fa51" alt=""></p></li></ul><p><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-4.png&amp;objectId=1190000003101075&amp;token=a6157d5b581643cfb706a380e15816f7" alt=""></p><p>默认是开启了一个22端口（这是给ssh访问的），再建一个如下图红框标示的端口，我的shadowsocks配置的端口是8388，所以这里就开启8388，<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-5.png&amp;objectId=1190000003101075&amp;token=9b7e5a2ca61848931c4b48136d7985da" alt=""></p><ul><li>配置文件编辑完成后，接下来就可以部署运行了：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure><p>当然，我们可不希望每次重启服务器都手动启动 SS, 因此我们要把这条命令放到这个文件下：/etc/rc.d/rc.local，这样以后就能开机自动运行了。</p>]]></content>
+      
+      <categories>
+          
+          <category> vpn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> shadowsocks </tag>
+            
+        </tags>
+      
+    </entry>
+    
+  
+  
 </search>
