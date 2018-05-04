@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="haominglfs的博客">
 <meta property="og:description" content="&amp;lt;script&amp;gt;标签 无论如何包含代码，只要不存在defer和async属性，浏览器都会按照&amp;lt;script&amp;gt;元素在页面中出现的先后顺序对他们依次进行解析。 在文档的&amp;lt;head&amp;gt;元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到&amp;lt;body&amp;gt;标签时才开始呈现">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-03T13:45:58.244Z">
+<meta property="og:updated_time" content="2018-05-04T14:36:45.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js高级程序设计-读书笔记">
 <meta name="twitter:description" content="&amp;lt;script&amp;gt;标签 无论如何包含代码，只要不存在defer和async属性，浏览器都会按照&amp;lt;script&amp;gt;元素在页面中出现的先后顺序对他们依次进行解析。 在文档的&amp;lt;head&amp;gt;元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到&amp;lt;body&amp;gt;标签时才开始呈现">
@@ -422,7 +422,7 @@
 <li><p>NaN,即非数值(Not a Number)是一个特殊的数值，这个数值用来表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。任何数值除以0会返回NaN；任何涉及NaN的操作（NaN/10）都会返回NaN;NaN与任何值都不相等，包括NaN本身。</p>
 </li>
 </ol>
-<h3 id="执行环境及作用域"><a href="#执行环境及作用域" class="headerlink" title="执行环境及作用域"></a>执行环境及作用域</h3><p>　　执行环境(execution context)是javaScript中最为重要的一个概念。执行环境定义了变量或函数有权访问的其他数据，决定了他们各自的行为。每个执行环境都有一个与之关联的变量对象(variable object)，环境中定义的所有变量和函数都保存在这个对象中。虽然我们编写的代码无法访问这个对象，但解析器在处理数据时会在后台使用它。<br>　　全局执行环境是最外围的一个执行环境。根据宿主环境不同，执行环境的对象也不一样。在web浏览器中，全局执行环境被认为是window对象，因此所有全局变量和函数都是作为window对象的属性和方法创建的。<br>　　每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。<br>　　当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对象在最开始时只包含一个变量，即arguments对象(这个对象在全局环境中是不存在的)。作用域链中的下一个变量对象来自包含环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。</p>
+<h3 id="执行环境及作用域"><a href="#执行环境及作用域" class="headerlink" title="执行环境及作用域"></a>执行环境及作用域</h3><p>　　执行环境(execution context)是javaScript中最为重要的一个概念。执行环境定义了变量或函数有权访问的其他数据，决定了他们各自的行为。每个执行环境都有一个与之关联的变量对象(variable object)，环境中定义的所有变量和函数都保存在这个对象中。虽然我们编写的代码无法访问这个对象，但解析器在处理数据时会在后台使用它。<br>　　全局执行环境是最外围的一个执行环境。根据宿主环境不同，执行环境的对象也不一样。在web浏览器中，全局执行环境被认为是window对象，因此所有全局变量和函数都是作为window对象的属性和方法创建的。<br>　　每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。<br>　　当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对象在最开始时只包含一个变量，即arguments对象(这个对象在全局环境中是不存在的)。作用域链中的下一个变量对象来自包含环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。    </p>
 
       
     </div>
@@ -462,6 +462,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/04/js高级程序设计-读书笔记2/" rel="prev" title="js高级程序设计-读书笔记2">
+                js高级程序设计-读书笔记2 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
