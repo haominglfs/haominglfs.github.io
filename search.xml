@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[memcached]]></title>
+    <url>%2F2018%2F08%2F05%2Fmemcached%2F</url>
+    <content type="text"><![CDATA[安装Libevent: 官网下载，解压缩 ./configure –prefix=/opt/install/libevent make &amp;&amp; make install memecached: 解压缩 ./configure –prefix=/opt/install/memcached –with-libevent=/opt/install/libevent make &amp;&amp; make instll 启动启动参数： -d 启动一个守护进程 -m 分配给memcached 的内存数量（单位为M） -u 运行memcached 的用户 -L 监听的服务器IP地址 -p 监听的端口号 -c 最大运行的并发连接数 -P 设置Pid 文件 操作 java客户端]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[mac安装autojump]]></title>
     <url>%2F2018%2F08%2F01%2Fmac%E5%AE%89%E8%A3%85autojump%2F</url>
     <content type="text"><![CDATA[brew install autojump 编辑 vim ~/.zshrc 找到 plugins=，在后面添加autojump：plugins=(git autojump) 新开一行，添加：[[ -s $(brew –prefix)/etc/profile.d/autojump.sh ]] &amp;&amp; . $(brew –prefix)/etc/profile.d/autojump.sh j + 跳转的目录]]></content>
