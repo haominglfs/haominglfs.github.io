@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[设计模式-单例模式2]]></title>
+    <url>%2F2018%2F10%2F01%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F2%2F</url>
+    <content type="text"><![CDATA[单例模式安全问题 序列化和反射问题： 12345678910111213141516171819202122232425public class HungrySingleton implements Serializable,Cloneable&#123; private final static HungrySingleton hungrySingleton; static&#123; hungrySingleton = new HungrySingleton(); &#125; private HungrySingleton()&#123; //反射时处理，如果已存在则抛出异常 if(hungrySingleton != null)&#123; throw new RuntimeException("单例构造器禁止反射调用"); &#125; &#125; public static HungrySingleton getInstance()&#123; return hungrySingleton; &#125; private Object readResolve()&#123;//反序列化时会调用此方法，从而防止创建多个实例 return hungrySingleton; &#125; @Override protected Object clone() throws CloneNotSupportedException &#123; return getInstance(); &#125;&#125; 内部类处理方式相同 1234567891011121314public class StaticInnerClassSingleton &#123; private static class InnerClass&#123; private static StaticInnerClassSingleton staticInnerClassSingleton = new StaticInnerClassSingleton(); &#125; public static StaticInnerClassSingleton getInstance()&#123; return InnerClass.staticInnerClassSingleton; &#125; private StaticInnerClassSingleton()&#123; if(InnerClass.staticInnerClassSingleton != null)&#123; throw new RuntimeException("单例构造器禁止反射调用"); &#125; &#125;&#125; Effective java 推荐的枚举类型单例 1234567891011121314151617181920public enum EnumInstance &#123; INSTANCE&#123; protected void printTest()&#123; System.out.println("Geely Print Test"); &#125; &#125;; protected abstract void printTest(); private Object data; public Object getData() &#123; return data; &#125; public void setData(Object data) &#123; this.data = data; &#125; public static EnumInstance getInstance()&#123; return INSTANCE; &#125;&#125;]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[jenkins自动构建配置]]></title>
     <url>%2F2018%2F09%2F04%2Fjenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E9%85%8D%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[安装jenkins 官网下载jenkins jenkins 终端运行：java -jar jenkins.war –httpPort=8080 8080为端口号，可以自行设置 在浏览器中输入：http://localhost:8080 访问jenkins服务 首次启动jenkins，出于安全考虑，jenkins会生成一个随机的口令到 /root/.jenkins/secrets/initialAdminPassword 文件中，复制文件中的口令到jenkins即可通过访问。 安装ant 官网下载Ant Ant 配置环境变量 ANT_HOME ant的根路径 path $ANT_HOME/bin classpath $ANT_HOME/lib 验证 终端输入 ant 有正常的输出，则表示安装成功 配置tomcat 配置tomcat-users.xml 添加角色和用户 123&lt;role rolename="manager-gui"/&gt; &lt;role rolename="manager-script"/&gt;&lt;user username="tomcat" password="123456" roles="manager-gui, manager-script"/&gt; 配置TOMCAT_HOME/conf/context.xml，在元素中增加一个属性antiResourceLocking=”true” antiJARLocking=”true”，默认是”false”。 1&lt;Context antiResourceLocking="true" antiJARLocking="true"&gt; 以上为了解决Jenkins部署异常：The Tomcat Manager responded FAIL - Deployed application at context path]。 异常原因： Tomcat应用更新时，把新的WAR包放到webapps目录下，Tomcat就会自动把原来的同名webapp删除，并把WAR包解压，运行新的 webapp 但是，有时候Tomcat并不能把旧的webapp完全删除，通常会留下WEB-INF/lib下的某个jar包，必须关闭Tomcat才能删除，这就导致自动部署失败 解决方法是在元素中增加一个属性antiResourceLocking=”true” antiJARLocking=”true”，默认是”false”。这样就可以热部署了 实际上，这两个参数就是配置Tomcat的资源锁定和Jar包锁定策略 安装jenkins插件 安装svn插件 Subversion Plug-in 安装 Deploy to container Plugin 插件 创建jenkins任务(svn+ant+tomcat) 新建任务，构建一个自由风格的软件项目 svn 配置 构建环境和构建 构建后操作]]></content>
