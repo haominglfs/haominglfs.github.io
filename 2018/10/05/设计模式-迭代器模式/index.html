@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -79,16 +79,20 @@
 
 
 
-<meta name="description" content="A programmer&apos;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="haominglfs的博客">
-<meta property="og:url" content="https://haominglfs.github.io/categories/java/page/2/index.html">
+<meta name="description" content="定义提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。 适用场景 访问一个集合对象的内容而无需暴露它的内部表示。 为遍历不同的集合结构提供一个统一的接口。  UML  Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的ha">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-迭代器模式">
+<meta property="og:url" content="https://haominglfs.github.io/2018/10/05/设计模式-迭代器模式/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="A programmer&apos;s blog">
+<meta property="og:description" content="定义提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。 适用场景 访问一个集合对象的内容而无需暴露它的内部表示。 为遍历不同的集合结构提供一个统一的接口。  UML  Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的ha">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181005173913.png">
+<meta property="og:updated_time" content="2018-10-05T09:45:37.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="haominglfs的博客">
-<meta name="twitter:description" content="A programmer&apos;s blog">
+<meta name="twitter:title" content="设计模式-迭代器模式">
+<meta name="twitter:description" content="定义提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。 适用场景 访问一个集合对象的内容而无需暴露它的内部表示。 为遍历不同的集合结构提供一个统一的接口。  UML  Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的ha">
+<meta name="twitter:image" content="http://ow83fnk93.bkt.clouddn.com/20181005173913.png">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://haominglfs.github.io/categories/java/page/2/"/>
+  <link rel="canonical" href="https://haominglfs.github.io/2018/10/05/设计模式-迭代器模式/"/>
 
 
 
 
 
-  <title>分类: java | haominglfs的博客</title>
+  <title>设计模式-迭代器模式 | haominglfs的博客</title>
   
 
 
@@ -143,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -271,199 +275,223 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>java<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2018/10/05/设计模式-迭代器模式/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/04/06/设计模式-建造者模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-建造者模式</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">设计模式-迭代器模式</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-06T14:14:43+08:00"
-              content="2018-04-06" >
-          04-06
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-05T17:19:49+08:00">
+                2018-10-05
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/05/设计模式-迭代器模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/05/设计模式-迭代器模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/05/设计模式-迭代器模式/" class="leancloud_visitors" data-flag-title="设计模式-迭代器模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/04/01/设计模式-原型模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-原型模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-01T16:21:26+08:00"
-              content="2018-04-01" >
-          04-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/20/设计模式-适配器模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-适配器模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-20T22:31:38+08:00"
-              content="2017-09-20" >
-          09-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/16/设计模式-工厂方法模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-工厂方法模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-16T13:20:24+08:00"
-              content="2017-09-16" >
-          09-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/11/设计模式-简单工厂模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-简单工厂模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-11T10:10:50+08:00"
-              content="2017-06-11" >
-          06-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/10/设计模式-单例模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-单例模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-10T20:11:11+08:00"
-              content="2017-06-10" >
-          06-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul>
+<li>访问一个集合对象的内容而无需暴露它的内部表示。</li>
+<li>为遍历不同的集合结构提供一个统一的接口。</li>
+</ul>
+<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181005173913.png" alt=""></p>
+<ul>
+<li><p>Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的hasNext()方法，用于获取当前元素的currentItem()方法等，在具体迭代器中将实现这些方法。</p>
+</li>
+<li><p>ConcreteIterator(具体迭代器):它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置，在具体实现时，游标通常是一个表示位置的非负整数。</p>
+</li>
+<li><p>Aggregate(抽象聚合类):它用于存储和管理元素对象，声明一个createIterator()方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。</p>
+</li>
+<li><p>ConcreteAggregate(具体聚合类):它实现了在抽象聚合类中声明的createIterator()方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。</p>
+</li>
+<li><p>在迭代器模式结构图中，我们可以看到具体迭代器类和具体聚合类之间存在双重关系，其中一个关系为关联关系，在具体迭代器中需要维持一个对具体聚合对象的引用，该关联关系的目的是访问存储在聚合对象中的数据，以便迭代器能够对这些数据进行遍历操作。除了使用关联关系外，为了能够让迭代器可以访问到聚合对象中的数据，我们还可以将迭代器类设计为聚合类的内部类，JDK中的迭代器类就是通过这种方法来实现的，如下AbstractList类代码片段所示:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util;</span><br><span class="line">......</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractCollection</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    ......</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">class</span> <span class="title">Itr</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cursor = <span class="number">0</span>;</span><br><span class="line">		...... </span><br><span class="line">    &#125;</span><br><span class="line">...... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>优点<ol>
+<li>分离了集合对象的遍历行为</li>
+</ol>
+</li>
+<li>缺点<ol>
+<li>类的个数成对增加。</li>
+<li>增加了程序的复杂性。</li>
+</ol>
+</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/05/设计模式-代理模式/" rel="next" title="设计模式-代理模式">
+                <i class="fa fa-chevron-left"></i> 设计模式-代理模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/05/设计模式-模板方法模式/" rel="prev" title="设计模式-模板方法模式">
+                设计模式-模板方法模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/java/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/categories/java/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -471,6 +499,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -491,8 +526,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -562,6 +606,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适用场景"><span class="nav-number">2.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML"><span class="nav-number">3.</span> <span class="nav-text">UML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -702,6 +762,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

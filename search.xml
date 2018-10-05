@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[设计模式-模板方法模式]]></title>
+    <url>%2F2018%2F10%2F05%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法的某些步骤。 适用场景 一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。 各个子类中公共的行为被提取出来并集中到一个公共父类中，从而避免代码重复。 UML 总结 优点 提高复用性。 提高扩展性。 符合开闭原则。 缺点 类数目增加。 增加了系统实现的复杂度。 继承关系自身缺点，如果父类添加新的抽象方法，所有子类都要改一遍。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-迭代器模式]]></title>
+    <url>%2F2018%2F10%2F05%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。 适用场景 访问一个集合对象的内容而无需暴露它的内部表示。 为遍历不同的集合结构提供一个统一的接口。 UML Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的hasNext()方法，用于获取当前元素的currentItem()方法等，在具体迭代器中将实现这些方法。 ConcreteIterator(具体迭代器):它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置，在具体实现时，游标通常是一个表示位置的非负整数。 Aggregate(抽象聚合类):它用于存储和管理元素对象，声明一个createIterator()方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。 ConcreteAggregate(具体聚合类):它实现了在抽象聚合类中声明的createIterator()方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。 在迭代器模式结构图中，我们可以看到具体迭代器类和具体聚合类之间存在双重关系，其中一个关系为关联关系，在具体迭代器中需要维持一个对具体聚合对象的引用，该关联关系的目的是访问存储在聚合对象中的数据，以便迭代器能够对这些数据进行遍历操作。除了使用关联关系外，为了能够让迭代器可以访问到聚合对象中的数据，我们还可以将迭代器类设计为聚合类的内部类，JDK中的迭代器类就是通过这种方法来实现的，如下AbstractList类代码片段所示: 12345678910package java.util;......public abstract class AbstractList&lt;E&gt; extends AbstractCollection&lt;E&gt; ...... private class Itr implements Iterator&lt;E&gt; &#123; int cursor = 0; ...... &#125;...... &#125; 总结 优点 分离了集合对象的遍历行为 缺点 类的个数成对增加。 增加了程序的复杂性。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-代理模式]]></title>
+    <url>%2F2018%2F10%2F05%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义为其他对象提供一种代理，以控制对这个对象的访问。代理对象在客户端和目标对象之间起到中介的作用。 适用场景 保护目标对象。 增强目标对象。 UML 静态代理 动态代理 总结 优点 代理模式能将代理对象与真实被调用的目标对象分离。 一定程度上降低了系统的耦合度，扩展性好。 保护目标对象。 增强目标对象。 缺点 代理模式会造成系统设计中类的数目增加。 在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。 增加系统的复杂度。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[设计模式-桥接模式]]></title>
     <url>%2F2018%2F10%2F04%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[定义将抽象部分与它的具体实现部分分离，使他们都可以独立的变化。通过组合的方式建立两个类之间的联系，而不是继承。 适用场景 抽象和具体实现之间增加更多的灵活性 一个类存在两个（或多个）独立变化的纬度，且这两个（或读个）纬度都需要进行独立的扩展。 不希望使用继承，或因为多继承导致系统类的个数剧增。 UML 在桥接模式结构图中包含如下几个角色: Abstraction(抽象类):用于定义抽象类的接口，它一般是抽象类而不是接口，其中定义了 一个Implementor(实现类接口)类型的对象并可以维护该对象，它与Implementor之间具有关 联关系，它既可以包含抽象业务方法，也可以包含具体业务方法。 RefinedAbstraction(扩充抽象类):扩充由Abstraction定义的接口，通常情况下它不再是抽象类而是具体类，它实现了在Abstraction中声明的抽象业务方法，在RefinedAbstraction中可以调用在Implementor中定义的业务方法。 Implementor(实现类接口):定义实现类的接口，这个接口不一定要与Abstraction的接口完全一致，事实上这两个接口可以完全不同，一般而言，Implementor接口仅提供基本操作，而Abstraction定义的接口可能会做更多更复杂的操作。Implementor接口对这些基本操作进行了声明，而具体实现交给其子类。通过关联关系，在Abstraction中不仅拥有自己的方法，还可以调用到Implementor中定义的方法，使用关联关系来替代继承关系。 ConcreteImplementor(具体实现类):具体实现Implementor接口，在不同的ConcreteImplementor中提供基本操作的不同实现，在程序运行时，ConcreteImplementor对象将替换其父类对象，提供给抽象类具体的业务操作方法。 总结 优点 分离抽象部分及其具体实现部分。 提高了系统的可扩展性。 符合开闭原则。 符合合成复用原则。 缺点 增加了系统的设计与理解难度。 需要正确的识别出系统中两个独立变化的纬度。]]></content>
