@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[visualsvn配置hooks调用jenkins自动构建]]></title>
+    <url>%2F2018%2F10%2F23%2Fvisualsvn%E9%85%8D%E7%BD%AEhooks%E8%B0%83%E7%94%A8jenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%2F</url>
+    <content type="text"><![CDATA[jenkins配置 为了让Jenkins中的job可以被触发，job需要被显式地配置为启用SCM轮询才行，未启用SCM轮询选项的job将不会被post-commit hook所触发。下图为在job中启用SCM轮询的示例： 如果Jenkins启用了跨站点请求伪造防护(默认启用)选项，那么上面的请求会返回一个403错误(“No valid crumb was included”)。在”系统管理”→”全局安全配置”中，可以看到跨站点请求伪造防护是否有启用： VisualSVN配置 提交到 VisualSVN Server 时 hook 的 post-commit.bat（post-commit.cmd） 不执行的解决方法： 这是因为 bat 文件执行需要权限，而 VisualSVN Server 默认用的是 NETWORK 用户组，该组没有执行 bat 的权限，导致了 post-commit.bat 文件不能执行，解决方法如下： 配置hooks curl -X POST http://localhost:6080/job/cecaudit/build?delay=0sec –user admin:123456789 –data-urlencode json= 链接地址为jenkins中的job地址（点击立即构建时的链接），—user后为 用户名:密码]]></content>
+      <tags>
+        <tag>svn,jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[设计模式-模板方法模式]]></title>
     <url>%2F2018%2F10%2F05%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[定义定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法的某些步骤。 适用场景 一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。 各个子类中公共的行为被提取出来并集中到一个公共父类中，从而避免代码重复。 UML 总结 优点 提高复用性。 提高扩展性。 符合开闭原则。 缺点 类数目增加。 增加了系统实现的复杂度。 继承关系自身缺点，如果父类添加新的抽象方法，所有子类都要改一遍。]]></content>
