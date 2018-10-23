@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181023165419.png">
 <meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181023170119.png">
 <meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181023170416.png">
-<meta property="og:updated_time" content="2018-10-23T09:14:42.146Z">
+<meta property="og:updated_time" content="2018-10-23T09:30:12.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="visualsvn配置hooks调用jenkins自动构建">
 <meta name="twitter:description" content="jenkins配置 为了让Jenkins中的job可以被触发，job需要被显式地配置为启用SCM轮询才行，未启用SCM轮询选项的job将不会被post-commit hook所触发。下图为在job中启用SCM轮询的示例：   如果Jenkins启用了跨站点请求伪造防护(默认启用)选项，那么上面的请求会返回一个403错误(“No valid crumb was included”)。在”系统管理”→">
@@ -397,6 +397,7 @@
 <p><img src="http://ow83fnk93.bkt.clouddn.com/20181023170416.png" alt=""></p>
 <p>curl -X POST  <a href="http://localhost:6080/job/cecaudit/build?delay=0sec" target="_blank" rel="noopener">http://localhost:6080/job/cecaudit/build?delay=0sec</a> –user admin:123456789 –data-urlencode json=</p>
 <p>链接地址为jenkins中的job地址（点击立即构建时的链接），—user后为 用户名:密码</p>
+<p>Ps:需要先安装curl或wget</p>
 </li>
 </ol>
 
