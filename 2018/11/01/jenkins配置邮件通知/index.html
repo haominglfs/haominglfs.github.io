@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="设计模式," />
+  <meta name="keywords" content="jenkins," />
 
 
 
@@ -79,20 +79,27 @@
 
 
 
-<meta name="description" content="定义为子系统中的一组接口提供一个统一的入口。外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 UML 总结 外观模式的主要优点如下:  (1) 它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。  (2) 它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它">
-<meta name="keywords" content="设计模式">
+<meta name="description" content="jenkins系统配置 设置jenkins地址和管理员邮箱地址 系统管理–&amp;gt;系统设置–&amp;gt;Jenkins Location   设置发件人等信息 系统管理–&amp;gt;系统设置–&amp;gt;Extended E-mail Notification PS：这里的发件人邮箱地址切记要和系统管理员邮件地址保持一致（当然，也可以设置专门的发件人邮箱，不过不影响使用，根据具体情况设置即可）   配置邮件模">
+<meta name="keywords" content="jenkins">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-外观模式">
-<meta property="og:url" content="https://haominglfs.github.io/2018/10/03/设计模式-外观模式/index.html">
+<meta property="og:title" content="jenkins配置邮件通知">
+<meta property="og:url" content="https://haominglfs.github.io/2018/11/01/jenkins配置邮件通知/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="定义为子系统中的一组接口提供一个统一的入口。外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 UML 总结 外观模式的主要优点如下:  (1) 它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。  (2) 它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它">
+<meta property="og:description" content="jenkins系统配置 设置jenkins地址和管理员邮箱地址 系统管理–&amp;gt;系统设置–&amp;gt;Jenkins Location   设置发件人等信息 系统管理–&amp;gt;系统设置–&amp;gt;Extended E-mail Notification PS：这里的发件人邮箱地址切记要和系统管理员邮件地址保持一致（当然，也可以设置专门的发件人邮箱，不过不影响使用，根据具体情况设置即可）   配置邮件模">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181003121434.png">
-<meta property="og:updated_time" content="2018-10-03T07:57:21.756Z">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101143431.png">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101143854.png">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101144430.png">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101144658.png">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101144826.png">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101145324.png">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101145623.png">
+<meta property="og:image" content="http://ow83fnk93.bkt.clouddn.com/20181101145815.png">
+<meta property="og:updated_time" content="2018-11-01T07:00:23.740Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式-外观模式">
-<meta name="twitter:description" content="定义为子系统中的一组接口提供一个统一的入口。外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 UML 总结 外观模式的主要优点如下:  (1) 它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。  (2) 它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它">
-<meta name="twitter:image" content="http://ow83fnk93.bkt.clouddn.com/20181003121434.png">
+<meta name="twitter:title" content="jenkins配置邮件通知">
+<meta name="twitter:description" content="jenkins系统配置 设置jenkins地址和管理员邮箱地址 系统管理–&amp;gt;系统设置–&amp;gt;Jenkins Location   设置发件人等信息 系统管理–&amp;gt;系统设置–&amp;gt;Extended E-mail Notification PS：这里的发件人邮箱地址切记要和系统管理员邮件地址保持一致（当然，也可以设置专门的发件人邮箱，不过不影响使用，根据具体情况设置即可）   配置邮件模">
+<meta name="twitter:image" content="http://ow83fnk93.bkt.clouddn.com/20181101143431.png">
 
 
 
@@ -122,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://haominglfs.github.io/2018/10/03/设计模式-外观模式/"/>
+  <link rel="canonical" href="https://haominglfs.github.io/2018/11/01/jenkins配置邮件通知/"/>
 
 
 
 
 
-  <title>设计模式-外观模式 | haominglfs的博客</title>
+  <title>jenkins配置邮件通知 | haominglfs的博客</title>
   
 
 
@@ -289,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2018/10/03/设计模式-外观模式/">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2018/11/01/jenkins配置邮件通知/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
@@ -306,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">设计模式-外观模式</h1>
+          <h1 class="post-title" itemprop="name headline">jenkins配置邮件通知</h1>
         
 
         <div class="post-meta">
@@ -318,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-03T12:15:11+08:00">
-                2018-10-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-01T14:31:18+08:00">
+                2018-11-01
               </time>
             
 
@@ -329,28 +336,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -359,8 +344,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/03/设计模式-外观模式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/03/设计模式-外观模式/" itemprop="commentCount"></span>
+                <a href="/2018/11/01/jenkins配置邮件通知/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/01/jenkins配置邮件通知/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -368,7 +353,7 @@
 
           
           
-             <span id="/2018/10/03/设计模式-外观模式/" class="leancloud_visitors" data-flag-title="设计模式-外观模式">
+             <span id="/2018/11/01/jenkins配置邮件通知/" class="leancloud_visitors" data-flag-title="jenkins配置邮件通知">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,19 +384,38 @@
       
 
       
-        <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>为子系统中的一组接口提供一个统一的入口。外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p>
-<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181003121434.png" alt=""></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li><p>外观模式的主要优点如下: </p>
-<p>(1) 它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。 </p>
-<p>(2) 它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它的客 户端，只需要调整外观类即可。 </p>
-<p>(3) 一个子系统的修改对其他子系统没有任何影响，而且子系统内部变化也不会影响到外观对象。 </p>
+        <h3 id="jenkins系统配置"><a href="#jenkins系统配置" class="headerlink" title="jenkins系统配置"></a>jenkins系统配置</h3><ol>
+<li><p><strong>设置jenkins地址和管理员邮箱地址</strong></p>
+<p>系统管理–&gt;系统设置–&gt;Jenkins Location</p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101143431.png" alt=""></p>
 </li>
-<li><p>外观模式的主要缺点如下: </p>
-<p>(1) 不能很好地限制客户端直接使用子系统类，如果对客户端访问子系统类做太多的限制则减少了可变性和灵活性。 </p>
-<p>(2) 如果设计不当，增加新的子系统可能需要修改外观类的源代码，违背了开闭原则。 </p>
+<li><p><strong>设置发件人等信息</strong></p>
+<p>系统管理–&gt;系统设置–&gt;Extended E-mail Notification</p>
+<p>PS：这里的发件人邮箱地址切记要和系统管理员邮件地址保持一致（当然，也可以设置专门的发件人邮箱，不过不影响使用，根据具体情况设置即可）</p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101143854.png" alt=""></p>
 </li>
-</ul>
+<li><p>配置邮件模板default Content</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>$&#123;ENV, var="JOB_NAME"&#125;-第$&#123;BUILD_NUMBER&#125;次构建日志<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">leftmargin</span>=<span class="string">"8"</span> <span class="attr">marginwidth</span>=<span class="string">"0"</span> <span class="attr">topmargin</span>=<span class="string">"8"</span> <span class="attr">marginheight</span>=<span class="string">"4"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">offset</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"95%"</span> <span class="attr">cellpadding</span>=<span class="string">"0"</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>(本邮件是程序自动下发的，请勿回复！)<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">h2</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0000FF"</span>&gt;</span>构建结果 - $&#123;BUILD_STATUS&#125;<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">h2</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0B610B"</span>&gt;</span>构建信息<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目名称&amp;nbsp;：&amp;nbsp;$&#123;PROJECT_NAME&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>构建编号&amp;nbsp;：&amp;nbsp;第$&#123;BUILD_NUMBER&#125;次构建<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>SVN&amp;nbsp;版本：&amp;nbsp;$&#123;SVN_REVISION&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>触发原因：&amp;nbsp;$&#123;CAUSE&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>构建日志：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;BUILD_URL&#125;console"</span>&gt;</span>$&#123;BUILD_URL&#125;console<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>构建&amp;nbsp;&amp;nbsp;Url&amp;nbsp;：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;BUILD_URL&#125;"</span>&gt;</span>$&#123;BUILD_URL&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>工作目录&amp;nbsp;：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;PROJECT_URL&#125;ws"</span>&gt;</span>$&#123;PROJECT_URL&#125;ws<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目&amp;nbsp;&amp;nbsp;Url&amp;nbsp;：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;PROJECT_URL&#125;"</span>&gt;</span>$&#123;PROJECT_URL&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0B610B"</span>&gt;</span>Changes Since Last</span><br><span class="line">                        Successful Build:<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>历史变更记录 : <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;PROJECT_URL&#125;changes"</span>&gt;</span>$&#123;PROJECT_URL&#125;changes<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span> $&#123;CHANGES_SINCE_LAST_SUCCESS,reverse=true, format="Changes for Build #%n:<span class="tag">&lt;<span class="name">br</span> /&gt;</span>%c<span class="tag">&lt;<span class="name">br</span> /&gt;</span>",showPaths=true,changesFormat="<span class="tag">&lt;<span class="name">pre</span>&gt;</span>[%a]<span class="tag">&lt;<span class="name">br</span> /&gt;</span>%m<span class="tag">&lt;/<span class="name">pre</span>&gt;</span>",pathFormat="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;%p"&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Failed Test Results<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">pre</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">style</span>=<span class="string">"font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif"</span>&gt;</span>$FAILED_TESTS<span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0B610B"</span>&gt;</span>构建日志 (最后 100行):<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;tr&gt;</span></span><br><span class="line"><span class="comment">            &lt;td&gt;Test Logs (if test has ran): &lt;a</span></span><br><span class="line"><span class="comment">                href="$&#123;PROJECT_URL&#125;ws/TestResult/archive_logs/Log-Build-$&#123;BUILD_NUMBER&#125;.zip"&gt;$&#123;PROJECT_URL&#125;/ws/TestResult/archive_logs/Log-Build-$&#123;BUILD_NUMBER&#125;.zip&lt;/a&gt;</span></span><br><span class="line"><span class="comment">                &lt;br /&gt;</span></span><br><span class="line"><span class="comment">            &lt;br /&gt;</span></span><br><span class="line"><span class="comment">            &lt;/td&gt;</span></span><br><span class="line"><span class="comment">        &lt;/tr&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">"80"</span> <span class="attr">rows</span>=<span class="string">"30"</span> <span class="attr">readonly</span>=<span class="string">"readonly"</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">style</span>=<span class="string">"font-family: Courier New"</span>&gt;</span>$&#123;BUILD_LOG, maxLines=100&#125;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置邮件触发机制</p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144430.png" alt=""></p>
+</li>
+<li><p>上面的几步完成后，点击应用，保存即可。</p>
+</li>
+</ol>
+<h3 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h3><ol>
+<li><p>进入项目配置页面</p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144658.png" alt=""></p>
+</li>
+<li><p>进入系统配置页面后，点击上方的<strong>构建后操作</strong>选项，配置内容如下：</p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144826.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145324.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145623.png" alt=""></p>
+</li>
+<li><p>构建项目测试</p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145815.png" alt=""></p>
+</li>
+</ol>
 
       
     </div>
@@ -429,7 +433,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+            <a href="/tags/jenkins/" rel="tag"># jenkins</a>
           
         </div>
       
@@ -442,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/01/设计模式-单例模式2/" rel="next" title="设计模式-单例模式2">
-                <i class="fa fa-chevron-left"></i> 设计模式-单例模式2
+              <a href="/2018/11/01/局域网内搭建邮件服务器-hMailServer/" rel="next" title="局域网内搭建邮件服务器-hMailServer">
+                <i class="fa fa-chevron-left"></i> 局域网内搭建邮件服务器-hMailServer
               </a>
             
           </div>
@@ -451,10 +455,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/03/设计模式-享元模式/" rel="prev" title="设计模式-享元模式">
-                设计模式-享元模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -599,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML"><span class="nav-number">2.</span> <span class="nav-text">UML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#jenkins系统配置"><span class="nav-number">1.</span> <span class="nav-text">jenkins系统配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目配置"><span class="nav-number">2.</span> <span class="nav-text">项目配置</span></a></li></ol></div>
             
 
           </div>
