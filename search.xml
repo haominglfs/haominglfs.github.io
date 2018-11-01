@@ -1,687 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title>VisualSVN</title>
-      <link href="/2018/10/23/VisualSVN/"/>
-      <url>/2018/10/23/VisualSVN/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> svn </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>visualsvn配置hooks调用jenkins自动构建</title>
-      <link href="/2018/10/23/visualsvn%E9%85%8D%E7%BD%AEhooks%E8%B0%83%E7%94%A8jenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/"/>
-      <url>/2018/10/23/visualsvn%E9%85%8D%E7%BD%AEhooks%E8%B0%83%E7%94%A8jenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/</url>
-      
-        <content type="html"><![CDATA[<h3 id="jenkins配置"><a href="#jenkins配置" class="headerlink" title="jenkins配置"></a>jenkins配置</h3><ol><li><p>为了让Jenkins中的job可以被触发，job需要被显式地配置为启用SCM轮询才行，未启用SCM轮询选项的job将不会被post-commit hook所触发。下图为在job中启用SCM轮询的示例：</p><p><img src="http://ow83fnk93.bkt.clouddn.com/20181023165142.png" alt=""></p></li><li><p>如果Jenkins启用了跨站点请求伪造防护(默认启用)选项，那么上面的请求会返回一个403错误(“No valid crumb was included”)。在”系统管理”→”全局安全配置”中，可以看到跨站点请求伪造防护是否有启用：</p><p><img src="http://ow83fnk93.bkt.clouddn.com/20181023165419.png" alt=""></p></li></ol><h3 id="VisualSVN配置"><a href="#VisualSVN配置" class="headerlink" title="VisualSVN配置"></a>VisualSVN配置</h3><ol><li><p>提交到 VisualSVN Server 时 hook 的 post-commit.bat（post-commit.cmd） 不执行的解决方法：</p><p>这是因为 bat 文件执行需要权限，而 VisualSVN Server 默认用的是 NETWORK 用户组，该组没有执行 bat 的权限，导致了 post-commit.bat 文件不能执行，解决方法如下：</p><p><img src="http://ow83fnk93.bkt.clouddn.com/20181023170119.png" alt=""></p></li><li><p>配置hooks</p><p><img src="http://ow83fnk93.bkt.clouddn.com/20181023170416.png" alt=""></p><p>curl -X POST  <a href="http://localhost:6080/job/cecaudit/build?delay=0sec" target="_blank" rel="noopener">http://localhost:6080/job/cecaudit/build?delay=0sec</a> –user admin:123456789 –data-urlencode json=</p><p>链接地址为jenkins中的job地址（点击立即构建时的链接），—user后为 用户名:密码</p><p>Ps:需要先安装curl或wget</p></li></ol>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> svn,jenkins </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-模板方法模式</title>
-      <link href="/2018/10/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/10/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法的某些步骤。</p><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul><li>一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。</li><li>各个子类中公共的行为被提取出来并集中到一个公共父类中，从而避免代码重复。</li></ul><h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181005215611.png" alt=""></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>优点<ol><li>提高复用性。</li><li>提高扩展性。</li><li>符合开闭原则。</li></ol></li><li>缺点<ol><li>类数目增加。</li><li>增加了系统实现的复杂度。</li><li>继承关系自身缺点，如果父类添加新的抽象方法，所有子类都要改一遍。</li></ol></li></ul>]]></content>
-      
-      
+<search>
+  <entry>
+    <title><![CDATA[局域网内搭建邮件服务器-hMailServer]]></title>
+    <url>%2F2018%2F11%2F01%2F%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E6%90%AD%E5%BB%BA%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8-hMailServer%2F</url>
+    <content type="text"><![CDATA[hMailServer安装 hMailServer,到hMailServer网站下载最新版本hMailServer安装包。 双击安装文件 设置密码，该密码在配置服务器时使用。 配置hMailServer 打开配置程序 因为内网中没有DNS服务器，所以域名随便取一个。 添加邮件地址 配置SMTP 打开logging 配置ip Ranges 修改hosts文件，添加SMTP的域名解析为本机地址。 到此，hmailServer服务端配置完成。 配置foxmail客户端]]></content>
+      <tags>
+        <tag>jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[VisualSVN]]></title>
+    <url>%2F2018%2F10%2F23%2FVisualSVN%2F</url>
+    <content type="text"></content>
+      <tags>
+        <tag>svn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[visualsvn配置hooks调用jenkins自动构建]]></title>
+    <url>%2F2018%2F10%2F23%2Fvisualsvn%E9%85%8D%E7%BD%AEhooks%E8%B0%83%E7%94%A8jenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%2F</url>
+    <content type="text"><![CDATA[jenkins配置 为了让Jenkins中的job可以被触发，job需要被显式地配置为启用SCM轮询才行，未启用SCM轮询选项的job将不会被post-commit hook所触发。下图为在job中启用SCM轮询的示例： 如果Jenkins启用了跨站点请求伪造防护(默认启用)选项，那么上面的请求会返回一个403错误(“No valid crumb was included”)。在”系统管理”→”全局安全配置”中，可以看到跨站点请求伪造防护是否有启用： VisualSVN配置 提交到 VisualSVN Server 时 hook 的 post-commit.bat（post-commit.cmd） 不执行的解决方法： 这是因为 bat 文件执行需要权限，而 VisualSVN Server 默认用的是 NETWORK 用户组，该组没有执行 bat 的权限，导致了 post-commit.bat 文件不能执行，解决方法如下： 配置hooks curl -X POST http://localhost:6080/job/cecaudit/build?delay=0sec –user admin:123456789 –data-urlencode json= 链接地址为jenkins中的job地址（点击立即构建时的链接），—user后为 用户名:密码 Ps:需要先安装curl或wget]]></content>
+      <tags>
+        <tag>svn,jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-模板方法模式]]></title>
+    <url>%2F2018%2F10%2F05%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法的某些步骤。 适用场景 一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。 各个子类中公共的行为被提取出来并集中到一个公共父类中，从而避免代码重复。 UML 总结 优点 提高复用性。 提高扩展性。 符合开闭原则。 缺点 类数目增加。 增加了系统实现的复杂度。 继承关系自身缺点，如果父类添加新的抽象方法，所有子类都要改一遍。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-迭代器模式</title>
-      <link href="/2018/10/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/10/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。</p><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul><li>访问一个集合对象的内容而无需暴露它的内部表示。</li><li>为遍历不同的集合结构提供一个统一的接口。</li></ul><h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181005173913.png" alt=""></p><ul><li><p>Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的hasNext()方法，用于获取当前元素的currentItem()方法等，在具体迭代器中将实现这些方法。</p></li><li><p>ConcreteIterator(具体迭代器):它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置，在具体实现时，游标通常是一个表示位置的非负整数。</p></li><li><p>Aggregate(抽象聚合类):它用于存储和管理元素对象，声明一个createIterator()方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。</p></li><li><p>ConcreteAggregate(具体聚合类):它实现了在抽象聚合类中声明的createIterator()方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。</p></li><li><p>在迭代器模式结构图中，我们可以看到具体迭代器类和具体聚合类之间存在双重关系，其中一个关系为关联关系，在具体迭代器中需要维持一个对具体聚合对象的引用，该关联关系的目的是访问存储在聚合对象中的数据，以便迭代器能够对这些数据进行遍历操作。除了使用关联关系外，为了能够让迭代器可以访问到聚合对象中的数据，我们还可以将迭代器类设计为聚合类的内部类，JDK中的迭代器类就是通过这种方法来实现的，如下AbstractList类代码片段所示:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util;</span><br><span class="line">......</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractCollection</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    ......</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">class</span> <span class="title">Itr</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cursor = <span class="number">0</span>;</span><br><span class="line">...... </span><br><span class="line">    &#125;</span><br><span class="line">...... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>优点<ol><li>分离了集合对象的遍历行为</li></ol></li><li>缺点<ol><li>类的个数成对增加。</li><li>增加了程序的复杂性。</li></ol></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-迭代器模式]]></title>
+    <url>%2F2018%2F10%2F05%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。 适用场景 访问一个集合对象的内容而无需暴露它的内部表示。 为遍历不同的集合结构提供一个统一的接口。 UML Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的hasNext()方法，用于获取当前元素的currentItem()方法等，在具体迭代器中将实现这些方法。 ConcreteIterator(具体迭代器):它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置，在具体实现时，游标通常是一个表示位置的非负整数。 Aggregate(抽象聚合类):它用于存储和管理元素对象，声明一个createIterator()方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。 ConcreteAggregate(具体聚合类):它实现了在抽象聚合类中声明的createIterator()方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。 在迭代器模式结构图中，我们可以看到具体迭代器类和具体聚合类之间存在双重关系，其中一个关系为关联关系，在具体迭代器中需要维持一个对具体聚合对象的引用，该关联关系的目的是访问存储在聚合对象中的数据，以便迭代器能够对这些数据进行遍历操作。除了使用关联关系外，为了能够让迭代器可以访问到聚合对象中的数据，我们还可以将迭代器类设计为聚合类的内部类，JDK中的迭代器类就是通过这种方法来实现的，如下AbstractList类代码片段所示: 12345678910package java.util;......public abstract class AbstractList&lt;E&gt; extends AbstractCollection&lt;E&gt; ...... private class Itr implements Iterator&lt;E&gt; &#123; int cursor = 0; ...... &#125;...... &#125; 总结 优点 分离了集合对象的遍历行为 缺点 类的个数成对增加。 增加了程序的复杂性。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-代理模式</title>
-      <link href="/2018/10/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/10/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>为其他对象提供一种代理，以控制对这个对象的访问。代理对象在客户端和目标对象之间起到中介的作用。</p><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul><li>保护目标对象。</li><li>增强目标对象。</li></ul><h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><ul><li><p>静态代理</p><p><img src="http://ow83fnk93.bkt.clouddn.com/20181005170019.png" alt=""></p></li><li><p>动态代理</p></li></ul><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>优点<ol><li>代理模式能将代理对象与真实被调用的目标对象分离。</li><li>一定程度上降低了系统的耦合度，扩展性好。</li><li>保护目标对象。</li><li>增强目标对象。</li></ol></li><li>缺点<ol><li>代理模式会造成系统设计中类的数目增加。</li><li>在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。</li><li>增加系统的复杂度。</li></ol></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-代理模式]]></title>
+    <url>%2F2018%2F10%2F05%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义为其他对象提供一种代理，以控制对这个对象的访问。代理对象在客户端和目标对象之间起到中介的作用。 适用场景 保护目标对象。 增强目标对象。 UML 静态代理 动态代理 总结 优点 代理模式能将代理对象与真实被调用的目标对象分离。 一定程度上降低了系统的耦合度，扩展性好。 保护目标对象。 增强目标对象。 缺点 代理模式会造成系统设计中类的数目增加。 在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。 增加系统的复杂度。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-桥接模式</title>
-      <link href="/2018/10/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/10/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>将抽象部分与它的具体实现部分分离，使他们都可以独立的变化。通过组合的方式建立两个类之间的联系，而不是继承。</p><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul><li>抽象和具体实现之间增加更多的灵活性</li><li>一个类存在两个（或多个）独立变化的纬度，且这两个（或读个）纬度都需要进行独立的扩展。</li><li>不希望使用继承，或因为多继承导致系统类的个数剧增。</li></ul><h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181004121246.png" alt=""></p><ul><li>在桥接模式结构图中包含如下几个角色:<ol><li>Abstraction(抽象类):用于定义抽象类的接口，它一般是抽象类而不是接口，其中定义了 一个Implementor(实现类接口)类型的对象并可以维护该对象，它与Implementor之间具有关 联关系，它既可以包含抽象业务方法，也可以包含具体业务方法。 </li><li>RefinedAbstraction(扩充抽象类):扩充由Abstraction定义的接口，通常情况下它不再是抽象类而是具体类，它实现了在Abstraction中声明的抽象业务方法，在RefinedAbstraction中可以调用在Implementor中定义的业务方法。</li><li>Implementor(实现类接口):定义实现类的接口，这个接口不一定要与Abstraction的接口完全一致，事实上这两个接口可以完全不同，一般而言，Implementor接口仅提供基本操作，而Abstraction定义的接口可能会做更多更复杂的操作。Implementor接口对这些基本操作进行了声明，而具体实现交给其子类。通过关联关系，在Abstraction中不仅拥有自己的方法，还可以调用到Implementor中定义的方法，使用关联关系来替代继承关系。</li><li>ConcreteImplementor(具体实现类):具体实现Implementor接口，在不同的ConcreteImplementor中提供基本操作的不同实现，在程序运行时，ConcreteImplementor对象将替换其父类对象，提供给抽象类具体的业务操作方法。</li></ol></li></ul><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>优点<ol><li>分离抽象部分及其具体实现部分。</li><li>提高了系统的可扩展性。</li><li>符合开闭原则。</li><li>符合合成复用原则。</li></ol></li><li>缺点<ol><li>增加了系统的设计与理解难度。</li><li>需要正确的识别出系统中两个独立变化的纬度。</li></ol></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-桥接模式]]></title>
+    <url>%2F2018%2F10%2F04%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义将抽象部分与它的具体实现部分分离，使他们都可以独立的变化。通过组合的方式建立两个类之间的联系，而不是继承。 适用场景 抽象和具体实现之间增加更多的灵活性 一个类存在两个（或多个）独立变化的纬度，且这两个（或读个）纬度都需要进行独立的扩展。 不希望使用继承，或因为多继承导致系统类的个数剧增。 UML 在桥接模式结构图中包含如下几个角色: Abstraction(抽象类):用于定义抽象类的接口，它一般是抽象类而不是接口，其中定义了 一个Implementor(实现类接口)类型的对象并可以维护该对象，它与Implementor之间具有关 联关系，它既可以包含抽象业务方法，也可以包含具体业务方法。 RefinedAbstraction(扩充抽象类):扩充由Abstraction定义的接口，通常情况下它不再是抽象类而是具体类，它实现了在Abstraction中声明的抽象业务方法，在RefinedAbstraction中可以调用在Implementor中定义的业务方法。 Implementor(实现类接口):定义实现类的接口，这个接口不一定要与Abstraction的接口完全一致，事实上这两个接口可以完全不同，一般而言，Implementor接口仅提供基本操作，而Abstraction定义的接口可能会做更多更复杂的操作。Implementor接口对这些基本操作进行了声明，而具体实现交给其子类。通过关联关系，在Abstraction中不仅拥有自己的方法，还可以调用到Implementor中定义的方法，使用关联关系来替代继承关系。 ConcreteImplementor(具体实现类):具体实现Implementor接口，在不同的ConcreteImplementor中提供基本操作的不同实现，在程序运行时，ConcreteImplementor对象将替换其父类对象，提供给抽象类具体的业务操作方法。 总结 优点 分离抽象部分及其具体实现部分。 提高了系统的可扩展性。 符合开闭原则。 符合合成复用原则。 缺点 增加了系统的设计与理解难度。 需要正确的识别出系统中两个独立变化的纬度。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-组合模式</title>
-      <link href="/2018/10/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/10/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>将对象组合成树形结构以表示“部分-整体”的层次结构，组合模式使客户端对单个对象和组合对象保持一致的处理方式。</p><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul><li>希望客户端可以忽略组合对象与单个对象的差异时。</li><li>处理一个树形结构时。</li></ul><h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181004110601.png" alt=""></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li><p>优点</p><ol><li>清楚的定义分层次的复杂对象，表示对象的全部或部分层次。</li><li>让客户端忽略层次的差异，方便对整个层次结构进行控制。</li><li>简化客户端代码。</li><li>符合开闭原则</li></ol></li><li><p>缺点</p><ol><li>限制类型时会较为复杂。</li><li>使设计变的更加抽象。</li></ol></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-组合模式]]></title>
+    <url>%2F2018%2F10%2F04%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义将对象组合成树形结构以表示“部分-整体”的层次结构，组合模式使客户端对单个对象和组合对象保持一致的处理方式。 适用场景 希望客户端可以忽略组合对象与单个对象的差异时。 处理一个树形结构时。 UML 总结 优点 清楚的定义分层次的复杂对象，表示对象的全部或部分层次。 让客户端忽略层次的差异，方便对整个层次结构进行控制。 简化客户端代码。 符合开闭原则 缺点 限制类型时会较为复杂。 使设计变的更加抽象。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-享元模式</title>
-      <link href="/2018/10/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/10/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>提供了减少对象数量从而改善应用所需的对象结构的方式。运用共享技术有效的支持大量细粒度的对象。</p><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul><li>常常应用于系统底层的开发，以便解决系统性能的问题。</li><li>系统有大量相似对象，需要缓冲池的场景。</li></ul><h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181003171112.png" alt=""></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li><p>优点</p><ol><li>减少对象的创建，降低内存中对象的数量，降低系统的内存，提高效率。</li><li>减少内存之外的其他资源的占用。（减少new操作所需的时间）</li></ol></li><li><p>缺点</p><ol><li>关注内/外部状态，关注线程安全问题。</li><li>使程序的逻辑复杂化。</li></ol></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-享元模式]]></title>
+    <url>%2F2018%2F10%2F03%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义提供了减少对象数量从而改善应用所需的对象结构的方式。运用共享技术有效的支持大量细粒度的对象。 适用场景 常常应用于系统底层的开发，以便解决系统性能的问题。 系统有大量相似对象，需要缓冲池的场景。 UML 总结 优点 减少对象的创建，降低内存中对象的数量，降低系统的内存，提高效率。 减少内存之外的其他资源的占用。（减少new操作所需的时间） 缺点 关注内/外部状态，关注线程安全问题。 使程序的逻辑复杂化。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-外观模式</title>
-      <link href="/2018/10/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/10/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>为子系统中的一组接口提供一个统一的入口。外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p><h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181003121434.png" alt=""></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li><p>外观模式的主要优点如下: </p><p>(1) 它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。 </p><p>(2) 它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它的客 户端，只需要调整外观类即可。 </p><p>(3) 一个子系统的修改对其他子系统没有任何影响，而且子系统内部变化也不会影响到外观对象。 </p></li><li><p>外观模式的主要缺点如下: </p><p>(1) 不能很好地限制客户端直接使用子系统类，如果对客户端访问子系统类做太多的限制则减少了可变性和灵活性。 </p><p>(2) 如果设计不当，增加新的子系统可能需要修改外观类的源代码，违背了开闭原则。 </p></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-外观模式]]></title>
+    <url>%2F2018%2F10%2F03%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义为子系统中的一组接口提供一个统一的入口。外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 UML 总结 外观模式的主要优点如下: (1) 它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。 (2) 它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它的客 户端，只需要调整外观类即可。 (3) 一个子系统的修改对其他子系统没有任何影响，而且子系统内部变化也不会影响到外观对象。 外观模式的主要缺点如下: (1) 不能很好地限制客户端直接使用子系统类，如果对客户端访问子系统类做太多的限制则减少了可变性和灵活性。 (2) 如果设计不当，增加新的子系统可能需要修改外观类的源代码，违背了开闭原则。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-单例模式2</title>
-      <link href="/2018/10/01/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F2/"/>
-      <url>/2018/10/01/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F2/</url>
-      
-        <content type="html"><![CDATA[<ol><li><p>单例模式安全问题</p><ul><li><p>序列化和反射问题：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungrySingleton</span> <span class="keyword">implements</span> <span class="title">Serializable</span>,<span class="title">Cloneable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> HungrySingleton hungrySingleton;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        hungrySingleton = <span class="keyword">new</span> HungrySingleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungrySingleton</span><span class="params">()</span></span>&#123; <span class="comment">//反射时处理，如果已存在则抛出异常</span></span><br><span class="line">        <span class="keyword">if</span>(hungrySingleton != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"单例构造器禁止反射调用"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungrySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hungrySingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Object <span class="title">readResolve</span><span class="params">()</span></span>&#123;<span class="comment">//反序列化时会调用此方法，从而防止创建多个实例</span></span><br><span class="line">        <span class="keyword">return</span> hungrySingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>内部类处理方式相同</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticInnerClassSingleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> StaticInnerClassSingleton staticInnerClassSingleton </span><br><span class="line">            = <span class="keyword">new</span> StaticInnerClassSingleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> StaticInnerClassSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> InnerClass.staticInnerClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">StaticInnerClassSingleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(InnerClass.staticInnerClassSingleton != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"单例构造器禁止反射调用"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul></li><li><p>Effective java 推荐的枚举类型单例</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnumSingleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">//私有构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EnumSingleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EnumSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> Singleton&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> EnumSingleton singleton;</span><br><span class="line">        <span class="comment">//jvm保证这个方法绝对只调用一次</span></span><br><span class="line">        Singleton()&#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> EnumSingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> EnumSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> singleton;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-单例模式2]]></title>
+    <url>%2F2018%2F10%2F01%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F2%2F</url>
+    <content type="text"><![CDATA[单例模式安全问题 序列化和反射问题： 12345678910111213141516171819202122232425public class HungrySingleton implements Serializable,Cloneable&#123; private final static HungrySingleton hungrySingleton; static&#123; hungrySingleton = new HungrySingleton(); &#125; private HungrySingleton()&#123; //反射时处理，如果已存在则抛出异常 if(hungrySingleton != null)&#123; throw new RuntimeException("单例构造器禁止反射调用"); &#125; &#125; public static HungrySingleton getInstance()&#123; return hungrySingleton; &#125; private Object readResolve()&#123;//反序列化时会调用此方法，从而防止创建多个实例 return hungrySingleton; &#125; @Override protected Object clone() throws CloneNotSupportedException &#123; return getInstance(); &#125;&#125; 内部类处理方式相同 1234567891011121314public class StaticInnerClassSingleton &#123; private static class InnerClass&#123; private static StaticInnerClassSingleton staticInnerClassSingleton = new StaticInnerClassSingleton(); &#125; public static StaticInnerClassSingleton getInstance()&#123; return InnerClass.staticInnerClassSingleton; &#125; private StaticInnerClassSingleton()&#123; if(InnerClass.staticInnerClassSingleton != null)&#123; throw new RuntimeException("单例构造器禁止反射调用"); &#125; &#125;&#125; Effective java 推荐的枚举类型单例 1234567891011121314151617181920public class EnumSingleton &#123; //私有构造函数 private EnumSingleton()&#123;&#125; public static EnumSingleton getInstance()&#123; return Singleton.INSTANCE.getInstance(); &#125; private enum Singleton&#123; INSTANCE; private EnumSingleton singleton; //jvm保证这个方法绝对只调用一次 Singleton()&#123; singleton = new EnumSingleton(); &#125; public EnumSingleton getInstance()&#123; return singleton; &#125; &#125;&#125;]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>jenkins自动构建配置</title>
-      <link href="/2018/09/04/jenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E9%85%8D%E7%BD%AE/"/>
-      <url>/2018/09/04/jenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E9%85%8D%E7%BD%AE/</url>
-      
-        <content type="html"><![CDATA[<h4 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h4><ol><li>官网下载jenkins <a href="https://jenkins.io/" target="_blank" rel="noopener">jenkins</a></li><li>终端运行：java -jar jenkins.war –httpPort=8080  8080为端口号，可以自行设置</li><li>在浏览器中输入：<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>  访问jenkins服务</li><li>首次启动jenkins，出于安全考虑，jenkins会生成一个随机的口令到 /root/.jenkins/secrets/initialAdminPassword 文件中，复制文件中的口令到jenkins即可通过访问。</li></ol><h4 id="安装ant"><a href="#安装ant" class="headerlink" title="安装ant"></a>安装ant</h4><ol><li><p>官网下载Ant  <a href="http://ant.apache.org/" target="_blank" rel="noopener">Ant</a></p></li><li><p>配置环境变量</p><blockquote><p>ANT_HOME    ant的根路径</p><p>path             $ANT_HOME/bin</p><p>classpath      $ANT_HOME/lib</p></blockquote></li><li><p>验证   终端输入  ant     有正常的输出，则表示安装成功</p></li></ol><h4 id="配置tomcat"><a href="#配置tomcat" class="headerlink" title="配置tomcat"></a>配置tomcat</h4><ol><li><p>配置tomcat-users.xml 添加角色和用户</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"manager-gui"</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"manager-script"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">username</span>=<span class="string">"tomcat"</span> <span class="attr">password</span>=<span class="string">"123456"</span>  <span class="attr">roles</span>=<span class="string">"manager-gui, manager-script"</span>/&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>配置TOMCAT_HOME/conf/context.xml，在<context>元素中增加一个属性antiResourceLocking=”true” antiJARLocking=”true”，默认是”false”。</context></p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">antiResourceLocking</span>=<span class="string">"true"</span> <span class="attr">antiJARLocking</span>=<span class="string">"true"</span>&gt;</span></span><br></pre></td></tr></table></figure><p>以上为了解决Jenkins部署异常：The Tomcat Manager responded FAIL - Deployed application at context path]。</p><p>异常原因：</p><ul><li>Tomcat应用更新时，把新的WAR包放到webapps目录下，Tomcat就会自动把原来的同名webapp删除，并把WAR包解压，运行新的 webapp</li><li>但是，有时候Tomcat并不能把旧的webapp完全删除，通常会留下WEB-INF/lib下的某个jar包，必须关闭Tomcat才能删除，这就导致自动部署失败</li><li>解决方法是在<context>元素中增加一个属性antiResourceLocking=”true” antiJARLocking=”true”，默认是”false”。这样就可以热部署了</context></li><li>实际上，这两个参数就是配置Tomcat的资源锁定和Jar包锁定策略</li></ul></li></ol><h4 id="安装jenkins插件"><a href="#安装jenkins插件" class="headerlink" title="安装jenkins插件"></a>安装jenkins插件</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20180904185758.png" alt=""></p><p>安装svn插件 Subversion Plug-in</p><p>安装 Deploy to container Plugin 插件</p><h4 id="创建jenkins任务-svn-ant-tomcat"><a href="#创建jenkins任务-svn-ant-tomcat" class="headerlink" title="创建jenkins任务(svn+ant+tomcat)"></a>创建jenkins任务(svn+ant+tomcat)</h4><ol><li><p>新建任务，构建一个自由风格的软件项目<img src="http://ow83fnk93.bkt.clouddn.com/20180904190948.png" alt=""></p></li><li><p>svn 配置<img src="http://ow83fnk93.bkt.clouddn.com/20180904191202.png" alt=""></p></li><li><p>构建环境和构建<img src="http://ow83fnk93.bkt.clouddn.com/20180904191312.png" alt=""></p></li><li><p>构建后操作<img src="http://ow83fnk93.bkt.clouddn.com/20180904191529.png" alt=""></p></li></ol>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
-      <title>高性能js读书笔记</title>
-      <link href="/2018/08/07/%E9%AB%98%E6%80%A7%E8%83%BDjs%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-      <url>/2018/08/07/%E9%AB%98%E6%80%A7%E8%83%BDjs%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<h3 id="动态脚本元素"><a href="#动态脚本元素" class="headerlink" title="动态脚本元素"></a>动态脚本元素</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">script.src = <span class="string">"file1.js"</span>;</span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(script);</span><br></pre></td></tr></table></figure><p>这种技术的重点在于：无论何时启动下载，文件的下载和执行过程都不会阻塞页面其他进程。</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
-      <title>memcached</title>
-      <link href="/2018/08/05/memcached/"/>
-      <url>/2018/08/05/memcached/</url>
-      
-        <content type="html"><![CDATA[<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Libevent:</p><ol><li>官网下载，解压缩</li><li>./configure  –prefix=/opt/install/libevent</li><li>make &amp;&amp; make install</li></ol><p>memecached:</p><ol><li>解压缩</li><li>./configure –prefix=/opt/install/memcached  –with-libevent=/opt/install/libevent</li><li>make &amp;&amp; make instll</li></ol><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>启动参数：</p><blockquote><p>-d   启动一个守护进程</p><p>-m  分配给memcached 的内存数量（单位为M）</p><p>-u   运行memcached 的用户</p><p>-L  监听的服务器IP地址</p><p>-p  监听的端口号</p><p>-c  最大运行的并发连接数</p><p>-P  设置Pid 文件</p></blockquote><h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/memcached.png" alt=""></p><h3 id="java客户端"><a href="#java客户端" class="headerlink" title="java客户端"></a>java客户端</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/20180806231945.png" alt=""></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
-      <title>mac安装autojump</title>
-      <link href="/2018/08/01/mac%E5%AE%89%E8%A3%85autojump/"/>
-      <url>/2018/08/01/mac%E5%AE%89%E8%A3%85autojump/</url>
-      
-        <content type="html"><![CDATA[<ol><li><p>brew install autojump</p></li><li><p>编辑 vim ~/.zshrc</p><ul><li>找到 plugins=，在后面添加autojump：plugins=(git autojump)</li><li>新开一行，添加：[[ -s $(brew –prefix)/etc/profile.d/autojump.sh ]] &amp;&amp; . $(brew –prefix)/etc/profile.d/autojump.sh</li></ul></li><li><p>j  + 跳转的目录</p></li></ol>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
-      <title>tmux配置使用</title>
-      <link href="/2018/07/23/tmux%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/"/>
-      <url>/2018/07/23/tmux%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/</url>
-      
-        <content type="html"><![CDATA[<h3 id="什么是tmux"><a href="#什么是tmux" class="headerlink" title="什么是tmux"></a>什么是tmux</h3><p>tmux是一个工具，用于在终端窗口中运行多个终端会话，可以使终端会话进入后台运行。</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><blockquote><p>$ brew install tmux</p></blockquote><h3 id="快捷键前缀"><a href="#快捷键前缀" class="headerlink" title="快捷键前缀"></a>快捷键前缀</h3><p>为了使自身的快捷键不和其他软件的快捷键产生冲突，tmux提供了一个快捷键前缀。当使用快捷键时要先按下快捷键前缀，然后再按下快捷键，默认的前缀是Ctrl-b</p><h3 id="创建会话"><a href="#创建会话" class="headerlink" title="创建会话"></a>创建会话</h3><blockquote><p>tmux new -s <name-of-my-session></name-of-my-session></p></blockquote><p>假如还需要开发另一个项目，可以再创建一个新会话，但原来的会话不会消失，若要创建一个新会话，只需要按下</p><p><prefix> :，然后输入</prefix></p><blockquote><p>new -s <name-of-my-new-session></name-of-my-new-session></p></blockquote><p>除非显式的关闭会话，否则tmux的会话在重启计算机之前都不会消失。</p><h3 id="切换会话"><a href="#切换会话" class="headerlink" title="切换会话"></a>切换会话</h3><ol><li><p>获取会话列表</p><blockquote><p><prefix> s</prefix></p></blockquote><p>列表中的每个会话都有一个 ID，该 ID 是从 0 开始的。按下对应的 ID 就可以进入会话。如果你已经创建了一个或多个会话，但是还没有运行 tmux，那么可以输入如下命令以接入已开启的会话:</p><blockquote><p>tmux attach</p></blockquote></li><li><p>会话外获取会话列表：</p><blockquote><p>tmux  ls</p><p>tmux attach/a -t   <name-of-session>    在会话外进入session</name-of-session></p><p>tmux attach/a   进入列表第一个会话</p><p><prefix> d    临时退出但不删除会话</prefix></p><p><prefix> :kill-session 在会话内退出并删除session</prefix></p><p><prefix> :kill-server 删除所有session</prefix></p><p>tmux kill-session -t <name-of-session> 在会话外删除指定session  </name-of-session></p></blockquote></li></ol><h3 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h3><p>一个tmux中可以包含多个窗口。</p><blockquote><p><prefix> c   创建窗口</prefix></p><p><prefix> w  查看窗口列表</prefix></p><p><prefix> 0 切换到指定窗口，窗口对应的数字</prefix></p><p><prefix> n 切换到下一个窗口</prefix></p><p><prefix> p 切换到上一个窗口</prefix></p><p><prefix> l 在相邻的两个窗口切换</prefix></p><p><prefix> , 重命名窗口</prefix></p><p><prefix> f 在多个窗口里搜索关键字</prefix></p><p><prefix> &amp; 删除窗口</prefix></p></blockquote><h3 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h3><p>一个tmux窗口可以分割成多个窗格，并且窗格可以在不同的窗口中移动、合并、拆分。</p><blockquote><p><prefix> “  水平分割</prefix></p><p><prefix> % 垂直分割</prefix></p><p><prefix> o 按顺序在Pane之间移动</prefix></p><p><prefix> 方向键   上下左右选择pane</prefix></p><p><prefix> :resize-pane -U   #向上调整大小</prefix></p><p><prefix> :resize-pane -D #向下</prefix></p><p><prefix> :resize-pane -L #向左</prefix></p><p><prefix> :resize-pane -R #向右</prefix></p><p><prefix> :resize-pane -D 5 #向下移动5行</prefix></p><p><prefix>  { （往左边，往上面）</prefix></p><p><prefix>  } （往右边，往下面）</prefix></p><p><prefix> x 删除pane</prefix></p><p><prefix> 空格  更换pane排版</prefix></p><p><prefix> ！ 移动pane至新的window</prefix></p><p><prefix> :join-pane -t $window_name   移动pane合并至某个window</prefix></p><p><prefix>  Ctrl+o   按顺序移动pane位置</prefix></p><p><prefix>  q 显示pane编号</prefix></p></blockquote><h3 id="滚动屏幕"><a href="#滚动屏幕" class="headerlink" title="滚动屏幕"></a>滚动屏幕</h3><blockquote><p><prefix>  [  进入copy-mode 模式，就可以进行屏幕滚动，q键退出。</prefix></p></blockquote>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
-      <title>svn安装和配置</title>
-      <link href="/2018/07/16/svn%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/"/>
-      <url>/2018/07/16/svn%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
-      
-        <content type="html"><![CDATA[<ol><li><p>安装服务器端程序</p><blockquote><p>yum install -y subversion</p></blockquote></li><li><p>创建并配置版本库</p><ul><li><p>创建版本库目录</p><blockquote><p>mkdir -p /var/svn/repository</p></blockquote><p>版本库目录下创建具体的项目目录（可以多个）</p></li><li><p>创建svn版本库</p><blockquote><p>svnadmin  create /var/svn/repository/项目目录</p></blockquote></li></ul></li><li><p>配置svn对应的服务</p><ul><li><blockquote><p>svn://ip:3690/项目目录  （默认端口号3690）</p></blockquote></li><li><p>修改服务配置</p><p>/etc/rc.d/init.d/svnserve (注意备份)</p><p>原版：args=”–daemon –pid-file=${pidfile} $OPTIONS”</p><p>修改版：args=”–daemon –root=/var/svn/repository(版本库根目录) –listen-port 2255(实际的端口号) –pid-file=${pidfile} $OPTIONS”</p></li><li><p>启动svn服务</p><blockquote><p>service  svnserve start </p></blockquote></li></ul></li><li><p>命令行客户端</p><ul><li><p>检出（完整下载版本库中的全部内容）</p><blockquote><p>svn checkout svn://ip/项目目录  本地目录</p></blockquote></li><li><p>工作副本 </p><ul><li>.svn所在目录为工作副本。</li><li>版本控制相关操作都要在工作副本目录下执行。</li><li>为了保证工作副本能够正常和服务器进行交互，一般不要删除.svn中的内容。</li></ul></li><li><p>添加</p><ul><li><p>svn 要求提交一个新建的文件前先把这个文件添加到版本控制体系中。</p><blockquote><p>svn add 文件名 </p></blockquote></li><li><p>svn提交</p><blockquote><p>svn commit -m “提交信息” 要提交的文件</p></blockquote></li></ul></li><li><p>查看服务器端文件内容</p><blockquote><p>svn list svn:ip/项目目录 </p></blockquote></li><li><p>更新</p><blockquote><p>svn update [文件名]</p></blockquote></li></ul></li><li><p>svn权限管理</p><ul><li><p>三个对应的配置文件</p><ul><li><p>conf/svnserve.conf </p><blockquote><p>anon-access = read   匿名访问</p><p>auth-access = write  授权访问 （注意空格）</p><p>passwd-db= passwd 指定设置用户名密码的配置文件</p><p>authz-db=authz 分配权限的配置文件 </p></blockquote></li><li><p>conf/passwd</p><p>用户名 = 密码</p></li><li><p>conf/authz</p><blockquote><p>[groups]创建用户组  组名=组员，组员（使用，隔开）</p><p>[/] （/表示版本库根目录）</p><p>@组名=rw   配置组权限</p><p>用户名=r     配置用户名权限</p><p>*=               其他人没有权限</p></blockquote></li></ul></li></ul></li></ol>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
-      <title>vim笔记</title>
-      <link href="/2018/07/15/vim%E7%AC%94%E8%AE%B0/"/>
-      <url>/2018/07/15/vim%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<ol><li><p>有些时候当我们使用Vi/Vim编辑文件时如果没有注意到文件权限的时候，当最后进行保存时候的可能会提示以下错误，如果强制退出后再切换用户，肯定会丢失当前的改动，可以按下边的方法执行：</p><blockquote><p>在Vi/Vim编辑器进入冒号，然后输入以下命令  %! sudo tee % /dev/null</p><p>此时会提示输入sudo用户的密码</p></blockquote></li></ol>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> vim </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>effective-java读书笔记2</title>
-      <link href="/2018/07/14/effective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B02/"/>
-      <url>/2018/07/14/effective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B02/</url>
-      
-        <content type="html"><![CDATA[<h5 id="第一条：考虑用静态工厂方法代替构造器"><a href="#第一条：考虑用静态工厂方法代替构造器" class="headerlink" title="第一条：考虑用静态工厂方法代替构造器"></a>第一条：考虑用静态工厂方法代替构造器</h5><h6 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h6><ul><li><p>静态工厂方法有名字，当一个类需要多个带有相同签名的构造器时，就用静态工厂方法代替构造器，并且慎重的选择名称以便突出他们之间的区别。</p></li><li><p>不必在每次调用它们的时候都创建一个新对象。</p></li><li><p>它们可以返回原返回类型的任何子类型的对象。这样我们在选择返回对象的类时就有了更大的灵活性。</p></li><li><p>创建参数化类型实例的时候，它们使代码变得更加简洁(但在新版本的java中已经可以省略)</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure></li></ul><p>劣势</p><ul><li>类如果不含公有的或者受保护的构造器，就不能被子类化。</li><li>它们与其它的静态方法实际上没有任何区别。在API文档中，它们没有像构造器那样在API文档中明确的标识出来。因此要想查明如何实例化一个类非常困难。</li></ul><h5 id="第六条：避免创建不必要的对象"><a href="#第六条：避免创建不必要的对象" class="headerlink" title="第六条：避免创建不必要的对象"></a>第六条：避免创建不必要的对象</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"bikini"</span>); <span class="comment">// DON'T DO THIS!</span></span><br><span class="line">String s = <span class="string">"bikini"</span>; <span class="comment">//good</span></span><br></pre></td></tr></table></figure><p>判断一个字符串是否是一个合法的罗马数字：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Performance can be greatly improved! 每次调用都会创建Pattern实例，非常昂贵的</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isRomanNumeral</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> s.matches(<span class="string">"^(?=.)M*(C[MD]|D?C&#123;0,3&#125;)"</span></span><br><span class="line">+ <span class="string">"(X[CL]|L?X&#123;0,3&#125;)(I[XV]|V?I&#123;0,3&#125;)$"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reusing expensive object for improved performance</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RomanNumerals</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Pattern ROMAN = Pattern.compile(</span><br><span class="line">        <span class="string">"^(?=.)M*(C[MD]|D?C&#123;0,3&#125;)"</span></span><br><span class="line">        + <span class="string">"(X[CL]|L?X&#123;0,3&#125;)(I[XV]|V?I&#123;0,3&#125;)$"</span>);</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isRomanNumeral</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> ROMAN.matcher(s).matches();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>自动装箱、拆箱（要优先使用基本类型而不是装箱基本类型，当心无意识的自动装箱）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">sum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Long sum = <span class="number">0L</span>; <span class="comment">//使用long将更快</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt;= Integer.MAX_VALUE; i++)</span><br><span class="line">sum += i;</span><br><span class="line"><span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="第七条：消除过期的对象引用"><a href="#第七条：消除过期的对象引用" class="headerlink" title="第七条：消除过期的对象引用"></a>第七条：消除过期的对象引用</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Can you spot the "memory leak"?</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> Object[] elements;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">16</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Stack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    elements = <span class="keyword">new</span> Object[DEFAULT_INITIAL_CAPACITY];</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">        ensureCapacity();</span><br><span class="line">        elements[size++] = e;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">        <span class="keyword">return</span> elements[--size];</span><br><span class="line">    &#125; /</span><br><span class="line">    **</span><br><span class="line">    * Ensure space <span class="keyword">for</span> at least one more element, roughly</span><br><span class="line">    * doubling the capacity each time the array needs to grow.</span><br><span class="line">    */</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (elements.length == size)</span><br><span class="line">        elements = Arrays.copyOf(elements, <span class="number">2</span> * size + <span class="number">1</span>);</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure><p>解决内存泄漏</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">    Object result = elements[--size];</span><br><span class="line">    elements[size] = <span class="keyword">null</span>; <span class="comment">// Eliminate obsolete reference</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>一般而言，只要类时自己管理内存，程序员就应该警惕内存泄漏问题</strong>，一旦元素被释放掉，则该元素中包含的任何对象引用都应该被清空。</p><h5 id="第八条：覆盖equals时请遵守通用约定。"><a href="#第八条：覆盖equals时请遵守通用约定。" class="headerlink" title="第八条：覆盖equals时请遵守通用约定。"></a>第八条：覆盖equals时请遵守通用约定。</h5><ul><li><p>什么条件下，不需要覆盖equals:</p><blockquote><p>类的每个实例本质上都是唯一的。代表活动实体而不是值的类来说确实如此。</p><p>不关心类是否提供了“逻辑相等“的测试功能。</p><p>超类已经覆盖了equals,从超类继承过来的行为对于子类也是合适的。</p><p>类是私有的或者包级私有的，可以确定它的equals方法永远不会被调用。</p></blockquote></li><li><p>什么时候应该覆盖equals方法：</p><blockquote><p>如果类具有自己特有的“逻辑相等”概念（不同于对象等同的概念），而且超类还没有覆盖equals以实现期望的行为。</p></blockquote></li><li><p>覆盖时必须遵守的通用约定：</p><blockquote><p>自反性：x.equals(x)返回true。</p><p>对称性：x.equals(y) == y.equals(x)。</p><p>传递性：x.equals(y)  y.equals(z)  x.equals(z)。</p><p>一致性：只要对象没有被修改，多次调用返回一致。</p></blockquote><p><strong>我们无法在扩展    可实例化的类的同时，既增加新的值组件，同时又保留equals约定</strong></p></li><li><p>实现高质量equals方法的诀窍：</p><ol><li>使用==操作符检查“参数是否为这个对象的引用”。</li><li>使用instanceof操作符检查参数是否为正确的类型。</li><li>把参数转换成正确的类型。</li><li>检查参数中的域是否与该对象中对应的域相匹配。对于既不是float也不是double类型的基本类型域，可以使用==操作符进行比较；对于对象引用域，可以递归的调用equals方法；对于float域，可以使用Float.compare方法，对于double域，则使用Double.compare。对于数组域，Arrays.equals()方法。</li></ol></li></ul>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>cmder配置使用</title>
-      <link href="/2018/07/14/cmder%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/"/>
-      <url>/2018/07/14/cmder%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/</url>
-      
-        <content type="html"><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p><a href="http://cmder.net/" target="_blank" rel="noopener">cmder官网</a></p><p>下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版 cmder 自带了 msysgit, 压缩包 23M, 除了 git 本身这个命令之外, 里面可以使用大量的 linux 命令；比如 grep, curl(没有 wget)； 像vim, grep, tar, unzip, ssh, ls, bash, perl 对于爱折腾的Coder更是痛点需求。 </p><h5 id="配置cmder"><a href="#配置cmder" class="headerlink" title="配置cmder"></a>配置cmder</h5><ol><li><p>把 cmder 加到环境变量：可以把<code>Cmder.exe</code>存放的目录添加到系统环境变量；加完之后，<code>Win+r</code>一下输入<code>cmder</code>，即可。 </p></li><li><p>添加 cmder 到右键菜单：在某个文件夹中打开终端，在管理员权限的终端输入以下语句即可： </p><blockquote><p>Cmder.exe /REGISTER ALL</p></blockquote></li></ol><h5 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h5><ul><li>可以利用<code>Tab</code>，自动路径补全；</li><li>可以利用Ctrl+T建立新页签；</li><li>利用Ctrl+W关闭页签;</li><li>还可以透过Ctrl+Tab切换页签;</li><li>Alt+F4：关闭所有页签</li><li>Alt+Shift+1：开启cmd.exe</li><li>Alt+Shift+2：开启powershell.exe</li><li>Alt+Shift+3：开启powershell.exe (系统管理员权限)</li><li>Ctrl+1：快速切换到第1个页签</li><li>Ctrl+n：快速切换到第n个页签( n值无上限)</li><li>Alt + enter： 切换到全屏状态；</li><li>Ctr+r 历史命令搜索;</li><li>End, Home, Ctrl : Traversing text with as usual on Windows</li></ul>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> windows </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>js高级程序设计-读书笔记2</title>
-      <link href="/2018/05/04/js%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B02/"/>
-      <url>/2018/05/04/js%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B02/</url>
-      
-        <content type="html"><![CDATA[<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><ol><li><p>Object类型<br> 创建Object实例的方式有两种：</p> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  person.name = <span class="string">"Nicholas"</span>;</span><br><span class="line">  person.age = <span class="number">29</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//字面量方式:</span></span><br><span class="line">  <span class="keyword">var</span> person = &#123;</span><br><span class="line">      name : <span class="string">"Nicholas"</span>,</span><br><span class="line">      age :<span class="number">29</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li></ol><p>一般来说，可以使用点表示法来访问对象属性，但也可以使用[]来访问对象属性，应该将要访问的属性以字符串的形式放在[]中，[]方法的主要优点是可以通过变量来访问属性。</p><ol><li><p>Array类型 </p><ol><li>创建方式：</li></ol><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">  <span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">20</span>);</span><br><span class="line">  <span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"green"</span>);</span><br><span class="line">  <span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">3</span>);<span class="comment">//创建一个包含三项的数组</span></span><br><span class="line">  <span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">"Greg"</span>);<span class="comment">//创建包含"Greg"一项的数组</span></span><br><span class="line">  <span class="keyword">var</span> colors = <span class="built_in">Array</span>();<span class="comment">//new 可以省略</span></span><br><span class="line">  <span class="keyword">var</span> colors = [];</span><br><span class="line">  <span class="keyword">var</span> colors = [<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"green"</span>]</span><br><span class="line">  <span class="keyword">var</span> colors = [<span class="string">"red"</span>,<span class="string">"blue"</span>,]<span class="comment">//不要这样，这样会创建一个包含两个或三个的数组</span></span><br><span class="line">  <span class="keyword">var</span> colors = [,,,,,] <span class="comment">//不要这样，这样会创建一个包含五个或六个的数组</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> colors = [<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"green"</span>];</span><br><span class="line">colors.length = <span class="number">2</span>;</span><br><span class="line">alert(colors[<span class="number">2</span>]) ; <span class="comment">//undefined</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">var</span> colors = [<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"green"</span>];</span><br><span class="line">colors.length = <span class="number">4</span>;</span><br><span class="line">alert(colors[<span class="number">3</span>]); <span class="comment">//undefined</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">//利用length可以很方便的在数组末尾添加新项:</span></span><br><span class="line"><span class="keyword">var</span> colors = [<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"green"</span>];</span><br><span class="line">colors[colors.length] = <span class="string">"black"</span>;</span><br><span class="line">colors[colors.length] = <span class="string">"brown"</span>;</span><br></pre></td></tr></table></figure></li></ol><ol><li>数组的每一项都可以保存任何类型的数据。</li><li><p>检测数组:    </p> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="built_in">Array</span>)&#123;</span><br><span class="line">    <span class="comment">//对数组执行某些操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><p>instanceof操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的Array构造函数。如果从一个框架向另一个框架传入数组，那么传入的数组与第二个框架原生创建的数组分别具有各自不同的构造函数，要解决这个问题，es5新增了Array.isArray()方法，这个方法的目的是最终确定某个值到底是不是数组，而不管他是在哪个全局执行环境中创建的。 </p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(value))&#123;</span><br><span class="line">    <span class="comment">//对数组执行某些操作</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">5. 转换方法</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">所有对象都具有toLocalString()、toString()、valueOf()方法。调用数组的toString()方法会返回有数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串。而调用valueOf()返回的还是数组。实际上，为了创建这个字符串会调用数组每一项的toString()方法。</span></span><br><span class="line"><span class="string">如果数组中的某一项的值是null、undefined,那么该值在join()、toLocalString()、toString()、valueOf()返回的结果中以空字符串表示。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">6. 栈方法</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. push()可以接收任意数量的参数，把他们逐个添加到数组的末尾，并返回修改后数组的长度</span></span><br><span class="line"><span class="string">   2. pop()方法从数组末尾移除最后一项，减少数组的length值，返回移除的项</span></span><br><span class="line"><span class="string">7. 队列方法</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. 由于push()是向数组末尾添加项的方法，因此要模拟队列只需一个从数组前端取得项的方法。实现这一操作的方法是shift(),他能够移除数组中的第一个项并返回该项，同时将数组长度减一。结合shift()和push()方法，可以像使用队列一样使用数组。</span></span><br><span class="line"><span class="string">   2. unshift()与shift()用途相反，它可以在数组前端添加任意项并返回新数组的长度。因此，同时使用unshift()和pop()方法，可以从相反的方向来模拟队列</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">8. 排序</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. sort()方法会调用每个数组项的toString()转型方法，然后比较得到的字符串，以确定如何排序。即使数组中的每一项都是数值，sort方法比较的也是字符串，如下：</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string">      `</span><span class="string">``</span>js </span><br><span class="line">      <span class="keyword">var</span> values = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">15</span>]</span><br><span class="line">      values.sort()</span><br><span class="line">      alert(values)  <span class="comment">//0,1,10,15,5</span></span><br></pre></td></tr></table></figure><pre><code>2. sort()方法可以接收一个比较函数作为参数，以便我们指定那个值位于那个值得前面。比较函数接收两个参数，如果第一个参数应该位于第二个之前则返回一个负数，如果两个参数相等则返回0，如何第一个参数应该位于第二个之后则返回一个正数。    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">v1,v2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(v1 &lt; v2)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(v1&gt;v2)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">values.sort(compare); <span class="comment">// 15,10,5,1,0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对于数值类型或者valueOf()方法会返回数值类型的对象类型，可以使用一个更简单的比较函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">v1,v2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> v1 - v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><ol><li><p>操作方法</p><ol><li><p>concat()该方法会先创建当前数组一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回新构建的数组。在没有给concat()传递参数的情况下，它只是复制当前数组并返回副本。如果传递给concat()方法的是一个或多个数组，则该方法会将这些数组中的每一项都添加到结果数组中。如果传递的值不是数组，这些值就会简单的添加到结果数组的末尾。例如：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [<span class="string">'red'</span>,<span class="string">'green'</span>,<span class="string">'blue'</span>];</span><br><span class="line"><span class="keyword">var</span> colors2 = colors.cancat(<span class="string">'yellow'</span>,[<span class="string">'black'</span>,<span class="string">'brown'</span>]);</span><br><span class="line">alert(colors) <span class="comment">//red,green,blue</span></span><br><span class="line">alert(colors2) <span class="comment">//red,green,blue,yellow,black,brown</span></span><br></pre></td></tr></table></figure></li></ol></li></ol><ol><li>slice()基于当前数组中的一个或多个项创建一个新数组。slice()方法接收一或两个参数，即要返回项的起始和结束位置。在只有一个参数的情况下，slice()返回从该参数指定位置开始到当前数组末尾的所有项。如果有两个参数，该方法返回起始和结束位置之间的项，但不包括结束位置的项。slice()方法不会影响原始数组。</li><li><p>splice()</p><ul><li>删除：可以删除任意数量的项，只需指定2个参数：要删除的第    一项的位置和要删除的项数</li><li>插入：可以向指定位置插入任意数量的项，只需提供三个参数：起始位置、0(要删除的项数)和要插入的项。如果要插入多个项，可以再传入第四、第五，一直任意多个项。</li><li><p>替换：可以向指定位置插入任意数量的项，且同时删除任意数量的项，只需指定3个参数：起始位置、要删除的项数和要插入的任意数量的项。插入的项不必与删除的项数相等。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [<span class="string">'red'</span>,<span class="string">'green'</span>,<span class="string">'blue'</span>];</span><br><span class="line"><span class="keyword">var</span> removed = colors.splice(<span class="number">0</span>,<span class="number">1</span>);<span class="comment">//删除第一项</span></span><br><span class="line">alert(colors) <span class="comment">//green,blue</span></span><br><span class="line">alert(removed) <span class="comment">//red</span></span><br><span class="line"></span><br><span class="line">removed = colors.splice(<span class="number">1</span>,<span class="number">0</span>,<span class="string">'yellow'</span>,<span class="string">'orange'</span>);<span class="comment">//从位置1开始插入两项</span></span><br><span class="line">alert(colors) <span class="comment">//green,yellow,orange,blue</span></span><br><span class="line">alert(removed) <span class="comment">//返回的是一个空数组</span></span><br><span class="line"></span><br><span class="line">removed = colors.splice(<span class="number">1</span>,<span class="number">1</span>,<span class="string">'red'</span>,<span class="string">'purple'</span>)</span><br><span class="line">alert(colors) <span class="comment">//green,red,purple,orange,blue</span></span><br><span class="line">alert(removed) <span class="comment">// yellow</span></span><br></pre></td></tr></table></figure></li></ul></li></ol><ol><li><p>位置方法:</p><ol><li>indexOf()从数组的开头开始向后查找</li><li>lastIndexOf()从数组的末尾开始向前查找</li><li>这两个方法都返回要查找的项在数组中的位置，在没有找到的情况下返回-1。在比较第一个参数和数组中的每一项时，会使用全等操作符</li></ol></li><li><p>迭代方法：每个方法都接收两个参数：要在每一项上运行的函数和(可选的)运行该函数的作用域对象–影响this的值。传入这些方法的函数会接收三个参数：数组项的值，该项在数组中的位置和数组对象本身。</p><ol><li>every():对数组中的每一项运行给定函数，如果该函数对每一项都返回true,则返回true.</li><li>filter():对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组。</li><li>forEach():对数组中的每一项运行给定函数,没有返回值。</li><li>map():对数组中的每一项运行给定函数,返回每次函数调用的结果组成的数组。</li><li>some():对数组中的每一项运行给定函数,如果该函数对任一项返回true,则返回true。</li></ol><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> everyResult = numbers.every(<span class="function"><span class="keyword">function</span>(<span class="params">item,index,array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (item &gt;<span class="number">2</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li></ol><ol><li><p>归并方法：这两个方法都接收两个参数：一个在每一项上调用的函数和(可选的)作为归并基础的初始值。传给reduce()和reduceRight()的函数接收四个参数：前一个值、当前值、项的索引和数组对象</p><ol><li>reduce()迭代数组中的每一项，构建一个最终的返回值，从数组的第一项开始。</li><li>reduceRight()从数组的最后一项向前遍历。</li></ol><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> values = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> sum = values.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev,cur,index,array(</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> prev+cur;</span><br><span class="line"> &#125;);</span><br><span class="line"> alert(sum) <span class="comment">//15</span></span><br></pre></td></tr></table></figure></li></ol>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[jenkins自动构建配置]]></title>
+    <url>%2F2018%2F09%2F04%2Fjenkins%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[安装jenkins 官网下载jenkins jenkins 终端运行：java -jar jenkins.war –httpPort=8080 8080为端口号，可以自行设置 在浏览器中输入：http://localhost:8080 访问jenkins服务 首次启动jenkins，出于安全考虑，jenkins会生成一个随机的口令到 /root/.jenkins/secrets/initialAdminPassword 文件中，复制文件中的口令到jenkins即可通过访问。 安装ant 官网下载Ant Ant 配置环境变量 ANT_HOME ant的根路径 path $ANT_HOME/bin classpath $ANT_HOME/lib 验证 终端输入 ant 有正常的输出，则表示安装成功 配置tomcat 配置tomcat-users.xml 添加角色和用户 123&lt;role rolename="manager-gui"/&gt; &lt;role rolename="manager-script"/&gt;&lt;user username="tomcat" password="123456" roles="manager-gui, manager-script"/&gt; 配置TOMCAT_HOME/conf/context.xml，在元素中增加一个属性antiResourceLocking=”true” antiJARLocking=”true”，默认是”false”。 1&lt;Context antiResourceLocking="true" antiJARLocking="true"&gt; 以上为了解决Jenkins部署异常：The Tomcat Manager responded FAIL - Deployed application at context path]。 异常原因： Tomcat应用更新时，把新的WAR包放到webapps目录下，Tomcat就会自动把原来的同名webapp删除，并把WAR包解压，运行新的 webapp 但是，有时候Tomcat并不能把旧的webapp完全删除，通常会留下WEB-INF/lib下的某个jar包，必须关闭Tomcat才能删除，这就导致自动部署失败 解决方法是在元素中增加一个属性antiResourceLocking=”true” antiJARLocking=”true”，默认是”false”。这样就可以热部署了 实际上，这两个参数就是配置Tomcat的资源锁定和Jar包锁定策略 安装jenkins插件 安装svn插件 Subversion Plug-in 安装 Deploy to container Plugin 插件 创建jenkins任务(svn+ant+tomcat) 新建任务，构建一个自由风格的软件项目 svn 配置 构建环境和构建 构建后操作]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[高性能js读书笔记]]></title>
+    <url>%2F2018%2F08%2F07%2F%E9%AB%98%E6%80%A7%E8%83%BDjs%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[动态脚本元素1234var script = document.createElement("script");script.type = "text/javascript";script.src = "file1.js";document.getElementsByTagName("head")[0].appendChild(script); 这种技术的重点在于：无论何时启动下载，文件的下载和执行过程都不会阻塞页面其他进程。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[memcached]]></title>
+    <url>%2F2018%2F08%2F05%2Fmemcached%2F</url>
+    <content type="text"><![CDATA[安装Libevent: 官网下载，解压缩 ./configure –prefix=/opt/install/libevent make &amp;&amp; make install memecached: 解压缩 ./configure –prefix=/opt/install/memcached –with-libevent=/opt/install/libevent make &amp;&amp; make instll 启动启动参数： -d 启动一个守护进程 -m 分配给memcached 的内存数量（单位为M） -u 运行memcached 的用户 -L 监听的服务器IP地址 -p 监听的端口号 -c 最大运行的并发连接数 -P 设置Pid 文件 操作 java客户端]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[mac安装autojump]]></title>
+    <url>%2F2018%2F08%2F01%2Fmac%E5%AE%89%E8%A3%85autojump%2F</url>
+    <content type="text"><![CDATA[brew install autojump 编辑 vim ~/.zshrc 找到 plugins=，在后面添加autojump：plugins=(git autojump) 新开一行，添加：[[ -s $(brew –prefix)/etc/profile.d/autojump.sh ]] &amp;&amp; . $(brew –prefix)/etc/profile.d/autojump.sh j + 跳转的目录]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[tmux配置使用]]></title>
+    <url>%2F2018%2F07%2F23%2Ftmux%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[什么是tmuxtmux是一个工具，用于在终端窗口中运行多个终端会话，可以使终端会话进入后台运行。 安装 $ brew install tmux 快捷键前缀为了使自身的快捷键不和其他软件的快捷键产生冲突，tmux提供了一个快捷键前缀。当使用快捷键时要先按下快捷键前缀，然后再按下快捷键，默认的前缀是Ctrl-b 创建会话 tmux new -s 假如还需要开发另一个项目，可以再创建一个新会话，但原来的会话不会消失，若要创建一个新会话，只需要按下 :，然后输入 new -s 除非显式的关闭会话，否则tmux的会话在重启计算机之前都不会消失。 切换会话 获取会话列表 s 列表中的每个会话都有一个 ID，该 ID 是从 0 开始的。按下对应的 ID 就可以进入会话。如果你已经创建了一个或多个会话，但是还没有运行 tmux，那么可以输入如下命令以接入已开启的会话: tmux attach 会话外获取会话列表： tmux ls tmux attach/a -t 在会话外进入session tmux attach/a 进入列表第一个会话 d 临时退出但不删除会话 :kill-session 在会话内退出并删除session :kill-server 删除所有session tmux kill-session -t 在会话外删除指定session 窗口一个tmux中可以包含多个窗口。 c 创建窗口 w 查看窗口列表 0 切换到指定窗口，窗口对应的数字 n 切换到下一个窗口 p 切换到上一个窗口 l 在相邻的两个窗口切换 , 重命名窗口 f 在多个窗口里搜索关键字 &amp; 删除窗口 窗格一个tmux窗口可以分割成多个窗格，并且窗格可以在不同的窗口中移动、合并、拆分。 “ 水平分割 % 垂直分割 o 按顺序在Pane之间移动 方向键 上下左右选择pane :resize-pane -U #向上调整大小 :resize-pane -D #向下 :resize-pane -L #向左 :resize-pane -R #向右 :resize-pane -D 5 #向下移动5行 { （往左边，往上面） } （往右边，往下面） x 删除pane 空格 更换pane排版 ！ 移动pane至新的window :join-pane -t $window_name 移动pane合并至某个window Ctrl+o 按顺序移动pane位置 q 显示pane编号 滚动屏幕 [ 进入copy-mode 模式，就可以进行屏幕滚动，q键退出。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[svn安装和配置]]></title>
+    <url>%2F2018%2F07%2F16%2Fsvn%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[安装服务器端程序 yum install -y subversion 创建并配置版本库 创建版本库目录 mkdir -p /var/svn/repository 版本库目录下创建具体的项目目录（可以多个） 创建svn版本库 svnadmin create /var/svn/repository/项目目录 配置svn对应的服务 svn://ip:3690/项目目录 （默认端口号3690） 修改服务配置 /etc/rc.d/init.d/svnserve (注意备份) 原版：args=”–daemon –pid-file=${pidfile} $OPTIONS” 修改版：args=”–daemon –root=/var/svn/repository(版本库根目录) –listen-port 2255(实际的端口号) –pid-file=${pidfile} $OPTIONS” 启动svn服务 service svnserve start 命令行客户端 检出（完整下载版本库中的全部内容） svn checkout svn://ip/项目目录 本地目录 工作副本 .svn所在目录为工作副本。 版本控制相关操作都要在工作副本目录下执行。 为了保证工作副本能够正常和服务器进行交互，一般不要删除.svn中的内容。 添加 svn 要求提交一个新建的文件前先把这个文件添加到版本控制体系中。 svn add 文件名 svn提交 svn commit -m “提交信息” 要提交的文件 查看服务器端文件内容 svn list svn:ip/项目目录 更新 svn update [文件名] svn权限管理 三个对应的配置文件 conf/svnserve.conf anon-access = read 匿名访问 auth-access = write 授权访问 （注意空格） passwd-db= passwd 指定设置用户名密码的配置文件 authz-db=authz 分配权限的配置文件 conf/passwd 用户名 = 密码 conf/authz [groups]创建用户组 组名=组员，组员（使用，隔开） [/] （/表示版本库根目录） @组名=rw 配置组权限 用户名=r 配置用户名权限 *= 其他人没有权限]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[vim笔记]]></title>
+    <url>%2F2018%2F07%2F15%2Fvim%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[有些时候当我们使用Vi/Vim编辑文件时如果没有注意到文件权限的时候，当最后进行保存时候的可能会提示以下错误，如果强制退出后再切换用户，肯定会丢失当前的改动，可以按下边的方法执行： 在Vi/Vim编辑器进入冒号，然后输入以下命令 %! sudo tee % /dev/null 此时会提示输入sudo用户的密码]]></content>
+      <tags>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[effective-java读书笔记2]]></title>
+    <url>%2F2018%2F07%2F14%2Feffective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B02%2F</url>
+    <content type="text"><![CDATA[第一条：考虑用静态工厂方法代替构造器优势： 静态工厂方法有名字，当一个类需要多个带有相同签名的构造器时，就用静态工厂方法代替构造器，并且慎重的选择名称以便突出他们之间的区别。 不必在每次调用它们的时候都创建一个新对象。 它们可以返回原返回类型的任何子类型的对象。这样我们在选择返回对象的类时就有了更大的灵活性。 创建参数化类型实例的时候，它们使代码变得更加简洁(但在新版本的java中已经可以省略) 1List&lt;String&gt; list = new ArrayList&lt;String&gt;(); 劣势 类如果不含公有的或者受保护的构造器，就不能被子类化。 它们与其它的静态方法实际上没有任何区别。在API文档中，它们没有像构造器那样在API文档中明确的标识出来。因此要想查明如何实例化一个类非常困难。 第六条：避免创建不必要的对象12String s = new String("bikini"); // DON'T DO THIS!String s = "bikini"; //good 判断一个字符串是否是一个合法的罗马数字： 123456789101112131415// Performance can be greatly improved! 每次调用都会创建Pattern实例，非常昂贵的static boolean isRomanNumeral(String s) &#123;return s.matches("^(?=.)M*(C[MD]|D?C&#123;0,3&#125;)"+ "(X[CL]|L?X&#123;0,3&#125;)(I[XV]|V?I&#123;0,3&#125;)$");&#125;// Reusing expensive object for improved performancepublic class RomanNumerals &#123; private static final Pattern ROMAN = Pattern.compile( "^(?=.)M*(C[MD]|D?C&#123;0,3&#125;)" + "(X[CL]|L?X&#123;0,3&#125;)(I[XV]|V?I&#123;0,3&#125;)$"); static boolean isRomanNumeral(String s) &#123; return ROMAN.matcher(s).matches(); &#125;&#125; 自动装箱、拆箱（要优先使用基本类型而不是装箱基本类型，当心无意识的自动装箱） 123456private static long sum() &#123; Long sum = 0L; //使用long将更快 for (long i = 0; i &lt;= Integer.MAX_VALUE; i++) sum += i; return sum;&#125; 第七条：消除过期的对象引用12345678910111213141516171819202122232425// Can you spot the "memory leak"?public class Stack &#123; private Object[] elements; private int size = 0; private static final int DEFAULT_INITIAL_CAPACITY = 16; public Stack() &#123; elements = new Object[DEFAULT_INITIAL_CAPACITY]; &#125; public void push(Object e) &#123; ensureCapacity(); elements[size++] = e; &#125; public Object pop() &#123; if (size == 0) throw new EmptyStackException(); return elements[--size]; &#125; / ** * Ensure space for at least one more element, roughly * doubling the capacity each time the array needs to grow. */ private void ensureCapacity() &#123; if (elements.length == size) elements = Arrays.copyOf(elements, 2 * size + 1);&#125;&#125; 解决内存泄漏 1234567public Object pop() &#123; if (size == 0) throw new EmptyStackException(); Object result = elements[--size]; elements[size] = null; // Eliminate obsolete reference return result;&#125; 一般而言，只要类时自己管理内存，程序员就应该警惕内存泄漏问题，一旦元素被释放掉，则该元素中包含的任何对象引用都应该被清空。 第八条：覆盖equals时请遵守通用约定。 什么条件下，不需要覆盖equals: 类的每个实例本质上都是唯一的。代表活动实体而不是值的类来说确实如此。 不关心类是否提供了“逻辑相等“的测试功能。 超类已经覆盖了equals,从超类继承过来的行为对于子类也是合适的。 类是私有的或者包级私有的，可以确定它的equals方法永远不会被调用。 什么时候应该覆盖equals方法： 如果类具有自己特有的“逻辑相等”概念（不同于对象等同的概念），而且超类还没有覆盖equals以实现期望的行为。 覆盖时必须遵守的通用约定： 自反性：x.equals(x)返回true。 对称性：x.equals(y) == y.equals(x)。 传递性：x.equals(y) y.equals(z) x.equals(z)。 一致性：只要对象没有被修改，多次调用返回一致。 我们无法在扩展 可实例化的类的同时，既增加新的值组件，同时又保留equals约定 实现高质量equals方法的诀窍： 使用==操作符检查“参数是否为这个对象的引用”。 使用instanceof操作符检查参数是否为正确的类型。 把参数转换成正确的类型。 检查参数中的域是否与该对象中对应的域相匹配。对于既不是float也不是double类型的基本类型域，可以使用==操作符进行比较；对于对象引用域，可以递归的调用equals方法；对于float域，可以使用Float.compare方法，对于double域，则使用Double.compare。对于数组域，Arrays.equals()方法。]]></content>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[cmder配置使用]]></title>
+    <url>%2F2018%2F07%2F14%2Fcmder%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[安装cmder官网 下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版 cmder 自带了 msysgit, 压缩包 23M, 除了 git 本身这个命令之外, 里面可以使用大量的 linux 命令；比如 grep, curl(没有 wget)； 像vim, grep, tar, unzip, ssh, ls, bash, perl 对于爱折腾的Coder更是痛点需求。 配置cmder 把 cmder 加到环境变量：可以把Cmder.exe存放的目录添加到系统环境变量；加完之后，Win+r一下输入cmder，即可。 添加 cmder 到右键菜单：在某个文件夹中打开终端，在管理员权限的终端输入以下语句即可： Cmder.exe /REGISTER ALL 常用快捷键 可以利用Tab，自动路径补全； 可以利用Ctrl+T建立新页签； 利用Ctrl+W关闭页签; 还可以透过Ctrl+Tab切换页签; Alt+F4：关闭所有页签 Alt+Shift+1：开启cmd.exe Alt+Shift+2：开启powershell.exe Alt+Shift+3：开启powershell.exe (系统管理员权限) Ctrl+1：快速切换到第1个页签 Ctrl+n：快速切换到第n个页签( n值无上限) Alt + enter： 切换到全屏状态； Ctr+r 历史命令搜索; End, Home, Ctrl : Traversing text with as usual on Windows]]></content>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js高级程序设计-读书笔记2]]></title>
+    <url>%2F2018%2F05%2F04%2Fjs%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B02%2F</url>
+    <content type="text"><![CDATA[引用类型 Object类型 创建Object实例的方式有两种： 123456789var person = new Object(); person.name = "Nicholas"; person.age = 29; //字面量方式: var person = &#123; name : "Nicholas", age :29 &#125; 一般来说，可以使用点表示法来访问对象属性，但也可以使用[]来访问对象属性，应该将要访问的属性以字符串的形式放在[]中，[]方法的主要优点是可以通过变量来访问属性。 Array类型 创建方式： 1234567891011121314151617181920212223 var colors = new Array(); var colors = new Array(20); var colors = new Array("red","blue","green"); var colors = new Array(3);//创建一个包含三项的数组 var colors = new Array("Greg");//创建包含"Greg"一项的数组 var colors = Array();//new 可以省略 var colors = []; var colors = ["red","blue","green"] var colors = ["red","blue",]//不要这样，这样会创建一个包含两个或三个的数组 var colors = [,,,,,] //不要这样，这样会创建一个包含五个或六个的数组 var colors = ["red","blue","green"];colors.length = 2;alert(colors[2]) ; //undefined var colors = ["red","blue","green"];colors.length = 4;alert(colors[3]); //undefined //利用length可以很方便的在数组末尾添加新项:var colors = ["red","blue","green"];colors[colors.length] = "black";colors[colors.length] = "brown"; 数组的每一项都可以保存任何类型的数据。 检测数组: 123if(value instanceof Array)&#123; //对数组执行某些操作&#125; instanceof操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的Array构造函数。如果从一个框架向另一个框架传入数组，那么传入的数组与第二个框架原生创建的数组分别具有各自不同的构造函数，要解决这个问题，es5新增了Array.isArray()方法，这个方法的目的是最终确定某个值到底是不是数组，而不管他是在哪个全局执行环境中创建的。 123456789101112131415161718192021222324252627if(Array.isArray(value))&#123; //对数组执行某些操作&#125;``` 5. 转换方法 所有对象都具有toLocalString()、toString()、valueOf()方法。调用数组的toString()方法会返回有数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串。而调用valueOf()返回的还是数组。实际上，为了创建这个字符串会调用数组每一项的toString()方法。如果数组中的某一项的值是null、undefined,那么该值在join()、toLocalString()、toString()、valueOf()返回的结果中以空字符串表示。6. 栈方法 1. push()可以接收任意数量的参数，把他们逐个添加到数组的末尾，并返回修改后数组的长度 2. pop()方法从数组末尾移除最后一项，减少数组的length值，返回移除的项7. 队列方法 1. 由于push()是向数组末尾添加项的方法，因此要模拟队列只需一个从数组前端取得项的方法。实现这一操作的方法是shift(),他能够移除数组中的第一个项并返回该项，同时将数组长度减一。结合shift()和push()方法，可以像使用队列一样使用数组。 2. unshift()与shift()用途相反，它可以在数组前端添加任意项并返回新数组的长度。因此，同时使用unshift()和pop()方法，可以从相反的方向来模拟队列 8. 排序 1. sort()方法会调用每个数组项的toString()转型方法，然后比较得到的字符串，以确定如何排序。即使数组中的每一项都是数值，sort方法比较的也是字符串，如下： ```js var values = [0,1,5,10,15] values.sort() alert(values) //0,1,10,15,5 2. sort()方法可以接收一个比较函数作为参数，以便我们指定那个值位于那个值得前面。比较函数接收两个参数，如果第一个参数应该位于第二个之前则返回一个负数，如果两个参数相等则返回0，如何第一个参数应该位于第二个之后则返回一个正数。 12345678910111213141516function compare(v1,v2)&#123; if(v1 &lt; v2)&#123; return 1; &#125;else if(v1&gt;v2)&#123; return -1; &#125;else&#123; return 0; &#125;&#125;values.sort(compare); // 15,10,5,1,0//对于数值类型或者valueOf()方法会返回数值类型的对象类型，可以使用一个更简单的比较函数function compare(v1,v2)&#123; return v1 - v2;&#125; 操作方法 concat()该方法会先创建当前数组一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回新构建的数组。在没有给concat()传递参数的情况下，它只是复制当前数组并返回副本。如果传递给concat()方法的是一个或多个数组，则该方法会将这些数组中的每一项都添加到结果数组中。如果传递的值不是数组，这些值就会简单的添加到结果数组的末尾。例如： 1234var colors = ['red','green','blue'];var colors2 = colors.cancat('yellow',['black','brown']);alert(colors) //red,green,bluealert(colors2) //red,green,blue,yellow,black,brown slice()基于当前数组中的一个或多个项创建一个新数组。slice()方法接收一或两个参数，即要返回项的起始和结束位置。在只有一个参数的情况下，slice()返回从该参数指定位置开始到当前数组末尾的所有项。如果有两个参数，该方法返回起始和结束位置之间的项，但不包括结束位置的项。slice()方法不会影响原始数组。 splice() 删除：可以删除任意数量的项，只需指定2个参数：要删除的第 一项的位置和要删除的项数 插入：可以向指定位置插入任意数量的项，只需提供三个参数：起始位置、0(要删除的项数)和要插入的项。如果要插入多个项，可以再传入第四、第五，一直任意多个项。 替换：可以向指定位置插入任意数量的项，且同时删除任意数量的项，只需指定3个参数：起始位置、要删除的项数和要插入的任意数量的项。插入的项不必与删除的项数相等。 123456789101112var colors = ['red','green','blue'];var removed = colors.splice(0,1);//删除第一项alert(colors) //green,bluealert(removed) //redremoved = colors.splice(1,0,'yellow','orange');//从位置1开始插入两项alert(colors) //green,yellow,orange,bluealert(removed) //返回的是一个空数组removed = colors.splice(1,1,'red','purple')alert(colors) //green,red,purple,orange,bluealert(removed) // yellow 位置方法: indexOf()从数组的开头开始向后查找 lastIndexOf()从数组的末尾开始向前查找 这两个方法都返回要查找的项在数组中的位置，在没有找到的情况下返回-1。在比较第一个参数和数组中的每一项时，会使用全等操作符 迭代方法：每个方法都接收两个参数：要在每一项上运行的函数和(可选的)运行该函数的作用域对象–影响this的值。传入这些方法的函数会接收三个参数：数组项的值，该项在数组中的位置和数组对象本身。 every():对数组中的每一项运行给定函数，如果该函数对每一项都返回true,则返回true. filter():对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组。 forEach():对数组中的每一项运行给定函数,没有返回值。 map():对数组中的每一项运行给定函数,返回每次函数调用的结果组成的数组。 some():对数组中的每一项运行给定函数,如果该函数对任一项返回true,则返回true。 1234var numbers = [1,2,3,4];var everyResult = numbers.every(function(item,index,array)&#123; return (item &gt;2)&#125;) 归并方法：这两个方法都接收两个参数：一个在每一项上调用的函数和(可选的)作为归并基础的初始值。传给reduce()和reduceRight()的函数接收四个参数：前一个值、当前值、项的索引和数组对象 reduce()迭代数组中的每一项，构建一个最终的返回值，从数组的第一项开始。 reduceRight()从数组的最后一项向前遍历。 12345var values = [1,2,3,4,5];var sum = values.reduce(function(prev,cur,index,array()&#123; return prev+cur; &#125;); alert(sum) //15]]></content>
       <categories>
-          
-          <category> 读书笔记 </category>
-          
+        <category>读书笔记</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> js高级程序设计 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>js高级程序设计-读书笔记</title>
-      <link href="/2018/04/30/js%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-      <url>/2018/04/30/js%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<h3 id="lt-script-gt-标签"><a href="#lt-script-gt-标签" class="headerlink" title="&lt;script&gt;标签"></a><code>&lt;script&gt;</code>标签</h3><ol><li>无论如何包含代码，只要不存在defer和async属性，浏览器都会按照<code>&lt;script&gt;</code>元素在页面中出现的先后顺序对他们依次进行解析。</li><li><p>在文档的<code>&lt;head&gt;</code>元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到<code>&lt;body&gt;</code>标签时才开始呈现内容），所以，一般都这样写：</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li><li><p>defer属性：脚本会被延迟到整个页面都解析完毕后再运行。因此，在<code>&lt;script&gt;</code>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行。defer属性只适用于外部脚本文件。在下面的代码中，虽然<code>&lt;script&gt;</code>放在了文档<code>&lt;head&gt;</code>元素中，但其中包含的脚本将延迟到浏览器遇到<code>&lt;/html&gt;</code>标签后再执行。HTML5规范要求脚本按照他们出现的先后顺序执行，因此第一个延迟脚本会先于第二个延迟脚本执行，而这两个脚本会先于DOMContentLoaded事件执行。在现实中，延迟脚本并不一定会按照顺序执行，也不一定会在DOMContentLoaded事件触发前执行，因此最好只包含一个延迟脚本。</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li><li><p>HTML5为<code>&lt;script&gt;</code>元素定义了async属性。async属性告诉浏览器立即下载文件，但并不保证按照他们的先后顺序执行。</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; async src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; async src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><p> 在以上代码中，第二个脚本可能会在第一个脚本之前执行，因此，确保两者之间互不依赖非常重要。指定async属性的目的是不让页面等待两个脚本下载和执行，从而异步加载页面其他内容。为此，建议异步脚本不要在加载期间修改DOM。</p></li></ol><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol><li>五种基本数据类型：Undefined、Null、Boolean、Number、String;一种复杂数据类型：Object。</li><li><p>在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var message;//这个变量声明之后默认取得了undefined值</span><br><span class="line">//下面这个变量并没有声明</span><br><span class="line">//var age</span><br><span class="line">alert(typeof message);  //&quot;undefined&quot;</span><br><span class="line">alert(typeof age);      //&quot;undefined&quot;</span><br></pre></td></tr></table></figure><p> 对未声明和未初始化的变量执行typeof操作符都返回了undifined值。</p></li><li><p>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检查null值就可以知道相应的变量是否已经保存了一个对象的引用，如下：</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(car != null)&#123;</span><br><span class="line">    //对car执行某些操作</span><br><span class="line">&#125;</span><br><span class="line">//实际上，undefined的值是派生自null值的</span><br><span class="line">alert(null == undefined) //true</span><br></pre></td></tr></table></figure></li><li><p>NaN,即非数值(Not a Number)是一个特殊的数值，这个数值用来表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。任何数值除以0会返回NaN；任何涉及NaN的操作（NaN/10）都会返回NaN;NaN与任何值都不相等，包括NaN本身。</p></li></ol><h3 id="执行环境及作用域"><a href="#执行环境及作用域" class="headerlink" title="执行环境及作用域"></a>执行环境及作用域</h3><p>　　执行环境(execution context)是javaScript中最为重要的一个概念。执行环境定义了变量或函数有权访问的其他数据，决定了他们各自的行为。每个执行环境都有一个与之关联的变量对象(variable object)，环境中定义的所有变量和函数都保存在这个对象中。虽然我们编写的代码无法访问这个对象，但解析器在处理数据时会在后台使用它。<br>　　全局执行环境是最外围的一个执行环境。根据宿主环境不同，执行环境的对象也不一样。在web浏览器中，全局执行环境被认为是window对象，因此所有全局变量和函数都是作为window对象的属性和方法创建的。<br>　　每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。<br>　　当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对象在最开始时只包含一个变量，即arguments对象(这个对象在全局环境中是不存在的)。作用域链中的下一个变量对象来自包含环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。    </p>]]></content>
-      
-      
+      <tags>
+        <tag>js高级程序设计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js高级程序设计-读书笔记]]></title>
+    <url>%2F2018%2F04%2F30%2Fjs%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[&lt;script&gt;标签 无论如何包含代码，只要不存在defer和async属性，浏览器都会按照&lt;script&gt;元素在页面中出现的先后顺序对他们依次进行解析。 在文档的&lt;head&gt;元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到&lt;body&gt;标签时才开始呈现内容），所以，一般都这样写： 1234567891011121314&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt; &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt; &lt;title&gt;Document&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;!--这里放内容--&gt; &lt;script type=&quot;text/javascript&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt; &lt;script type=&quot;text/javascript&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt; defer属性：脚本会被延迟到整个页面都解析完毕后再运行。因此，在&lt;script&gt;元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行。defer属性只适用于外部脚本文件。在下面的代码中，虽然&lt;script&gt;放在了文档&lt;head&gt;元素中，但其中包含的脚本将延迟到浏览器遇到&lt;/html&gt;标签后再执行。HTML5规范要求脚本按照他们出现的先后顺序执行，因此第一个延迟脚本会先于第二个延迟脚本执行，而这两个脚本会先于DOMContentLoaded事件执行。在现实中，延迟脚本并不一定会按照顺序执行，也不一定会在DOMContentLoaded事件触发前执行，因此最好只包含一个延迟脚本。 1234567891011121314&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt; &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt; &lt;title&gt;Document&lt;/title&gt; &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt; &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt; &lt;!--这里放内容--&gt;&lt;/body&gt;&lt;/html&gt; HTML5为&lt;script&gt;元素定义了async属性。async属性告诉浏览器立即下载文件，但并不保证按照他们的先后顺序执行。 1234567891011121314&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt; &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt; &lt;title&gt;Document&lt;/title&gt; &lt;script type=&quot;text/javascript&quot; async src=&quot;example1.js&quot;&gt;&lt;/script&gt; &lt;script type=&quot;text/javascript&quot; async src=&quot;example2.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt; &lt;!--这里放内容--&gt;&lt;/body&gt;&lt;/html&gt; 在以上代码中，第二个脚本可能会在第一个脚本之前执行，因此，确保两者之间互不依赖非常重要。指定async属性的目的是不让页面等待两个脚本下载和执行，从而异步加载页面其他内容。为此，建议异步脚本不要在加载期间修改DOM。 数据类型 五种基本数据类型：Undefined、Null、Boolean、Number、String;一种复杂数据类型：Object。 在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。 12345var message;//这个变量声明之后默认取得了undefined值//下面这个变量并没有声明//var agealert(typeof message); //&quot;undefined&quot;alert(typeof age); //&quot;undefined&quot; 对未声明和未初始化的变量执行typeof操作符都返回了undifined值。 如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检查null值就可以知道相应的变量是否已经保存了一个对象的引用，如下： 12345if(car != null)&#123; //对car执行某些操作&#125;//实际上，undefined的值是派生自null值的alert(null == undefined) //true NaN,即非数值(Not a Number)是一个特殊的数值，这个数值用来表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。任何数值除以0会返回NaN；任何涉及NaN的操作（NaN/10）都会返回NaN;NaN与任何值都不相等，包括NaN本身。 执行环境及作用域 执行环境(execution context)是javaScript中最为重要的一个概念。执行环境定义了变量或函数有权访问的其他数据，决定了他们各自的行为。每个执行环境都有一个与之关联的变量对象(variable object)，环境中定义的所有变量和函数都保存在这个对象中。虽然我们编写的代码无法访问这个对象，但解析器在处理数据时会在后台使用它。 全局执行环境是最外围的一个执行环境。根据宿主环境不同，执行环境的对象也不一样。在web浏览器中，全局执行环境被认为是window对象，因此所有全局变量和函数都是作为window对象的属性和方法创建的。 每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。 当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对象在最开始时只包含一个变量，即arguments对象(这个对象在全局环境中是不存在的)。作用域链中的下一个变量对象来自包含环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。]]></content>
       <categories>
-          
-          <category> 读书笔记 </category>
-          
+        <category>读书笔记</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> js高级程序设计 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-职责链模式</title>
-      <link href="/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>避免请求发送者与接收者 耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-06-chain.png" alt="chain"></p><ul><li>Handler(抽象处理者):它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者 的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象(如结构图 中的successor)，作为其对下家的引用。通过该引用，处理者可以连成一条链。</li><li>ConcreteHandler(具体处理者):它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是 否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者;在具体处理 者中可以访问链中下一个对象，以便请求的转发。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>职责链模式的主要优点如下:<ol><li>职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</li><li>请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。</li><li>在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。</li><li>在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。</li></ol></li><li>职责链模式的主要缺点如下:<ol><li>由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理;一个请求也可能因职责链没有被正确配置而得不到处理。</li><li>对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。</li><li>如果建链不当，可能会造成循环调用，将导致系统陷入死循环。</li></ol></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul><li>有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。</li><li>在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</li><li>可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。</li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>js高级程序设计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-职责链模式]]></title>
+    <url>%2F2018%2F04%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义避免请求发送者与接收者 耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。 UML Handler(抽象处理者):它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者 的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象(如结构图 中的successor)，作为其对下家的引用。通过该引用，处理者可以连成一条链。 ConcreteHandler(具体处理者):它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是 否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者;在具体处理 者中可以访问链中下一个对象，以便请求的转发。 总结 职责链模式的主要优点如下: 职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。 请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。 在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。 在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。 职责链模式的主要缺点如下: 由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理;一个请求也可能因职责链没有被正确配置而得不到处理。 对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。 如果建链不当，可能会造成循环调用，将导致系统陷入死循环。 适用场景 有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。 在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。 可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-装饰模式</title>
-      <link href="/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-06-decorator.png" alt="decorato"></p><ul><li>Component(抽象构件):它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。</li><li>ConcreteComponent(具体构件):它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责(方法)。</li><li>Decorator(抽象装饰类):它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。</li><li>ConcreteDecorator(具体装饰类):它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，它可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>装饰模式的主要优点如下:<ol><li>对于扩展一个对象的功能，装饰模式比继承更加灵活性，不会导致类的个数急剧增加。</li><li>可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的具体装饰类，从而实现不同的行为。</li><li>可以对一个对象进行多次装饰，通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合，得到功能更为强大的对象。</li><li>具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，原有类库代码无须改变，符合“开闭原则”。</li></ol></li><li>装饰模式的主要缺点如下:<ol><li>使用装饰模式进行系统设计时将产生很多小对象，这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同，大量小对象的产生势必会占用更多 的系统资源，在一定程序上影响程序的性能。</li><li>装饰模式提供了一种比继承更加灵活机动的解决方案，但同时也意味着比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为繁琐。</li></ol></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ol><li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li><li>当不能采用继承的方式对系统进行扩展或者采用继承不利于系统扩展和维护时可以使用装饰模式。不能采用继承的情况主要有两类:第一类是系统中存在大量独立的扩展，为支持每一种扩展或者扩展之间的组合将产生大量的子类，使得子类数目呈爆炸性增长;第二类是因 为类已定义为不能被继承(如Java语言中的final类)。</li></ol>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-装饰模式]]></title>
+    <url>%2F2018%2F04%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。 UML Component(抽象构件):它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。 ConcreteComponent(具体构件):它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责(方法)。 Decorator(抽象装饰类):它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。 ConcreteDecorator(具体装饰类):它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，它可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。 总结 装饰模式的主要优点如下: 对于扩展一个对象的功能，装饰模式比继承更加灵活性，不会导致类的个数急剧增加。 可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的具体装饰类，从而实现不同的行为。 可以对一个对象进行多次装饰，通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合，得到功能更为强大的对象。 具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，原有类库代码无须改变，符合“开闭原则”。 装饰模式的主要缺点如下: 使用装饰模式进行系统设计时将产生很多小对象，这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同，大量小对象的产生势必会占用更多 的系统资源，在一定程序上影响程序的性能。 装饰模式提供了一种比继承更加灵活机动的解决方案，但同时也意味着比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为繁琐。 适用场景 在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。 当不能采用继承的方式对系统进行扩展或者采用继承不利于系统扩展和维护时可以使用装饰模式。不能采用继承的情况主要有两类:第一类是系统中存在大量独立的扩展，为支持每一种扩展或者扩展之间的组合将产生大量的子类，使得子类数目呈爆炸性增长;第二类是因 为类已定义为不能被继承(如Java语言中的final类)。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-建造者模式</title>
-      <link href="/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-06-builder.png" alt="builde"></p><ul><li>Builder(抽象建造者):它为创建一个产品Product对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是buildPartX()，它们用于创建复杂对象的各个部件;另一 类方法是getResult()，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口。</li><li>ConcreteBuilder(具体建造者):它实现了Builder接口，实现各个部件的具体构造和装配方 法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。</li><li>Product(产品角色):它是被构建的复杂对象，包含多个组成部件，具体建造者创建该产品 的内部表示并定义它的装配过程。</li><li>Director(指挥者):指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其construct()建造方法中调用建造者对象的部件构造与装 配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建 造者的类型，并实例化具体建造者对象(也可以通过配置文件和反射机制)，然后通过指挥 者类的构造函数或者Setter方法将该对象传入指挥者类中。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><p>建造者模式的主要优点如下:</p><ol><li>在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。</li><li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则”</li><li>可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。</li></ol></li><li><p>建造者模式的主要缺点如下:</p><ol><li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，例如很多组成部分都不相同，不适合使用建造者模式，因此其使用范围受到一定的限制。</li><li>如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大，增加系统的理解难度和运行成本。</li></ol></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ol><li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</li><li>需要生成的产品对象的属性相互依赖，需要指定其生成顺序。</li><li>对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指            挥者类中，而不在建造者类和客户类中。</li><li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li></ol>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-建造者模式]]></title>
+    <url>%2F2018%2F04%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。 UML Builder(抽象建造者):它为创建一个产品Product对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是buildPartX()，它们用于创建复杂对象的各个部件;另一 类方法是getResult()，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口。 ConcreteBuilder(具体建造者):它实现了Builder接口，实现各个部件的具体构造和装配方 法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。 Product(产品角色):它是被构建的复杂对象，包含多个组成部件，具体建造者创建该产品 的内部表示并定义它的装配过程。 Director(指挥者):指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其construct()建造方法中调用建造者对象的部件构造与装 配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建 造者的类型，并实例化具体建造者对象(也可以通过配置文件和反射机制)，然后通过指挥 者类的构造函数或者Setter方法将该对象传入指挥者类中。 总结 建造者模式的主要优点如下: 在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。 每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则” 可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。 建造者模式的主要缺点如下: 建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，例如很多组成部分都不相同，不适合使用建造者模式，因此其使用范围受到一定的限制。 如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大，增加系统的理解难度和运行成本。 适用场景 需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。 需要生成的产品对象的属性相互依赖，需要指定其生成顺序。 对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指 挥者类中，而不在建造者类和客户类中。 隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-原型模式</title>
-      <link href="/2018/04/01/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2018/04/01/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2018-04-01-prototype.png" alt="prototype"></p><ul><li>Prototype(抽象原型类):它是声明克隆方法的接口，是所有具体原型类的公共父类，可以 是抽象类也可以是接口，甚至还可以是具体实现类。</li><li>ConcretePrototype(具体原型类):它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。</li><li>Client(客户类):让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直 接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。由于客户类针对抽象原型类Prototype编程，因此用户可以根据需要选择具体 原型类，系统具有较好的可扩展性，增加或更换具体原型类都很方便。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><p>原型模式的主要优点如下:</p><p> (1) 当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。<br> (2) 扩展性较好，由于在原型模式中提供了抽象原型类，在客户端可以针对抽象原型类进行编程，而将具体原型类写在配置文件中，增加或减少产品类对原有系统都没有任何影响。<br> (3) 原型模式提供了简化的创建结构，工厂方法模式常常需要有一个与产品类等级结构相同的 工厂等级结构，而原型模式就不需要这样，原型模式中产品的复制是通过封装在原型类中的 克隆方法实现的，无须专门的工厂类来创建产品。<br> (4) 可以使用深克隆的方式保存对象的状态，使用原型模式将对象复制一份并将其状态保存起 来，以便在需要的时候使用(如恢复到某一历史状态)，可辅助实现撤销操作。</p></li><li><p>原型模式的主要缺点如下:</p><p> (1) 需要为每一个类配备一个克隆方法，而且该克隆方法位于一个类的内部，当对已有的类进 行改造时，需要修改源代码，违背了“开闭原则”。<br> (2) 在实现深克隆时需要编写较为复杂的代码，而且当对象之间存在多重的嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来可能会比较麻烦。</p></li></ul><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>(1) 创建新对象成本较大(如初始化需要占用较长的时间，占用太多的CPU资源或网络资 源)，新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对 其成员变量稍作修改。<br>(2) 如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占用内存较少时，可以使用原型模式配合备忘录模式来实现。<br>(3) 需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。</p>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-原型模式]]></title>
+    <url>%2F2018%2F04%2F01%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。 UML Prototype(抽象原型类):它是声明克隆方法的接口，是所有具体原型类的公共父类，可以 是抽象类也可以是接口，甚至还可以是具体实现类。 ConcretePrototype(具体原型类):它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。 Client(客户类):让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直 接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。由于客户类针对抽象原型类Prototype编程，因此用户可以根据需要选择具体 原型类，系统具有较好的可扩展性，增加或更换具体原型类都很方便。 总结 原型模式的主要优点如下: (1) 当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。 (2) 扩展性较好，由于在原型模式中提供了抽象原型类，在客户端可以针对抽象原型类进行编程，而将具体原型类写在配置文件中，增加或减少产品类对原有系统都没有任何影响。 (3) 原型模式提供了简化的创建结构，工厂方法模式常常需要有一个与产品类等级结构相同的 工厂等级结构，而原型模式就不需要这样，原型模式中产品的复制是通过封装在原型类中的 克隆方法实现的，无须专门的工厂类来创建产品。 (4) 可以使用深克隆的方式保存对象的状态，使用原型模式将对象复制一份并将其状态保存起 来，以便在需要的时候使用(如恢复到某一历史状态)，可辅助实现撤销操作。 原型模式的主要缺点如下: (1) 需要为每一个类配备一个克隆方法，而且该克隆方法位于一个类的内部，当对已有的类进 行改造时，需要修改源代码，违背了“开闭原则”。 (2) 在实现深克隆时需要编写较为复杂的代码，而且当对象之间存在多重的嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来可能会比较麻烦。 适用场景(1) 创建新对象成本较大(如初始化需要占用较长的时间，占用太多的CPU资源或网络资 源)，新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对 其成员变量稍作修改。(2) 如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占用内存较少时，可以使用原型模式配合备忘录模式来实现。(3) 需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>effective java读书笔记</title>
-      <link href="/2017/09/27/effective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-      <url>/2017/09/27/effective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<h5 id="第52条：通过接口引用对象"><a href="#第52条：通过接口引用对象" class="headerlink" title="第52条：通过接口引用对象"></a>第52条：通过接口引用对象</h5><p>如果有合适的接口类型存在，那么对于参数、返回值、变量和成员变量来说，就都应该使用接口类型进行声明；如果你养成了用接口作为类型的习惯，你的程序将会更加灵活，当你决定更换实现时，所要做的就只是构造器中类的名称。<br>有一点值得注意：如果原来的实现提供了某种特殊的功能，而这种功能并不是这个接口的通用约定所要求的，并且周围的代码又依赖于这种功能，那么新的实现也要提供相同的功能。<br>类实现了接口，但是提供了接口中不存在的额外的方法–例如LinkedHashMap。如果程序依赖于这些额外的方法，这种类就应该只被用来引用它的实例。<br>实际上，给定的对象是否具有适当的接口应该是很显然的。如果是，用接口引用对象就会使程序更加灵活；如果不是，则使用类层次结构中提供了必要功能的最基础的类。</p><h5 id="第38条：检查参数的有效性"><a href="#第38条：检查参数的有效性" class="headerlink" title="第38条：检查参数的有效性"></a>第38条：检查参数的有效性</h5><p>每当编写方法或者构造器的时候，应该考虑它的参数有哪些限制，应该把这些限制写到文档中，并且在这个方法体的开头处，通过显式的检查来实施这些限制</p><h5 id="第43条：返回0长度的数组或者集合，而不是Null"><a href="#第43条：返回0长度的数组或者集合，而不是Null" class="headerlink" title="第43条：返回0长度的数组或者集合，而不是Null"></a>第43条：返回0长度的数组或者集合，而不是Null</h5><p>返回类型为数组或集合的方法没理由返回null，应该返回一个零长度的数组或者集合。<br>可以做成在每当需要返回空集合时，都返回同一个不可变的空集合。Collections.emptySet、emptyList、emptyMap提供的正是这种集合。<br><code>public List&lt;Person&gt; getPersons(){        if(persons.isEmpty()){            return Collections.emptyList();        }else{            return persons;        }}</code></p><h5 id="第46条：for-each循环优先于传统的for循环"><a href="#第46条：for-each循环优先于传统的for循环" class="headerlink" title="第46条：for-each循环优先于传统的for循环"></a>第46条：for-each循环优先于传统的for循环</h5><p>for-each在简洁性和预防bug方面有着传统的for循环无法比拟的优势，并且没有性能损失，应该尽可能的使用for-each循环。<br>有三种常见的情况无法使用for-each循环:</p><ol><li>过滤:如果需要遍历集合，并删除选定的元素，就需要使用显示的迭代器，以便可以调用它的remove方法。</li><li>转换：如果需要遍历列表或者数组，并取代它部分或者全部的元素值，就需要列表迭代器或者数组索引，以便设定元素的值。</li><li>平行迭代：如果需要并行的遍历多个集合，就需要显示的控制迭代器或者索引变量，以便所有迭代器或者索引变量都可以得到同步前移。<h5 id="第48条：如果需要精确的答案，请避免使用float和double"><a href="#第48条：如果需要精确的答案，请避免使用float和double" class="headerlink" title="第48条：如果需要精确的答案，请避免使用float和double"></a>第48条：如果需要精确的答案，请避免使用float和double</h5><h5 id="第49条：基本类型优先于装箱基本类型"><a href="#第49条：基本类型优先于装箱基本类型" class="headerlink" title="第49条：基本类型优先于装箱基本类型"></a>第49条：基本类型优先于装箱基本类型</h5>基本类型和装箱基本类型之间有三个主要的区别：</li><li>基本类型只有值，而装箱基本类型则具有与它们的值不同的地址。换句话说，两个装箱基本类型可以具有相同的值和不同的地址。</li><li>基本类型只有功能完备的值，而每个装箱基本类型除了它对应的基本类型的所有功能值外，还有个非功能值：null</li><li>基本类型通常比装箱基本类型更节省时间和空间.</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">    Long sum = 0L;</span><br><span class="line">    for(long i=0;i&lt;Integer.MAX_VALUE;i++)&#123;</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这个程序运行起来比预计的要慢一些，因为它不小心将一个局部变量(sum)声明为装箱基本类型Long,而不是基本类型long,变量被反复的装箱和拆箱，导致明显的性能下降。<br>总之，当可以选择的时候，基本类型要优先于装箱基本类型。</p>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[effective java读书笔记]]></title>
+    <url>%2F2017%2F09%2F27%2Feffective-java%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[第52条：通过接口引用对象如果有合适的接口类型存在，那么对于参数、返回值、变量和成员变量来说，就都应该使用接口类型进行声明；如果你养成了用接口作为类型的习惯，你的程序将会更加灵活，当你决定更换实现时，所要做的就只是构造器中类的名称。有一点值得注意：如果原来的实现提供了某种特殊的功能，而这种功能并不是这个接口的通用约定所要求的，并且周围的代码又依赖于这种功能，那么新的实现也要提供相同的功能。类实现了接口，但是提供了接口中不存在的额外的方法–例如LinkedHashMap。如果程序依赖于这些额外的方法，这种类就应该只被用来引用它的实例。实际上，给定的对象是否具有适当的接口应该是很显然的。如果是，用接口引用对象就会使程序更加灵活；如果不是，则使用类层次结构中提供了必要功能的最基础的类。 第38条：检查参数的有效性每当编写方法或者构造器的时候，应该考虑它的参数有哪些限制，应该把这些限制写到文档中，并且在这个方法体的开头处，通过显式的检查来实施这些限制 第43条：返回0长度的数组或者集合，而不是Null返回类型为数组或集合的方法没理由返回null，应该返回一个零长度的数组或者集合。可以做成在每当需要返回空集合时，都返回同一个不可变的空集合。Collections.emptySet、emptyList、emptyMap提供的正是这种集合。public List&lt;Person&gt; getPersons(){ if(persons.isEmpty()){ return Collections.emptyList(); }else{ return persons; } } 第46条：for-each循环优先于传统的for循环for-each在简洁性和预防bug方面有着传统的for循环无法比拟的优势，并且没有性能损失，应该尽可能的使用for-each循环。有三种常见的情况无法使用for-each循环: 过滤:如果需要遍历集合，并删除选定的元素，就需要使用显示的迭代器，以便可以调用它的remove方法。 转换：如果需要遍历列表或者数组，并取代它部分或者全部的元素值，就需要列表迭代器或者数组索引，以便设定元素的值。 平行迭代：如果需要并行的遍历多个集合，就需要显示的控制迭代器或者索引变量，以便所有迭代器或者索引变量都可以得到同步前移。第48条：如果需要精确的答案，请避免使用float和double第49条：基本类型优先于装箱基本类型基本类型和装箱基本类型之间有三个主要的区别： 基本类型只有值，而装箱基本类型则具有与它们的值不同的地址。换句话说，两个装箱基本类型可以具有相同的值和不同的地址。 基本类型只有功能完备的值，而每个装箱基本类型除了它对应的基本类型的所有功能值外，还有个非功能值：null 基本类型通常比装箱基本类型更节省时间和空间. 1234567public static void main(String[] args)&#123; Long sum = 0L; for(long i=0;i&lt;Integer.MAX_VALUE;i++)&#123; sum += i; &#125; System.out.println(sum);&#125; 这个程序运行起来比预计的要慢一些，因为它不小心将一个局部变量(sum)声明为装箱基本类型Long,而不是基本类型long,变量被反复的装箱和拆箱，导致明显的性能下降。总之，当可以选择的时候，基本类型要优先于装箱基本类型。]]></content>
       <categories>
-          
-          <category> 读书笔记 </category>
-          
+        <category>读书笔记</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> effective-java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-适配器模式</title>
-      <link href="/2017/09/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2017/09/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将一个接口转换成客户希望的另一个接口，使接口不兼容的哪些类可以一起工作，其别名为包装器（Wrapper）。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p>根据适配器类与适配者类的关系不同，适配器模式可分为对象 适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系;在类适配 器模式中，适配器与适配者之间是继承(或实现)关系。在实际开发中，对象适配器的使用 频率更高,对象适配器结构如下:<br><img src="/Users/haominglfs/Pictures/hexo-pic/adapter.png" alt="adapte"></p><ul><li>Target(目标抽象类):目标抽象类定义客户所需接口，可以是一个抽象类或接口也可以是具体类。</li><li>Adapter(适配器类):适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个 Adaptee对象使二者产生联系。</li><li>Adaptee(适配者类):适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可 能没有适配者类的源代码。</li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>effective-java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-适配器模式]]></title>
+    <url>%2F2017%2F09%2F20%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义将一个接口转换成客户希望的另一个接口，使接口不兼容的哪些类可以一起工作，其别名为包装器（Wrapper）。 UML根据适配器类与适配者类的关系不同，适配器模式可分为对象 适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系;在类适配 器模式中，适配器与适配者之间是继承(或实现)关系。在实际开发中，对象适配器的使用 频率更高,对象适配器结构如下: Target(目标抽象类):目标抽象类定义客户所需接口，可以是一个抽象类或接口也可以是具体类。 Adapter(适配器类):适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个 Adaptee对象使二者产生联系。 Adaptee(适配者类):适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可 能没有适配者类的源代码。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-工厂方法模式</title>
-      <link href="/2017/09/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2017/09/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>与简单工厂模式不同，在工厂方法模式中，不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/2017-09-17-factory.png" alt="factory"></p><ul><li>Product(抽象产品):它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。</li><li>ProductA(具体产品):它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。</li><li>Factory(抽象工厂):在抽象工厂类中，声明了工厂方法（FactoryMethod)，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。</li><li>FactoryA(具体工厂):它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式的主要优点如下:</p><ul><li>用户只需要关心所需产品对应的工厂，不需要关心创建细节。</li><li>系统中加入新产品时，无需修改抽象工厂和抽象产品类，只需要添加具体的产品类和工厂类，符合开闭原则。</li></ul><p>工厂方法模式的主要缺点如下:</p><ul><li>增加产品时，需要创建具体的产品类和具体的工厂类，增加了系统的复杂度。</li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-工厂方法模式]]></title>
+    <url>%2F2017%2F09%2F16%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义与简单工厂模式不同，在工厂方法模式中，不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。 UML Product(抽象产品):它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。 ProductA(具体产品):它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。 Factory(抽象工厂):在抽象工厂类中，声明了工厂方法（FactoryMethod)，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。 FactoryA(具体工厂):它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。 总结工厂方法模式的主要优点如下: 用户只需要关心所需产品对应的工厂，不需要关心创建细节。 系统中加入新产品时，无需修改抽象工厂和抽象产品类，只需要添加具体的产品类和工厂类，符合开闭原则。 工厂方法模式的主要缺点如下: 增加产品时，需要创建具体的产品类和具体的工厂类，增加了系统的复杂度。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>jvm学习笔记</title>
-      <link href="/2017/06/17/jvm%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-      <url>/2017/06/17/jvm%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<h2 id="java虚拟机与程序的生命周期"><a href="#java虚拟机与程序的生命周期" class="headerlink" title="java虚拟机与程序的生命周期"></a>java虚拟机与程序的生命周期</h2><p>在如下几种情况下，java虚拟机将结束生命周期：</p><ul><li>执行了System.exit()方法</li><li>程序正常执行结束</li><li>程序在执行过程中遇到了异常或错误而异常终止</li><li>由于操作系统出现错误而导致java虚拟机进程结束</li></ul><h2 id="类的加载、链接与初始化"><a href="#类的加载、链接与初始化" class="headerlink" title="类的加载、链接与初始化"></a>类的加载、链接与初始化</h2><ul><li>加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构，Class对象封装了类在方法区内的数据结构，并且向java程序员提供了访问方法区内的数据结构的接口</li><li><p>链接:  </p><ol><li>验证：确保被加载的类的正确性</li><li>准备:为类的<strong>静态变量</strong>分配内存，并将其初始化为默认值</li><li>解析:把类中的符号引用转变为直接引用</li></ol></li><li><p>初始化：为类的静态变量赋予正确的初始值</p></li></ul><h2 id="java程序对类的使用方式分为两种"><a href="#java程序对类的使用方式分为两种" class="headerlink" title="java程序对类的使用方式分为两种:"></a>java程序对类的使用方式分为两种:</h2><ol><li>主动使用(六种):<ul><li>创建类的实例</li><li>访问某个类或接口的静态变量，或者对该静态变量赋值</li><li>调用类的静态方法</li><li>反射(如 Class.forName(“info.haominglfs.test”))</li><li>初始化一个类的子类</li><li>java虚拟机启动时被表明为启动类的类(含有main方法)</li></ul></li><li>被动使用，除了以上六种情况，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化</li><li>所有的java虚拟机实现必须在每个类或接口被java程序<strong>首次主动使用</strong>时才初始化他们，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化</li></ol><h2 id="加载-class文件的方式"><a href="#加载-class文件的方式" class="headerlink" title="加载.class文件的方式:"></a>加载.class文件的方式:</h2><ul><li>从本地系统中直接加载</li><li>通过网络下载.class文件</li><li>从zip,jar等归档文件中加载.class文件</li><li>从专有数据库中提取.class文件</li><li>将java原文件动态编译为.class文件</li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[jvm学习笔记]]></title>
+    <url>%2F2017%2F06%2F17%2Fjvm%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期： 执行了System.exit()方法 程序正常执行结束 程序在执行过程中遇到了异常或错误而异常终止 由于操作系统出现错误而导致java虚拟机进程结束 类的加载、链接与初始化 加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构，Class对象封装了类在方法区内的数据结构，并且向java程序员提供了访问方法区内的数据结构的接口 链接: 验证：确保被加载的类的正确性 准备:为类的静态变量分配内存，并将其初始化为默认值 解析:把类中的符号引用转变为直接引用 初始化：为类的静态变量赋予正确的初始值 java程序对类的使用方式分为两种: 主动使用(六种): 创建类的实例 访问某个类或接口的静态变量，或者对该静态变量赋值 调用类的静态方法 反射(如 Class.forName(“info.haominglfs.test”)) 初始化一个类的子类 java虚拟机启动时被表明为启动类的类(含有main方法) 被动使用，除了以上六种情况，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化 所有的java虚拟机实现必须在每个类或接口被java程序首次主动使用时才初始化他们，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化 加载.class文件的方式: 从本地系统中直接加载 通过网络下载.class文件 从zip,jar等归档文件中加载.class文件 从专有数据库中提取.class文件 将java原文件动态编译为.class文件]]></content>
       <categories>
-          
-          <category> 读书笔记 </category>
-          
+        <category>读书笔记</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> jvm </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-简单工厂模式</title>
-      <link href="/2017/06/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2017/06/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>简单工厂模式:定义一个工厂类，他可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法模式。</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fjl9vz0n4aj315c0q9dgn.jpg" alt=""></p><ul><li>Prodcut(抽象产品角色)：它是所有工厂类所创建的所有对象的父类，封装了各种产品对象的共有方法。</li><li>ProductA(具体产品角色)：它是简单工厂模式的创建目标，继承了抽象产品角色。</li><li>Factory(工厂角色）：简单工厂模式的核心，负责实现创建所有产品实例的内部逻辑，可以被外界直接调用，提供了静态工厂方法。</li></ul><h3 id="简单工厂模式的简化"><a href="#简单工厂模式的简化" class="headerlink" title="简单工厂模式的简化"></a>简单工厂模式的简化</h3><p>有时候，为了简化简单工厂模式，可以将抽象产品类和工厂类合并，将静态工厂方法移至抽象产品类中。<br><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fjlapzy2vqj30y40kt0t4.jpg" alt=""></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol><li><p>简单工厂模式的主要优点如下:<br>(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。<br>(2) 客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可， 对于一些复杂的类名，通过简单工厂模式可以在一定程度减少使用者的记忆量。<br>(3) 通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类， 在一定程度上提高了系统的灵活性。</p></li><li><p>简单工厂模式的主要缺点如下<br>(1) 由于工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受 到影响<br>(2) 使用简单工厂模式势必会增加系统中类的个数(引入了新的工厂类)，增加了系统的复杂 度和理解难度。<br>(3) 系统扩展困难，一旦添加新产品就不得不修改工厂逻辑，在产品类型较多时，有可能造成 工厂逻辑过于复杂，不利于系统的扩展和维护。<br>(4) 简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。</p></li><li>试用场景<br>(1) 工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太 过复杂<br>(2) 客户端只知道传入工厂类的参数，对于如何创建对象并不关心。</li></ol>]]></content>
-      
-      
+      <tags>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-简单工厂模式]]></title>
+    <url>%2F2017%2F06%2F11%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[定义简单工厂模式:定义一个工厂类，他可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法模式。 UML Prodcut(抽象产品角色)：它是所有工厂类所创建的所有对象的父类，封装了各种产品对象的共有方法。 ProductA(具体产品角色)：它是简单工厂模式的创建目标，继承了抽象产品角色。 Factory(工厂角色）：简单工厂模式的核心，负责实现创建所有产品实例的内部逻辑，可以被外界直接调用，提供了静态工厂方法。 简单工厂模式的简化有时候，为了简化简单工厂模式，可以将抽象产品类和工厂类合并，将静态工厂方法移至抽象产品类中。 总结 简单工厂模式的主要优点如下:(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。(2) 客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可， 对于一些复杂的类名，通过简单工厂模式可以在一定程度减少使用者的记忆量。(3) 通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类， 在一定程度上提高了系统的灵活性。 简单工厂模式的主要缺点如下(1) 由于工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受 到影响(2) 使用简单工厂模式势必会增加系统中类的个数(引入了新的工厂类)，增加了系统的复杂 度和理解难度。(3) 系统扩展困难，一旦添加新产品就不得不修改工厂逻辑，在产品类型较多时，有可能造成 工厂逻辑过于复杂，不利于系统的扩展和维护。(4) 简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。 试用场景(1) 工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太 过复杂(2) 客户端只知道传入工厂类的参数，对于如何创建对象并不关心。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>设计模式-单例模式</title>
-      <link href="/2017/06/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
-      <url>/2017/06/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<p>在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。<br>类图如下：<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1fggelk7z6pj30ho07s3yq.jpg" alt=""><br>为了实现唯一性，该类有以下特性：<br>1.将该类构造函数的可见性改为private。<br>2.定义一个静态类型的Singtelon私有变量。<br>3.增加一个共有的静态方法，用来获得该私有变量。  </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Singleton &#123;</span><br><span class="line"></span><br><span class="line">    private Singleton()&#123;&#125; //私有的构造函数</span><br><span class="line">    private static Singleton instance = null;//私有静态变量</span><br><span class="line"></span><br><span class="line">    public Singleton getInstance()&#123;</span><br><span class="line">        if(instance == null)&#123;</span><br><span class="line">            return new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面的代码在多线程环境下会出现创建多个实例的情况。对此，有两种解决方案：<br>1.饿汉式单例模式<br><img src="http://ww3.sinaimg.cn/large/006tKfTcly1fggfiiz8ikj30ny08mgm2.jpg" alt=""></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class EagerSingleton &#123;   </span><br><span class="line">    private static final EagerSingleton instance = new EagerSingleton();   </span><br><span class="line">    private EagerSingleton() &#123; &#125;   </span><br><span class="line"></span><br><span class="line">    public static EagerSingleton getInstance() &#123;  </span><br><span class="line">        return instance;   </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>2.懒汉式单例模式(使用双重检查锁)<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1fggftodapfj30i608maag.jpg" alt=""></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class LazySingleton &#123;   </span><br><span class="line">    private volatile static LazySingleton instance = null;   </span><br><span class="line"></span><br><span class="line">    private LazySingleton() &#123; &#125;   </span><br><span class="line"></span><br><span class="line">    public static LazySingleton getInstance() &#123;   </span><br><span class="line">        //第一重判断  </span><br><span class="line">        if (instance == null) &#123;  </span><br><span class="line">            //锁定代码块  </span><br><span class="line">            synchronized (LazySingleton.class) &#123;  </span><br><span class="line">                //第二重判断  </span><br><span class="line">                if (instance == null) &#123;  </span><br><span class="line">                    instance = new LazySingleton(); //创建单例实例  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        return instance;   </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>需要注意的是，如果使用双重检查锁定来实现懒汉式单例类，需要在静态成员变量instance之前增加修饰符volatile，被volatile修饰的成员变量可以确保多个线程都能够正确处理，且该代码只能在JDK 1.5及以上版本中才能正确执行。由于volatile关键字会屏蔽Java虚拟机所做的一些代码优化，可能会导致系统运行效率降低，因此即使使用双重检查锁定来实现单例模式也不是一种完美的实现方式。</p><p>饿汉式单例类在类被加载时就将自己实例化，它的优点在于无须考虑多线程访问问题，可以确保实例的唯一性；从调用速度和反应时间角度来讲，由于单例对象一开始就得以创建，因此要优于懒汉式单例。但是无论系统在运行时是否需要使用该单例对象，由于在类加载时该对象就需要创建，因此从资源利用效率角度来讲，饿汉式单例不及懒汉式单例，而且在系统加载时由于需要创建饿汉式单例对象，加载时间可能会比较长。</p><p>懒汉式单例类在第一次使用时创建，无须一直占用系统资源，实现了延迟加载，但是必须处理好多个线程同时访问的问题，特别是当单例类作为资源控制器，在实例化时必然涉及资源初始化，而资源初始化很有可能耗费大量时间，这意味着出现多线程同时首次引用此类的机率变得较大，需要通过双重检查锁定等机制进行控制，这将导致系统性能受到一定影响。</p><h2 id="一种更好的实现方式"><a href="#一种更好的实现方式" class="headerlink" title="一种更好的实现方式"></a>一种更好的实现方式</h2><p>Initialization Demand Holder (IoDH)技术：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Singleton &#123;  </span><br><span class="line">    private Singleton() &#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">    private static class HolderClass &#123;  </span><br><span class="line">            private final static Singleton instance = new Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    public static Singleton getInstance() &#123;  </span><br><span class="line">        return HolderClass.instance;  </span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure><p>由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton，第一次调用getInstance()时将加载内部类HolderClass，在该内部类中定义了一个static类型的变量instance，此时会首先初始化这个成员变量，由Java虚拟机来保证其线程安全性，确保该成员变量只能初始化一次。由于getInstance()方法没有任何线程锁定，因此其性能不会造成任何影响。</p>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[设计模式-单例模式]]></title>
+    <url>%2F2017%2F06%2F10%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[在实际开发中，为了节约系统资源，有时需要确保系统中某个类只有唯一的一个实例，当这个唯一的实例创建成功后，我们无法再创建一个同类型的其他对象，所有的操作都基于这个唯一的对象，这就是单例模式的动机所在。类图如下：为了实现唯一性，该类有以下特性：1.将该类构造函数的可见性改为private。2.定义一个静态类型的Singtelon私有变量。3.增加一个共有的静态方法，用来获得该私有变量。 123456789101112class Singleton &#123; private Singleton()&#123;&#125; //私有的构造函数 private static Singleton instance = null;//私有静态变量 public Singleton getInstance()&#123; if(instance == null)&#123; return new Singleton(); &#125; return instance; &#125;&#125; 上面的代码在多线程环境下会出现创建多个实例的情况。对此，有两种解决方案：1.饿汉式单例模式 12345678class EagerSingleton &#123; private static final EagerSingleton instance = new EagerSingleton(); private EagerSingleton() &#123; &#125; public static EagerSingleton getInstance() &#123; return instance; &#125; &#125; 2.懒汉式单例模式(使用双重检查锁) 12345678910111213141516171819class LazySingleton &#123; private volatile static LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton getInstance() &#123; //第一重判断 if (instance == null) &#123; //锁定代码块 synchronized (LazySingleton.class) &#123; //第二重判断 if (instance == null) &#123; instance = new LazySingleton(); //创建单例实例 &#125; &#125; &#125; return instance; &#125; &#125; 需要注意的是，如果使用双重检查锁定来实现懒汉式单例类，需要在静态成员变量instance之前增加修饰符volatile，被volatile修饰的成员变量可以确保多个线程都能够正确处理，且该代码只能在JDK 1.5及以上版本中才能正确执行。由于volatile关键字会屏蔽Java虚拟机所做的一些代码优化，可能会导致系统运行效率降低，因此即使使用双重检查锁定来实现单例模式也不是一种完美的实现方式。 饿汉式单例类在类被加载时就将自己实例化，它的优点在于无须考虑多线程访问问题，可以确保实例的唯一性；从调用速度和反应时间角度来讲，由于单例对象一开始就得以创建，因此要优于懒汉式单例。但是无论系统在运行时是否需要使用该单例对象，由于在类加载时该对象就需要创建，因此从资源利用效率角度来讲，饿汉式单例不及懒汉式单例，而且在系统加载时由于需要创建饿汉式单例对象，加载时间可能会比较长。 懒汉式单例类在第一次使用时创建，无须一直占用系统资源，实现了延迟加载，但是必须处理好多个线程同时访问的问题，特别是当单例类作为资源控制器，在实例化时必然涉及资源初始化，而资源初始化很有可能耗费大量时间，这意味着出现多线程同时首次引用此类的机率变得较大，需要通过双重检查锁定等机制进行控制，这将导致系统性能受到一定影响。 一种更好的实现方式Initialization Demand Holder (IoDH)技术： 123456789class Singleton &#123; private Singleton() &#123; &#125; private static class HolderClass &#123; private final static Singleton instance = new Singleton(); &#125; public static Singleton getInstance() &#123; return HolderClass.instance; &#125;&#125; 由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton，第一次调用getInstance()时将加载内部类HolderClass，在该内部类中定义了一个static类型的变量instance，此时会首先初始化这个成员变量，由Java虚拟机来保证其线程安全性，确保该成员变量只能初始化一次。由于getInstance()方法没有任何线程锁定，因此其性能不会造成任何影响。]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>git使用</title>
-      <link href="/2017/04/30/git%E4%BD%BF%E7%94%A8/"/>
-      <url>/2017/04/30/git%E4%BD%BF%E7%94%A8/</url>
-      
-        <content type="html"><![CDATA[<h2 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h2><p>今天写了一个在在标签页显示数字的chrome扩展程序，打算提交到github,顺便学习了将一个已有的项目提交到github的方法。</p><ul><li>登录github，新建一个仓库<br><img src="http://ww4.sinaimg.cn/large/006tKfTcly1ff4kewj8khj31dq0qe78o.jpg" alt=""></li><li><p>进入项目的本地目录，执行如下命令：</p><p><code>git init</code><br><code>git remote add origin git@github.com:haominglfs/tab_number.git//与远程仓库建立关联</code><br><code>git add .</code><br><code>git commit -m &#39;tab_number extension of chrome v0.1&#39;</code><br><code>git push -u origin master //push到远程仓库</code> </p></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git使用]]></title>
+    <url>%2F2017%2F04%2F30%2Fgit%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[git使用今天写了一个在在标签页显示数字的chrome扩展程序，打算提交到github,顺便学习了将一个已有的项目提交到github的方法。 登录github，新建一个仓库 进入项目的本地目录，执行如下命令： git initgit remote add origin git@github.com:haominglfs/tab_number.git//与远程仓库建立关联git add .git commit -m &#39;tab_number extension of chrome v0.1&#39;git push -u origin master //push到远程仓库]]></content>
       <categories>
-          
-          <category> git </category>
-          
+        <category>git</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>iTerm2</title>
-      <link href="/2017/04/19/iTerm2/"/>
-      <url>/2017/04/19/iTerm2/</url>
-      
-        <content type="html"><![CDATA[<p>#iTerm2配置</p><ul><li>配色<br>1.<code>git clone git@github.com:altercation/solarized.git</code><br>2.这里我们要使用的是iterm2-colors-solarized目录下的，包括Solarized         Dark.itermcolors和Solarized Light.itermcolors两个配置文件。<br>3.打开Preferences-&gt;Profiles-&gt;Color面板，在Color Presets中将以上  两个配置方案导入，然后选择Solarized Dark或者Solarized Light即可。一般推荐使用Solarized Dark，Solarized Light有种亮瞎的感觉。</li><li>oh-my-zsh<br>1.接下来，用oh-my-zsh来武装zsh，一行命令搞定：<br><code>sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code><br>2.oh-my-zsh中提供了多套主题可供选择，有不同的输出样式及配色。默认应该是robbyrussell，感觉中规中矩没啥亮点。翻看了一下，发现了agnoster主题，感觉非常入眼。<br>接下来，编辑~/.zshrc，找到变量ZSH_THEME将其赋值改为agnoster即可。<br>3.为了显示正常，需要安装powerline字体，方法如下：<br><code>git clone git@github.com:powerline/fonts.git</code><br><code>cd fonts</code><br><code>./install</code><br>然后，在iTerm2-&gt;Preferences-&gt;Profiles-&gt;Text面板中将Non-ASCII Font改成Roboto Mono Powerline，显示就正常了！  </li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[iTerm2]]></title>
+    <url>%2F2017%2F04%2F19%2FiTerm2%2F</url>
+    <content type="text"><![CDATA[#iTerm2配置 配色1.git clone git@github.com:altercation/solarized.git2.这里我们要使用的是iterm2-colors-solarized目录下的，包括Solarized Dark.itermcolors和Solarized Light.itermcolors两个配置文件。3.打开Preferences-&gt;Profiles-&gt;Color面板，在Color Presets中将以上 两个配置方案导入，然后选择Solarized Dark或者Solarized Light即可。一般推荐使用Solarized Dark，Solarized Light有种亮瞎的感觉。 oh-my-zsh1.接下来，用oh-my-zsh来武装zsh，一行命令搞定：sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;2.oh-my-zsh中提供了多套主题可供选择，有不同的输出样式及配色。默认应该是robbyrussell，感觉中规中矩没啥亮点。翻看了一下，发现了agnoster主题，感觉非常入眼。接下来，编辑~/.zshrc，找到变量ZSH_THEME将其赋值改为agnoster即可。3.为了显示正常，需要安装powerline字体，方法如下：git clone git@github.com:powerline/fonts.gitcd fonts./install然后，在iTerm2-&gt;Preferences-&gt;Profiles-&gt;Text面板中将Non-ASCII Font改成Roboto Mono Powerline，显示就正常了！]]></content>
       <categories>
-          
-          <category> iTerm2 </category>
-          
+        <category>iTerm2</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> iTerm2配置 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>shadowsocks配置</title>
-      <link href="/2017/04/19/shadowsocks%E9%85%8D%E7%BD%AE/"/>
-      <url>/2017/04/19/shadowsocks%E9%85%8D%E7%BD%AE/</url>
-      
-        <content type="html"><![CDATA[<h2 id="shadowsocks配置"><a href="#shadowsocks配置" class="headerlink" title="#shadowsocks配置"></a>#shadowsocks配置</h2><ul><li>第一步 用远程工具登录aws主机</li><li><p>第二步：安装shadowsocks依赖</p><ol><li><code>sudo -s</code> //获取超级管理员权限</li><li><code>apt-get update</code>//更新apt-get</li><li><code>apt-get install python-pip</code>//安装pyton包管理工具</li><li><code>pip install shadowsocks</code>//安装shadowsocks</li><li><code>ssserver -c /etc/shadowsocks.json -d start</code>//启动shadowsocks</li></ol></li><li><p>第三步:配置shadowsocks</p><ol><li><code>vi /etc/shadowsocks.json</code>//编辑配置文件</li><li><p>单一端口配置</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:端口,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;连接密码&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;:false</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li><li><p>多端口配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">  &quot;port_password&quot;: &#123;</span><br><span class="line">      &quot;端口1&quot;: &quot;连接密码1&quot;,</span><br><span class="line">      &quot;端口2&quot; : &quot;连接密码2&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;timeout&quot;:300,</span><br><span class="line">  &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">  &quot;fast_open&quot;: false</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li></ol></li><li><p>开启aws 入站端口</p><p>配置好shaodowsocks后，还需要将配置中的端口打开,这样客户端的服务才能链接得上EC2中的shadowsocks服务<br>首先打开正在运行的实例，向右滚动表格，看到最后一项，安全组，点击进入<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-0.png&amp;objectId=1190000003101075&amp;token=cdc26e8e1b55555923c613f33248fa51" alt=""></p></li></ul><p><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-4.png&amp;objectId=1190000003101075&amp;token=a6157d5b581643cfb706a380e15816f7" alt=""></p><p>默认是开启了一个22端口（这是给ssh访问的），再建一个如下图红框标示的端口，我的shadowsocks配置的端口是8388，所以这里就开启8388，<br><img src="https://segmentfault.com/image?src=http://7fvd05.com1.z0.glb.clouddn.com/QQ20150815-5.png&amp;objectId=1190000003101075&amp;token=9b7e5a2ca61848931c4b48136d7985da" alt=""></p><ul><li>配置文件编辑完成后，接下来就可以部署运行了：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure><p>当然，我们可不希望每次重启服务器都手动启动 SS, 因此我们要把这条命令放到这个文件下：/etc/rc.d/rc.local，这样以后就能开机自动运行了。</p>]]></content>
-      
-      
+      <tags>
+        <tag>iTerm2配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[shadowsocks配置]]></title>
+    <url>%2F2017%2F04%2F19%2Fshadowsocks%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[#shadowsocks配置 第一步 用远程工具登录aws主机 第二步：安装shadowsocks依赖 sudo -s //获取超级管理员权限 apt-get update//更新apt-get apt-get install python-pip//安装pyton包管理工具 pip install shadowsocks//安装shadowsocks ssserver -c /etc/shadowsocks.json -d start//启动shadowsocks 第三步:配置shadowsocks vi /etc/shadowsocks.json//编辑配置文件 单一端口配置 12345678910&#123; &quot;server&quot;:&quot;0.0.0.0&quot;, &quot;server_port&quot;:端口, &quot;local_address&quot;:&quot;127.0.0.1&quot;, &quot;local_port&quot;:1080, &quot;password&quot;:&quot;连接密码&quot;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast_open&quot;:false &#125; 多端口配置 12345678910&#123; &quot;server&quot;:&quot;0.0.0.0&quot;, &quot;port_password&quot;: &#123; &quot;端口1&quot;: &quot;连接密码1&quot;, &quot;端口2&quot; : &quot;连接密码2&quot; &#125;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast_open&quot;: false &#125; 开启aws 入站端口 配置好shaodowsocks后，还需要将配置中的端口打开,这样客户端的服务才能链接得上EC2中的shadowsocks服务首先打开正在运行的实例，向右滚动表格，看到最后一项，安全组，点击进入 默认是开启了一个22端口（这是给ssh访问的），再建一个如下图红框标示的端口，我的shadowsocks配置的端口是8388，所以这里就开启8388， 配置文件编辑完成后，接下来就可以部署运行了： 1ssserver -c /etc/shadowsocks.json -d start 当然，我们可不希望每次重启服务器都手动启动 SS, 因此我们要把这条命令放到这个文件下：/etc/rc.d/rc.local，这样以后就能开机自动运行了。]]></content>
       <categories>
-          
-          <category> vpn </category>
-          
+        <category>vpn</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> shadowsocks </tag>
-            
-        </tags>
-      
-    </entry>
-    
-  
-  
+      <tags>
+        <tag>shadowsocks</tag>
+      </tags>
+  </entry>
 </search>
