@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="persistence.xml JPA规范要求在类路径的META-INF目录下放置persistence.xml，文件的名称是固定的。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556&amp;lt;?xml version=&quot;1.0&quot; encod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jpa">
+<meta property="og:url" content="https://haominglfs.github.io/2018/12/12/jpa/index.html">
+<meta property="og:site_name" content="haominglfs的博客">
+<meta property="og:description" content="persistence.xml JPA规范要求在类路径的META-INF目录下放置persistence.xml，文件的名称是固定的。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556&amp;lt;?xml version=&quot;1.0&quot; encod">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-12T08:04:55.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jpa">
+<meta name="twitter:description" content="persistence.xml JPA规范要求在类路径的META-INF目录下放置persistence.xml，文件的名称是固定的。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556&amp;lt;?xml version=&quot;1.0&quot; encod">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://haominglfs.github.io/2018/12/12/jpa/"/>
+
+
+
+
+
+  <title>jpa | haominglfs的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">haominglfs的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Let's coding!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2018/12/12/jpa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">jpa</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T14:15:40+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/12/jpa/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/12/jpa/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/12/jpa/" class="leancloud_visitors" data-flag-title="jpa">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>persistence.xml</p>
+<p>JPA规范要求在类路径的META-INF目录下放置persistence.xml，文件的名称是固定的。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">persistence</span> <span class="attr">version</span>=<span class="string">"2.0"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/persistence"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"</span>&gt;</span></span><br><span class="line">  	<span class="comment">&lt;!-- 1.name 属性用于定义持久化单元的名字, 必选 </span></span><br><span class="line"><span class="comment">		 2.transaction-type：指定 JPA  的事务处理策略。</span></span><br><span class="line"><span class="comment">			RESOURCE_LOCAL：默认值，数据库级别的事务，只能针对一种数据库，不支持分布式事务。</span></span><br><span class="line"><span class="comment">			如果需要支持分布式事务，使用JTA：transaction-type="JTA“</span></span><br><span class="line"><span class="comment">	--&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">persistence-unit</span> <span class="attr">name</span>=<span class="string">"jpa-1"</span> <span class="attr">transaction-type</span>=<span class="string">"RESOURCE_LOCAL"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">		配置使用什么 ORM 产品来作为 JPA 的实现 </span></span><br><span class="line"><span class="comment">		1. 实际上配置的是  javax.persistence.spi.PersistenceProvider 接口的实现类</span></span><br><span class="line"><span class="comment">		2. 若 JPA 项目中只有一个 JPA 的实现产品, 则也可以不配置该节点. </span></span><br><span class="line"><span class="comment">		--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">provider</span>&gt;</span>org.hibernate.ejb.HibernatePersistence<span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">		<span class="comment">&lt;!-- 添加持久化类 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">class</span>&gt;</span>com.atguigu.jpa.helloworld.Customer<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">class</span>&gt;</span>com.atguigu.jpa.helloworld.Order<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">		<span class="tag">&lt;<span class="name">class</span>&gt;</span>com.atguigu.jpa.helloworld.Department<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">class</span>&gt;</span>com.atguigu.jpa.helloworld.Manager<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">		<span class="tag">&lt;<span class="name">class</span>&gt;</span>com.atguigu.jpa.helloworld.Item<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">class</span>&gt;</span>com.atguigu.jpa.helloworld.Category<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">		配置二级缓存的策略 </span></span><br><span class="line"><span class="comment">		ALL：所有的实体类都被缓存</span></span><br><span class="line"><span class="comment">		NONE：所有的实体类都不被缓存. </span></span><br><span class="line"><span class="comment">		ENABLE_SELECTIVE：标识 @Cacheable(true) 注解的实体类将被缓存</span></span><br><span class="line"><span class="comment">		DISABLE_SELECTIVE：缓存除标识 @Cacheable(false) 以外的所有实体类</span></span><br><span class="line"><span class="comment">		UNSPECIFIED：默认值，JPA 产品默认值将被使用</span></span><br><span class="line"><span class="comment">		--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">shared-cache-mode</span>&gt;</span>ENABLE_SELECTIVE<span class="tag">&lt;/<span class="name">shared-cache-mode</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">		<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 连接数据库的基本信息 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"javax.persistence.jdbc.driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"javax.persistence.jdbc.url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql:///jpa"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"javax.persistence.jdbc.user"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"javax.persistence.jdbc.password"</span> <span class="attr">value</span>=<span class="string">"1230"</span>/&gt;</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment">&lt;!-- 配置 JPA 实现产品的基本属性. 配置 hibernate 的基本属性 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.format_sql"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.show_sql"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.hbm2ddl.auto"</span> <span class="attr">value</span>=<span class="string">"update"</span>/&gt;</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment">&lt;!-- 二级缓存相关 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.cache.use_second_level_cache"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.cache.region.factory_class"</span> <span class="attr">value</span>=<span class="string">"org.hibernate.cache.ehcache.EhCacheRegionFactory"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.cache.use_query_cache"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">persistence-unit</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistence</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实体类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NamedQuery</span>(name=<span class="string">"testNamedQuery"</span>, query=<span class="string">"FROM Customer c WHERE c.id = ?"</span>)</span><br><span class="line"><span class="meta">@Cacheable</span>(<span class="keyword">true</span>)</span><br><span class="line"><span class="meta">@Table</span>(name=<span class="string">"JPA_CUTOMERS"</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String lastName;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String email;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Date createdTime;</span><br><span class="line">	<span class="keyword">private</span> Date birth;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Customer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Customer</span><span class="params">(String lastName, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Set&lt;Order&gt; orders = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">//	@TableGenerator(name="ID_GENERATOR",</span></span><br><span class="line"><span class="comment">//			table="jpa_id_generators",</span></span><br><span class="line"><span class="comment">//			pkColumnName="PK_NAME",</span></span><br><span class="line"><span class="comment">//			pkColumnValue="CUSTOMER_ID",</span></span><br><span class="line"><span class="comment">//			valueColumnName="PK_VALUE",</span></span><br><span class="line"><span class="comment">//			allocationSize=100)</span></span><br><span class="line"><span class="comment">//	@GeneratedValue(strategy=GenerationType.TABLE,generator="ID_GENERATOR")</span></span><br><span class="line">	<span class="meta">@GeneratedValue</span>(strategy=GenerationType.AUTO)</span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column</span>(name=<span class="string">"LAST_NAME"</span>,length=<span class="number">50</span>,nullable=<span class="keyword">false</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getLastName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> lastName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLastName</span><span class="params">(String lastName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getEmail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> email;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmail</span><span class="params">(String email)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.email = email;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Temporal</span>(TemporalType.TIMESTAMP)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Date <span class="title">getCreatedTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> createdTime;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCreatedTime</span><span class="params">(Date createdTime)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.createdTime = createdTime;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Temporal</span>(TemporalType.DATE)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Date <span class="title">getBirth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> birth;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBirth</span><span class="params">(Date birth)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.birth = birth;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//映射单向 1-n 的关联关系</span></span><br><span class="line">	<span class="comment">//使用 @OneToMany 来映射 1-n 的关联关系</span></span><br><span class="line">	<span class="comment">//使用 @JoinColumn 来映射外键列的名称</span></span><br><span class="line">	<span class="comment">//可以使用 @OneToMany 的 fetch 属性来修改默认的加载策略</span></span><br><span class="line">	<span class="comment">//可以通过 @OneToMany 的 cascade 属性来修改默认的删除策略. </span></span><br><span class="line">	<span class="comment">//注意: 若在 1 的一端的 @OneToMany 中使用 mappedBy 属性, 则 @OneToMany 端就不能再使用 @JoinColumn 属性了. </span></span><br><span class="line"><span class="comment">//	@JoinColumn(name="CUSTOMER_ID")</span></span><br><span class="line">	<span class="meta">@OneToMany</span>(fetch=FetchType.LAZY,cascade=&#123;CascadeType.REMOVE&#125;,mappedBy=<span class="string">"customer"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Set&lt;Order&gt; <span class="title">getOrders</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> orders;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOrders</span><span class="params">(Set&lt;Order&gt; orders)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.orders = orders;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//工具方法. 不需要映射为数据表的一列. </span></span><br><span class="line">	<span class="meta">@Transient</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"lastName: "</span> + lastName + <span class="string">", email: "</span> + email;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Customer [id="</span> + id + <span class="string">", lastName="</span> + lastName + <span class="string">", email="</span></span><br><span class="line">				+ email + <span class="string">", age="</span> + age + <span class="string">", createdTime="</span> + createdTime</span><br><span class="line">				+ <span class="string">", birth="</span> + birth + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行持久化操作流程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 创建 EntitymanagerFactory</span></span><br><span class="line">String persistenceUnitName = <span class="string">"jpa-1"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可选</span></span><br><span class="line"><span class="comment">//Map&lt;String, Object&gt; properites = new HashMap&lt;String, Object&gt;();</span></span><br><span class="line"><span class="comment">//properites.put("hibernate.show_sql", true);</span></span><br><span class="line"></span><br><span class="line">EntityManagerFactory entityManagerFactory = </span><br><span class="line">		Persistence.createEntityManagerFactory(persistenceUnitName);</span><br><span class="line">		<span class="comment">//Persistence.createEntityManagerFactory(persistenceUnitName, properites);</span></span><br><span class="line">		</span><br><span class="line"><span class="comment">//2. 创建 EntityManager. 类似于 Hibernate 的 SessionFactory</span></span><br><span class="line">EntityManager entityManager = entityManagerFactory.createEntityManager();</span><br><span class="line"></span><br><span class="line"><span class="comment">//3. 开启事务</span></span><br><span class="line">EntityTransaction transaction = entityManager.getTransaction();</span><br><span class="line">transaction.begin();</span><br><span class="line"></span><br><span class="line"><span class="comment">//4. 进行持久化操作</span></span><br><span class="line">Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">customer.setAge(<span class="number">12</span>);</span><br><span class="line">customer.setEmail(<span class="string">"tom@atguigu.com"</span>);</span><br><span class="line">customer.setLastName(<span class="string">"Tom"</span>);</span><br><span class="line">customer.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">customer.setCreatedTime(<span class="keyword">new</span> Date());</span><br><span class="line"></span><br><span class="line">entityManager.persist(customer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//5. 提交事务</span></span><br><span class="line">transaction.commit();</span><br><span class="line">  	</span><br><span class="line"><span class="comment">//6. 关闭 EntityManager</span></span><br><span class="line">entityManager.close();</span><br><span class="line"></span><br><span class="line"><span class="comment">//7. 关闭 EntityManagerFactory</span></span><br><span class="line">entityManagerFactory.close();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基本注解</p>
+<ol>
+<li><p>@Entity<br>标注用于实体类声明语句之前，指出该Java类为实体类，将映射到指定的数据库表。如声明一个实体类Customer，它将映射到数据库中的customer表上。</p>
+</li>
+<li><p>@Table</p>
+<ul>
+<li><p>当实体类与其映射的数据库表名不同名时需要使用 @Table 标注说明，该标注与 @Entity 标注并列使用，置于实体类声明语句之前，可写于单独语句行，也可与声明语句同行。</p>
+</li>
+<li><p>@Table 标注的常用选项是 name，用于指明数据库的表名</p>
+</li>
+<li><p>@Table标注还有一个两个选项 catalog 和 schema 用于设置表所属的数据库目录或模式，通常为数据库名。uniqueConstraints选项用于设置约束条件，通常不须设置。</p>
+</li>
+</ul>
+</li>
+<li><p>@Id</p>
+<ul>
+<li>@Id标注用于声明一个实体类的属性映射为数据库的主键列。该属性通常置于属性声明语句之前，可与声明语句同行，也可写在单独行上。</li>
+<li>•@Id标注也可置于属性的getter方法之前。</li>
+</ul>
+</li>
+<li><p>@GeneratedValue</p>
+<ul>
+<li><p>@GeneratedValue  用于标注主键的生成策略，通过 strategy属性指定。默认情况下，JPA自动选择一个最适合底层数据库的主键生成策略：SqlServer对应identity，MySQL对应auto increment。</p>
+</li>
+<li><p>在 javax.persistence.GenerationType 中定义了以下几种可供选择的策略：</p>
+<p>–IDENTITY：采用数据库 ID自增长的方式来自增主键字段，Oracle 不支持这种方式；</p>
+<p>–AUTO： JPA自动选择合适的策略，是默认选项；</p>
+<p>–SEQUENCE：通过序列产生主键，通过 @SequenceGenerator 注解指定序列名，MySql 不支持这种方式</p>
+<p>–TABLE：通过表产生主键，框架借由表模拟序列产生主键，使用该策略可以使应用更易于数据库移植。</p>
+</li>
+</ul>
+</li>
+<li><p>@Basic</p>
+<ul>
+<li>@Basic 表示一个简单的属性到数据库表的字段的映射,对于没有任何标注的 getXxxx() 方法,默认即为@Basic</li>
+<li>fetch: 表示该属性的读取策略,有EAGER 和 LAZY两种,分别表示主支抓取和延迟加载,默认为EAGER.</li>
+<li>optional:表示该属性是否允许为null,默认为true</li>
+</ul>
+</li>
+<li><p>@Column</p>
+<ul>
+<li>当实体的属性与其映射的数据库表的列不同名时需要使用@Column标注说明，该属性通常置于实体的属性声明语句之前，还可与@Id标注一起使用。</li>
+<li>@Column标注的常用属性是name，用于设置映射数据库表的列名。此外，该标注还包含其它多个属性，如：unique 、nullable、length 等。</li>
+<li>@Column标注的columnDefinition属性:表示该字段在数据库中的实际类型.通常ORM框架可以根据属性类型自动判断数据库中字段的类型,但是对于Date类型仍无法确定数据库中字段类型究竟是DATE,TIME还是TIMESTAMP.此外,String的默认映射类型为VARCHAR,如果要将String类型映射到特定数据库的BLOB或TEXT字段类型。</li>
+<li>@Column标注也可置于属性的getter方法之前。</li>
+</ul>
+</li>
+<li><p>@Transient</p>
+<ul>
+<li>表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性.</li>
+<li>如果一个属性并非数据库表的字段映射,就务必将其标示为@Transient,否则,ORM框架默认其注解为@Basic</li>
+</ul>
+</li>
+<li><p>@Temporal</p>
+<ul>
+<li>在核心的JavaAPI 中并没有定义Date类型的精度(temporalprecision).  而在数据库中,表示Date类型的数据有DATE,TIME, 和 TIMESTAMP三种精度(即单纯的日期,时间,或者两者兼备). 在进行属性映射时可使用@Temporal注解来调整精度。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>JPA API</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JPATest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> EntityManagerFactory entityManagerFactory;</span><br><span class="line">	<span class="keyword">private</span> EntityManager entityManager;</span><br><span class="line">	<span class="keyword">private</span> EntityTransaction transaction;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Before</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">		entityManagerFactory = Persistence.createEntityManagerFactory(<span class="string">"jpa-1"</span>);</span><br><span class="line">		entityManager = entityManagerFactory.createEntityManager();</span><br><span class="line">		transaction = entityManager.getTransaction();</span><br><span class="line">		transaction.begin();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@After</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		transaction.commit();</span><br><span class="line">		entityManager.close();</span><br><span class="line">		entityManagerFactory.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//可以使用 JPQL 完成 UPDATE 和 DELETE 操作. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testExecuteUpdate</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"UPDATE Customer c SET c.lastName = ? WHERE c.id = ?"</span>;</span><br><span class="line">		Query query = entityManager.createQuery(jpql).setParameter(<span class="number">1</span>, <span class="string">"YYY"</span>).setParameter(<span class="number">2</span>, <span class="number">12</span>);</span><br><span class="line">		</span><br><span class="line">		query.executeUpdate();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用 jpql 内建的函数</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testJpqlFunction</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"SELECT lower(c.email) FROM Customer c"</span>;</span><br><span class="line">		</span><br><span class="line">		List&lt;String&gt; emails = entityManager.createQuery(jpql).getResultList();</span><br><span class="line">		System.out.println(emails);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSubQuery</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//查询所有 Customer 的 lastName 为 YY 的 Order</span></span><br><span class="line">		String jpql = <span class="string">"SELECT o FROM Order o "</span></span><br><span class="line">				+ <span class="string">"WHERE o.customer = (SELECT c FROM Customer c WHERE c.lastName = ?)"</span>;</span><br><span class="line">		</span><br><span class="line">		Query query = entityManager.createQuery(jpql).setParameter(<span class="number">1</span>, <span class="string">"YY"</span>);</span><br><span class="line">		List&lt;Order&gt; orders = query.getResultList();</span><br><span class="line">		System.out.println(orders.size());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * JPQL 的关联查询同 HQL 的关联查询. </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLeftOuterJoinFetch</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"FROM Customer c LEFT OUTER JOIN FETCH c.orders WHERE c.id = ?"</span>;</span><br><span class="line">		</span><br><span class="line">		Customer customer = </span><br><span class="line">				(Customer) entityManager.createQuery(jpql).setParameter(<span class="number">1</span>, <span class="number">12</span>).getSingleResult();</span><br><span class="line">		System.out.println(customer.getLastName());</span><br><span class="line">		System.out.println(customer.getOrders().size());</span><br><span class="line">		</span><br><span class="line"><span class="comment">//		List&lt;Object[]&gt; result = entityManager.createQuery(jpql).setParameter(1, 12).getResultList();</span></span><br><span class="line"><span class="comment">//		System.out.println(result);</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//查询 order 数量大于 2 的那些 Customer</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGroupBy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"SELECT o.customer FROM Order o "</span></span><br><span class="line">				+ <span class="string">"GROUP BY o.customer "</span></span><br><span class="line">				+ <span class="string">"HAVING count(o.id) &gt;= 2"</span>;</span><br><span class="line">		List&lt;Customer&gt; customers = entityManager.createQuery(jpql).getResultList();</span><br><span class="line">		</span><br><span class="line">		System.out.println(customers);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOrderBy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"FROM Customer c WHERE c.age &gt; ? ORDER BY c.age DESC"</span>;</span><br><span class="line">		Query query = entityManager.createQuery(jpql).setHint(QueryHints.HINT_CACHEABLE, <span class="keyword">true</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//占位符的索引是从 1 开始</span></span><br><span class="line">		query.setParameter(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">		List&lt;Customer&gt; customers = query.getResultList();</span><br><span class="line">		System.out.println(customers.size());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//使用 hibernate 的查询缓存. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryCache</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"FROM Customer c WHERE c.age &gt; ?"</span>;</span><br><span class="line">		Query query = entityManager.createQuery(jpql).setHint(QueryHints.HINT_CACHEABLE, <span class="keyword">true</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//占位符的索引是从 1 开始</span></span><br><span class="line">		query.setParameter(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">		List&lt;Customer&gt; customers = query.getResultList();</span><br><span class="line">		System.out.println(customers.size());</span><br><span class="line">		</span><br><span class="line">		query = entityManager.createQuery(jpql).setHint(QueryHints.HINT_CACHEABLE, <span class="keyword">true</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//占位符的索引是从 1 开始</span></span><br><span class="line">		query.setParameter(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">		customers = query.getResultList();</span><br><span class="line">		System.out.println(customers.size());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//createNativeQuery 适用于本地 SQL</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNativeQuery</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String sql = <span class="string">"SELECT age FROM jpa_cutomers WHERE id = ?"</span>;</span><br><span class="line">		Query query = entityManager.createNativeQuery(sql).setParameter(<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">		</span><br><span class="line">		Object result = query.getSingleResult();</span><br><span class="line">		System.out.println(result);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//createNamedQuery 适用于在实体类前使用 @NamedQuery 标记的查询语句</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNamedQuery</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Query query = entityManager.createNamedQuery(<span class="string">"testNamedQuery"</span>).setParameter(<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">		Customer customer = (Customer) query.getSingleResult();</span><br><span class="line">		</span><br><span class="line">		System.out.println(customer);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//默认情况下, 若只查询部分属性, 则将返回 Object[] 类型的结果. 或者 Object[] 类型的 List.</span></span><br><span class="line">	<span class="comment">//也可以在实体类中创建对应的构造器, 然后再 JPQL 语句中利用对应的构造器返回实体类的对象.</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPartlyProperties</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"SELECT new Customer(c.lastName, c.age) FROM Customer c WHERE c.id &gt; ?"</span>;</span><br><span class="line">		List result = entityManager.createQuery(jpql).setParameter(<span class="number">1</span>, <span class="number">1</span>).getResultList();</span><br><span class="line">		</span><br><span class="line">		System.out.println(result);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHelloJPQL</span><span class="params">()</span></span>&#123;</span><br><span class="line">		String jpql = <span class="string">"FROM Customer c WHERE c.age &gt; ?"</span>;</span><br><span class="line">		Query query = entityManager.createQuery(jpql);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//占位符的索引是从 1 开始</span></span><br><span class="line">		query.setParameter(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">		List&lt;Customer&gt; customers = query.getResultList();</span><br><span class="line">		System.out.println(customers.size());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSecondLevelCache</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer1 = entityManager.find(Customer.class, <span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		transaction.commit();</span><br><span class="line">		entityManager.close();</span><br><span class="line">		</span><br><span class="line">		entityManager = entityManagerFactory.createEntityManager();</span><br><span class="line">		transaction = entityManager.getTransaction();</span><br><span class="line">		transaction.begin();</span><br><span class="line">		</span><br><span class="line">		Customer customer2 = entityManager.find(Customer.class, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//对于关联的集合对象, 默认使用懒加载的策略.</span></span><br><span class="line">	<span class="comment">//使用维护关联关系的一方获取, 还是使用不维护关联关系的一方获取, SQL 语句相同. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testManyToManyFind</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//		Item item = entityManager.find(Item.class, 5);</span></span><br><span class="line"><span class="comment">//		System.out.println(item.getItemName());</span></span><br><span class="line"><span class="comment">//		</span></span><br><span class="line"><span class="comment">//		System.out.println(item.getCategories().size());</span></span><br><span class="line">		</span><br><span class="line">		Category category = entityManager.find(Category.class, <span class="number">3</span>);</span><br><span class="line">		System.out.println(category.getCategoryName());</span><br><span class="line">		System.out.println(category.getItems().size());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//多对所的保存</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testManyToManyPersist</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Item i1 = <span class="keyword">new</span> Item();</span><br><span class="line">		i1.setItemName(<span class="string">"i-1"</span>);</span><br><span class="line">	</span><br><span class="line">		Item i2 = <span class="keyword">new</span> Item();</span><br><span class="line">		i2.setItemName(<span class="string">"i-2"</span>);</span><br><span class="line">		</span><br><span class="line">		Category c1 = <span class="keyword">new</span> Category();</span><br><span class="line">		c1.setCategoryName(<span class="string">"C-1"</span>);</span><br><span class="line">		</span><br><span class="line">		Category c2 = <span class="keyword">new</span> Category();</span><br><span class="line">		c2.setCategoryName(<span class="string">"C-2"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//设置关联关系</span></span><br><span class="line">		i1.getCategories().add(c1);</span><br><span class="line">		i1.getCategories().add(c2);</span><br><span class="line">		</span><br><span class="line">		i2.getCategories().add(c1);</span><br><span class="line">		i2.getCategories().add(c2);</span><br><span class="line">		</span><br><span class="line">		c1.getItems().add(i1);</span><br><span class="line">		c1.getItems().add(i2);</span><br><span class="line">		</span><br><span class="line">		c2.getItems().add(i1);</span><br><span class="line">		c2.getItems().add(i2);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//执行保存</span></span><br><span class="line">		entityManager.persist(i1);</span><br><span class="line">		entityManager.persist(i2);</span><br><span class="line">		entityManager.persist(c1);</span><br><span class="line">		entityManager.persist(c2);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//1. 默认情况下, 若获取不维护关联关系的一方, 则也会通过左外连接获取其关联的对象. </span></span><br><span class="line">	<span class="comment">//可以通过 @OneToOne 的 fetch 属性来修改加载策略. 但依然会再发送 SQL 语句来初始化其关联的对象</span></span><br><span class="line">	<span class="comment">//这说明在不维护关联关系的一方, 不建议修改 fetch 属性. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOneToOneFind2</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Manager mgr = entityManager.find(Manager.class, <span class="number">1</span>);</span><br><span class="line">		System.out.println(mgr.getMgrName());</span><br><span class="line">		</span><br><span class="line">		System.out.println(mgr.getDept().getClass().getName());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//1.默认情况下, 若获取维护关联关系的一方, 则会通过左外连接获取其关联的对象. </span></span><br><span class="line">	<span class="comment">//但可以通过 @OntToOne 的 fetch 属性来修改加载策略.</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOneToOneFind</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Department dept = entityManager.find(Department.class, <span class="number">1</span>);</span><br><span class="line">		System.out.println(dept.getDeptName());</span><br><span class="line">		System.out.println(dept.getMgr().getClass().getName());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//双向 1-1 的关联关系, 建议先保存不维护关联关系的一方, 即没有外键的一方, 这样不会多出 UPDATE 语句.</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOneToOnePersistence</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Manager mgr = <span class="keyword">new</span> Manager();</span><br><span class="line">		mgr.setMgrName(<span class="string">"M-BB"</span>);</span><br><span class="line">		</span><br><span class="line">		Department dept = <span class="keyword">new</span> Department();</span><br><span class="line">		dept.setDeptName(<span class="string">"D-BB"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//设置关联关系</span></span><br><span class="line">		mgr.setDept(dept);</span><br><span class="line">		dept.setMgr(mgr);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//执行保存操作</span></span><br><span class="line">		entityManager.persist(mgr);</span><br><span class="line">		entityManager.persist(dept);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = entityManager.find(Customer.class, <span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		customer.getOrders().iterator().next().setOrderName(<span class="string">"O-XXX-10"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//默认情况下, 若删除 1 的一端, 则会先把关联的 n 的一端的外键置空, 然后进行删除. </span></span><br><span class="line">	<span class="comment">//可以通过 @OneToMany 的 cascade 属性来修改默认的删除策略. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOneToManyRemove</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = entityManager.find(Customer.class, <span class="number">8</span>);</span><br><span class="line">		entityManager.remove(customer);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//默认对关联的多的一方使用懒加载的加载策略. </span></span><br><span class="line">	<span class="comment">//可以使用 @OneToMany 的 fetch 属性来修改默认的加载策略</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOneToManyFind</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = entityManager.find(Customer.class, <span class="number">9</span>);</span><br><span class="line">		System.out.println(customer.getLastName());</span><br><span class="line">		</span><br><span class="line">		System.out.println(customer.getOrders().size());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//若是双向 1-n 的关联关系, 执行保存时</span></span><br><span class="line">	<span class="comment">//若先保存 n 的一端, 再保存 1 的一端, 默认情况下, 会多出 n 条 UPDATE 语句.</span></span><br><span class="line">	<span class="comment">//若先保存 1 的一端, 则会多出 n 条 UPDATE 语句</span></span><br><span class="line">	<span class="comment">//在进行双向 1-n 关联关系时, 建议使用 n 的一方来维护关联关系, 而 1 的一方不维护关联系, 这样会有效的减少 SQL 语句. </span></span><br><span class="line">	<span class="comment">//注意: 若在 1 的一端的 @OneToMany 中使用 mappedBy 属性, 则 @OneToMany 端就不能再使用 @JoinColumn 属性了. </span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//单向 1-n 关联关系执行保存时, 一定会多出 UPDATE 语句.</span></span><br><span class="line">	<span class="comment">//因为 n 的一端在插入时不会同时插入外键列. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOneToManyPersist</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">		customer.setAge(<span class="number">18</span>);</span><br><span class="line">		customer.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setCreatedTime(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setEmail(<span class="string">"mm@163.com"</span>);</span><br><span class="line">		customer.setLastName(<span class="string">"MM"</span>);</span><br><span class="line">		</span><br><span class="line">		Order order1 = <span class="keyword">new</span> Order();</span><br><span class="line">		order1.setOrderName(<span class="string">"O-MM-1"</span>);</span><br><span class="line">		</span><br><span class="line">		Order order2 = <span class="keyword">new</span> Order();</span><br><span class="line">		order2.setOrderName(<span class="string">"O-MM-2"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//建立关联关系</span></span><br><span class="line">		customer.getOrders().add(order1);</span><br><span class="line">		customer.getOrders().add(order2);</span><br><span class="line">		</span><br><span class="line">		order1.setCustomer(customer);</span><br><span class="line">		order2.setCustomer(customer);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//执行保存操作</span></span><br><span class="line">		entityManager.persist(customer);</span><br><span class="line"></span><br><span class="line">		entityManager.persist(order1);</span><br><span class="line">		entityManager.persist(order2);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	@Test</span></span><br><span class="line"><span class="comment">	public void testManyToOneUpdate()&#123;</span></span><br><span class="line"><span class="comment">		Order order = entityManager.find(Order.class, 2);</span></span><br><span class="line"><span class="comment">		order.getCustomer().setLastName("FFF");</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	//不能直接删除 1 的一端, 因为有外键约束. </span></span><br><span class="line"><span class="comment">	@Test</span></span><br><span class="line"><span class="comment">	public void testManyToOneRemove()&#123;</span></span><br><span class="line"><span class="comment">//		Order order = entityManager.find(Order.class, 1);</span></span><br><span class="line"><span class="comment">//		entityManager.remove(order);</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		Customer customer = entityManager.find(Customer.class, 7);</span></span><br><span class="line"><span class="comment">		entityManager.remove(customer);</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	//默认情况下, 使用左外连接的方式来获取 n 的一端的对象和其关联的 1 的一端的对象. </span></span><br><span class="line"><span class="comment">	//可使用 @ManyToOne 的 fetch 属性来修改默认的关联属性的加载策略</span></span><br><span class="line"><span class="comment">	@Test</span></span><br><span class="line"><span class="comment">	public void testManyToOneFind()&#123;</span></span><br><span class="line"><span class="comment">		Order order = entityManager.find(Order.class, 1);</span></span><br><span class="line"><span class="comment">		System.out.println(order.getOrderName());</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		System.out.println(order.getCustomer().getLastName());</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 保存多对一时, 建议先保存 1 的一端, 后保存 n 的一端, 这样不会多出额外的 UPDATE 语句.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	@Test</span></span><br><span class="line"><span class="comment">	public void testManyToOnePersist()&#123;</span></span><br><span class="line"><span class="comment">		Customer customer = new Customer();</span></span><br><span class="line"><span class="comment">		customer.setAge(18);</span></span><br><span class="line"><span class="comment">		customer.setBirth(new Date());</span></span><br><span class="line"><span class="comment">		customer.setCreatedTime(new Date());</span></span><br><span class="line"><span class="comment">		customer.setEmail("gg@163.com");</span></span><br><span class="line"><span class="comment">		customer.setLastName("GG");</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		Order order1 = new Order();</span></span><br><span class="line"><span class="comment">		order1.setOrderName("G-GG-1");</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		Order order2 = new Order();</span></span><br><span class="line"><span class="comment">		order2.setOrderName("G-GG-2");</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		//设置关联关系</span></span><br><span class="line"><span class="comment">		order1.setCustomer(customer);</span></span><br><span class="line"><span class="comment">		order2.setCustomer(customer);</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		//执行保存操作</span></span><br><span class="line"><span class="comment">		entityManager.persist(order1);</span></span><br><span class="line"><span class="comment">		entityManager.persist(order2);</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		entityManager.persist(customer);</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 同 hibernate 中 Session 的 refresh 方法. </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testRefresh</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = entityManager.find(Customer.class, <span class="number">1</span>);</span><br><span class="line">		customer = entityManager.find(Customer.class, <span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		entityManager.refresh(customer);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 同 hibernate 中 Session 的 flush 方法. </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFlush</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = entityManager.find(Customer.class, <span class="number">1</span>);</span><br><span class="line">		System.out.println(customer);</span><br><span class="line">		</span><br><span class="line">		customer.setLastName(<span class="string">"AA"</span>);</span><br><span class="line">		</span><br><span class="line">		entityManager.flush();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//若传入的是一个游离对象, 即传入的对象有 OID. </span></span><br><span class="line">	<span class="comment">//1. 若在 EntityManager 缓存中有对应的对象</span></span><br><span class="line">	<span class="comment">//2. JPA 会把游离对象的属性复制到查询到EntityManager 缓存中的对象中.</span></span><br><span class="line">	<span class="comment">//3. EntityManager 缓存中的对象执行 UPDATE. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMerge4</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">		customer.setAge(<span class="number">18</span>);</span><br><span class="line">		customer.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setCreatedTime(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setEmail(<span class="string">"dd@163.com"</span>);</span><br><span class="line">		customer.setLastName(<span class="string">"DD"</span>);</span><br><span class="line">		</span><br><span class="line">		customer.setId(<span class="number">4</span>);</span><br><span class="line">		Customer customer2 = entityManager.find(Customer.class, <span class="number">4</span>);</span><br><span class="line">		</span><br><span class="line">		entityManager.merge(customer);</span><br><span class="line">		</span><br><span class="line">		System.out.println(customer == customer2); <span class="comment">//false</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//若传入的是一个游离对象, 即传入的对象有 OID. </span></span><br><span class="line">	<span class="comment">//1. 若在 EntityManager 缓存中没有该对象</span></span><br><span class="line">	<span class="comment">//2. 若在数据库中也有对应的记录</span></span><br><span class="line">	<span class="comment">//3. JPA 会查询对应的记录, 然后返回该记录对一个的对象, 再然后会把游离对象的属性复制到查询到的对象中.</span></span><br><span class="line">	<span class="comment">//4. 对查询到的对象执行 update 操作. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMerge3</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">		customer.setAge(<span class="number">18</span>);</span><br><span class="line">		customer.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setCreatedTime(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setEmail(<span class="string">"ee@163.com"</span>);</span><br><span class="line">		customer.setLastName(<span class="string">"EE"</span>);</span><br><span class="line">		</span><br><span class="line">		customer.setId(<span class="number">4</span>);</span><br><span class="line">		</span><br><span class="line">		Customer customer2 = entityManager.merge(customer);</span><br><span class="line">		</span><br><span class="line">		System.out.println(customer == customer2); <span class="comment">//false</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//若传入的是一个游离对象, 即传入的对象有 OID. </span></span><br><span class="line">	<span class="comment">//1. 若在 EntityManager 缓存中没有该对象</span></span><br><span class="line">	<span class="comment">//2. 若在数据库中也没有对应的记录</span></span><br><span class="line">	<span class="comment">//3. JPA 会创建一个新的对象, 然后把当前游离对象的属性复制到新创建的对象中</span></span><br><span class="line">	<span class="comment">//4. 对新创建的对象执行 insert 操作. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMerge2</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">		customer.setAge(<span class="number">18</span>);</span><br><span class="line">		customer.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setCreatedTime(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setEmail(<span class="string">"dd@163.com"</span>);</span><br><span class="line">		customer.setLastName(<span class="string">"DD"</span>);</span><br><span class="line">		</span><br><span class="line">		customer.setId(<span class="number">100</span>);</span><br><span class="line">		</span><br><span class="line">		Customer customer2 = entityManager.merge(customer);</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"customer#id:"</span> + customer.getId());</span><br><span class="line">		System.out.println(<span class="string">"customer2#id:"</span> + customer2.getId());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 总的来说: 类似于 hibernate Session 的 saveOrUpdate 方法.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="comment">//1. 若传入的是一个临时对象</span></span><br><span class="line">	<span class="comment">//会创建一个新的对象, 把临时对象的属性复制到新的对象中, 然后对新的对象执行持久化操作. 所以</span></span><br><span class="line">	<span class="comment">//新的对象中有 id, 但以前的临时对象中没有 id. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMerge1</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">		customer.setAge(<span class="number">18</span>);</span><br><span class="line">		customer.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setCreatedTime(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setEmail(<span class="string">"cc@163.com"</span>);</span><br><span class="line">		customer.setLastName(<span class="string">"CC"</span>);</span><br><span class="line">		</span><br><span class="line">		Customer customer2 = entityManager.merge(customer);</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"customer#id:"</span> + customer.getId());</span><br><span class="line">		System.out.println(<span class="string">"customer2#id:"</span> + customer2.getId());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//类似于 hibernate 中 Session 的 delete 方法. 把对象对应的记录从数据库中移除</span></span><br><span class="line">	<span class="comment">//但注意: 该方法只能移除 持久化 对象. 而 hibernate 的 delete 方法实际上还可以移除 游离对象.</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testRemove</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//		Customer customer = new Customer();</span></span><br><span class="line"><span class="comment">//		customer.setId(2);</span></span><br><span class="line">		</span><br><span class="line">		Customer customer = entityManager.find(Customer.class, <span class="number">2</span>);</span><br><span class="line">		entityManager.remove(customer);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//类似于 hibernate 的 save 方法. 使对象由临时状态变为持久化状态. </span></span><br><span class="line">	<span class="comment">//和 hibernate 的 save 方法的不同之处: 若对象有 id, 则不能执行 insert 操作, 而会抛出异常. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPersistence</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = <span class="keyword">new</span> Customer();</span><br><span class="line">		customer.setAge(<span class="number">15</span>);</span><br><span class="line">		customer.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setCreatedTime(<span class="keyword">new</span> Date());</span><br><span class="line">		customer.setEmail(<span class="string">"bb@163.com"</span>);</span><br><span class="line">		customer.setLastName(<span class="string">"BB"</span>);</span><br><span class="line">		customer.setId(<span class="number">100</span>);</span><br><span class="line">		</span><br><span class="line">		entityManager.persist(customer);</span><br><span class="line">		System.out.println(customer.getId());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//类似于 hibernate 中 Session 的 load 方法</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetReference</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Customer customer = entityManager.getReference(Customer.class, <span class="number">1</span>);</span><br><span class="line">		System.out.println(customer.getClass().getName());</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line"><span class="comment">//		transaction.commit();</span></span><br><span class="line"><span class="comment">//		entityManager.close();</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(customer);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//类似于 hibernate 中 Session 的 get 方法. </span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFind</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Customer customer = entityManager.find(Customer.class, <span class="number">1</span>);</span><br><span class="line">		System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">		</span><br><span class="line">		System.out.println(customer);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单向多对一映射</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Table</span>(name=<span class="string">"JPA_ORDERS"</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String orderName;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Customer customer;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@GeneratedValue</span></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column</span>(name=<span class="string">"ORDER_NAME"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getOrderName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> orderName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOrderName</span><span class="params">(String orderName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.orderName = orderName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//映射单向 n-1 的关联关系</span></span><br><span class="line">	<span class="comment">//使用 @ManyToOne 来映射多对一的关联关系</span></span><br><span class="line">	<span class="comment">//使用 @JoinColumn 来映射外键. </span></span><br><span class="line">	<span class="comment">//可使用 @ManyToOne 的 fetch 属性来修改默认的关联属性的加载策略</span></span><br><span class="line">	<span class="meta">@JoinColumn</span>(name=<span class="string">"CUSTOMER_ID"</span>)</span><br><span class="line">	<span class="meta">@ManyToOne</span>(fetch=FetchType.LAZY)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Customer <span class="title">getCustomer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> customer;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCustomer</span><span class="params">(Customer customer)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.customer = customer;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单向一对多</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NamedQuery</span>(name=<span class="string">"testNamedQuery"</span>, query=<span class="string">"FROM Customer c WHERE c.id = ?"</span>)</span><br><span class="line"><span class="meta">@Cacheable</span>(<span class="keyword">true</span>)</span><br><span class="line"><span class="meta">@Table</span>(name=<span class="string">"JPA_CUTOMERS"</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String lastName;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String email;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Date createdTime;</span><br><span class="line">	<span class="keyword">private</span> Date birth;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Customer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Customer</span><span class="params">(String lastName, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Set&lt;Order&gt; orders = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">//	@TableGenerator(name="ID_GENERATOR",</span></span><br><span class="line"><span class="comment">//			table="jpa_id_generators",</span></span><br><span class="line"><span class="comment">//			pkColumnName="PK_NAME",</span></span><br><span class="line"><span class="comment">//			pkColumnValue="CUSTOMER_ID",</span></span><br><span class="line"><span class="comment">//			valueColumnName="PK_VALUE",</span></span><br><span class="line"><span class="comment">//			allocationSize=100)</span></span><br><span class="line"><span class="comment">//	@GeneratedValue(strategy=GenerationType.TABLE,generator="ID_GENERATOR")</span></span><br><span class="line">	<span class="meta">@GeneratedValue</span>(strategy=GenerationType.AUTO)</span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column</span>(name=<span class="string">"LAST_NAME"</span>,length=<span class="number">50</span>,nullable=<span class="keyword">false</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getLastName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> lastName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLastName</span><span class="params">(String lastName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getEmail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> email;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmail</span><span class="params">(String email)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.email = email;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Temporal</span>(TemporalType.TIMESTAMP)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Date <span class="title">getCreatedTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> createdTime;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCreatedTime</span><span class="params">(Date createdTime)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.createdTime = createdTime;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Temporal</span>(TemporalType.DATE)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Date <span class="title">getBirth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> birth;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBirth</span><span class="params">(Date birth)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.birth = birth;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//映射单向 1-n 的关联关系</span></span><br><span class="line">	<span class="comment">//使用 @OneToMany 来映射 1-n 的关联关系</span></span><br><span class="line">	<span class="comment">//使用 @JoinColumn 来映射外键列的名称</span></span><br><span class="line">	<span class="comment">//可以使用 @OneToMany 的 fetch 属性来修改默认的加载策略</span></span><br><span class="line">	<span class="comment">//可以通过 @OneToMany 的 cascade 属性来修改默认的删除策略. </span></span><br><span class="line">	<span class="comment">//注意: 若在 1 的一端的 @OneToMany 中使用 mappedBy(类似inverse,由多的一方来维护关联关系) 属性, 则 @OneToMany 端就不能再使用 @JoinColumn 属性了. </span></span><br><span class="line"><span class="comment">//	@JoinColumn(name="CUSTOMER_ID")</span></span><br><span class="line">	<span class="meta">@OneToMany</span>(fetch=FetchType.LAZY,cascade=&#123;CascadeType.REMOVE&#125;,mappedBy=<span class="string">"customer"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Set&lt;Order&gt; <span class="title">getOrders</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> orders;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOrders</span><span class="params">(Set&lt;Order&gt; orders)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.orders = orders;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//工具方法. 不需要映射为数据表的一列. </span></span><br><span class="line">	<span class="meta">@Transient</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"lastName: "</span> + lastName + <span class="string">", email: "</span> + email;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Customer [id="</span> + id + <span class="string">", lastName="</span> + lastName + <span class="string">", email="</span></span><br><span class="line">				+ email + <span class="string">", age="</span> + age + <span class="string">", createdTime="</span> + createdTime</span><br><span class="line">				+ <span class="string">", birth="</span> + birth + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>双向一对多(多对一)</p>
+<p>单向一对多和单向多对一的组合(注意使用mappedBy提高性能，防止执行多余的update语句)。</p>
+</li>
+<li><p>双向一对一</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Table</span>(name=<span class="string">"JPA_DEPARTMENTS"</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Department</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String deptName;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Manager mgr;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@GeneratedValue</span></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column</span>(name=<span class="string">"DEPT_NAME"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getDeptName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> deptName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDeptName</span><span class="params">(String deptName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.deptName = deptName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用 @OneToOne 来映射 1-1 关联关系。</span></span><br><span class="line">	<span class="comment">//若需要在当前数据表中添加外键则需要使用 @JoinColumn 来进行映射. 注意, 1-1 关联关系, 所以需要添加 unique=true</span></span><br><span class="line">	<span class="meta">@JoinColumn</span>(name=<span class="string">"MGR_ID"</span>, unique=<span class="keyword">true</span>)</span><br><span class="line">	<span class="meta">@OneToOne</span>(fetch=FetchType.LAZY)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Manager <span class="title">getMgr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> mgr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMgr</span><span class="params">(Manager mgr)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.mgr = mgr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">====================================================</span><br><span class="line"><span class="meta">@Table</span>(name=<span class="string">"JPA_MANAGERS"</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String mgrName;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Department dept;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@GeneratedValue</span></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column</span>(name=<span class="string">"MGR_NAME"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getMgrName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> mgrName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMgrName</span><span class="params">(String mgrName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.mgrName = mgrName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//对于不维护关联关系, 没有外键的一方, 使用 @OneToOne 来进行映射, 建议设置 mappedBy=true</span></span><br><span class="line">	<span class="meta">@OneToOne</span>(mappedBy=<span class="string">"mgr"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Department <span class="title">getDept</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> dept;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDept</span><span class="params">(Department dept)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.dept = dept;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>双向多对多</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Table</span>(name=<span class="string">"JPA_CATEGORIES"</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Category</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String categoryName;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Set&lt;Item&gt; items = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="meta">@GeneratedValue</span></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column</span>(name=<span class="string">"CATEGORY_NAME"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getCategoryName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> categoryName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCategoryName</span><span class="params">(String categoryName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.categoryName = categoryName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ManyToMany</span>(mappedBy=<span class="string">"categories"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Set&lt;Item&gt; <span class="title">getItems</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setItems</span><span class="params">(Set&lt;Item&gt; items)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.items = items;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">================================================</span><br><span class="line"><span class="meta">@Table</span>(name=<span class="string">"JPA_ITEMS"</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String itemName;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Set&lt;Category&gt; categories = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="meta">@GeneratedValue</span></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column</span>(name=<span class="string">"ITEM_NAME"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getItemName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> itemName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setItemName</span><span class="params">(String itemName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.itemName = itemName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用 @ManyToMany 注解来映射多对多关联关系</span></span><br><span class="line">	<span class="comment">//使用 @JoinTable 来映射中间表</span></span><br><span class="line">	<span class="comment">//1. name 指向中间表的名字</span></span><br><span class="line">	<span class="comment">//2. joinColumns 映射当前类所在的表在中间表中的外键</span></span><br><span class="line">	<span class="comment">//2.1 name 指定外键列的列名</span></span><br><span class="line">	<span class="comment">//2.2 referencedColumnName 指定外键列关联当前表的哪一列</span></span><br><span class="line">	<span class="comment">//3. inverseJoinColumns 映射关联的类所在中间表的外键</span></span><br><span class="line">	<span class="meta">@JoinTable</span>(name=<span class="string">"ITEM_CATEGORY"</span>,</span><br><span class="line">			joinColumns=&#123;<span class="meta">@JoinColumn</span>(name=<span class="string">"ITEM_ID"</span>, referencedColumnName=<span class="string">"ID"</span>)&#125;,</span><br><span class="line">			inverseJoinColumns=&#123;<span class="meta">@JoinColumn</span>(name=<span class="string">"CATEGORY_ID"</span>, referencedColumnName=<span class="string">"ID"</span>)&#125;)</span><br><span class="line">	<span class="meta">@ManyToMany</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Set&lt;Category&gt; <span class="title">getCategories</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> categories;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCategories</span><span class="params">(Set&lt;Category&gt; categories)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.categories = categories;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/11/hibernate映射关系/" rel="next" title="hibernate映射关系">
+                <i class="fa fa-chevron-left"></i> hibernate映射关系
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/12/kotlin/" rel="prev" title="kotlin">
+                kotlin <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haominglfs</p>
+              <p class="site-description motion-element" itemprop="description">A programmer's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/haominglfs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haominglfs</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: '6jc6kDyEMv8ck1PNRKa1WF5d-gzGzoHsz',
+        appKey: 'gAdAKqAuWL5yIYDA5A0Uxj1X',
+        placeholder: '发表您的意见',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("6jc6kDyEMv8ck1PNRKa1WF5d-gzGzoHsz", "gAdAKqAuWL5yIYDA5A0Uxj1X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
