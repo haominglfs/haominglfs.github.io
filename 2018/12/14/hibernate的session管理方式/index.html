@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="A programmer&apos;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="haominglfs的博客">
-<meta property="og:url" content="https://haominglfs.github.io/archives/2017/06/index.html">
+<meta name="description" content="Hibernate 自身提供了三种管理 Session对象的方法：  Session 对象的生命周期与本地线程绑定。 –Session对象的生命周期与JTA事务绑定。 –Hibernate委托程序管理Session对象的生命周期。   在Hibernate的配置文件中,hibernate.current_session_context_class属性用于指定Session管理方式,可选值包括：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hibernate的session管理方式">
+<meta property="og:url" content="https://haominglfs.github.io/2018/12/14/hibernate的session管理方式/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="A programmer&apos;s blog">
+<meta property="og:description" content="Hibernate 自身提供了三种管理 Session对象的方法：  Session 对象的生命周期与本地线程绑定。 –Session对象的生命周期与JTA事务绑定。 –Hibernate委托程序管理Session对象的生命周期。   在Hibernate的配置文件中,hibernate.current_session_context_class属性用于指定Session管理方式,可选值包括：">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T12:38:27.396Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="haominglfs的博客">
-<meta name="twitter:description" content="A programmer&apos;s blog">
+<meta name="twitter:title" content="hibernate的session管理方式">
+<meta name="twitter:description" content="Hibernate 自身提供了三种管理 Session对象的方法：  Session 对象的生命周期与本地线程绑定。 –Session对象的生命周期与JTA事务绑定。 –Hibernate委托程序管理Session对象的生命周期。   在Hibernate的配置文件中,hibernate.current_session_context_class属性用于指定Session管理方式,可选值包括：">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://haominglfs.github.io/archives/2017/06/"/>
+  <link rel="canonical" href="https://haominglfs.github.io/2018/12/14/hibernate的session管理方式/"/>
 
 
 
 
 
-  <title>归档 | haominglfs的博客</title>
+  <title>hibernate的session管理方式 | haominglfs的博客</title>
   
 
 
@@ -143,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -271,147 +272,192 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 目前共计 46 篇日志。 继续努力。
-      </span>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2018/12/14/hibernate的session管理方式/">
 
-      
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+
+    
+      <header class="post-header">
 
         
         
+          <h1 class="post-title" itemprop="name headline">hibernate的session管理方式</h1>
         
 
-        
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:21:26+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/14/hibernate的session管理方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/hibernate的session管理方式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2018/12/14/hibernate的session管理方式/" class="leancloud_visitors" data-flag-title="hibernate的session管理方式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/17/jvm学习笔记/" itemprop="url">
-              
-                <span itemprop="name">jvm学习笔记</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-17T17:06:38+08:00"
-              content="2017-06-17" >
-          06-17
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/11/设计模式-简单工厂模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-简单工厂模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-11T10:10:50+08:00"
-              content="2017-06-11" >
-          06-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/10/设计模式-单例模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式-单例模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-10T20:11:11+08:00"
-              content="2017-06-10" >
-          06-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <ol>
+<li><p>Hibernate 自身提供了三种管理 Session对象的方法：</p>
+<ul>
+<li>Session 对象的生命周期与本地线程绑定。</li>
+<li>–Session对象的生命周期与JTA事务绑定。</li>
+<li>–Hibernate委托程序管理Session对象的生命周期。</li>
+</ul>
+</li>
+<li><p>在Hibernate的配置文件中,hibernate.current_session_context_class属性用于指定Session管理方式,可选值包括：</p>
+<ul>
+<li>thread:Session 对象的生命周期与本地线程绑定。</li>
+<li>jta:Session 对象的生命周期与 JTA 事务绑定。</li>
+<li>managed:Hibernate 委托程序来管理 Session对象的生命周期。</li>
+</ul>
+</li>
+<li><p>配置与使用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置管理 Session 的方式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"current_session_context_class"</span>&gt;</span>thread<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HibernateUtils</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">HibernateUtils</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> HibernateUtils instance = <span class="keyword">new</span> HibernateUtils();</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HibernateUtils <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> SessionFactory sessionFactory;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> SessionFactory <span class="title">getSessionFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (sessionFactory == <span class="keyword">null</span>) &#123;</span><br><span class="line">			Configuration configuration = <span class="keyword">new</span> Configuration().configure();</span><br><span class="line">			ServiceRegistry serviceRegistry = <span class="keyword">new</span> ServiceRegistryBuilder()</span><br><span class="line">					.applySettings(configuration.getProperties())</span><br><span class="line">					.buildServiceRegistry();</span><br><span class="line">			sessionFactory = configuration.buildSessionFactory(serviceRegistry);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sessionFactory;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Session <span class="title">getSession</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> getSessionFactory().getCurrentSession();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">==============================================================</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepartmentDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Department dept)</span></span>&#123;</span><br><span class="line">		<span class="comment">//内部获取 Session 对象</span></span><br><span class="line">		<span class="comment">//获取和当前线程绑定的 Session 对象</span></span><br><span class="line">		<span class="comment">//1. 不需要从外部传入 Session 对象</span></span><br><span class="line">		<span class="comment">//2. 多个 DAO 方法也可以使用一个事务!</span></span><br><span class="line">		Session session = HibernateUtils.getInstance().getSession();</span><br><span class="line">		System.out.println(session.hashCode());</span><br><span class="line">		</span><br><span class="line">		session.save(dept);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 若需要传入一个 Session 对象, 则意味着上一层(Service)需要获取到 Session 对象.</span></span><br><span class="line"><span class="comment">	 * 这说明上一层需要和 Hibernate 的 API 紧密耦合. 所以不推荐使用此种方式. </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Session session, Department dept)</span></span>&#123;</span><br><span class="line">		session.save(dept);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">================================================================</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testManageSession</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取 Session</span></span><br><span class="line">    <span class="comment">//开启事务</span></span><br><span class="line">    Session session = HibernateUtils.getInstance().getSession();</span><br><span class="line">    System.out.println(<span class="string">"--&gt;"</span> + session.hashCode());</span><br><span class="line">    Transaction transaction = session.beginTransaction();</span><br><span class="line"></span><br><span class="line">    DepartmentDao departmentDao = <span class="keyword">new</span> DepartmentDao();</span><br><span class="line"></span><br><span class="line">    Department dept = <span class="keyword">new</span> Department();</span><br><span class="line">    dept.setName(<span class="string">"ATGUIGU"</span>);</span><br><span class="line"></span><br><span class="line">    departmentDao.save(dept);</span><br><span class="line">    departmentDao.save(dept);</span><br><span class="line">    departmentDao.save(dept);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//若 Session 是由 thread 来管理的, 则在提交或回滚事务时, 已经关闭 Session 了. </span></span><br><span class="line">    transaction.commit();</span><br><span class="line">    System.out.println(session.isOpen()); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果把 Hibernate 配置文件的 hibernate.current_session_context_class 属性值设为 thread, Hibernate 就会按照与本地线程绑定的方式来管理 Session，Hibernate 按一下规则把 Session 与本地线程绑定：</p>
+<ul>
+<li>当一个线程(threadA)第一次调用SessionFactory对象的getCurrentSession()方法时,该方法会创建一个新的Session(sessionA)对象,把该对象与threadA绑定,并将sessionA返回。</li>
+<li>当threadA再次调用SessionFactory对象的getCurrentSession()方法时,该方法将返回sessionA对象。</li>
+<li>当 threadA提交sessionA对象关联的事务时,Hibernate 会自动flushsessionA对象的缓存,然后提交事务,关闭sessionA对象.当threadA撤销sessionA对象关联的事务时,也会自动关闭sessionA对象。</li>
+<li>若 threadA再次调用SessionFactory对象的getCurrentSession()方法时,该方法会又创建一个新的Session(sessionB)对象,把该对象与threadA绑定,并将sessionB返回。</li>
+</ul>
+</li>
+<li><p>批量操作</p>
+<p>推荐使用原生的JDBC方式。</p>
+</li>
+</ol>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/13/hibernate缓存/" rel="next" title="hibernate缓存">
+                <i class="fa fa-chevron-left"></i> hibernate缓存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -419,6 +465,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -643,6 +696,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
