@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="A programmer&apos;s blog">
+<meta name="description" content="@Configuration 告诉spring这是一个配置类（配置类==配置文件）  @Bean 给容器中注册一个bean;类型为返回值的类型；id默认用方法名作为id;  @ComponentScan(value=”要扫描的包”) 包扫描注解  @Scope 调整组件的作用域（默认是单实例）  @Lazy 懒加载（默认单实例bean在容器创建的时候创建）  @Conditional({Cond">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring注解">
 <meta property="og:url" content="https://haominglfs.github.io/2019/01/19/spring注解/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="A programmer&apos;s blog">
+<meta property="og:description" content="@Configuration 告诉spring这是一个配置类（配置类==配置文件）  @Bean 给容器中注册一个bean;类型为返回值的类型；id默认用方法名作为id;  @ComponentScan(value=”要扫描的包”) 包扫描注解  @Scope 调整组件的作用域（默认是单实例）  @Lazy 懒加载（默认单实例bean在容器创建的时候创建）  @Conditional({Cond">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-19T02:34:31.889Z">
+<meta property="og:updated_time" content="2019-01-21T15:04:55.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring注解">
-<meta name="twitter:description" content="A programmer&apos;s blog">
+<meta name="twitter:description" content="@Configuration 告诉spring这是一个配置类（配置类==配置文件）  @Bean 给容器中注册一个bean;类型为返回值的类型；id默认用方法名作为id;  @ComponentScan(value=”要扫描的包”) 包扫描注解  @Scope 调整组件的作用域（默认是单实例）  @Lazy 懒加载（默认单实例bean在容器创建的时候创建）  @Conditional({Cond">
 
 
 
@@ -374,7 +374,105 @@
       
 
       
-        
+        <ol>
+<li><p>@Configuration</p>
+<p>告诉spring这是一个配置类（配置类==配置文件）</p>
+</li>
+<li><p>@Bean</p>
+<p>给容器中注册一个bean;类型为返回值的类型；id默认用方法名作为id;</p>
+</li>
+<li><p>@ComponentScan(value=”要扫描的包”)</p>
+<p>包扫描注解</p>
+</li>
+<li><p>@Scope</p>
+<p>调整组件的作用域（默认是单实例）</p>
+</li>
+<li><p>@Lazy</p>
+<p>懒加载（默认单实例bean在容器创建的时候创建）</p>
+</li>
+<li><p>@Conditional({Condition})</p>
+<p>按照一定的条件进行判断，满足条件给容器中注册bean;</p>
+<p>Condition实现Condition接口，实现matches方法；</p>
+<p>放在类上，统一设置。</p>
+</li>
+<li><p>@Import,给容器中注册组件方式：</p>
+<ul>
+<li>包扫描+组件标注注解（@Controller/@Service/@Repository/@Component）[自己写的类]</li>
+<li>@Bean[导入的第三方包里面的组件]</li>
+<li>@Import[快速给容器中导入一个组件]; <ul>
+<li>@Import(要导入容器中的组件)，容器中就会自动注册这个组件，id默认是全类名。</li>
+<li>实现ImportSelector接口:返回需要导入的组件的全类名数组，方法不要返回null。</li>
+<li>ImportBeanDefinitionRegistrar的实现类。</li>
+</ul>
+</li>
+<li>使用spring提供的FactoryBean;默认获取到的是工厂bean调用getObject创建的对象。要获取工厂bean本身，需要给id前面加一个&amp;</li>
+</ul>
+</li>
+<li><p>生命周期</p>
+<ul>
+<li><p>指定初始化和销毁方法</p>
+<p>@Bean(init-method=””,destory-method=””)</p>
+<p>初始化：对象创建完成并赋值好，调用初始化方法</p>
+<p>销毁：单实例：容器关闭的时候；多实例：容器不会管理这个bean,容器不会调用销毁方法。</p>
+</li>
+<li><p>让bean实现接口InitializingBean、DisposableBean。</p>
+</li>
+<li><p>@PostConstruct:在bean创建完成并且属性赋值完成，来进行初始化方法；@PreDistory:销毁时要调用的方法。</p>
+</li>
+<li><p>BeanPostProcessor:bean的后置处理器，在bean初始化前后进行一些处理工作。</p>
+<p>postProcessBeforeInitialization：bean初始化之前调用方法。</p>
+<p>postProcessAfterInitialization：在初始化之后工作。</p>
+</li>
+</ul>
+</li>
+<li><p>属性赋值</p>
+<ul>
+<li>@Value赋值<ul>
+<li>基本数值</li>
+<li>SpEL表达式：#{}</li>
+<li>${}：取出配置文件中的值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>@PropertySource(value=”classpath:”)</p>
+<p>读取外部配置文件</p>
+</li>
+<li><p>自动装配</p>
+<ul>
+<li>@Autowired;默认优先按照类型去容器中找对应的组件，如果找到多个相同类型的组件，再将属性的名称作为组件的id去容器中查找。</li>
+<li>@Qualifire(“bookDao”);明确指定要装配的id</li>
+<li>@Primary:spring自动装配的时候，默认使用首选的bean;也可以使用@Qualifire明确指定。<ul>
+<li>Spring还支持使用@Resource(JSR250)和@Inject(JSR330)[java规范注解]<ul>
+<li>@Resource没有支持@Primary和@Autowired(required=false)的功能。</li>
+<li>@Inject：需要先导入javax.inject的包。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果组件只有一个有参构造器，@Autowired可以省略。</li>
+<li>@Bean标注的方法创建对象时，方法参数的值从容器中获取。</li>
+</ul>
+</li>
+<li><p>自定义组件使用spring容器底层的一些组件（ApplicationContext、BeanFactory…），自定义组件实现xxxAware。xxxAware的功能是使用xxxProcessor实现的：</p>
+<p>ApplicationContextAware—&gt;ApplicationContextAwareProcessor后置处理器。</p>
+</li>
+<li><p>@Profile</p>
+<p>spring为我们提供的可以根据当前的环境，动态的激活和切换一系列组件的功能。</p>
+<p>指定组件在哪个环境的情况下才能注册到容器中。</p>
+<p>@Profile(“default”)  @Profile(“dev”)  @Profile(“test”)  @Profile(“prod”)   默认是default</p>
+<ul>
+<li><p>使用命令行动态参数切换 （在虚拟机参数位置）  -Dspring.profiles.active=test   激活test环境</p>
+</li>
+<li><p>使用代码的方式 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">applicationContext.getEnvironment().setActiveProfiles(<span class="string">"test"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>没有标注@Profile的bean,在所有环境下都会注册到容器。</p>
+</li>
+</ul>
+</li>
+</ol>
+
       
     </div>
     
