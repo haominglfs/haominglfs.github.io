@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="haominglfs的博客">
 <meta property="og:description" content="空类型任意类型都有可空和不可空两种 val notNull:String = null //错误，不能为空 val nullable:String? = null //正确，可以为空 notNull.length //正确，不为空的值可以直接使用 Nullable.length //错误，可能为空，不能直接获取长度 Nullable!!.length //正确，强制认定nullable不可空 Nu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T02:32:29.182Z">
+<meta property="og:updated_time" content="2019-02-02T07:00:18.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kotlin">
 <meta name="twitter:description" content="空类型任意类型都有可空和不可空两种 val notNull:String = null //错误，不能为空 val nullable:String? = null //正确，可以为空 notNull.length //正确，不为空的值可以直接使用 Nullable.length //错误，可能为空，不能直接获取长度 Nullable!!.length //正确，强制认定nullable不可空 Nu">
@@ -394,6 +394,12 @@
 <h3 id="Lamdba表达式"><a href="#Lamdba表达式" class="headerlink" title="Lamdba表达式"></a>Lamdba表达式</h3><ul>
 <li>写法：{[参数列表] -&gt;  [函数体,最后一行是返回值 ]}</li>
 </ul>
+<h3 id="var还是val"><a href="#var还是val" class="headerlink" title="var还是val?"></a>var还是val?</h3><ul>
+<li>原则：如果两种方式都能满足需求的情况下，优先使用val声明，因为一方面val声明的变量是只读，一旦初始化后不能修改，还可以避免程序运行时错误的修改变量的内容；另一方面在声明引用类型使用val,对象的引用不会被修改，但是引用内容可以修改，这样会更加安全，也符合函数式编程的技术要求。</li>
+</ul>
+<h3 id="Elvis运算符"><a href="#Elvis运算符" class="headerlink" title="Elvis运算符"></a>Elvis运算符</h3><ul>
+<li>A ?: B  如果A不为空值则结果为A,否则结果为B。</li>
+</ul>
 
       
     </div>
@@ -510,7 +516,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -575,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#空类型"><span class="nav-number">1.</span> <span class="nav-text">空类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智能类型转换"><span class="nav-number">2.</span> <span class="nav-text">智能类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lamdba表达式"><span class="nav-number">3.</span> <span class="nav-text">Lamdba表达式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#空类型"><span class="nav-number">1.</span> <span class="nav-text">空类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智能类型转换"><span class="nav-number">2.</span> <span class="nav-text">智能类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lamdba表达式"><span class="nav-number">3.</span> <span class="nav-text">Lamdba表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var还是val"><span class="nav-number">4.</span> <span class="nav-text">var还是val?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elvis运算符"><span class="nav-number">5.</span> <span class="nav-text">Elvis运算符</span></a></li></ol></div>
             
 
           </div>
