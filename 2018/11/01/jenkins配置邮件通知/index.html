@@ -6,10 +6,10 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="jenkins," />
+  <meta name="keywords" content="jenkins,">
 
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="https://haominglfs.github.io/2018/11/01/jenkins配置邮件通知/"/>
+  <link rel="canonical" href="https://haominglfs.github.io/2018/11/01/jenkins配置邮件通知/">
 
 
 
@@ -163,7 +163,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">haominglfs的博客</span>
         <span class="logo-line-after"><i></i></span>
@@ -193,7 +193,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -203,7 +203,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -213,7 +213,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -223,7 +223,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -236,7 +236,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -257,9 +257,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -300,7 +298,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -387,33 +385,33 @@
         <h3 id="jenkins系统配置"><a href="#jenkins系统配置" class="headerlink" title="jenkins系统配置"></a>jenkins系统配置</h3><ol>
 <li><p><strong>设置jenkins地址和管理员邮箱地址</strong></p>
 <p>系统管理–&gt;系统设置–&gt;Jenkins Location</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101143431.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101143431.png" alt></p>
 </li>
 <li><p><strong>设置发件人等信息</strong></p>
 <p>系统管理–&gt;系统设置–&gt;Extended E-mail Notification</p>
 <p>PS：这里的发件人邮箱地址切记要和系统管理员邮件地址保持一致（当然，也可以设置专门的发件人邮箱，不过不影响使用，根据具体情况设置即可）</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101143854.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101143854.png" alt></p>
 </li>
 <li><p>配置邮件模板default Content</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>$&#123;ENV, var="JOB_NAME"&#125;-第$&#123;BUILD_NUMBER&#125;次构建日志<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">leftmargin</span>=<span class="string">"8"</span> <span class="attr">marginwidth</span>=<span class="string">"0"</span> <span class="attr">topmargin</span>=<span class="string">"8"</span> <span class="attr">marginheight</span>=<span class="string">"4"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">offset</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"95%"</span> <span class="attr">cellpadding</span>=<span class="string">"0"</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>(本邮件是程序自动下发的，请勿回复！)<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">h2</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0000FF"</span>&gt;</span>构建结果 - $&#123;BUILD_STATUS&#125;<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">h2</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0B610B"</span>&gt;</span>构建信息<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目名称&amp;nbsp;：&amp;nbsp;$&#123;PROJECT_NAME&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>构建编号&amp;nbsp;：&amp;nbsp;第$&#123;BUILD_NUMBER&#125;次构建<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>SVN&amp;nbsp;版本：&amp;nbsp;$&#123;SVN_REVISION&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>触发原因：&amp;nbsp;$&#123;CAUSE&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>构建日志：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;BUILD_URL&#125;console"</span>&gt;</span>$&#123;BUILD_URL&#125;console<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>构建&amp;nbsp;&amp;nbsp;Url&amp;nbsp;：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;BUILD_URL&#125;"</span>&gt;</span>$&#123;BUILD_URL&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>工作目录&amp;nbsp;：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;PROJECT_URL&#125;ws"</span>&gt;</span>$&#123;PROJECT_URL&#125;ws<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目&amp;nbsp;&amp;nbsp;Url&amp;nbsp;：&amp;nbsp;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;PROJECT_URL&#125;"</span>&gt;</span>$&#123;PROJECT_URL&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0B610B"</span>&gt;</span>Changes Since Last</span><br><span class="line">                        Successful Build:<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>历史变更记录 : <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;PROJECT_URL&#125;changes"</span>&gt;</span>$&#123;PROJECT_URL&#125;changes<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span> $&#123;CHANGES_SINCE_LAST_SUCCESS,reverse=true, format="Changes for Build #%n:<span class="tag">&lt;<span class="name">br</span> /&gt;</span>%c<span class="tag">&lt;<span class="name">br</span> /&gt;</span>",showPaths=true,changesFormat="<span class="tag">&lt;<span class="name">pre</span>&gt;</span>[%a]<span class="tag">&lt;<span class="name">br</span> /&gt;</span>%m<span class="tag">&lt;/<span class="name">pre</span>&gt;</span>",pathFormat="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;%p"&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Failed Test Results<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">pre</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">style</span>=<span class="string">"font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif"</span>&gt;</span>$FAILED_TESTS<span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"#0B610B"</span>&gt;</span>构建日志 (最后 100行):<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">align</span>=<span class="string">"center"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;tr&gt;</span></span><br><span class="line"><span class="comment">            &lt;td&gt;Test Logs (if test has ran): &lt;a</span></span><br><span class="line"><span class="comment">                href="$&#123;PROJECT_URL&#125;ws/TestResult/archive_logs/Log-Build-$&#123;BUILD_NUMBER&#125;.zip"&gt;$&#123;PROJECT_URL&#125;/ws/TestResult/archive_logs/Log-Build-$&#123;BUILD_NUMBER&#125;.zip&lt;/a&gt;</span></span><br><span class="line"><span class="comment">                &lt;br /&gt;</span></span><br><span class="line"><span class="comment">            &lt;br /&gt;</span></span><br><span class="line"><span class="comment">            &lt;/td&gt;</span></span><br><span class="line"><span class="comment">        &lt;/tr&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">"80"</span> <span class="attr">rows</span>=<span class="string">"30"</span> <span class="attr">readonly</span>=<span class="string">"readonly"</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">style</span>=<span class="string">"font-family: Courier New"</span>&gt;</span>$&#123;BUILD_LOG, maxLines=100&#125;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>设置邮件触发机制</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144430.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144430.png" alt></p>
 </li>
 <li><p>上面的几步完成后，点击应用，保存即可。</p>
 </li>
 </ol>
 <h3 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h3><ol>
 <li><p>进入项目配置页面</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144658.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144658.png" alt></p>
 </li>
 <li><p>进入系统配置页面后，点击上方的<strong>构建后操作</strong>选项，配置内容如下：</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144826.png" alt=""></p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145324.png" alt=""></p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145623.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101144826.png" alt></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145324.png" alt></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145623.png" alt></p>
 </li>
 <li><p>构建项目测试</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145815.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181101145815.png" alt></p>
 </li>
 </ol>
 
@@ -538,7 +536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -560,7 +558,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

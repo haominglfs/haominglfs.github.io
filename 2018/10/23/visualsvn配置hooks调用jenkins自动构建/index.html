@@ -6,10 +6,10 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="svn,jenkins," />
+  <meta name="keywords" content="svn,jenkins,">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="https://haominglfs.github.io/2018/10/23/visualsvn配置hooks调用jenkins自动构建/"/>
+  <link rel="canonical" href="https://haominglfs.github.io/2018/10/23/visualsvn配置hooks调用jenkins自动构建/">
 
 
 
@@ -159,7 +159,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">haominglfs的博客</span>
         <span class="logo-line-after"><i></i></span>
@@ -189,7 +189,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -199,7 +199,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -209,7 +209,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -219,7 +219,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -232,7 +232,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -253,9 +253,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -296,7 +294,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -382,19 +380,19 @@
       
         <h3 id="jenkins配置"><a href="#jenkins配置" class="headerlink" title="jenkins配置"></a>jenkins配置</h3><ol>
 <li><p>为了让Jenkins中的job可以被触发，job需要被显式地配置为启用SCM轮询才行，未启用SCM轮询选项的job将不会被post-commit hook所触发。下图为在job中启用SCM轮询的示例：</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023165142.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023165142.png" alt></p>
 </li>
 <li><p>如果Jenkins启用了跨站点请求伪造防护(默认启用)选项，那么上面的请求会返回一个403错误(“No valid crumb was included”)。在”系统管理”→”全局安全配置”中，可以看到跨站点请求伪造防护是否有启用：</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023165419.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023165419.png" alt></p>
 </li>
 </ol>
 <h3 id="VisualSVN配置"><a href="#VisualSVN配置" class="headerlink" title="VisualSVN配置"></a>VisualSVN配置</h3><ol>
 <li><p>提交到 VisualSVN Server 时 hook 的 post-commit.bat（post-commit.cmd） 不执行的解决方法：</p>
 <p>这是因为 bat 文件执行需要权限，而 VisualSVN Server 默认用的是 NETWORK 用户组，该组没有执行 bat 的权限，导致了 post-commit.bat 文件不能执行，解决方法如下：</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023170119.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023170119.png" alt></p>
 </li>
 <li><p>配置hooks</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023170416.png" alt=""></p>
+<p><img src="http://ow83fnk93.bkt.clouddn.com/20181023170416.png" alt></p>
 <p>curl -X POST  <a href="http://localhost:6080/job/cecaudit/build?delay=0sec" target="_blank" rel="noopener">http://localhost:6080/job/cecaudit/build?delay=0sec</a> –user admin:123456789 –data-urlencode json=</p>
 <p>链接地址为jenkins中的job地址（点击立即构建时的链接），—user后为 用户名:密码</p>
 <p>Ps:需要先安装curl或wget</p>
@@ -522,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -544,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

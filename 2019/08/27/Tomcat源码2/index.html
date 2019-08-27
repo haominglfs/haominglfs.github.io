@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么首先我们需要知道一个潜规则：即如果我们在A类中调用B类，如果B类没有被classloader加载或者就算加载了 但是该classloader和A类的classloader属于平行的，即我们在A的classloader中找不到B类的class，那么A会使用自己的classloader去加载B。 反射调用Catal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tomcat源码2">
+<meta property="og:url" content="https://haominglfs.github.io/2019/08/27/Tomcat源码2/index.html">
+<meta property="og:site_name" content="haominglfs的博客">
+<meta property="og:description" content="Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么首先我们需要知道一个潜规则：即如果我们在A类中调用B类，如果B类没有被classloader加载或者就算加载了 但是该classloader和A类的classloader属于平行的，即我们在A的classloader中找不到B类的class，那么A会使用自己的classloader去加载B。 反射调用Catal">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190821095811.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190826152751.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190822092423.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190822092926.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190826152622.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190827095247.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190827095432.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190821095719.png">
+<meta property="og:updated_time" content="2019-08-27T02:20:34.075Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tomcat源码2">
+<meta name="twitter:description" content="Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么首先我们需要知道一个潜规则：即如果我们在A类中调用B类，如果B类没有被classloader加载或者就算加载了 但是该classloader和A类的classloader属于平行的，即我们在A的classloader中找不到B类的class，那么A会使用自己的classloader去加载B。 反射调用Catal">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190821095811.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://haominglfs.github.io/2019/08/27/Tomcat源码2/">
+
+
+
+
+
+  <title>tomcat源码2 | haominglfs的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">haominglfs的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Let's coding!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/08/27/Tomcat源码2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tomcat源码2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-27T22:15:05+08:00">
+                2019-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/27/Tomcat源码2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/27/Tomcat源码2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/27/Tomcat源码2/" class="leancloud_visitors" data-flag-title="tomcat源码2">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么"><a href="#Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么" class="headerlink" title="Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么"></a>Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么</h1><p>首先我们需要知道一个潜规则：即如果我们在A类中调用B类，如果B类没有被classloader加载或者就算加载了 但是该classloader和A类的classloader属于平行的，即我们在A的classloader中找不到B类的class，那么A会使用自己的classloader去加载B。</p>
+<h2 id="反射调用Catalina的意义"><a href="#反射调用Catalina的意义" class="headerlink" title="反射调用Catalina的意义"></a>反射调用Catalina的意义</h2><p>因为Bootstrap这个类在Tomcat打包发布时是放在bin\bootstrap.jar中，<br> 而Catalina类是放在lib\catalina.jar中,两个jar是用不同的ClassLoader加载的，<br> 所以不能在Bootstrap类中直接引用Catalina类，只能通过反射。<br> <code>这也意味着 后续我们在tomcat的Catalina类里面启动的类默认都是使用catalinaLoader（除了我们的context使用webappclassloader去加载的）</code>，进而tomcat使用的类只能被tomcat自己使用，而不会被其他应用使用</p>
+<h3 id="组件图"><a href="#组件图" class="headerlink" title="组件图"></a>组件图</h3><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190821095811.png" alt></p>
+<p>多个 Connector 和一个 Container 就形成了一个 Service，Service 的概念大家都很熟悉了，有了 Service 就可以对外提供服务了，但是 Service 还要一个生存的环境，必须要有人能够给她生命、掌握其生死大权，那就非 Server 莫属了。所以整个 Tomcat 的生命周期由 Server 控制。</p>
+<h3 id="connector"><a href="#connector" class="headerlink" title="connector"></a>connector</h3><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190826152751.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190822092423.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190822092926.png" alt></p>
+<p>在tomcat中，connector负责接收来自客户端的连接，并交由后续的代码进行处理。connector对象持有ProtocolHandler对象；ProtocolHandler对象持有AbstractEndpoint对象。AbstractEndpoint负责创建服务器套接字，并绑定到监听端口；同时还创建accepter线程来接收客户端的连接以及poller线程来处理连接中的读写请求。其结构如上图所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Connector</span><span class="params">(String protocol)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//设置协议</span></span><br><span class="line">        setProtocol(protocol);</span><br><span class="line">        <span class="comment">// Instantiate protocol handler</span></span><br><span class="line">        ProtocolHandler p = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//反射生成ProtocolHandler实例</span></span><br><span class="line">            Class&lt;?&gt; clazz = Class.forName(protocolHandlerClassName);</span><br><span class="line">            p = (ProtocolHandler) clazz.getConstructor().newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(sm.getString(</span><br><span class="line">                    <span class="string">"coyoteConnector.protocolHandlerInstantiationFailed"</span>), e);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.protocolHandler = p;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (Globals.STRICT_SERVLET_COMPLIANCE) &#123;</span><br><span class="line">            uriCharset = StandardCharsets.ISO_8859_1;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            uriCharset = StandardCharsets.UTF_8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProtocol</span><span class="params">(String protocol)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span> aprConnector = AprLifecycleListener.isAprAvailable() &amp;&amp;</span><br><span class="line">                AprLifecycleListener.getUseAprConnector();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"HTTP/1.1"</span>.equals(protocol) || protocol == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (aprConnector) &#123;</span><br><span class="line">                setProtocolHandlerClassName(<span class="string">"org.apache.coyote.http11.Http11AprProtocol"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                setProtocolHandlerClassName(<span class="string">"org.apache.coyote.http11.Http11NioProtocol"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"AJP/1.3"</span>.equals(protocol)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (aprConnector) &#123;</span><br><span class="line">                setProtocolHandlerClassName(<span class="string">"org.apache.coyote.ajp.AjpAprProtocol"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                setProtocolHandlerClassName(<span class="string">"org.apache.coyote.ajp.AjpNioProtocol"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            setProtocolHandlerClassName(protocol);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>Connector的构造函数带有协议属性，该协议属性是server.xml中Connector标签的protocol的属性值。Tomcat 8中默认值为HTTP/1.1，因此在Connector的构造函数中生成的是Http11NioProtocol对象。在setProtocol()方法中可以看到，tomcat8还包括其他几个协议处理器。协议处理器中带有Apr命名的都是使用Apr库来处理http请求的。通过使用APR库，Tomcat将使用JNI的方式来读取文件以及进行网络传输，可以大大提升Tomcat对静态文件的处理性能，同时如果你使用了HTTPS方式传输的话，也可以提升SSL的处理性能。AJP/1.3协议是Http服务器和应用服务器之间数据交互的协议，比如Apache服务器或IIS服务器与tomcat服务器之间进行数据交互。<br>Http11NioProtocol是非阻塞模式的Http1.1协议处理器，使用java的nio包来实现非阻塞。可以看到，在tomcat 8中，默认使用的是非阻塞IO。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AbstractHttp11Protocol</span><span class="params">(AbstractEndpoint&lt;S&gt; endpoint)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(endpoint);</span><br><span class="line">        setConnectionTimeout(Constants.DEFAULT_CONNECTION_TIMEOUT);</span><br><span class="line">        ConnectionHandler&lt;S&gt; cHandler = <span class="keyword">new</span> ConnectionHandler&lt;&gt;(<span class="keyword">this</span>);</span><br><span class="line">        setHandler(cHandler);</span><br><span class="line">        getEndpoint().setHandler(cHandler);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在创建Http11NioProtocol实例的时候，会创建NioEndpoint、ConnectionHandler实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;&lt;AbstractEndpoint&gt;&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bindOnInit) &#123;</span><br><span class="line">            bind();<span class="comment">//调用子类bind方法初始化</span></span><br><span class="line">            bindState = BindState.BOUND_ON_INIT;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.domain != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// Register endpoint (as ThreadPool - historical name)</span></span><br><span class="line">            oname = <span class="keyword">new</span> ObjectName(domain + <span class="string">":type=ThreadPool,name=\""</span> + getName() + <span class="string">"\""</span>);</span><br><span class="line">            Registry.getRegistry(<span class="keyword">null</span>, <span class="keyword">null</span>).registerComponent(<span class="keyword">this</span>, oname, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (SSLHostConfig sslHostConfig : findSslHostConfigs()) &#123;</span><br><span class="line">                registerJmx(sslHostConfig);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//&lt;&lt;NioEndpoint&gt;&gt;</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Initialize the endpoint.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!getUseInheritedChannel()) &#123;</span><br><span class="line">            <span class="comment">// 打开serverSocketChannel</span></span><br><span class="line">            serverSock = ServerSocketChannel.open();</span><br><span class="line">            <span class="comment">// 设置socket属性</span></span><br><span class="line">            socketProperties.setProperties(serverSock.socket());</span><br><span class="line">            InetSocketAddress addr = (getAddress()!=<span class="keyword">null</span>?<span class="keyword">new</span> InetSocketAddress(getAddress(),getPort()):<span class="keyword">new</span> InetSocketAddress(getPort()));</span><br><span class="line">            <span class="comment">// 绑定监听端口</span></span><br><span class="line">            serverSock.socket().bind(addr,getAcceptCount());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// Retrieve the channel provided by the OS</span></span><br><span class="line">            Channel ic = System.inheritedChannel();</span><br><span class="line">            <span class="keyword">if</span> (ic <span class="keyword">instanceof</span> ServerSocketChannel) &#123;</span><br><span class="line">                serverSock = (ServerSocketChannel) ic;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (serverSock == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(sm.getString(<span class="string">"endpoint.init.bind.inherited"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 设为阻塞模式</span></span><br><span class="line">        <span class="comment">//这里为什么要设置成阻塞呢，Tomcat的设计初衷主要是为了操作方便。这样这里就跟BIO模式下一样了。只不过在BIO下这里返回的是Socket，NIO下这里返回的是SocketChannel。</span></span><br><span class="line">        serverSock.configureBlocking(<span class="keyword">true</span>); <span class="comment">//mimic APR behavior</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Initialize thread count defaults for acceptor, poller</span></span><br><span class="line">        <span class="keyword">if</span> (acceptorThreadCount == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// <span class="doctag">FIXME:</span> Doesn't seem to work that well with multiple accept threads</span></span><br><span class="line">            acceptorThreadCount = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pollerThreadCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//minimum one poller thread</span></span><br><span class="line">            pollerThreadCount = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        setStopLatch(<span class="keyword">new</span> CountDownLatch(pollerThreadCount));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Initialize SSL if needed</span></span><br><span class="line">        initialiseSsl();</span><br><span class="line">		<span class="comment">// 打开阻塞模式的selector</span></span><br><span class="line">        selectorPool.open();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在bind()方法中，首先打开serverSocketChannel，并绑定到监听端口，此处将其该channel设置为阻塞模式。对于SSL部分，此处略过不讲。在最后的 selectorPool.open()执行语句中，会先获得共享的selector，并且创建线程在该selector上检测事件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;&lt;AbstractEndPoint&gt;&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bindState == BindState.UNBOUND) &#123;</span><br><span class="line">            bind();</span><br><span class="line">            bindState = BindState.BOUND_ON_START;</span><br><span class="line">        &#125;</span><br><span class="line">        startInternal();<span class="comment">//调用子类startInternal方法初始化启动</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//&lt;&lt;NioEndpoint&gt;&gt;</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Start the NIO endpoint, creating acceptor, poller threads.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startInternal</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!running) &#123;</span><br><span class="line">            running = <span class="keyword">true</span>;</span><br><span class="line">            paused = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">            processorCache = <span class="keyword">new</span> SynchronizedStack&lt;&gt;(SynchronizedStack.DEFAULT_SIZE,</span><br><span class="line">                    socketProperties.getProcessorCache());</span><br><span class="line">            eventCache = <span class="keyword">new</span> SynchronizedStack&lt;&gt;(SynchronizedStack.DEFAULT_SIZE,</span><br><span class="line">                            socketProperties.getEventCache());</span><br><span class="line">            nioChannels = <span class="keyword">new</span> SynchronizedStack&lt;&gt;(SynchronizedStack.DEFAULT_SIZE,</span><br><span class="line">                    socketProperties.getBufferPool());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Create worker collection</span></span><br><span class="line">            <span class="keyword">if</span> ( getExecutor() == <span class="keyword">null</span> ) &#123;</span><br><span class="line">                createExecutor();</span><br><span class="line">            &#125;</span><br><span class="line">			<span class="comment">// 初始化计数器Latch</span></span><br><span class="line">            initializeConnectionLatch();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建Poller线程</span></span><br><span class="line">            <span class="comment">// Start poller threads</span></span><br><span class="line">            pollers = <span class="keyword">new</span> Poller[getPollerThreadCount()];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;pollers.length; i++) &#123;</span><br><span class="line">                pollers[i] = <span class="keyword">new</span> Poller();</span><br><span class="line">                Thread pollerThread = <span class="keyword">new</span> Thread(pollers[i], getName() + <span class="string">"-ClientPoller-"</span>+i);</span><br><span class="line">                pollerThread.setPriority(threadPriority);</span><br><span class="line">                pollerThread.setDaemon(<span class="keyword">true</span>);</span><br><span class="line">                pollerThread.start();</span><br><span class="line">            &#125;</span><br><span class="line">			<span class="comment">// 创建Acceptor线程</span></span><br><span class="line">            startAcceptorThreads();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在startInternal()方法中，最重要的是创建Poller和Acceptor线程。Acceptor线程处理serverSocketChannel的请求接收事件；Poller处理serverSocketChannel的读写事件。此时可以预想到，Acceptor线程专门负责接收客户端连接socketChannel，然后将socketChannel交给Poller线程读写。在实际中，Poller线程将socketChannel再次封装之后又开启另一个线程进行实际的数据处理。这样设计的目的是避免当某一个请求出现阻塞的时候，影响到整个服务器的接收、处理能力。 按接收请求，处理请求的逻辑，我们先观察Acceptor线程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// --------------------------------------------------- Acceptor Inner Class</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The background thread that listens for incoming TCP/IP connections and</span></span><br><span class="line"><span class="comment">     * hands them off to an appropriate processor.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="class"><span class="keyword">class</span> <span class="title">Acceptor</span> <span class="keyword">extends</span> <span class="title">AbstractEndpoint</span>.<span class="title">Acceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> errorDelay = <span class="number">0</span>;</span><br><span class="line">			<span class="comment">// 一直循环直到接收停止命令</span></span><br><span class="line">            <span class="comment">// Loop until we receive a shutdown command</span></span><br><span class="line">            <span class="keyword">while</span> (running) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Loop if endpoint is paused</span></span><br><span class="line">                <span class="keyword">while</span> (paused &amp;&amp; running) &#123;</span><br><span class="line">                    state = AcceptorState.PAUSED;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">50</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        <span class="comment">// Ignore</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!running) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                state = AcceptorState.RUNNING;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">//通过同步计数器来限制连接数目</span></span><br><span class="line">                    <span class="comment">//当连接数目超过上限时，则等待</span></span><br><span class="line">                    <span class="comment">//其中同步计算器是通过继承AQS实现的</span></span><br><span class="line">                    <span class="comment">//默认的最大连接数是10000</span></span><br><span class="line">                    <span class="comment">//if we have reached max connections, wait</span></span><br><span class="line">                    countUpOrAwaitConnection();</span><br><span class="line"></span><br><span class="line">                    SocketChannel socket = <span class="keyword">null</span>;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="comment">// Accept the next incoming connection from the server</span></span><br><span class="line">                        <span class="comment">// socket</span></span><br><span class="line">                        <span class="comment">//接收连接，此处并不是使用selector实现,在前面的代码中已知serverSock是阻塞模式的。</span></span><br><span class="line">                        socket = serverSock.accept();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                        <span class="comment">// We didn't get a socket</span></span><br><span class="line">                        countDownConnection();</span><br><span class="line">                        <span class="keyword">if</span> (running) &#123;</span><br><span class="line">                            <span class="comment">// Introduce delay if necessary</span></span><br><span class="line">                            errorDelay = handleExceptionWithDelay(errorDelay);</span><br><span class="line">                            <span class="comment">// re-throw</span></span><br><span class="line">                            <span class="keyword">throw</span> ioe;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// Successful accept, reset the error delay</span></span><br><span class="line">                    errorDelay = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// Configure the socket</span></span><br><span class="line">                    <span class="keyword">if</span> (running &amp;&amp; !paused) &#123;</span><br><span class="line">                        <span class="comment">// setSocketOptions() will hand the socket off to</span></span><br><span class="line">                        <span class="comment">// an appropriate processor if successful</span></span><br><span class="line">                        <span class="comment">// 在setSocketOptions中将接收到的socket传给poller线程进行处理</span></span><br><span class="line">                        <span class="keyword">if</span> (!setSocketOptions(socket)) &#123;</span><br><span class="line">                            closeSocket(socket);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        closeSocket(socket);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">                    ExceptionUtils.handleThrowable(t);</span><br><span class="line">                    log.error(sm.getString(<span class="string">"endpoint.accept.fail"</span>), t);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            state = AcceptorState.ENDED;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">closeSocket</span><span class="params">(SocketChannel socket)</span> </span>&#123;</span><br><span class="line">            countDownConnection();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                socket.socket().close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ioe)  &#123;</span><br><span class="line">                <span class="keyword">if</span> (log.isDebugEnabled()) &#123;</span><br><span class="line">                    log.debug(sm.getString(<span class="string">"endpoint.err.close"</span>), ioe);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                <span class="keyword">if</span> (log.isDebugEnabled()) &#123;</span><br><span class="line">                    log.debug(sm.getString(<span class="string">"endpoint.err.close"</span>), ioe);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">setSocketOptions</span><span class="params">(SocketChannel socket)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Process the connection</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//disable blocking, APR style, we are gonna be polling it</span></span><br><span class="line">            <span class="comment">// 设置为非阻塞模式</span></span><br><span class="line">            socket.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">            Socket sock = socket.socket();</span><br><span class="line">            socketProperties.setProperties(sock);</span><br><span class="line">			<span class="comment">// 从NioChannel容器中获得一个NioChannel</span></span><br><span class="line">            <span class="comment">// NioChannel可以理解为socketChannel的代理类，提供更多的功能</span></span><br><span class="line">            NioChannel channel = nioChannels.pop();</span><br><span class="line">            <span class="keyword">if</span> (channel == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// SocketBufferHandler维护了在处理过程中的读写缓存</span></span><br><span class="line">                SocketBufferHandler bufhandler = <span class="keyword">new</span> SocketBufferHandler(</span><br><span class="line">                        socketProperties.getAppReadBufSize(),</span><br><span class="line">                        socketProperties.getAppWriteBufSize(),</span><br><span class="line">                        socketProperties.getDirectBuffer());</span><br><span class="line">                <span class="keyword">if</span> (isSSLEnabled()) &#123;</span><br><span class="line">                    channel = <span class="keyword">new</span> SecureNioChannel(socket, bufhandler, selectorPool, <span class="keyword">this</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 将socket、bufHandler封装到NioChannel中</span></span><br><span class="line">                    channel = <span class="keyword">new</span> NioChannel(socket, bufhandler);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                channel.setIOChannel(socket);</span><br><span class="line">                channel.reset();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 将niochannel注册到poller线程中进行处理</span></span><br><span class="line">            getPoller0().register(channel);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">            ExceptionUtils.handleThrowable(t);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                log.error(<span class="string">""</span>,t);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable tt) &#123;</span><br><span class="line">                ExceptionUtils.handleThrowable(tt);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Tell to close the socket</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="poller和pollerEvent"><a href="#poller和pollerEvent" class="headerlink" title="poller和pollerEvent"></a>poller和pollerEvent</h3><p>待补充</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190826152622.png" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// Loop until destroy() is called</span></span><br><span class="line">    		<span class="comment">// 循环直到destroy()方法被调用</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">boolean</span> hasEvents = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!close) &#123;</span><br><span class="line">                        hasEvents = events();</span><br><span class="line">                        <span class="comment">// wakeupCounter &gt; 0，表示有事件，故直接用selectNow，否则用												select(selectorTimeout)以阻塞一段时间等待事件到来</span></span><br><span class="line">                        <span class="keyword">if</span> (wakeupCounter.getAndSet(-<span class="number">1</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                            <span class="comment">//if we are here, means we have other stuff to do</span></span><br><span class="line">                            <span class="comment">//do a non blocking select</span></span><br><span class="line">                            keyCount = selector.selectNow();</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            keyCount = selector.select(selectorTimeout);</span><br><span class="line">                        &#125;</span><br><span class="line">                        wakeupCounter.set(<span class="number">0</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 关闭</span></span><br><span class="line">                    <span class="keyword">if</span> (close) &#123;</span><br><span class="line">                        events();</span><br><span class="line">                        timeout(<span class="number">0</span>, <span class="keyword">false</span>);</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            selector.close();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                            log.error(sm.getString(<span class="string">"endpoint.nio.selectorCloseFail"</span>), ioe);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Throwable x) &#123;</span><br><span class="line">                    ExceptionUtils.handleThrowable(x);</span><br><span class="line">                    log.error(<span class="string">""</span>,x);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//either we timed out or we woke up, process events first</span></span><br><span class="line">                 <span class="comment">// 执行队列中的PollerEvent事件，注册读或写，</span></span><br><span class="line">                 <span class="comment">// hasEvents表示是否有读写事件注册</span></span><br><span class="line">                <span class="keyword">if</span> ( keyCount == <span class="number">0</span> ) hasEvents = (hasEvents | events());</span><br><span class="line"></span><br><span class="line">                Iterator&lt;SelectionKey&gt; iterator =</span><br><span class="line">                    keyCount &gt; <span class="number">0</span> ? selector.selectedKeys().iterator() : <span class="keyword">null</span>;</span><br><span class="line">                <span class="comment">// Walk through the collection of ready keys and dispatch</span></span><br><span class="line">                <span class="comment">// any active event.</span></span><br><span class="line">                <span class="keyword">while</span> (iterator != <span class="keyword">null</span> &amp;&amp; iterator.hasNext()) &#123;</span><br><span class="line">                    SelectionKey sk = iterator.next();</span><br><span class="line">                    NioSocketWrapper attachment = (NioSocketWrapper)sk.attachment();</span><br><span class="line">                    <span class="comment">// Attachment may be null if another thread has called</span></span><br><span class="line">                    <span class="comment">// cancelledKey()</span></span><br><span class="line">                    <span class="keyword">if</span> (attachment == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        iterator.remove();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        iterator.remove();</span><br><span class="line">                        <span class="comment">// 将sk和attachtment包装，交由后续线程继续处理</span></span><br><span class="line">                        processKey(sk, attachment);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="comment">//while</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//process timeouts</span></span><br><span class="line">                timeout(keyCount,hasEvents);</span><br><span class="line">            &#125;<span class="comment">//while</span></span><br><span class="line"></span><br><span class="line">            getStopLatch().countDown();</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//在events()方法中，通过调用PollerEvent的run()方法将socket注册到selector中</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">events</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">boolean</span> result = <span class="keyword">false</span>;</span><br><span class="line">            PollerEvent pe = <span class="keyword">null</span>;</span><br><span class="line">    		<span class="comment">// 从队列中获得PollerEvent事件</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, size = events.size(); i &lt; size &amp;&amp; (pe = events.poll()) != <span class="keyword">null</span>; i++ ) &#123;</span><br><span class="line">                result = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// 调用PollerEvent的run()方法执行事件注册</span></span><br><span class="line">                    pe.run();</span><br><span class="line">                    pe.reset();</span><br><span class="line">                    <span class="keyword">if</span> (running &amp;&amp; !paused) &#123;</span><br><span class="line">                        eventCache.push(pe);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> ( Throwable x ) &#123;</span><br><span class="line">                    log.error(<span class="string">""</span>,x);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 如果是注册，则把socket注册到selector中</span></span><br><span class="line">            <span class="keyword">if</span> (interestOps == OP_REGISTER) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    socket.getIOChannel().register(</span><br><span class="line">                            socket.getPoller().getSelector(), SelectionKey.OP_READ, socketWrapper);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception x) &#123;</span><br><span class="line">                    log.error(sm.getString(<span class="string">"endpoint.nio.registerFail"</span>), x);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">final</span> SelectionKey key = socket.getIOChannel().keyFor(socket.getPoller().getSelector());</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (key == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">// The key was cancelled (e.g. due to socket closure)</span></span><br><span class="line">                        <span class="comment">// and removed from the selector while it was being</span></span><br><span class="line">                        <span class="comment">// processed. Count down the connections at this point</span></span><br><span class="line">                        <span class="comment">// since it won't have been counted down when the socket</span></span><br><span class="line">                        <span class="comment">// closed.</span></span><br><span class="line">                        socket.socketWrapper.getEndpoint().countDownConnection();</span><br><span class="line">                        ((NioSocketWrapper) socket.socketWrapper).closed = <span class="keyword">true</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">final</span> NioSocketWrapper socketWrapper = (NioSocketWrapper) key.attachment();</span><br><span class="line">                        <span class="keyword">if</span> (socketWrapper != <span class="keyword">null</span>) &#123;</span><br><span class="line">                            <span class="comment">//we are registering the key to start with, reset the fairness counter.</span></span><br><span class="line">                            <span class="keyword">int</span> ops = key.interestOps() | interestOps;</span><br><span class="line">                            socketWrapper.interestOps(ops);</span><br><span class="line">                            key.interestOps(ops);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            socket.getPoller().cancelledKey(key);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (CancelledKeyException ckx) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        socket.getPoller().cancelledKey(key);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception ignore) &#123;&#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//processKey()方法处理准备完毕的事件</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">processKey</span><span class="params">(SelectionKey sk, NioSocketWrapper attachment)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 如果close，则取消sk</span></span><br><span class="line">                <span class="keyword">if</span> ( close ) &#123;</span><br><span class="line">                    cancelledKey(sk);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( sk.isValid() &amp;&amp; attachment != <span class="keyword">null</span> ) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (sk.isReadable() || sk.isWritable() ) &#123;</span><br><span class="line">                        <span class="keyword">if</span> ( attachment.getSendfileData() != <span class="keyword">null</span> ) &#123;</span><br><span class="line">                            <span class="comment">// 处理文件</span></span><br><span class="line">                            processSendfile(sk,attachment, <span class="keyword">false</span>);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            unreg(sk, attachment, sk.readyOps());</span><br><span class="line">                            <span class="keyword">boolean</span> closeSocket = <span class="keyword">false</span>;</span><br><span class="line">                            <span class="comment">// Read goes before write</span></span><br><span class="line">                            <span class="keyword">if</span> (sk.isReadable()) &#123;<span class="comment">// 处理可读</span></span><br><span class="line">                                <span class="keyword">if</span> (!processSocket(attachment, SocketEvent.OPEN_READ, <span class="keyword">true</span>)) &#123;</span><br><span class="line">                                    closeSocket = <span class="keyword">true</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">if</span> (!closeSocket &amp;&amp; sk.isWritable()) &#123; <span class="comment">//处理可写</span></span><br><span class="line">                                <span class="keyword">if</span> (!processSocket(attachment, SocketEvent.OPEN_WRITE, <span class="keyword">true</span>)) &#123;</span><br><span class="line">                                    closeSocket = <span class="keyword">true</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">if</span> (closeSocket) &#123;</span><br><span class="line">                                cancelledKey(sk);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//invalid key</span></span><br><span class="line">                    cancelledKey(sk);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> ( CancelledKeyException ckx ) &#123;</span><br><span class="line">                cancelledKey(sk);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">                ExceptionUtils.handleThrowable(t);</span><br><span class="line">                log.error(<span class="string">""</span>,t);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将selectionKey包装为SocketProcessor </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">processSocket</span><span class="params">(SocketWrapperBase&lt;S&gt; socketWrapper,</span></span></span><br><span class="line"><span class="function"><span class="params">            SocketEvent event, <span class="keyword">boolean</span> dispatch)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (socketWrapper == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            SocketProcessorBase&lt;S&gt; sc = processorCache.pop();</span><br><span class="line">            <span class="keyword">if</span> (sc == <span class="keyword">null</span>) &#123;</span><br><span class="line">                sc = createSocketProcessor(socketWrapper, event);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sc.reset(socketWrapper, event);</span><br><span class="line">            &#125;</span><br><span class="line">            Executor executor = getExecutor();</span><br><span class="line">            <span class="keyword">if</span> (dispatch &amp;&amp; executor != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// 交给线程池处理或直接运行</span></span><br><span class="line">                executor.execute(sc);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sc.run();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RejectedExecutionException ree) &#123;</span><br><span class="line">            getLog().warn(sm.getString(<span class="string">"endpoint.executor.fail"</span>, socketWrapper) , ree);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">            ExceptionUtils.handleThrowable(t);</span><br><span class="line">            <span class="comment">// This means we got an OOM or similar creating a thread, or that</span></span><br><span class="line">            <span class="comment">// the pool and its queue are full</span></span><br><span class="line">            getLog().error(sm.getString(<span class="string">"endpoint.process.fail"</span>), t);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190827095247.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190827095432.png" alt></p>
+<h4 id="LifeCycle接口"><a href="#LifeCycle接口" class="headerlink" title="LifeCycle接口"></a>LifeCycle接口</h4><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190821095719.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/21/消息接口文档/" rel="next" title="消息接口文档">
+                <i class="fa fa-chevron-left"></i> 消息接口文档
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haominglfs</p>
+              <p class="site-description motion-element" itemprop="description">A programmer's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/haominglfs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么"><span class="nav-number">1.</span> <span class="nav-text">Tomcat拾遗–BootStrap类的静态代码块和反射调用Catalina的意义是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反射调用Catalina的意义"><span class="nav-number">1.1.</span> <span class="nav-text">反射调用Catalina的意义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件图"><span class="nav-number">1.1.1.</span> <span class="nav-text">组件图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#connector"><span class="nav-number">1.1.2.</span> <span class="nav-text">connector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poller和pollerEvent"><span class="nav-number">1.1.3.</span> <span class="nav-text">poller和pollerEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LifeCycle接口"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">LifeCycle接口</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haominglfs</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: '6jc6kDyEMv8ck1PNRKa1WF5d-gzGzoHsz',
+        appKey: 'gAdAKqAuWL5yIYDA5A0Uxj1X',
+        placeholder: '发表您的意见',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("6jc6kDyEMv8ck1PNRKa1WF5d-gzGzoHsz", "gAdAKqAuWL5yIYDA5A0Uxj1X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

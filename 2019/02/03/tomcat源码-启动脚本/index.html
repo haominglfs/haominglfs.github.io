@@ -6,10 +6,10 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="https://haominglfs.github.io/2019/02/03/tomcat源码-启动脚本/"/>
+  <link rel="canonical" href="https://haominglfs.github.io/2019/02/03/tomcat源码-启动脚本/">
 
 
 
@@ -155,7 +155,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">haominglfs的博客</span>
         <span class="logo-line-after"><i></i></span>
@@ -185,7 +185,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -195,7 +195,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -205,7 +205,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -215,7 +215,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -228,7 +228,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -249,9 +249,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -292,7 +290,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -377,7 +375,7 @@
 
       
         <h4 id="startup-bat"><a href="#startup-bat" class="headerlink" title="startup.bat"></a>startup.bat</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">rem Licensed to the Apache Software Foundation (ASF) under one or more</span><br><span class="line">rem contributor license agreements.  See the NOTICE file distributed with</span><br><span class="line">rem this work for additional information regarding copyright ownership.</span><br><span class="line">rem The ASF licenses this file to You under the Apache License, Version 2.0</span><br><span class="line">rem (the &quot;License&quot;); you may not use this file except in compliance with</span><br><span class="line">rem the License.  You may obtain a copy of the License at</span><br><span class="line">rem</span><br><span class="line">rem     http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line">rem</span><br><span class="line">rem Unless required by applicable law or agreed to in writing, software</span><br><span class="line">rem distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line">rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line">rem See the License for the specific language governing permissions and</span><br><span class="line">rem limitations under the License.</span><br><span class="line"></span><br><span class="line">rem ---------------------------------------------------------------------------</span><br><span class="line">rem Start script for the CATALINA Server</span><br><span class="line">rem ---------------------------------------------------------------------------</span><br><span class="line">#临时修改系统变量</span><br><span class="line">setlocal</span><br><span class="line">#设置CATALINA_HOME环境变量</span><br><span class="line">rem Guess CATALINA_HOME if not defined</span><br><span class="line">set &quot;CURRENT_DIR=%cd%&quot;</span><br><span class="line">if not &quot;%CATALINA_HOME%&quot; == &quot;&quot; goto gotHome</span><br><span class="line">set &quot;CATALINA_HOME=%CURRENT_DIR%&quot;</span><br><span class="line">if exist &quot;%CATALINA_HOME%\bin\catalina.bat&quot; goto okHome</span><br><span class="line">cd ..</span><br><span class="line">set &quot;CATALINA_HOME=%cd%&quot;</span><br><span class="line">cd &quot;%CURRENT_DIR%&quot;</span><br><span class="line">:gotHome</span><br><span class="line">if exist &quot;%CATALINA_HOME%\bin\catalina.bat&quot; goto okHome</span><br><span class="line">echo The CATALINA_HOME environment variable is not defined correctly</span><br><span class="line">echo This environment variable is needed to run this program</span><br><span class="line">goto end</span><br><span class="line">:okHome</span><br><span class="line">#验证CATALINA_HOME变量目录下的catalina.bat文件是否存在，不存在则批处理直接结束</span><br><span class="line">set &quot;EXECUTABLE=%CATALINA_HOME%\bin\catalina.bat&quot;</span><br><span class="line"></span><br><span class="line">rem Check that target executable exists</span><br><span class="line">if exist &quot;%EXECUTABLE%&quot; goto okExec</span><br><span class="line">echo Cannot find &quot;%EXECUTABLE%&quot;</span><br><span class="line">echo This file is needed to run this program</span><br><span class="line">goto end</span><br><span class="line">:okExec</span><br><span class="line"></span><br><span class="line">#如果设置了其他参数，将参数保存到 CMD_LINE_ARGS 变量中</span><br><span class="line">rem Get remaining unshifted command line arguments and save them in the</span><br><span class="line">set CMD_LINE_ARGS=</span><br><span class="line">:setArgs</span><br><span class="line">if &quot;&quot;%1&quot;&quot;==&quot;&quot;&quot;&quot; goto doneSetArgs</span><br><span class="line">set CMD_LINE_ARGS=%CMD_LINE_ARGS% %1</span><br><span class="line">shift</span><br><span class="line">goto setArgs</span><br><span class="line">:doneSetArgs</span><br><span class="line">#执行 catalina.bat 批处理文件，注意，该行后面跟着两个参数，第1个参数是 start</span><br><span class="line">call &quot;%EXECUTABLE%&quot; start %CMD_LINE_ARGS%</span><br><span class="line"></span><br><span class="line">:end</span><br></pre></td></tr></table></figure>
-<h4 id="catalina-bat"><a href="#catalina-bat" class="headerlink" title="catalina.bat"></a>catalina.bat</h4><h4 id="tomcat类加载设计"><a href="#tomcat类加载设计" class="headerlink" title="tomcat类加载设计"></a>tomcat类加载设计</h4><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.jpg" alt=""></p>
+<h4 id="catalina-bat"><a href="#catalina-bat" class="headerlink" title="catalina.bat"></a>catalina.bat</h4><h4 id="tomcat类加载设计"><a href="#tomcat类加载设计" class="headerlink" title="tomcat类加载设计"></a>tomcat类加载设计</h4><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.jpg" alt></p>
 <p>整个Tomcat的classLoader分为了两条线，左边的一条线为catalinaLoader，这个是Tomcat服务器专用的，用于加载Tomcat服务器本身的class，右边的一条线则为web应用程序用的，每一个web应用程序都有自己专用的WebappClassLoader，用于加载属于自己应用程序的资源，例如/web-inf/lib下面的jar包，classes里面的class文件。</p>
 
       
@@ -495,7 +493,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -517,7 +515,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
