@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="obj这个对象本质上是被Object函数创建的，因此12345678910   ![](https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png)    即，每个对象都有一个```__proto__```属性，指向创建该对象的函数的prototype。2. 自定义函数的prototype本质上就是和">
+<meta name="description" content="obj这个对象本质上是被Object函数创建的，因此obj.__proto__=== Object.prototype。我们可以用一个图来表示。   即，每个对象都有一个__proto__属性，指向创建该对象的函数的prototype。  自定义函数的prototype本质上就是和 var obj = {} 是一样的，都是被Object创建，所以它的__proto__指向的就是Object.pr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js原型">
 <meta property="og:url" content="https://haominglfs.github.io/2019/09/24/js原型/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="obj这个对象本质上是被Object函数创建的，因此12345678910   ![](https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png)    即，每个对象都有一个```__proto__```属性，指向创建该对象的函数的prototype。2. 自定义函数的prototype本质上就是和">
+<meta property="og:description" content="obj这个对象本质上是被Object函数创建的，因此obj.__proto__=== Object.prototype。我们可以用一个图来表示。   即，每个对象都有一个__proto__属性，指向创建该对象的函数的prototype。  自定义函数的prototype本质上就是和 var obj = {} 是一样的，都是被Object创建，所以它的__proto__指向的就是Object.pr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190925210518.png">
-<meta property="og:updated_time" content="2019-09-25T13:13:57.734Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190925204029.png">
+<meta property="og:updated_time" content="2019-09-26T14:24:18.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js原型">
-<meta name="twitter:description" content="obj这个对象本质上是被Object函数创建的，因此12345678910   ![](https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png)    即，每个对象都有一个```__proto__```属性，指向创建该对象的函数的prototype。2. 自定义函数的prototype本质上就是和">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190925210518.png">
+<meta name="twitter:description" content="obj这个对象本质上是被Object函数创建的，因此obj.__proto__=== Object.prototype。我们可以用一个图来表示。   即，每个对象都有一个__proto__属性，指向创建该对象的函数的prototype。  自定义函数的prototype本质上就是和 var obj = {} 是一样的，都是被Object创建，所以它的__proto__指向的就是Object.pr">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png">
 
 
 
@@ -375,9 +376,15 @@
 
       
         <ol>
-<li><p>obj这个对象本质上是被Object函数创建的，因此<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   ![](https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png)</span><br><span class="line"></span><br><span class="line">    即，每个对象都有一个```__proto__```属性，指向创建该对象的函数的prototype。</span><br><span class="line"></span><br><span class="line">2. 自定义函数的prototype本质上就是和 var obj = &#123;&#125; 是一样的，都是被Object创建，所以它的```__proto__```指向的就是Object.prototype。但是Object.prototype确实一个特例——它的```__proto__```指向的是null。</span><br><span class="line"></span><br><span class="line">   ![](https://raw.githubusercontent.com/haominglfs/images/master/20190925204029.png)</span><br><span class="line"></span><br><span class="line">3. 函数也是一种对象，函数是由```Function```，所以```Object.__proto__ === Function.prototype</span><br></pre></td></tr></table></figure></p>
+<li><p>obj这个对象本质上是被Object函数创建的，因此<code>obj.__proto__=== Object.prototype</code>。我们可以用一个图来表示。</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png" alt></p>
+<p> 即，每个对象都有一个<code>__proto__</code>属性，指向创建该对象的函数的prototype。</p>
+</li>
+<li><p>自定义函数的prototype本质上就是和 var obj = {} 是一样的，都是被Object创建，所以它的<code>__proto__</code>指向的就是Object.prototype。但是Object.prototype确实一个特例——它的<code>__proto__</code>指向的是null。</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190925204029.png" alt></p>
+</li>
+<li><p>函数也是一种对象，函数是由<code>Function</code>，所以<code>Object.__proto__ === Function.prototype</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'return x+y'</span>);</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190925210518.png" alt></p>
 </li>
 </ol>
 
@@ -413,6 +420,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/26/cas单点登录/" rel="prev" title="cas单点登录">
+                cas单点登录 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -483,7 +494,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -505,7 +516,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
