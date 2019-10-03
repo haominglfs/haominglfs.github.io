@@ -430,6 +430,9 @@
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -621,6 +624,25 @@
   
 
   
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'ff50d69081e9281e438b',
+      clientSecret: '0be546000d62d416755a762d27474c05ac6e0862',
+      repo: 'haominglfs.github.io',
+      owner: 'haominglfs',
+      admin: [''],
+      id: 'acfad142666b64a1c6cc9c033cbca6e8',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>
