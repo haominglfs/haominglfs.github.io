@@ -2,127 +2,82 @@
 
 
 
-  
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="A programmer&apos;s blog">
+  <meta name="description" content="A programmer&apos;s blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="haominglfs的博客">
 <meta property="og:url" content="https://haominglfs.github.io/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
 <meta property="og:description" content="A programmer&apos;s blog">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="haominglfs的博客">
 <meta name="twitter:description" content="A programmer&apos;s blog">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: "",
-      labels: ""
-    }
-  };
-</script>
-
-
-
   <link rel="canonical" href="https://haominglfs.github.io/">
 
 
-
-
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false,
+    isPage: false,
+    isArchive: false
+  };
+</script>
 
   <title>haominglfs的博客</title>
   
@@ -134,236 +89,231 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">haominglfs的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
         <p class="site-subtitle">Let's coding!</p>
       
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
+
 
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
+  <ul id="menu" class="menu">
+      
+      
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
       
+    
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
 
-
-
-    </div>
-  
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
 
+</div>
+<div class="search-pop-overlay"></div>
 
-
- </div>
+  </div>
+</div>
     </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+            
+
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
+  <div id="posts" class="posts-expand">
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/30/macosX挂载NFS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/30/macosX挂载NFS/" itemprop="url">macosX挂载NFS</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/30/macosX挂载NFS/" class="post-title-link" itemprop="url">macosX挂载NFS</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-30T20:09:14+08:00">
-                2019-09-30
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-
+              <time title="创建时间：2019-09-30 20:09:14" itemprop="dateCreated datePublished" datetime="2019-09-30T20:09:14+08:00">2019-09-30</time>
+            </span>
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+
+            
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <a href="/2019/09/30/macosX挂载NFS/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/30/macosX挂载NFS/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 16:57:04" itemprop="dateModified" datetime="2019-10-03T16:57:04+08:00">2019-10-03</time>
               </span>
             
           
 
           
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.9k</span>
+            </span>
           
-             <span id="/2019/09/30/macosX挂载NFS/" class="leancloud_visitors" data-flag-title="macosX挂载NFS">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -371,150 +321,114 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-          
-Mac OS X使用automounter，也称为 autofs 来挂载NFS输出卷。Autofs包含以下程序和daemons :
-
-autofsd
-autofsd 执行 automount 之后 ，就会等待网络配置修改事件以及类似的事件发生。如果发生这样的事件，重新运行一次 automount 
-          ...
+          <ol>
+<li><p>Mac OS X使用automounter，也称为 autofs 来挂载NFS输出卷。Autofs包含以下程序和daemons :</p>
+<ul>
+<li><p><strong>autofsd</strong></p>
+<p>autofsd 执行 automount 之后 ，就会等待网络配置修改事件以及类似的事件发生。如果发生这样的事件，重新运行一次 automount 来更新挂载以反映当前automounter映射。也可以使用automount_reread 来运行 automount 。</p>
+</li>
+<li><p><strong>automountd</strong></p>
+<p>automountd 是一个响应从 autofs 发出的请求的服务，用来挂载或卸载网络文件系统，并且提供目录的内容，基于automounter映射的内容。这个 automountd 是通过 launchd 来启动的。</p>
+</li>
+<li><p><strong>automount</strong></p>
+<p>automount 是实际的挂载管理器。使用一些映射文件和配置文件来管理挂载和卸载远程资源。这些配置文件使用 /etc/autofs.conf 和 /etc/auto_master。</p>
+</li>
+<li><p><strong>automount_reread</strong></p>
+<p>automount_reread 可以触发针对 autofs 的网络变更事件。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/30/macosX挂载NFS/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/09/30/macosX挂载NFS/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/30/cec邮件调用示例/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/30/cec邮件调用示例/" itemprop="url">cec邮件调用示例</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/30/cec邮件调用示例/" class="post-title-link" itemprop="url">cec邮件调用示例</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-30T15:26:07+08:00">
-                2019-09-30
-              </time>
+
+              <time title="创建时间：2019-09-30 15:26:07 / 修改时间：18:21:22" itemprop="dateCreated datePublished" datetime="2019-09-30T15:26:07+08:00">2019-09-30</time>
+            </span>
+          
             
 
             
-
-            
-          </span>
-
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/09/30/cec邮件调用示例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/30/cec邮件调用示例/" itemprop="commentCount"></span>
-                </a>
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
               </span>
-            
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.7k</span>
+            </span>
           
-
-          
-          
-             <span id="/2019/09/30/cec邮件调用示例/" class="leancloud_visitors" data-flag-title="cec邮件调用示例">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>10 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -522,148 +436,97 @@ autofsd 执行 automount 之后 ，就会等待网络配置修改事件以及类
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <ol>
+<li><p>调用邮件的服务为一个定时任务，定时扫描指定文件，若存在待发送的邮件，则以javaMail的方式调用邮件服务，调用示例如下(发件人邮箱SMTP服务器地址：mail.cec.com.cn)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JavaMail 版本: 1.6.0</span></span><br><span class="line"><span class="comment"> * JDK 版本: JDK 1.7 以上（必须）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">sendMailService</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> myEmailAccount      发件人邮箱账号</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> myEmailPassword	     发件人邮箱密码</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> myEmailSMTPHost     发件人邮箱SMTP服务器地址</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> mainSendNameAccounts  收件人主送名称及账号</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> copySendNameAccounts   收件人抄送名称及账号</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> secretSendNameAccounts 收件人暗送名称及账号	</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> sendMsg      发送邮件主体信息</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">sendMail</span><span class="params">(String myEmailAccount, String myEmailPassword,String senderName,String myEmailSMTPHost,Map&lt;String, String&gt; mainSendNameAccounts,Map&lt;String, String&gt; copySendNameAccounts,Map&lt;String, String&gt; secretSendNameAccounts,Map sendMsg)</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    	 Properties props = <span class="keyword">new</span> Properties();                    <span class="comment">// 参数配置</span></span><br><span class="line">         props.setProperty(<span class="string">"mail.transport.protocol"</span>, <span class="string">"smtp"</span>);   <span class="comment">// 使用的协议（JavaMail规范要求）</span></span><br><span class="line">         props.setProperty(<span class="string">"mail.smtp.host"</span>, myEmailSMTPHost);   <span class="comment">// 发件人的邮箱的 SMTP 服务器地址</span></span><br><span class="line">         props.setProperty(<span class="string">"mail.smtp.auth"</span>, <span class="string">"false"</span>);            <span class="comment">// 需要请求认证</span></span><br><span class="line">         <span class="comment">// 2. 根据配置创建会话对象, 用于和邮件服务器交互</span></span><br><span class="line">         Session session = Session.getInstance(props);</span><br><span class="line">         session.setDebug(<span class="keyword">true</span>); <span class="comment">//开启日志</span></span><br><span class="line">		 <span class="comment">// 3. 创建一封邮件</span></span><br><span class="line">         MimeMessage message;</span><br><span class="line">		 message = createMimeMessage(session, myEmailAccount, senderName,mainSendNameAccounts,copySendNameAccounts,secretSendNameAccounts,sendMsg);</span><br><span class="line">		 <span class="comment">// 4. 根据 Session 获取邮件传输对象</span></span><br><span class="line">         Transport transport = session.getTransport();</span><br><span class="line">         <span class="comment">// 5. 使用 邮箱账号 和 密码 连接邮件服务器, 这里认证的邮箱必须与 message 中的发件人邮箱一致, 否则报错</span></span><br><span class="line">         transport.connect(myEmailAccount, myEmailPassword);</span><br><span class="line">         <span class="comment">// 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人</span></span><br><span class="line">         transport.sendMessage(message, message.getAllRecipients());</span><br><span class="line">         transport.close();</span><br><span class="line">         <span class="keyword">return</span> Action.SUCCESS;</span><br><span class="line">	&#125;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建邮件(带附件)</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> session</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> myEmailAccount     发件人账号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> mainSendAccount    主送人员账号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> copySendAccount    抄送人员账号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> secretSendAccount	  暗送人员账号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sendMsg            发送信息主体 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> MimeMessage <span class="title">createMimeMessage</span><span class="params">(Session session, String myEmailAccount,String senderName, Map&lt;String, String&gt; mainSendNameAccounts ,Map&lt;String, String&gt; copySendNameAccounts,Map&lt;String, String&gt; secretSendNameAccounts,Map sendMsg)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    	IUser sUser = WebBaseUtil.getCurrentUser();</span><br><span class="line">    	String subject = (String)sendMsg.get(<span class="string">"subject"</span>);</span><br><span class="line">    	String content = (String)sendMsg.get(<span class="string">"content"</span>);</span><br><span class="line">    	String attachPath = (String)sendMsg.get(<span class="string">"attachPath"</span>);</span><br><span class="line">   </span><br><span class="line">        <span class="comment">// 1. 创建一封邮件</span></span><br><span class="line">        MimeMessage message = <span class="keyword">new</span> MimeMessage(session);</span><br><span class="line">        <span class="comment">// 2. From: 发件人（昵称有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改昵称）</span></span><br><span class="line">        message.setFrom(<span class="keyword">new</span> InternetAddress(myEmailAccount,senderName, <span class="string">"UTF-8"</span>));</span><br><span class="line">        <span class="comment">// 3. To: 收件人（可以增加多个收件人、抄送、密送）</span></span><br><span class="line">        <span class="comment">//设置主送人员</span></span><br><span class="line">        Set mainSendNameSet = mainSendNameAccounts.keySet();<span class="comment">//主送人员姓名</span></span><br><span class="line">        List mailSendList = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">for</span> (Object mainSendName : mainSendNameSet) &#123;</span><br><span class="line">        	mailSendList.add(<span class="keyword">new</span> InternetAddress(mainSendNameAccounts.get(mainSendName)));</span><br><span class="line">		&#125;</span><br><span class="line">        InternetAddress[] mainAddress =(InternetAddress[])mailSendList.toArray(<span class="keyword">new</span> InternetAddress[mailSendList.size()]);</span><br><span class="line">        message.setRecipients(MimeMessage.RecipientType.TO,mainAddress);<span class="comment">//当邮件有多个收件人时，用逗号隔开</span></span><br><span class="line">        <span class="comment">//设置抄送人员</span></span><br><span class="line">        <span class="keyword">if</span>(!copySendNameAccounts.isEmpty())&#123;</span><br><span class="line">	        Set copySendNameSet = copySendNameAccounts.keySet();<span class="comment">//主送人员姓名</span></span><br><span class="line">	        List copylist = <span class="keyword">new</span> ArrayList();</span><br><span class="line">	        <span class="keyword">for</span> (Object copySendName : copySendNameSet) &#123;</span><br><span class="line">	        	copylist.add(<span class="keyword">new</span> InternetAddress(copySendNameAccounts.get(copySendName)));</span><br><span class="line">			&#125;</span><br><span class="line">	        InternetAddress[] copyAddress =(InternetAddress[])copylist.toArray(<span class="keyword">new</span> InternetAddress[copylist.size()]);</span><br><span class="line">	        message.setRecipients(MimeMessage.RecipientType.CC,copyAddress);<span class="comment">//当邮件有多个收件人时，用逗号隔开</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//设置暗送人员</span></span><br><span class="line">        <span class="keyword">if</span>(!secretSendNameAccounts.isEmpty())&#123;</span><br><span class="line">        	 Set secretSendNameSet = secretSendNameAccounts.keySet();<span class="comment">//主送人员姓名</span></span><br><span class="line">             List secretlist = <span class="keyword">new</span> ArrayList();</span><br><span class="line">             <span class="keyword">for</span> (Object secretSendName : secretSendNameSet) &#123;</span><br><span class="line">             	secretlist.add(<span class="keyword">new</span> InternetAddress(secretSendNameAccounts.get(secretSendName)));</span><br><span class="line">     		&#125;</span><br><span class="line">             InternetAddress[] secretAddress =(InternetAddress[])secretlist.toArray(<span class="keyword">new</span> InternetAddress[secretlist.size()]);</span><br><span class="line">             message.setRecipients(MimeMessage.RecipientType.CC,secretAddress);<span class="comment">//当邮件有多个收件人时，用逗号隔开</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）</span></span><br><span class="line">        message.setSubject(subject, <span class="string">"UTF-8"</span>);</span><br><span class="line">        <span class="comment">//5. 创建正文文本"节点"</span></span><br><span class="line">        MimeBodyPart text = <span class="keyword">new</span> MimeBodyPart();</span><br><span class="line">        text.setContent(content,<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">        <span class="comment">// 6. 创建附件"节点"</span></span><br><span class="line">        MimeMultipart mm = <span class="keyword">new</span> MimeMultipart();</span><br><span class="line">        mm.addBodyPart(text);</span><br><span class="line">        <span class="keyword">if</span>(StringHelper.isNotEmpty(attachPath))&#123;</span><br><span class="line">        	MimeBodyPart attachment = <span class="keyword">new</span> MimeBodyPart();</span><br><span class="line">    	    DataHandler dh = <span class="keyword">new</span> DataHandler(<span class="keyword">new</span> FileDataSource(attachPath));</span><br><span class="line">    	    attachment.setDataHandler(dh);</span><br><span class="line">    	    attachment.setFileName(MimeUtility.encodeText(dh.getName())); </span><br><span class="line">    	    mm.addBodyPart(attachment);     <span class="comment">// 如果有多个附件，可以创建多个多次添加</span></span><br><span class="line">    	    mm.setSubType(<span class="string">"mixed"</span>);         <span class="comment">// 混合关系</span></span><br><span class="line">        &#125;</span><br><span class="line">        message.setContent(mm);</span><br><span class="line">        <span class="comment">// 6. 设置发件时间</span></span><br><span class="line">        message.setSentDate(<span class="keyword">new</span> Date());</span><br><span class="line">        <span class="comment">// 7. 保存设置</span></span><br><span class="line">        message.saveChanges();</span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
-      
-        
-          
-          
-调用邮件的服务为一个定时任务，定时扫描指定文件，若存在待发送的邮件，则以javaMail的方式调用邮件服务，调用示例如下(发件人邮箱SMTP服务器地址：mail.cec.com.cn)：
-1234567891011121314151617181920212223242526272829303132
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/30/cec邮件调用示例/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/30/cec短信服务使用手册/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/30/cec短信服务使用手册/" itemprop="url">cec短信服务使用手册</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/30/cec短信服务使用手册/" class="post-title-link" itemprop="url">cec短信服务使用手册</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-30T14:10:32+08:00">
-                2019-09-30
-              </time>
+
+              <time title="创建时间：2019-09-30 14:10:32 / 修改时间：15:24:41" itemprop="dateCreated datePublished" datetime="2019-09-30T14:10:32+08:00">2019-09-30</time>
+            </span>
+          
             
 
             
-
-            
-          </span>
-
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/09/30/cec短信服务使用手册/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/30/cec短信服务使用手册/" itemprop="commentCount"></span>
-                </a>
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
               </span>
-            
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>801</span>
+            </span>
           
-
-          
-          
-             <span id="/2019/09/30/cec短信服务使用手册/" class="leancloud_visitors" data-flag-title="cec短信服务使用手册">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -671,151 +534,103 @@ autofsd 执行 automount 之后 ，就会等待网络配置修改事件以及类
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <ol>
+<li><p>短信服务以hessian的方式对外提供，地址为：</p>
+<p><code>http://10.0.1.55:8485/SendSmsService</code></p>
+</li>
+<li><p>对外提供的接口如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SendSmsServiceInterface</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">sendSMS</span><span class="params">(String phoneNum, String smsContent)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">sendBatchSMS</span><span class="params">(String[] phoneNums, String smsContent)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">sendScheduleSMS</span><span class="params">(String phoneNum, String smsContent, String sendTime)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">sendBatchScheduleSMS</span><span class="params">(String[] phoneNums, String smsContent, String sendTime)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">getBalance</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>示例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HessianProxyFactory factory = <span class="keyword">new</span> HessianProxyFactory();</span><br><span class="line">SendSmsServiceInterface SendSmsService = (SendSmsServiceInterface)factory.create(SendSmsServiceInterface.class,<span class="string">"http://10.0.1.55:8485/SendSmsService"</span>);</span><br><span class="line">String status = <span class="string">"1"</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">		status = Integer.toString(SendSmsService.sendBatchSMS(phoneNum,<span class="string">"msg test"</span>));</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">		ex.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
-      
-        
-          
-          
-短信服务以hessian的方式对外提供，地址为：
-http://10.0.1.55:8485/SendSmsService
-
-对外提供的接口如下：
-1234567public interface SendSmsServiceInterface &#123;	int sendSMS(String p
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/30/cec短信服务使用手册/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/30/windows7配置nfs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/30/windows7配置nfs/" itemprop="url">windows7配置nfs</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/30/windows7配置nfs/" class="post-title-link" itemprop="url">windows7配置nfs</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-30T11:21:03+08:00">
-                2019-09-30
-              </time>
+
+              <time title="创建时间：2019-09-30 11:21:03 / 修改时间：18:20:36" itemprop="dateCreated datePublished" datetime="2019-09-30T11:21:03+08:00">2019-09-30</time>
+            </span>
+          
             
 
             
-
-            
-          </span>
-
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/09/30/windows7配置nfs/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/30/windows7配置nfs/" itemprop="commentCount"></span>
-                </a>
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
               </span>
-            
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>173</span>
+            </span>
           
-
-          
-          
-             <span id="/2019/09/30/windows7配置nfs/" class="leancloud_visitors" data-flag-title="windows7配置nfs">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -823,157 +638,115 @@ http://10.0.1.55:8485/SendSmsService
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <ol>
+<li><p>安装haneWIN NFS SERVER</p>
+<p><a href="https://www.hanewin.net/index.html" target="_blank" rel="noopener">下载地址</a></p>
+</li>
+<li><p>打开nfs客户端，配置如下</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/nfs.PNG" alt></p>
+<p>编辑要共享的目录后，重启服务器，列表中就会显示共享的服务器。如果不生效，则打开win7的服务管理器重启nfsd服务。</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/services.PNG" alt></p>
+</li>
+<li><p>问题</p>
+<ul>
+<li>保存配置文件时显示没有权限保存文件，需要以管理员身份运行nfs客户端。如何打开win7的管理员账户，可以参考<a href="http://www.2016win10.com/w10/20399.html" target="_blank" rel="noopener">win7系统设置用户帐户为最高权限的操作方法</a></li>
+</ul>
+</li>
+</ol>
 
-      
-        
-          
-          
-安装haneWIN NFS SERVER
-下载地址
-
-打开nfs客户端，配置如下
-
-编辑要共享的目录后，重启服务器，列表中就会显示共享的服务器。如果不生效，则打开win7的服务管理器重启nfsd服务。
-
-
-问题
-
-保存配置文件时显示没有权限保存文件，需要以管理员身份运行nfs客户端。如何打开win
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/30/windows7配置nfs/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/26/cas单点登录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/26/cas单点登录/" itemprop="url">cas单点登录</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/26/cas单点登录/" class="post-title-link" itemprop="url">cas单点登录</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-26T22:19:47+08:00">
-                2019-09-26
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-
+              <time title="创建时间：2019-09-26 22:19:47" itemprop="dateCreated datePublished" datetime="2019-09-26T22:19:47+08:00">2019-09-26</time>
+            </span>
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+
+            
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <a href="/2019/09/26/cas单点登录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/26/cas单点登录/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 11:18:49" itemprop="dateModified" datetime="2019-10-03T11:18:49+08:00">2019-10-03</time>
               </span>
             
           
 
           
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>0</span>
+            </span>
           
-             <span id="/2019/09/26/cas单点登录/" class="leancloud_visitors" data-flag-title="cas单点登录">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -981,147 +754,101 @@ http://10.0.1.55:8485/SendSmsService
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <p><img src="https://i.loli.net/2019/10/02/mI6OSbnkdZJpjKH.png" alt></p>
 
-      
-        
-          
-          
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/26/cas单点登录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/24/js原型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/24/js原型/" itemprop="url">js原型</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/24/js原型/" class="post-title-link" itemprop="url">js原型</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-24T21:37:02+08:00">
-                2019-09-24
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-
+              <time title="创建时间：2019-09-24 21:37:02" itemprop="dateCreated datePublished" datetime="2019-09-24T21:37:02+08:00">2019-09-24</time>
+            </span>
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+
+            
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <a href="/2019/09/24/js原型/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/24/js原型/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-26 22:24:18" itemprop="dateModified" datetime="2019-09-26T22:24:18+08:00">2019-09-26</time>
               </span>
             
           
 
           
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>401</span>
+            </span>
           
-             <span id="/2019/09/24/js原型/" class="leancloud_visitors" data-flag-title="js原型">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -1129,151 +856,112 @@ http://10.0.1.55:8485/SendSmsService
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <ol>
+<li><p>obj这个对象本质上是被Object函数创建的，因此<code>obj.__proto__=== Object.prototype</code>。我们可以用一个图来表示。</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190925203303.png" alt></p>
+<p> 即，每个对象都有一个<code>__proto__</code>属性，指向创建该对象的函数的prototype。</p>
+</li>
+<li><p>自定义函数的prototype本质上就是和 var obj = {} 是一样的，都是被Object创建，所以它的<code>__proto__</code>指向的就是Object.prototype。但是Object.prototype确实一个特例——它的<code>__proto__</code>指向的是null。</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190925204029.png" alt></p>
+</li>
+<li><p>函数也是一种对象，函数是由<code>Function</code>，所以<code>Object.__proto__ === Function.prototype</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'return x+y'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
-      
-        
-          
-          
-obj这个对象本质上是被Object函数创建的，因此obj.__proto__=== Object.prototype。我们可以用一个图来表示。
-
- 即，每个对象都有一个__proto__属性，指向创建该对象的函数的prototype。
-
-自定义函数的prototype本质上就是和 var obj
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/24/js原型/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/11/iframe问题总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/11/iframe问题总结/" itemprop="url">iframe问题总结</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/11/iframe问题总结/" class="post-title-link" itemprop="url">iframe问题总结</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T15:07:10+08:00">
-                2019-09-11
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-
+              <time title="创建时间：2019-09-11 15:07:10" itemprop="dateCreated datePublished" datetime="2019-09-11T15:07:10+08:00">2019-09-11</time>
+            </span>
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+
+            
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <a href="/2019/09/11/iframe问题总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/11/iframe问题总结/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-12 23:26:21" itemprop="dateModified" datetime="2019-09-12T23:26:21+08:00">2019-09-12</time>
               </span>
             
           
 
           
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>753</span>
+            </span>
           
-             <span id="/2019/09/11/iframe问题总结/" class="leancloud_visitors" data-flag-title="iframe问题总结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -1281,148 +969,105 @@ obj这个对象本质上是被Object函数创建的，因此obj.__proto__=== Obj
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h4 id="iframe内部内容被添加了-lt-pre-gt-标签"><a href="#iframe内部内容被添加了-lt-pre-gt-标签" class="headerlink" title="iframe内部内容被添加了&lt;pre&gt;标签"></a>iframe内部内容被添加了<code>&lt;pre&gt;</code>标签</h4><p>今天在解决iframe上传文件的跨域问题时，遇到一个奇怪的问题，后台返回的json数据，放到iframe中时，莫名加上了<code>&lt;pre&gt;</code>标签，通过查询，最后在stackoverflow上找到这么一段话</p>
+<blockquote>
+<p>Assuming that the user POST the request in a form setting the target to an iframe. The JSON response will be sent back to the user on his/her iframe with content type set as “text/html”. It is set as “text/html” instead of “application/json” because I want to avoid having a “pre” tag injected by the browser around the JSON response. Anyway, how does the user read that JSON response if the iframe and the parent window have different domain? There is going to be a cross domain policy issue.</p>
+</blockquote>
+<p>大概意思就是，在form表单提交的是后，返回的json数据会根据form表单设置的target属性放到对应的iframe中，将返回的头信息改成<code>text/html</code>而不是默认的<code>application/json</code>就能避免返回的数据被包裹在<code>&lt;pre&gt;</code>标签中。</p>
 
-      
-        
-          
-          iframe内部内容被添加了&lt;pre&gt;标签今天在解决iframe上传文件的跨域问题时，遇到一个奇怪的问题，后台返回的json数据，放到iframe中时，莫名加上了&lt;pre&gt;标签，通过查询，最后在stackoverflow上找到这么一段话
-
-Assuming that the 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/11/iframe问题总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/05/websocket使用总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/05/websocket使用总结/" itemprop="url">websocket使用总结</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/05/websocket使用总结/" class="post-title-link" itemprop="url">websocket使用总结</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T18:12:10+08:00">
-                2019-09-05
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-
+              <time title="创建时间：2019-09-05 18:12:10" itemprop="dateCreated datePublished" datetime="2019-09-05T18:12:10+08:00">2019-09-05</time>
+            </span>
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+
+            
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <a href="/2019/09/05/websocket使用总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/05/websocket使用总结/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-06 15:15:51" itemprop="dateModified" datetime="2019-09-06T15:15:51+08:00">2019-09-06</time>
               </span>
             
           
 
           
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>6.6k</span>
+            </span>
           
-             <span id="/2019/09/05/websocket使用总结/" class="leancloud_visitors" data-flag-title="websocket使用总结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>11 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -1430,151 +1075,114 @@ Assuming that the
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>公司门户系统有一个显示待办消息的需求，要求其他系统产生的待办消息要及时的在门户系统中展示，网上查找了解到有ajax轮询和websocket两种主要方式，为了及时性，最终选择了websocket方式。</p>
+<h3 id="整体思路"><a href="#整体思路" class="headerlink" title="整体思路"></a>整体思路</h3><p>一图胜千言</p>
+<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190905181723.png" alt></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ul>
+<li><p>前端</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- websocket--&gt;</span><br><span class="line">    &lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">        <span class="keyword">var</span> msgTypes = &#123;</span><br><span class="line">            <span class="number">1</span>:<span class="string">'db'</span>,</span><br><span class="line">            <span class="number">2</span>:<span class="string">'dy'</span>,</span><br><span class="line">            <span class="number">3</span>:<span class="string">'yj'</span>,</span><br><span class="line">            <span class="number">4</span>:<span class="string">'gwdb'</span></span><br><span class="line">        &#125;</span><br><span class="line">        userId = <span class="string">'&lt;ww:property value="#session.sUser.userId" /&gt;'</span>;</span><br><span class="line">        <span class="comment">//定义websocket</span></span><br><span class="line">        <span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">"ws://localhost:8888/msg/ws"</span>);</span><br><span class="line">        <span class="comment">//维持心跳</span></span><br><span class="line">        <span class="keyword">var</span> heartCheck = &#123;</span><br><span class="line">            timeout: <span class="number">19000</span>,<span class="comment">//19s</span></span><br><span class="line">            timeoutObj: <span class="literal">null</span>,</span><br><span class="line">            reset: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                clearInterval(<span class="keyword">this</span>.timeoutObj);</span><br><span class="line">                <span class="keyword">this</span>.start();</span><br><span class="line">            &#125;,</span><br><span class="line">            start: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.timeoutObj = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(ws.readyState==<span class="number">1</span>)&#123;</span><br><span class="line">                        ws.send(<span class="string">"HeartBeat"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="keyword">this</span>.timeout)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">//连接websocket</span></span><br><span class="line">        ws.onopen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> msg = <span class="string">'userid='</span>+userId;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"open and send message："</span>+msg);</span><br><span class="line">            <span class="comment">// 发送消息</span></span><br><span class="line">            ws.send(msg);</span><br><span class="line">            heartCheck.start();</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">//接收消息</span></span><br><span class="line">        ws.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"get message:"</span>+evt.data);</span><br><span class="line">            heartCheck.reset();</span><br><span class="line">            <span class="keyword">if</span>(evt.data.startsWith(<span class="string">'您'</span>))&#123;<span class="comment">//提示消息</span></span><br><span class="line">                $(<span class="string">"#msg_tip"</span>).text(evt.data);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'显示tip'</span>)</span><br><span class="line">                $(<span class="string">"#msg_tip"</span>).fadeIn();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> typeId = <span class="string">'span#'</span>+msgTypes[evt.data.split(<span class="string">':'</span>)[<span class="number">0</span>]];</span><br><span class="line">                $(typeId).html(evt.data.split(<span class="string">':'</span>)[<span class="number">1</span>]);</span><br><span class="line">                <span class="keyword">if</span>($navTab.getTab(<span class="string">'dirMsg'</span>)!= <span class="string">''</span>)&#123;</span><br><span class="line">                    <span class="keyword">debugger</span>;</span><br><span class="line">                    <span class="comment">//$navTab.refreshCurrentTabForm('dirMsg');</span></span><br><span class="line">                    $forms = $(<span class="string">"#dirMsg"</span>).find(<span class="string">'.table-form'</span>);</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;$forms.length;i++)&#123;</span><br><span class="line">                        $navTab.submitForm($forms[i]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">//关闭连接</span></span><br><span class="line">        ws.onclose = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"WebSocketClosed!"</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">//发生异常</span></span><br><span class="line">        ws.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"WebSocketError!"</span>);</span><br><span class="line">            ws = <span class="literal">null</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">window</span>.onunload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(ws)&#123;</span><br><span class="line">                ws=<span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后端（tomcat8)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.css.apps.msg.websocket;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: haoming</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/5/8 11:22 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.css.apps.msg.constant.MsgType;</span><br><span class="line"><span class="keyword">import</span> com.css.db.query.QueryCache;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.websocket.*;</span><br><span class="line"><span class="keyword">import</span> javax.websocket.server.ServerEndpoint;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: haoming</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/5/6 7:07 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ServerEndpoint</span>(value = <span class="string">"/ws"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WsServlet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Log log = LogFactory.getLog(WsServlet.class);</span><br><span class="line">    <span class="comment">//设置Map,存放每个用户的连接</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String,WsServlet&gt; webSocketSet = <span class="keyword">new</span> HashMap&lt;String,WsServlet&gt;();</span><br><span class="line">    <span class="comment">//浏览器与服务端的回话，浏览器每new一个WebSocket就创建一个session，关闭或刷新浏览器，session关闭</span></span><br><span class="line">    <span class="keyword">private</span> Session session;</span><br><span class="line">    <span class="comment">//代表浏览器</span></span><br><span class="line">    <span class="keyword">private</span> String userid;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 推送消息接口</span></span><br><span class="line"><span class="comment">     * 外部可以进行调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sendMsg</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMsg</span><span class="params">(String sendMsg)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        log.info(<span class="keyword">this</span>.userid+<span class="string">"发送消息:"</span>+sendMsg);</span><br><span class="line">        <span class="keyword">this</span>.session.getBasicRemote().sendText(sendMsg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OnOpen</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOpen</span><span class="params">(Session session)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.session = session;</span><br><span class="line">        log.info(<span class="keyword">this</span>+<span class="string">"有新连接,session="</span>+session+<span class="string">";userid="</span>+userid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OnClose</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        webSocketSet.remove(<span class="keyword">this</span>.userid);</span><br><span class="line">        log.info(<span class="keyword">this</span>.userid+<span class="string">"；连接关闭"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OnMessage</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(String info)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        log.info(<span class="keyword">this</span>.userid+<span class="string">"；来自客户端的消息:"</span> + info);</span><br><span class="line">        String msg = <span class="string">"服务端接收到了来自客户端的消息："</span>+info;</span><br><span class="line">        <span class="keyword">if</span>(info.contains(<span class="string">"userid"</span>))&#123;</span><br><span class="line">            <span class="keyword">this</span>.userid = info.split(<span class="string">"userid="</span>)[<span class="number">1</span>];</span><br><span class="line">            log.info(<span class="string">"this.userid="</span>+<span class="keyword">this</span>.userid);</span><br><span class="line">            webSocketSet.put(userid, <span class="keyword">this</span>);</span><br><span class="line">            <span class="comment">//发送初始待办数量</span></span><br><span class="line">            sendMsg(<span class="string">"1:"</span>+getMsgNum(userid, MsgType.DAIBAN));</span><br><span class="line">            sendMsg(<span class="string">"2:"</span>+getMsgNum(userid, MsgType.DAIYUE));</span><br><span class="line">            sendMsg(<span class="string">"3:"</span>+getMsgNum(userid, MsgType.YOUJIAN));</span><br><span class="line">            sendMsg(<span class="string">"4:"</span>+getMsgNum(userid, MsgType.GWDAIBAN));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OnError</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable error)</span> </span>&#123;</span><br><span class="line">        log.error(<span class="keyword">this</span>.userid+<span class="string">"；发生错误"</span>,error);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getMsgNum</span><span class="params">(String userId,Integer msgType)</span></span>&#123;</span><br><span class="line">        String sql = <span class="string">""</span>;</span><br><span class="line">        sql = <span class="string">"select count(a.uuid) from Msg a where a.receiver =:userId "</span> +</span><br><span class="line">                <span class="string">"and a.msgType =:msgType and a.msgStatus = 1"</span>;</span><br><span class="line">        QueryCache qc = <span class="keyword">new</span> QueryCache(sql);</span><br><span class="line">        qc.setParameter(<span class="string">"userId"</span>,userId);</span><br><span class="line">            qc.setParameter(<span class="string">"msgType"</span>,msgType);</span><br><span class="line">        <span class="keyword">return</span> qc.uniqueResult().toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>总结(问题)</p>
+<ol>
+<li><p>前端添加心跳机制防止连接超时断开，但发送心跳的时间网络上未找到具体的应该根据什么来设置？。</p>
+</li>
+<li><p>利用如下代码测试最大连接数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">300</span>; i++) &#123;</span><br><span class="line">        sleep(<span class="number">5</span>)</span><br><span class="line">        websocket();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">websocket</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> wsUri = <span class="string">"ws://localhost:8888/msg/ws"</span>;</span><br><span class="line">        <span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(wsUri);</span><br><span class="line">        ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            ws.send(<span class="string">"User connected"</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">        ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(e.data)</span><br><span class="line">        &#125;;</span><br><span class="line">        ws.onclose = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"User disconnected"</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> start = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - start &gt; n) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>发现浏览器最大连接数达到200时，其他连接无法连上，修改tomcat的连接数等配置，会有小幅度增加，达到了256，但不理想?，tomcat配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Executor</span> <span class="attr">maxThreads</span>=<span class="string">"500"</span> <span class="attr">minSpareThreads</span>=<span class="string">"20"</span> <span class="attr">name</span>=<span class="string">"tomcatThreadPool"</span> <span class="attr">namePrefix</span>=<span class="string">"catalina-exec-"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">URIEncoding</span>=<span class="string">"UTF-8"</span> <span class="attr">acceptCount</span>=<span class="string">"300"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">enableLookups</span>=<span class="string">"false"</span> <span class="attr">executor</span>=<span class="string">"tomcatThreadPool"</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"org.apache.coyote.http11.Http11NioProtocol"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
 
-      
-        
-          
-          背景公司门户系统有一个显示待办消息的需求，要求其他系统产生的待办消息要及时的在门户系统中展示，网上查找了解到有ajax轮询和websocket两种主要方式，为了及时性，最终选择了websocket方式。
-整体思路一图胜千言
-
-代码
-前端
-1234567891011121314151617181920
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/05/websocket使用总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/05/kindeditor跨域问题解决/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/05/kindeditor跨域问题解决/" itemprop="url">kindeditor跨域问题解决</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/05/kindeditor跨域问题解决/" class="post-title-link" itemprop="url">kindeditor跨域问题解决</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T17:38:25+08:00">
-                2019-09-05
-              </time>
+
+              <time title="创建时间：2019-09-05 17:38:25 / 修改时间：17:59:40" itemprop="dateCreated datePublished" datetime="2019-09-05T17:38:25+08:00">2019-09-05</time>
+            </span>
+          
             
 
             
-
-            
-          </span>
-
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/09/05/kindeditor跨域问题解决/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/05/kindeditor跨域问题解决/" itemprop="commentCount"></span>
-                </a>
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
               </span>
-            
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>8.1k</span>
+            </span>
           
-
-          
-          
-             <span id="/2019/09/05/kindeditor跨域问题解决/" class="leancloud_visitors" data-flag-title="kindeditor跨域问题解决">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>14 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -1582,147 +1190,118 @@ Assuming that the
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><p>因为在A系统中需要嵌入B系统的页面，两个系统有相同的父域名，所以使用了iframe+domain的方式解决跨域问题，在A系统的页面中加入了<code>document.domain = &#39;exame.com.cn&#39;;</code>;但是在嵌入kindeditor富文本编辑器后，上传图片出现跨域问题。</p>
+<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><p>通过分析kindeditor的图片上传代码，如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tab2"</span> <span class="attr">style</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"kindeditor_upload_iframe_1567676701755"</span> <span class="attr">style</span>=<span class="string">"display:none;"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"ke-upload-area ke-form"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">target</span>=<span class="string">"kindeditor_upload_iframe_1567676701755"</span> <span class="attr">action</span>=<span class="string">"/portal/kindeditor/uploadImg?dir=image"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ke-dialog-row"</span>&gt;</span><span class="tag">&lt;<span class="name">label</span> <span class="attr">style</span>=<span class="string">"width:60px;"</span>&gt;</span>上传文件<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"localUrl"</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">class</span>=<span class="string">"ke-input-text"</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span> <span class="attr">style</span>=<span class="string">"width:200px;"</span> <span class="attr">readonly</span>=<span class="string">"true"</span>&gt;</span> &amp;nbsp;<span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">class</span>=<span class="string">"ke-inline-block ke-upload-button"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ke-upload-area"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"ke-button-common"</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span></span></span><br><span class="line"><span class="tag">                                <span class="attr">class</span>=<span class="string">"ke-button-common ke-button"</span> <span class="attr">value</span>=<span class="string">"浏览..."</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">class</span>=<span class="string">"ke-upload-file"</span> <span class="attr">name</span>=<span class="string">"uploadFile"</span> <span class="attr">style</span>=<span class="string">"width: 60px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"ke-upload-button"</span> <span class="attr">value</span>=<span class="string">"浏览..."</span> <span class="attr">style</span>=<span class="string">"display: none;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上传后的返回值会放入<code>iframe</code>中，所以只要在iframe中加入<code>document.domain = &#39;exame.com.cn&#39;;</code>就能解决跨域问题。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>参照kindeditor包中的uplod_json.jsp，重新写了一个UploadImgServlet，最终代码如下</p>
+<ul>
+<li><p>前端代码(正常写，不需要特殊处理)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">editor = KindEditor.create(<span class="string">'textarea[rel="ehContentOnlyOne"]'</span>,&#123;</span><br><span class="line">			resizeType : <span class="number">1</span>,</span><br><span class="line">			allowPreviewEmoticons : <span class="literal">false</span>,</span><br><span class="line">			allowImageUpload : <span class="literal">true</span>,<span class="comment">//上传图片框本地上传的功能，false为隐藏，默认为true</span></span><br><span class="line">      allowImageRemote : <span class="literal">false</span>,<span class="comment">//上传图片框网络图片的功能，false为隐藏，默认为true</span></span><br><span class="line">			cssPath:[<span class="string">'cssui/main/editor.css'</span>],</span><br><span class="line">            filePostName: <span class="string">"uploadFile"</span>,</span><br><span class="line">            uploadJson : <span class="string">'/portal/kindeditor/uploadImg'</span>,<span class="comment">// 上传图片接口</span></span><br><span class="line">			items : [</span><br><span class="line">				<span class="string">'source'</span>,<span class="string">'preview'</span>,<span class="string">'code'</span>,<span class="string">'|'</span>,<span class="string">'fontname'</span>, <span class="string">'fontsize'</span>, <span class="string">'|'</span>, <span class="string">'forecolor'</span>, <span class="string">'hilitecolor'</span>, <span class="string">'bold'</span>, <span class="string">'italic'</span>, <span class="string">'underline'</span>,</span><br><span class="line">				<span class="string">'removeformat'</span>, <span class="string">'|'</span>, <span class="string">'justifyleft'</span>, <span class="string">'justifycenter'</span>, <span class="string">'justifyright'</span>, <span class="string">'insertorderedlist'</span>,</span><br><span class="line">				<span class="string">'insertunorderedlist'</span>, <span class="string">'|'</span>, <span class="string">'emoticons'</span>,<span class="string">'image'</span>, <span class="string">'link'</span>]</span><br><span class="line">		&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>后端代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.css.bbs.bbs.action;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.sf.json.JSONObject;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.FileItem;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.FileItemFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.FileUploadException;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.disk.DiskFileItemFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.servlet.ServletFileUpload;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: haoming</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/9/3 10:36 AM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UploadImgServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">//设置Response响应的编码</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html; charset=UTF-8"</span>);</span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">        <span class="comment">//文件保存目录路径</span></span><br><span class="line">        String savePath = request.getServletContext().getRealPath(<span class="string">"/"</span>) + <span class="string">"attached/"</span>;</span><br><span class="line">        <span class="comment">//文件保存目录URL</span></span><br><span class="line">        String saveUrl  = request.getContextPath() + <span class="string">"/attached/"</span>;</span><br><span class="line">        <span class="comment">//定义允许上传的文件扩展名</span></span><br><span class="line">        HashMap&lt;String, String&gt; extMap = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        extMap.put(<span class="string">"image"</span>, <span class="string">"gif,jpg,jpeg,png,bmp"</span>);</span><br><span class="line">        extMap.put(<span class="string">"flash"</span>, <span class="string">"swf,flv"</span>);</span><br><span class="line">        extMap.put(<span class="string">"media"</span>, <span class="string">"swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb"</span>);</span><br><span class="line">        extMap.put(<span class="string">"file"</span>, <span class="string">"doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2"</span>);</span><br><span class="line">        <span class="comment">//最大文件大小</span></span><br><span class="line">        <span class="keyword">long</span> maxSize = <span class="number">1000000</span>;</span><br><span class="line">        <span class="keyword">if</span>(!ServletFileUpload.isMultipartContent(request))&#123;</span><br><span class="line">            out.println(getError(<span class="string">"请选择文件。"</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//检查目录</span></span><br><span class="line">        File uploadDir = <span class="keyword">new</span> File(savePath);</span><br><span class="line">        <span class="keyword">if</span>(!uploadDir.isDirectory())&#123;</span><br><span class="line">            uploadDir.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//检查目录写权限</span></span><br><span class="line">        <span class="keyword">if</span>(!uploadDir.canWrite())&#123;</span><br><span class="line">            out.println(getError(<span class="string">"上传目录没有写权限。"</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String dirName = request.getParameter(<span class="string">"dir"</span>);</span><br><span class="line">        <span class="keyword">if</span> (dirName == <span class="keyword">null</span>) &#123;</span><br><span class="line">            dirName = <span class="string">"image"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!extMap.containsKey(dirName))&#123;</span><br><span class="line">            out.println(getError(<span class="string">"目录名不正确。"</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//创建文件夹</span></span><br><span class="line">        savePath += dirName + <span class="string">"/"</span>;</span><br><span class="line">        saveUrl += dirName + <span class="string">"/"</span>;</span><br><span class="line">        File saveDirFile = <span class="keyword">new</span> File(savePath);</span><br><span class="line">        <span class="keyword">if</span> (!saveDirFile.exists()) &#123;</span><br><span class="line">            saveDirFile.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd"</span>);</span><br><span class="line">        String ymd = sdf.format(<span class="keyword">new</span> Date());</span><br><span class="line">        savePath += ymd + <span class="string">"/"</span>;</span><br><span class="line">        saveUrl += ymd + <span class="string">"/"</span>;</span><br><span class="line">        File dirFile = <span class="keyword">new</span> File(savePath);</span><br><span class="line">        <span class="keyword">if</span> (!dirFile.exists()) &#123;</span><br><span class="line">            dirFile.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        FileItemFactory factory = <span class="keyword">new</span> DiskFileItemFactory();</span><br><span class="line">        ServletFileUpload upload = <span class="keyword">new</span> ServletFileUpload(factory);</span><br><span class="line">        upload.setHeaderEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">        List items = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            items = upload.parseRequest(request);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileUploadException e) &#123;</span><br><span class="line">            out.println(getError(<span class="string">"上传文件失败。"</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Iterator itr = items.iterator();</span><br><span class="line">        <span class="keyword">while</span> (itr.hasNext()) &#123;</span><br><span class="line">            FileItem item = (FileItem) itr.next();</span><br><span class="line">            String fileName = item.getName();</span><br><span class="line">            <span class="keyword">long</span> fileSize = item.getSize();</span><br><span class="line">            <span class="keyword">if</span> (!item.isFormField()) &#123;</span><br><span class="line">                <span class="comment">//检查文件大小</span></span><br><span class="line">                <span class="keyword">if</span> (item.getSize() &gt; maxSize) &#123;</span><br><span class="line">                    out.println(getError(<span class="string">"上传文件大小超过限制。"</span>));</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//检查扩展名</span></span><br><span class="line">                String fileExt = fileName.substring(fileName.lastIndexOf(<span class="string">"."</span>) + <span class="number">1</span>).toLowerCase();</span><br><span class="line">                <span class="keyword">if</span> (!Arrays.&lt;String&gt;asList(extMap.get(dirName).split(<span class="string">","</span>)).contains(fileExt)) &#123;</span><br><span class="line">                    out.println(getError(<span class="string">"上传文件扩展名是不允许的扩展名。\n只允许"</span> + extMap.get(dirName) + <span class="string">"格式。"</span>));</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                SimpleDateFormat df = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMddHHmmss"</span>);</span><br><span class="line">                String newFileName = df.format(<span class="keyword">new</span> Date()) + <span class="string">"_"</span> + <span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>) + <span class="string">"."</span> + fileExt;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    File uploadedFile = <span class="keyword">new</span> File(savePath, newFileName);</span><br><span class="line">                    item.write(uploadedFile);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    out.println(getError(<span class="string">"上传文件失败。"</span>));</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                JSONObject obj = <span class="keyword">new</span> JSONObject();</span><br><span class="line">                obj.put(<span class="string">"error"</span>, <span class="number">0</span>);</span><br><span class="line">                obj.put(<span class="string">"url"</span>, saveUrl + newFileName);</span><br><span class="line">              	<span class="comment">//解决跨域问题</span></span><br><span class="line">                out.println(obj.toString()+<span class="string">"&lt;script&gt;document.domain='cec.com.cn';&lt;/script&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将writer对象中的内容输出</span></span><br><span class="line">        out.flush();</span><br><span class="line">        <span class="comment">//关闭writer对象</span></span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getError</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        JSONObject obj = <span class="keyword">new</span> JSONObject();</span><br><span class="line">        obj.put(<span class="string">"error"</span>, <span class="number">1</span>);</span><br><span class="line">        obj.put(<span class="string">"message"</span>, message);</span><br><span class="line">        <span class="keyword">return</span> obj.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>web.xml配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>uploadImg<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.css.bbs.bbs.action.UploadImgServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>uploadImg<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/kindeditor/uploadImg<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
-      
-        
-          
-          问题背景因为在A系统中需要嵌入B系统的页面，两个系统有相同的父域名，所以使用了iframe+domain的方式解决跨域问题，在A系统的页面中加入了document.domain = &#39;exame.com.cn&#39;;;但是在嵌入kindeditor富文本编辑器后，上传图片出现跨域问题。
-
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/05/kindeditor跨域问题解决/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/02/tomcat源码4-Pipeline-Value管道/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="A programmer's blog">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="haominglfs的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/02/tomcat源码4-Pipeline-Value管道/" itemprop="url">tomcat源码4-Pipeline-Value管道</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/02/tomcat源码4-Pipeline-Value管道/" class="post-title-link" itemprop="url">tomcat源码4-Pipeline-Value管道</a>
+          
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
-                <span class="post-meta-item-text">发表于</span>
+                
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T15:04:43+08:00">
-                2019-09-02
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-
+              <time title="创建时间：2019-09-02 15:04:43" itemprop="dateCreated datePublished" datetime="2019-09-02T15:04:43+08:00">2019-09-02</time>
+            </span>
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+
+            
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <a href="/2019/09/02/tomcat源码4-Pipeline-Value管道/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/02/tomcat源码4-Pipeline-Value管道/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-05 17:35:09" itemprop="dateModified" datetime="2019-09-05T17:35:09+08:00">2019-09-05</time>
               </span>
             
           
 
           
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>907</span>
+            </span>
           
-             <span id="/2019/09/02/tomcat源码4-Pipeline-Value管道/" class="leancloud_visitors" data-flag-title="tomcat源码4-Pipeline-Value管道">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
           
 
         </div>
       </header>
-    
 
     
     
@@ -1730,197 +1309,171 @@ Assuming that the
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190902163506.png" alt></p>
+<p>每个容器（Engine/Host/Context/Wrap）包含一个pipeline，每个pipeline包含一个valve集合，位于前面的valve做完业务处理后将调用后面的valve做业务处理，而容器的缺省valve位于集合的最后一个位置，负责调用下层容器的pipeline的第一个valve做请求处理。调用会从Engine的第一个valve调用开始，一直执行到调用Wrapper的缺省valve：StandardWrapperValve，而filter与servlet的处理就是在这个valve中进行的 。Engine的第一个valve是由Adapter调用的，在connector章节中也看到CoyoteAdapter在处理完request以后会执行<code>connector.getContainer().getPipeline().getFirst().invoke(request, response)</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;ContainerBase&gt;&gt;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The Pipeline object with which this Container is associated.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Pipeline pipeline = <span class="keyword">new</span> StandardPipeline(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">startInternal</span><span class="params">()</span> <span class="keyword">throws</span> LifecycleException </span>&#123;</span><br><span class="line">       	.......</span><br><span class="line">        <span class="comment">// Start the Valves in our pipeline (including the basic), if any</span></span><br><span class="line">        <span class="keyword">if</span> (pipeline <span class="keyword">instanceof</span> Lifecycle) &#123;</span><br><span class="line">            ((Lifecycle) pipeline).start();</span><br><span class="line">        &#125;</span><br><span class="line">				.......</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-      
-        
-          
-          
-每个容器（Engine/Host/Context/Wrap）包含一个pipeline，每个pipeline包含一个valve集合，位于前面的valve做完业务处理后将调用后面的valve做业务处理，而容器的缺省valve位于集合的最后一个位置，负责调用下层容器的pipeline的第一个valve做
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/02/tomcat源码4-Pipeline-Value管道/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-  </section>
+  </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
-
           </div>
           
 
-
-          
-
         </div>
-        
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">haominglfs</p>
+  <div class="site-description" itemprop="description">A programmer's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
       
-
       
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">haominglfs</p>
-              <p class="site-description motion-element" itemprop="description">A programmer's blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">73</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
+      <div class="site-state-item site-state-categories">
+        
           
-
+            <a href="/categories/">
           
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/haominglfs" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
       
-
       
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/haominglfs" title="GitHub &rarr; https://github.com/haominglfs" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:haominglfs@163.com" title="E-Mail &rarr; mailto:haominglfs@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-haominglfs"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">haominglfs</span>
-
-  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">230k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:23</span>
 </div>
 
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
-
         
+
+
+
+
+
 
 
 
@@ -1931,31 +1484,15 @@ Assuming that the
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
 
 
 
@@ -1968,555 +1505,20 @@ Assuming that the
 
 
 
+  <script src="/js/local-search.js?v=7.4.1"></script>
 
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: '6jc6kDyEMv8ck1PNRKa1WF5d-gzGzoHsz',
-        appKey: 'gAdAKqAuWL5yIYDA5A0Uxj1X',
-        placeholder: '发表您的意见',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("6jc6kDyEMv8ck1PNRKa1WF5d-gzGzoHsz", "gAdAKqAuWL5yIYDA5A0Uxj1X");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
 
   
 
