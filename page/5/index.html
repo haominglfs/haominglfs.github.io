@@ -273,11 +273,19 @@
                 
               
 
-              <time title="创建时间：2018-10-23 16:48:38 / 修改时间：19:28:35" itemprop="dateCreated datePublished" datetime="2018-10-23T16:48:38+08:00">2018-10-23</time>
+              <time title="创建时间：2018-10-23 16:48:38" itemprop="dateCreated datePublished" datetime="2018-10-23T16:48:38+08:00">2018-10-23</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 19:15:35" itemprop="dateModified" datetime="2019-10-03T19:15:35+08:00">2019-10-03</time>
+              </span>
             
           
 
@@ -397,7 +405,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-11-14 20:38:52" itemprop="dateModified" datetime="2018-11-14T20:38:52+08:00">2018-11-14</time>
+                <time title="修改时间：2019-10-03 19:10:14" itemprop="dateModified" datetime="2019-10-03T19:10:14+08:00">2019-10-03</time>
               </span>
             
           
@@ -448,26 +456,15 @@
 
       
           <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法的某些步骤。</p>
-<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul>
-<li>一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。</li>
-<li>各个子类中公共的行为被提取出来并集中到一个公共父类中，从而避免代码重复。</li>
-</ul>
-<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20181114203753.png" alt></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>优点<ol>
-<li>提高复用性。</li>
-<li>提高扩展性。</li>
-<li>符合开闭原则。</li>
-</ol>
-</li>
-<li>缺点<ol>
-<li>类数目增加。</li>
-<li>增加了系统实现的复杂度。</li>
-<li>继承关系自身缺点，如果父类添加新的抽象方法，所有子类都要改一遍。</li>
-</ol>
-</li>
-</ul>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/10/05/设计模式-模板方法模式/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -520,11 +517,19 @@
                 
               
 
-              <time title="创建时间：2018-10-05 17:19:49 / 修改时间：17:45:37" itemprop="dateCreated datePublished" datetime="2018-10-05T17:19:49+08:00">2018-10-05</time>
+              <time title="创建时间：2018-10-05 17:19:49" itemprop="dateCreated datePublished" datetime="2018-10-05T17:19:49+08:00">2018-10-05</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 19:07:48" itemprop="dateModified" datetime="2019-10-03T19:07:48+08:00">2019-10-03</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -574,36 +579,15 @@
 
       
           <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>提供了一种方法，顺序访问一个集合中的各个元素，而又不暴露该对象的内部表示。</p>
-<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul>
-<li>访问一个集合对象的内容而无需暴露它的内部表示。</li>
-<li>为遍历不同的集合结构提供一个统一的接口。</li>
-</ul>
-<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="http://ow83fnk93.bkt.clouddn.com/20181005173913.png" alt></p>
-<ul>
-<li><p>Iterator(抽象迭代器):它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如:用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的hasNext()方法，用于获取当前元素的currentItem()方法等，在具体迭代器中将实现这些方法。</p>
-</li>
-<li><p>ConcreteIterator(具体迭代器):它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置，在具体实现时，游标通常是一个表示位置的非负整数。</p>
-</li>
-<li><p>Aggregate(抽象聚合类):它用于存储和管理元素对象，声明一个createIterator()方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。</p>
-</li>
-<li><p>ConcreteAggregate(具体聚合类):它实现了在抽象聚合类中声明的createIterator()方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。</p>
-</li>
-<li><p>在迭代器模式结构图中，我们可以看到具体迭代器类和具体聚合类之间存在双重关系，其中一个关系为关联关系，在具体迭代器中需要维持一个对具体聚合对象的引用，该关联关系的目的是访问存储在聚合对象中的数据，以便迭代器能够对这些数据进行遍历操作。除了使用关联关系外，为了能够让迭代器可以访问到聚合对象中的数据，我们还可以将迭代器类设计为聚合类的内部类，JDK中的迭代器类就是通过这种方法来实现的，如下AbstractList类代码片段所示:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util;</span><br><span class="line">......</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractCollection</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    ......</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">class</span> <span class="title">Itr</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cursor = <span class="number">0</span>;</span><br><span class="line">		...... </span><br><span class="line">    &#125;</span><br><span class="line">...... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>优点<ol>
-<li>分离了集合对象的遍历行为</li>
-</ol>
-</li>
-<li>缺点<ol>
-<li>类的个数成对增加。</li>
-<li>增加了程序的复杂性。</li>
-</ol>
-</li>
-</ul>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/10/05/设计模式-迭代器模式/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -656,11 +640,19 @@
                 
               
 
-              <time title="创建时间：2018-10-05 15:50:22 / 修改时间：17:18:03" itemprop="dateCreated datePublished" datetime="2018-10-05T15:50:22+08:00">2018-10-05</time>
+              <time title="创建时间：2018-10-05 15:50:22" itemprop="dateCreated datePublished" datetime="2018-10-05T15:50:22+08:00">2018-10-05</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 19:07:59" itemprop="dateModified" datetime="2019-10-03T19:07:59+08:00">2019-10-03</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -710,33 +702,15 @@
 
       
           <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>为其他对象提供一种代理，以控制对这个对象的访问。代理对象在客户端和目标对象之间起到中介的作用。</p>
-<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul>
-<li>保护目标对象。</li>
-<li>增强目标对象。</li>
-</ul>
-<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><ul>
-<li><p>静态代理</p>
-<p><img src="http://ow83fnk93.bkt.clouddn.com/20181005170019.png" alt></p>
-</li>
-<li><p>动态代理</p>
-</li>
-</ul>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>优点<ol>
-<li>代理模式能将代理对象与真实被调用的目标对象分离。</li>
-<li>一定程度上降低了系统的耦合度，扩展性好。</li>
-<li>保护目标对象。</li>
-<li>增强目标对象。</li>
-</ol>
-</li>
-<li>缺点<ol>
-<li>代理模式会造成系统设计中类的数目增加。</li>
-<li>在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。</li>
-<li>增加系统的复杂度。</li>
-</ol>
-</li>
-</ul>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/10/05/设计模式-代理模式/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1309,7 +1283,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-10-10 09:25:14" itemprop="dateModified" datetime="2018-10-10T09:25:14+08:00">2018-10-10</time>
+                <time title="修改时间：2019-10-03 19:07:06" itemprop="dateModified" datetime="2019-10-03T19:07:06+08:00">2019-10-03</time>
               </span>
             
           
@@ -1364,17 +1338,15 @@
 <ul>
 <li><p>序列化和反射问题：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungrySingleton</span> <span class="keyword">implements</span> <span class="title">Serializable</span>,<span class="title">Cloneable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> HungrySingleton hungrySingleton;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        hungrySingleton = <span class="keyword">new</span> HungrySingleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungrySingleton</span><span class="params">()</span></span>&#123; <span class="comment">//反射时处理，如果已存在则抛出异常</span></span><br><span class="line">        <span class="keyword">if</span>(hungrySingleton != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"单例构造器禁止反射调用"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungrySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hungrySingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Object <span class="title">readResolve</span><span class="params">()</span></span>&#123;<span class="comment">//反序列化时会调用此方法，从而防止创建多个实例</span></span><br><span class="line">        <span class="keyword">return</span> hungrySingleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>内部类处理方式相同</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticInnerClassSingleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> StaticInnerClassSingleton staticInnerClassSingleton </span><br><span class="line">            = <span class="keyword">new</span> StaticInnerClassSingleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> StaticInnerClassSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> InnerClass.staticInnerClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">StaticInnerClassSingleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(InnerClass.staticInnerClassSingleton != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"单例构造器禁止反射调用"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Effective java 推荐的枚举类型单例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnumSingleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">//私有构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EnumSingleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EnumSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> Singleton&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> EnumSingleton singleton;</span><br><span class="line">        <span class="comment">//jvm保证这个方法绝对只调用一次</span></span><br><span class="line">        Singleton()&#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> EnumSingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> EnumSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> singleton;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/10/01/设计模式-单例模式2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1608,7 +1580,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

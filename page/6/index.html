@@ -379,7 +379,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-06 23:40:53" itemprop="dateModified" datetime="2018-08-06T23:40:53+08:00">2018-08-06</time>
+                <time title="修改时间：2019-10-03 19:14:45" itemprop="dateModified" datetime="2019-10-03T19:14:45+08:00">2019-10-03</time>
               </span>
             
           
@@ -424,23 +424,20 @@
 </ol>
 <p>memecached:</p>
 <ol>
-<li>解压缩</li>
-<li>./configure –prefix=/opt/install/memcached  –with-libevent=/opt/install/libevent</li>
-<li>make &amp;&amp; make instll</li>
-</ol>
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>启动参数：</p>
-<blockquote>
-<p>-d   启动一个守护进程</p>
-<p>-m  分配给memcached 的内存数量（单位为M）</p>
-<p>-u   运行memcached 的用户</p>
-<p>-L  监听的服务器IP地址</p>
-<p>-p  监听的端口号</p>
-<p>-c  最大运行的并发连接数</p>
-<p>-P  设置Pid 文件</p>
-</blockquote>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/memcached.png" alt></p>
-<h3 id="java客户端"><a href="#java客户端" class="headerlink" title="java客户端"></a>java客户端</h3><p><img src="http://ow83fnk93.bkt.clouddn.com/20180806231945.png" alt></p>
-
+<li><p>解压缩</p>
+</li>
+<li><p>./configure –prefix=/opt/install/memcached  –with-libevent=/opt/install/libevent</p>
+</li>
+<li><p>make &amp;&amp; make instll</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/08/05/memcached/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -609,7 +606,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-07-30 23:39:08" itemprop="dateModified" datetime="2018-07-30T23:39:08+08:00">2018-07-30</time>
+                <time title="修改时间：2019-10-03 19:07:36" itemprop="dateModified" datetime="2019-10-03T19:07:36+08:00">2019-10-03</time>
               </span>
             
           
@@ -647,77 +644,15 @@
 
       
           <h3 id="什么是tmux"><a href="#什么是tmux" class="headerlink" title="什么是tmux"></a>什么是tmux</h3><p>tmux是一个工具，用于在终端窗口中运行多个终端会话，可以使终端会话进入后台运行。</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><blockquote>
-<p>$ brew install tmux</p>
-</blockquote>
-<h3 id="快捷键前缀"><a href="#快捷键前缀" class="headerlink" title="快捷键前缀"></a>快捷键前缀</h3><p>为了使自身的快捷键不和其他软件的快捷键产生冲突，tmux提供了一个快捷键前缀。当使用快捷键时要先按下快捷键前缀，然后再按下快捷键，默认的前缀是Ctrl-b</p>
-<h3 id="创建会话"><a href="#创建会话" class="headerlink" title="创建会话"></a>创建会话</h3><blockquote>
-<p>tmux new -s <name-of-my-session></name-of-my-session></p>
-</blockquote>
-<p>假如还需要开发另一个项目，可以再创建一个新会话，但原来的会话不会消失，若要创建一个新会话，只需要按下</p>
-<p><prefix> :，然后输入</prefix></p>
-<blockquote>
-<p>new -s <name-of-my-new-session></name-of-my-new-session></p>
-</blockquote>
-<p>除非显式的关闭会话，否则tmux的会话在重启计算机之前都不会消失。</p>
-<h3 id="切换会话"><a href="#切换会话" class="headerlink" title="切换会话"></a>切换会话</h3><ol>
-<li><p>获取会话列表</p>
-<blockquote>
-<p><prefix> s</prefix></p>
-</blockquote>
-<p>列表中的每个会话都有一个 ID，该 ID 是从 0 开始的。按下对应的 ID 就可以进入会话。如果你已经创建了一个或多个会话，但是还没有运行 tmux，那么可以输入如下命令以接入已开启的会话:</p>
-<blockquote>
-<p>tmux attach</p>
-</blockquote>
-</li>
-<li><p>会话外获取会话列表：</p>
-<blockquote>
-<p>tmux  ls</p>
-<p>tmux attach/a -t   <name-of-session>    在会话外进入session</name-of-session></p>
-<p>tmux attach/a   进入列表第一个会话</p>
-<p><prefix> d    临时退出但不删除会话</prefix></p>
-<p><prefix> :kill-session 在会话内退出并删除session</prefix></p>
-<p><prefix> :kill-server 删除所有session</prefix></p>
-<p>tmux kill-session -t <name-of-session> 在会话外删除指定session  </name-of-session></p>
-</blockquote>
-</li>
-</ol>
-<h3 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h3><p>一个tmux中可以包含多个窗口。</p>
-<blockquote>
-<p><prefix> c   创建窗口</prefix></p>
-<p><prefix> w  查看窗口列表</prefix></p>
-<p><prefix> 0 切换到指定窗口，窗口对应的数字</prefix></p>
-<p><prefix> n 切换到下一个窗口</prefix></p>
-<p><prefix> p 切换到上一个窗口</prefix></p>
-<p><prefix> l 在相邻的两个窗口切换</prefix></p>
-<p><prefix> , 重命名窗口</prefix></p>
-<p><prefix> f 在多个窗口里搜索关键字</prefix></p>
-<p><prefix> &amp; 删除窗口</prefix></p>
-</blockquote>
-<h3 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h3><p>一个tmux窗口可以分割成多个窗格，并且窗格可以在不同的窗口中移动、合并、拆分。</p>
-<blockquote>
-<p><prefix> “  水平分割</prefix></p>
-<p><prefix> % 垂直分割</prefix></p>
-<p><prefix> o 按顺序在Pane之间移动</prefix></p>
-<p><prefix> 方向键   上下左右选择pane</prefix></p>
-<p><prefix> :resize-pane -U   #向上调整大小</prefix></p>
-<p><prefix> :resize-pane -D #向下</prefix></p>
-<p><prefix> :resize-pane -L #向左</prefix></p>
-<p><prefix> :resize-pane -R #向右</prefix></p>
-<p><prefix> :resize-pane -D 5 #向下移动5行</prefix></p>
-<p><prefix>  { （往左边，往上面）</prefix></p>
-<p><prefix>  } （往右边，往下面）</prefix></p>
-<p><prefix> x 删除pane</prefix></p>
-<p><prefix> 空格  更换pane排版</prefix></p>
-<p><prefix> ！ 移动pane至新的window</prefix></p>
-<p><prefix> :join-pane -t $window_name   移动pane合并至某个window</prefix></p>
-<p><prefix>  Ctrl+o   按顺序移动pane位置</prefix></p>
-<p><prefix>  q 显示pane编号</prefix></p>
-</blockquote>
-<h3 id="滚动屏幕"><a href="#滚动屏幕" class="headerlink" title="滚动屏幕"></a>滚动屏幕</h3><blockquote>
-<p><prefix>  [  进入copy-mode 模式，就可以进行屏幕滚动，q键退出。</prefix></p>
-</blockquote>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/07/23/tmux配置使用/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1072,11 +1007,19 @@
                 
               
 
-              <time title="创建时间：2018-07-14 17:46:55 / 修改时间：17:48:21" itemprop="dateCreated datePublished" datetime="2018-07-14T17:46:55+08:00">2018-07-14</time>
+              <time title="创建时间：2018-07-14 17:46:55" itemprop="dateCreated datePublished" datetime="2018-07-14T17:46:55+08:00">2018-07-14</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 19:17:12" itemprop="dateModified" datetime="2019-10-03T19:17:12+08:00">2019-10-03</time>
+              </span>
             
           
 
@@ -1123,53 +1066,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>劣势</p>
-<ul>
-<li>类如果不含公有的或者受保护的构造器，就不能被子类化。</li>
-<li>它们与其它的静态方法实际上没有任何区别。在API文档中，它们没有像构造器那样在API文档中明确的标识出来。因此要想查明如何实例化一个类非常困难。</li>
-</ul>
-<h5 id="第六条：避免创建不必要的对象"><a href="#第六条：避免创建不必要的对象" class="headerlink" title="第六条：避免创建不必要的对象"></a>第六条：避免创建不必要的对象</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"bikini"</span>); <span class="comment">// DON'T DO THIS!</span></span><br><span class="line">String s = <span class="string">"bikini"</span>; <span class="comment">//good</span></span><br></pre></td></tr></table></figure>
-<p>判断一个字符串是否是一个合法的罗马数字：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Performance can be greatly improved! 每次调用都会创建Pattern实例，非常昂贵的</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isRomanNumeral</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> s.matches(<span class="string">"^(?=.)M*(C[MD]|D?C&#123;0,3&#125;)"</span></span><br><span class="line">+ <span class="string">"(X[CL]|L?X&#123;0,3&#125;)(I[XV]|V?I&#123;0,3&#125;)$"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reusing expensive object for improved performance</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RomanNumerals</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Pattern ROMAN = Pattern.compile(</span><br><span class="line">        <span class="string">"^(?=.)M*(C[MD]|D?C&#123;0,3&#125;)"</span></span><br><span class="line">        + <span class="string">"(X[CL]|L?X&#123;0,3&#125;)(I[XV]|V?I&#123;0,3&#125;)$"</span>);</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isRomanNumeral</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> ROMAN.matcher(s).matches();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>自动装箱、拆箱（要优先使用基本类型而不是装箱基本类型，当心无意识的自动装箱）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">sum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Long sum = <span class="number">0L</span>; <span class="comment">//使用long将更快</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt;= Integer.MAX_VALUE; i++)</span><br><span class="line">		sum += i;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="第七条：消除过期的对象引用"><a href="#第七条：消除过期的对象引用" class="headerlink" title="第七条：消除过期的对象引用"></a>第七条：消除过期的对象引用</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Can you spot the "memory leak"?</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Object[] elements;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">16</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Stack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	elements = <span class="keyword">new</span> Object[DEFAULT_INITIAL_CAPACITY];</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">        ensureCapacity();</span><br><span class="line">        elements[size++] = e;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">        	<span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">        <span class="keyword">return</span> elements[--size];</span><br><span class="line">    &#125; /</span><br><span class="line">    **</span><br><span class="line">    * Ensure space <span class="keyword">for</span> at least one more element, roughly</span><br><span class="line">    * doubling the capacity each time the array needs to grow.</span><br><span class="line">    */</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (elements.length == size)</span><br><span class="line">        	elements = Arrays.copyOf(elements, <span class="number">2</span> * size + <span class="number">1</span>);</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>解决内存泄漏</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">    	<span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">    Object result = elements[--size];</span><br><span class="line">    elements[size] = <span class="keyword">null</span>; <span class="comment">// Eliminate obsolete reference</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>一般而言，只要类时自己管理内存，程序员就应该警惕内存泄漏问题</strong>，一旦元素被释放掉，则该元素中包含的任何对象引用都应该被清空。</p>
-<h5 id="第八条：覆盖equals时请遵守通用约定。"><a href="#第八条：覆盖equals时请遵守通用约定。" class="headerlink" title="第八条：覆盖equals时请遵守通用约定。"></a>第八条：覆盖equals时请遵守通用约定。</h5><ul>
-<li><p>什么条件下，不需要覆盖equals:</p>
-<blockquote>
-<p>类的每个实例本质上都是唯一的。代表活动实体而不是值的类来说确实如此。</p>
-<p>不关心类是否提供了“逻辑相等“的测试功能。</p>
-<p>超类已经覆盖了equals,从超类继承过来的行为对于子类也是合适的。</p>
-<p>类是私有的或者包级私有的，可以确定它的equals方法永远不会被调用。</p>
-</blockquote>
-</li>
-<li><p>什么时候应该覆盖equals方法：</p>
-<blockquote>
-<p>如果类具有自己特有的“逻辑相等”概念（不同于对象等同的概念），而且超类还没有覆盖equals以实现期望的行为。</p>
-</blockquote>
-</li>
-<li><p>覆盖时必须遵守的通用约定：</p>
-<blockquote>
-<p>自反性：x.equals(x)返回true。</p>
-<p>对称性：x.equals(y) == y.equals(x)。</p>
-<p>传递性：x.equals(y)  y.equals(z)  x.equals(z)。</p>
-<p>一致性：只要对象没有被修改，多次调用返回一致。</p>
-</blockquote>
-<p><strong>我们无法在扩展    可实例化的类的同时，既增加新的值组件，同时又保留equals约定</strong></p>
-</li>
-<li><p>实现高质量equals方法的诀窍：</p>
-<ol>
-<li>使用==操作符检查“参数是否为这个对象的引用”。</li>
-<li>使用instanceof操作符检查参数是否为正确的类型。</li>
-<li>把参数转换成正确的类型。</li>
-<li>检查参数中的域是否与该对象中对应的域相匹配。对于既不是float也不是double类型的基本类型域，可以使用==操作符进行比较；对于对象引用域，可以递归的调用equals方法；对于float域，可以使用Float.compare方法，对于double域，则使用Double.compare。对于数组域，Arrays.equals()方法。</li>
-</ol>
-</li>
-</ul>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/07/14/effective-java读书笔记2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1222,11 +1127,19 @@
                 
               
 
-              <time title="创建时间：2018-07-14 17:37:56 / 修改时间：17:39:56" itemprop="dateCreated datePublished" datetime="2018-07-14T17:37:56+08:00">2018-07-14</time>
+              <time title="创建时间：2018-07-14 17:37:56" itemprop="dateCreated datePublished" datetime="2018-07-14T17:37:56+08:00">2018-07-14</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 19:18:59" itemprop="dateModified" datetime="2019-10-03T19:18:59+08:00">2019-10-03</time>
+              </span>
             
           
 
@@ -1264,31 +1177,15 @@
       
           <h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p><a href="http://cmder.net/" target="_blank" rel="noopener">cmder官网</a></p>
 <p>下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版 cmder 自带了 msysgit, 压缩包 23M, 除了 git 本身这个命令之外, 里面可以使用大量的 linux 命令；比如 grep, curl(没有 wget)； 像vim, grep, tar, unzip, ssh, ls, bash, perl 对于爱折腾的Coder更是痛点需求。 </p>
-<h5 id="配置cmder"><a href="#配置cmder" class="headerlink" title="配置cmder"></a>配置cmder</h5><ol>
-<li><p>把 cmder 加到环境变量：可以把<code>Cmder.exe</code>存放的目录添加到系统环境变量；加完之后，<code>Win+r</code>一下输入<code>cmder</code>，即可。 </p>
-</li>
-<li><p>添加 cmder 到右键菜单：在某个文件夹中打开终端，在管理员权限的终端输入以下语句即可： </p>
-<blockquote>
-<p>Cmder.exe /REGISTER ALL</p>
-</blockquote>
-</li>
-</ol>
-<h5 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h5><ul>
-<li>可以利用<code>Tab</code>，自动路径补全；</li>
-<li>可以利用Ctrl+T建立新页签；</li>
-<li>利用Ctrl+W关闭页签;</li>
-<li>还可以透过Ctrl+Tab切换页签;</li>
-<li>Alt+F4：关闭所有页签</li>
-<li>Alt+Shift+1：开启cmd.exe</li>
-<li>Alt+Shift+2：开启powershell.exe</li>
-<li>Alt+Shift+3：开启powershell.exe (系统管理员权限)</li>
-<li>Ctrl+1：快速切换到第1个页签</li>
-<li>Ctrl+n：快速切换到第n个页签( n值无上限)</li>
-<li>Alt + enter： 切换到全屏状态；</li>
-<li>Ctr+r 历史命令搜索;</li>
-<li>End, Home, Ctrl : Traversing text with as usual on Windows</li>
-</ul>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/07/14/cmder配置使用/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1352,7 +1249,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-05-21 23:14:03" itemprop="dateModified" datetime="2018-05-21T23:14:03+08:00">2018-05-21</time>
+                <time title="修改时间：2019-10-03 19:20:13" itemprop="dateModified" datetime="2019-10-03T19:20:13+08:00">2019-10-03</time>
               </span>
             
           
@@ -1379,7 +1276,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>4.6k</span>
+              <span>4.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -1389,7 +1286,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>8 分钟</span>
+              <span>7 分钟</span>
             </span>
           
 
@@ -1407,7 +1304,8 @@
  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  person.name = <span class="string">"Nicholas"</span>;</span><br><span class="line">  person.age = <span class="number">29</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//字面量方式:</span></span><br><span class="line">  <span class="keyword">var</span> person = &#123;</span><br><span class="line">      name : <span class="string">"Nicholas"</span>,</span><br><span class="line">      age :<span class="number">29</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>一般来说，可以使用点表示法来访问对象属性，但也可以使用[]来访问对象属性，应该将要访问的属性以字符串的形式放在[]中，[]方法的主要优点是可以通过变量来访问属性。</p>
+<pre><code>&lt;!--more--&gt;
+</code></pre><p>一般来说，可以使用点表示法来访问对象属性，但也可以使用[]来访问对象属性，应该将要访问的属性以字符串的形式放在[]中，[]方法的主要优点是可以通过变量来访问属性。</p>
 <ol start="2">
 <li><p>Array类型 </p>
 <ol>
@@ -1423,7 +1321,32 @@
 </li>
 </ol>
 <p>instanceof操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的Array构造函数。如果从一个框架向另一个框架传入数组，那么传入的数组与第二个框架原生创建的数组分别具有各自不同的构造函数，要解决这个问题，es5新增了Array.isArray()方法，这个方法的目的是最终确定某个值到底是不是数组，而不管他是在哪个全局执行环境中创建的。 </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(value))&#123;</span><br><span class="line">    <span class="comment">//对数组执行某些操作</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">5. 转换方法</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">所有对象都具有toLocalString()、toString()、valueOf()方法。调用数组的toString()方法会返回有数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串。而调用valueOf()返回的还是数组。实际上，为了创建这个字符串会调用数组每一项的toString()方法。</span></span><br><span class="line"><span class="string">如果数组中的某一项的值是null、undefined,那么该值在join()、toLocalString()、toString()、valueOf()返回的结果中以空字符串表示。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">6. 栈方法</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. push()可以接收任意数量的参数，把他们逐个添加到数组的末尾，并返回修改后数组的长度</span></span><br><span class="line"><span class="string">   2. pop()方法从数组末尾移除最后一项，减少数组的length值，返回移除的项</span></span><br><span class="line"><span class="string">7. 队列方法</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. 由于push()是向数组末尾添加项的方法，因此要模拟队列只需一个从数组前端取得项的方法。实现这一操作的方法是shift(),他能够移除数组中的第一个项并返回该项，同时将数组长度减一。结合shift()和push()方法，可以像使用队列一样使用数组。</span></span><br><span class="line"><span class="string">   2. unshift()与shift()用途相反，它可以在数组前端添加任意项并返回新数组的长度。因此，同时使用unshift()和pop()方法，可以从相反的方向来模拟队列</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">8. 排序</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. sort()方法会调用每个数组项的toString()转型方法，然后比较得到的字符串，以确定如何排序。即使数组中的每一项都是数值，sort方法比较的也是字符串，如下：</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string">      `</span><span class="string">``</span>js </span><br><span class="line">      <span class="keyword">var</span> values = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">15</span>]</span><br><span class="line">      values.sort()</span><br><span class="line">      alert(values)  <span class="comment">//0,1,10,15,5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(value))&#123;</span><br><span class="line">    <span class="comment">//对数组执行某些操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>转换方法</li>
+</ol>
+<p>所有对象都具有toLocalString()、toString()、valueOf()方法。调用数组的toString()方法会返回有数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串。而调用valueOf()返回的还是数组。实际上，为了创建这个字符串会调用数组每一项的toString()方法。<br>如果数组中的某一项的值是null、undefined,那么该值在join()、toLocalString()、toString()、valueOf()返回的结果中以空字符串表示。</p>
+<ol start="6">
+<li><p>栈方法</p>
+<ol>
+<li>push()可以接收任意数量的参数，把他们逐个添加到数组的末尾，并返回修改后数组的长度</li>
+<li>pop()方法从数组末尾移除最后一项，减少数组的length值，返回移除的项</li>
+</ol>
+</li>
+<li><p>队列方法</p>
+<ol>
+<li>由于push()是向数组末尾添加项的方法，因此要模拟队列只需一个从数组前端取得项的方法。实现这一操作的方法是shift(),他能够移除数组中的第一个项并返回该项，同时将数组长度减一。结合shift()和push()方法，可以像使用队列一样使用数组。</li>
+<li>unshift()与shift()用途相反，它可以在数组前端添加任意项并返回新数组的长度。因此，同时使用unshift()和pop()方法，可以从相反的方向来模拟队列</li>
+</ol>
+</li>
+<li><p>排序</p>
+<ol>
+<li><p>sort()方法会调用每个数组项的toString()转型方法，然后比较得到的字符串，以确定如何排序。即使数组中的每一项都是数值，sort方法比较的也是字符串，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> values = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">15</span>]</span><br><span class="line">values.sort()</span><br><span class="line">alert(values)  <span class="comment">//0,1,10,15,5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
 <pre><code>2. sort()方法可以接收一个比较函数作为参数，以便我们指定那个值位于那个值得前面。比较函数接收两个参数，如果第一个参数应该位于第二个之前则返回一个负数，如果两个参数相等则返回0，如何第一个参数应该位于第二个之后则返回一个正数。
 
     <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">v1,v2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(v1 &lt; v2)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(v1&gt;v2)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">values.sort(compare); <span class="comment">// 15,10,5,1,0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对于数值类型或者valueOf()方法会返回数值类型的对象类型，可以使用一个更简单的比较函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">v1,v2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> v1 - v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1474,7 +1397,7 @@
 <li>reduceRight()从数组的最后一项向前遍历。</li>
 </ol>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> values = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> sum = values.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev,cur,index,array(</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> prev+cur;</span><br><span class="line"> &#125;);</span><br><span class="line"> alert(sum) <span class="comment">//15</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure></li>
 </ol>
 
         
@@ -1540,7 +1463,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-05-04 22:36:45" itemprop="dateModified" datetime="2018-05-04T22:36:45+08:00">2018-05-04</time>
+                <time title="修改时间：2019-10-03 19:20:40" itemprop="dateModified" datetime="2019-10-03T19:20:40+08:00">2019-10-03</time>
               </span>
             
           
@@ -1591,32 +1514,18 @@
 
       
           <h3 id="lt-script-gt-标签"><a href="#lt-script-gt-标签" class="headerlink" title="&lt;script&gt;标签"></a><code>&lt;script&gt;</code>标签</h3><ol>
-<li>无论如何包含代码，只要不存在defer和async属性，浏览器都会按照<code>&lt;script&gt;</code>元素在页面中出现的先后顺序对他们依次进行解析。</li>
+<li><p>无论如何包含代码，只要不存在defer和async属性，浏览器都会按照<code>&lt;script&gt;</code>元素在页面中出现的先后顺序对他们依次进行解析。</p>
+</li>
 <li><p>在文档的<code>&lt;head&gt;</code>元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到<code>&lt;body&gt;</code>标签时才开始呈现内容），所以，一般都这样写：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>defer属性：脚本会被延迟到整个页面都解析完毕后再运行。因此，在<code>&lt;script&gt;</code>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行。defer属性只适用于外部脚本文件。在下面的代码中，虽然<code>&lt;script&gt;</code>放在了文档<code>&lt;head&gt;</code>元素中，但其中包含的脚本将延迟到浏览器遇到<code>&lt;/html&gt;</code>标签后再执行。HTML5规范要求脚本按照他们出现的先后顺序执行，因此第一个延迟脚本会先于第二个延迟脚本执行，而这两个脚本会先于DOMContentLoaded事件执行。在现实中，延迟脚本并不一定会按照顺序执行，也不一定会在DOMContentLoaded事件触发前执行，因此最好只包含一个延迟脚本。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot; src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>HTML5为<code>&lt;script&gt;</code>元素定义了async属性。async属性告诉浏览器立即下载文件，但并不保证按照他们的先后顺序执行。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=&lt;device-width&gt;, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; async src=&quot;example1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; async src=&quot;example2.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--这里放内容--&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p> 在以上代码中，第二个脚本可能会在第一个脚本之前执行，因此，确保两者之间互不依赖非常重要。指定async属性的目的是不让页面等待两个脚本下载和执行，从而异步加载页面其他内容。为此，建议异步脚本不要在加载期间修改DOM。</p>
-</li>
-</ol>
-<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol>
-<li>五种基本数据类型：Undefined、Null、Boolean、Number、String;一种复杂数据类型：Object。</li>
-<li><p>在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var message;//这个变量声明之后默认取得了undefined值</span><br><span class="line">//下面这个变量并没有声明</span><br><span class="line">//var age</span><br><span class="line">alert(typeof message);  //&quot;undefined&quot;</span><br><span class="line">alert(typeof age);      //&quot;undefined&quot;</span><br></pre></td></tr></table></figure>
-<p> 对未声明和未初始化的变量执行typeof操作符都返回了undifined值。</p>
-</li>
-<li><p>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检查null值就可以知道相应的变量是否已经保存了一个对象的引用，如下：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(car != null)&#123;</span><br><span class="line">    //对car执行某些操作</span><br><span class="line">&#125;</span><br><span class="line">//实际上，undefined的值是派生自null值的</span><br><span class="line">alert(null == undefined) //true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>NaN,即非数值(Not a Number)是一个特殊的数值，这个数值用来表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。任何数值除以0会返回NaN；任何涉及NaN的操作（NaN/10）都会返回NaN;NaN与任何值都不相等，包括NaN本身。</p>
-</li>
-</ol>
-<h3 id="执行环境及作用域"><a href="#执行环境及作用域" class="headerlink" title="执行环境及作用域"></a>执行环境及作用域</h3><p>　　执行环境(execution context)是javaScript中最为重要的一个概念。执行环境定义了变量或函数有权访问的其他数据，决定了他们各自的行为。每个执行环境都有一个与之关联的变量对象(variable object)，环境中定义的所有变量和函数都保存在这个对象中。虽然我们编写的代码无法访问这个对象，但解析器在处理数据时会在后台使用它。<br>　　全局执行环境是最外围的一个执行环境。根据宿主环境不同，执行环境的对象也不一样。在web浏览器中，全局执行环境被认为是window对象，因此所有全局变量和函数都是作为window对象的属性和方法创建的。<br>　　每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。<br>　　当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对象在最开始时只包含一个变量，即arguments对象(这个对象在全局环境中是不存在的)。作用域链中的下一个变量对象来自包含环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。    </p>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/04/30/js高级程序设计-读书笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1709,7 +1618,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

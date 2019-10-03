@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="引用类型 Object类型 创建Object实例的方式有两种：  123456789var person = new Object();  person.name = &quot;Nicholas&quot;;  person.age = 29;    //字面量方式:  var person = &amp;#123;      name : &quot;Nicholas&quot;,      age :29  &amp;#125;   一般来说，可">
+  <meta name="description" content="引用类型 Object类型 创建Object实例的方式有两种：  123456789var person = new Object();  person.name = &quot;Nicholas&quot;;  person.age = 29;    //字面量方式:  var person = &amp;#123;      name : &quot;Nicholas&quot;,      age :29  &amp;#125;   &amp;lt;!-">
 <meta name="keywords" content="js高级程序设计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js高级程序设计-读书笔记2">
 <meta property="og:url" content="https://haominglfs.github.io/2018/05/04/js高级程序设计-读书笔记2/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="引用类型 Object类型 创建Object实例的方式有两种：  123456789var person = new Object();  person.name = &quot;Nicholas&quot;;  person.age = 29;    //字面量方式:  var person = &amp;#123;      name : &quot;Nicholas&quot;,      age :29  &amp;#125;   一般来说，可">
+<meta property="og:description" content="引用类型 Object类型 创建Object实例的方式有两种：  123456789var person = new Object();  person.name = &quot;Nicholas&quot;;  person.age = 29;    //字面量方式:  var person = &amp;#123;      name : &quot;Nicholas&quot;,      age :29  &amp;#125;   &amp;lt;!-">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-21T15:14:03.331Z">
+<meta property="og:updated_time" content="2019-10-03T11:20:13.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js高级程序设计-读书笔记2">
-<meta name="twitter:description" content="引用类型 Object类型 创建Object实例的方式有两种：  123456789var person = new Object();  person.name = &quot;Nicholas&quot;;  person.age = 29;    //字面量方式:  var person = &amp;#123;      name : &quot;Nicholas&quot;,      age :29  &amp;#125;   一般来说，可">
+<meta name="twitter:description" content="引用类型 Object类型 创建Object实例的方式有两种：  123456789var person = new Object();  person.name = &quot;Nicholas&quot;;  person.age = 29;    //字面量方式:  var person = &amp;#123;      name : &quot;Nicholas&quot;,      age :29  &amp;#125;   &amp;lt;!-">
   <link rel="canonical" href="https://haominglfs.github.io/2018/05/04/js高级程序设计-读书笔记2/">
 
 
@@ -286,7 +286,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-05-21 23:14:03" itemprop="dateModified" datetime="2018-05-21T23:14:03+08:00">2018-05-21</time>
+                <time title="修改时间：2019-10-03 19:20:13" itemprop="dateModified" datetime="2019-10-03T19:20:13+08:00">2019-10-03</time>
               </span>
             
           
@@ -313,7 +313,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>4.6k</span>
+              <span>4.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -323,7 +323,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>8 分钟</span>
+              <span>7 分钟</span>
             </span>
           
 
@@ -341,7 +341,8 @@
  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  person.name = <span class="string">"Nicholas"</span>;</span><br><span class="line">  person.age = <span class="number">29</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//字面量方式:</span></span><br><span class="line">  <span class="keyword">var</span> person = &#123;</span><br><span class="line">      name : <span class="string">"Nicholas"</span>,</span><br><span class="line">      age :<span class="number">29</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>一般来说，可以使用点表示法来访问对象属性，但也可以使用[]来访问对象属性，应该将要访问的属性以字符串的形式放在[]中，[]方法的主要优点是可以通过变量来访问属性。</p>
+<pre><code>&lt;!--more--&gt;
+</code></pre><p>一般来说，可以使用点表示法来访问对象属性，但也可以使用[]来访问对象属性，应该将要访问的属性以字符串的形式放在[]中，[]方法的主要优点是可以通过变量来访问属性。</p>
 <ol start="2">
 <li><p>Array类型 </p>
 <ol>
@@ -357,7 +358,32 @@
 </li>
 </ol>
 <p>instanceof操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的Array构造函数。如果从一个框架向另一个框架传入数组，那么传入的数组与第二个框架原生创建的数组分别具有各自不同的构造函数，要解决这个问题，es5新增了Array.isArray()方法，这个方法的目的是最终确定某个值到底是不是数组，而不管他是在哪个全局执行环境中创建的。 </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(value))&#123;</span><br><span class="line">    <span class="comment">//对数组执行某些操作</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">5. 转换方法</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">所有对象都具有toLocalString()、toString()、valueOf()方法。调用数组的toString()方法会返回有数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串。而调用valueOf()返回的还是数组。实际上，为了创建这个字符串会调用数组每一项的toString()方法。</span></span><br><span class="line"><span class="string">如果数组中的某一项的值是null、undefined,那么该值在join()、toLocalString()、toString()、valueOf()返回的结果中以空字符串表示。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">6. 栈方法</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. push()可以接收任意数量的参数，把他们逐个添加到数组的末尾，并返回修改后数组的长度</span></span><br><span class="line"><span class="string">   2. pop()方法从数组末尾移除最后一项，减少数组的length值，返回移除的项</span></span><br><span class="line"><span class="string">7. 队列方法</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. 由于push()是向数组末尾添加项的方法，因此要模拟队列只需一个从数组前端取得项的方法。实现这一操作的方法是shift(),他能够移除数组中的第一个项并返回该项，同时将数组长度减一。结合shift()和push()方法，可以像使用队列一样使用数组。</span></span><br><span class="line"><span class="string">   2. unshift()与shift()用途相反，它可以在数组前端添加任意项并返回新数组的长度。因此，同时使用unshift()和pop()方法，可以从相反的方向来模拟队列</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">8. 排序</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   1. sort()方法会调用每个数组项的toString()转型方法，然后比较得到的字符串，以确定如何排序。即使数组中的每一项都是数值，sort方法比较的也是字符串，如下：</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string">      `</span><span class="string">``</span>js </span><br><span class="line">      <span class="keyword">var</span> values = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">15</span>]</span><br><span class="line">      values.sort()</span><br><span class="line">      alert(values)  <span class="comment">//0,1,10,15,5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(value))&#123;</span><br><span class="line">    <span class="comment">//对数组执行某些操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>转换方法</li>
+</ol>
+<p>所有对象都具有toLocalString()、toString()、valueOf()方法。调用数组的toString()方法会返回有数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串。而调用valueOf()返回的还是数组。实际上，为了创建这个字符串会调用数组每一项的toString()方法。<br>如果数组中的某一项的值是null、undefined,那么该值在join()、toLocalString()、toString()、valueOf()返回的结果中以空字符串表示。</p>
+<ol start="6">
+<li><p>栈方法</p>
+<ol>
+<li>push()可以接收任意数量的参数，把他们逐个添加到数组的末尾，并返回修改后数组的长度</li>
+<li>pop()方法从数组末尾移除最后一项，减少数组的length值，返回移除的项</li>
+</ol>
+</li>
+<li><p>队列方法</p>
+<ol>
+<li>由于push()是向数组末尾添加项的方法，因此要模拟队列只需一个从数组前端取得项的方法。实现这一操作的方法是shift(),他能够移除数组中的第一个项并返回该项，同时将数组长度减一。结合shift()和push()方法，可以像使用队列一样使用数组。</li>
+<li>unshift()与shift()用途相反，它可以在数组前端添加任意项并返回新数组的长度。因此，同时使用unshift()和pop()方法，可以从相反的方向来模拟队列</li>
+</ol>
+</li>
+<li><p>排序</p>
+<ol>
+<li><p>sort()方法会调用每个数组项的toString()转型方法，然后比较得到的字符串，以确定如何排序。即使数组中的每一项都是数值，sort方法比较的也是字符串，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> values = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">15</span>]</span><br><span class="line">values.sort()</span><br><span class="line">alert(values)  <span class="comment">//0,1,10,15,5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
 <pre><code>2. sort()方法可以接收一个比较函数作为参数，以便我们指定那个值位于那个值得前面。比较函数接收两个参数，如果第一个参数应该位于第二个之前则返回一个负数，如果两个参数相等则返回0，如何第一个参数应该位于第二个之后则返回一个正数。
 
     <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">v1,v2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(v1 &lt; v2)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(v1&gt;v2)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">values.sort(compare); <span class="comment">// 15,10,5,1,0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//对于数值类型或者valueOf()方法会返回数值类型的对象类型，可以使用一个更简单的比较函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">v1,v2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> v1 - v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -408,7 +434,7 @@
 <li>reduceRight()从数组的最后一项向前遍历。</li>
 </ol>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> values = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> sum = values.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev,cur,index,array(</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> prev+cur;</span><br><span class="line"> &#125;);</span><br><span class="line"> alert(sum) <span class="comment">//15</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure></li>
 </ol>
 
     </div>
@@ -536,7 +562,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

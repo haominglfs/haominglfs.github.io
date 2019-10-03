@@ -284,7 +284,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-02-23 20:30:28" itemprop="dateModified" datetime="2019-02-23T20:30:28+08:00">2019-02-23</time>
+                <time title="修改时间：2019-10-03 19:00:29" itemprop="dateModified" datetime="2019-10-03T19:00:29+08:00">2019-10-03</time>
               </span>
             
           
@@ -331,93 +331,15 @@
 <li><p>eventLoop</p>
 </li>
 <li><p>宏任务、微任务</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//宏任务  主体script  setTimeout  setInterval (new Promise)</span></span><br><span class="line"><span class="comment">//微任务  Promise.then  process.nextTick()</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//宏任务</span></span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"promise"</span>)</span><br><span class="line">        resolve()</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">//微任务</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"then"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">//宏任务</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">//宏任务</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">222</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>模块化（commonjs规范）</p>
-<ul>
-<li><p>一个文件就是一个独立的模块。每个模块都有自己的独立作用域—模块作用域</p>
-</li>
-<li><p>模块加载采用同步模式。</p>
-</li>
-<li><p>通过require导入,exports导出。module.exports == exports  返回true,但是使用上有一定的注意事项：</p>
-</li>
-<li><p>每一个模块中都有一个内置的对象：module,该对象包括当前模块文件的一些信息</p>
-<ul>
-<li>id   当前模块的唯一标识，默认id为当前文件的绝对路径</li>
-<li>filename 当前模块的文件</li>
-<li>parent</li>
-<li>children</li>
-<li>loaded</li>
-<li>paths</li>
-</ul>
-</li>
-<li><p>模块类型</p>
-<ul>
-<li><p>文件</p>
-</li>
-<li><p>文件夹</p>
-<p>当我们导入的模块是一个文件夹的时候，就会引入文件夹模块导入机制：1.读取该文件夹下的package.json文件。2.导入文件中main选项指定的文件。3.如果不存在，则导入文件夹下的index.js。</p>
-<ul>
-<li><p>node_modules文件夹：如果我们的模块在node_modules目录下(一般用于第三方库)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//let m2 = require('./node_modules/m2')</span></span><br><span class="line"><span class="keyword">let</span> m2 = <span class="built_in">require</span>(<span class="string">'m2'</span>)<span class="comment">//和上面的效果一样</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果模块的加载是以./ ../ /开头的，就是路径模块加载模式</span></span><br><span class="line"><span class="comment">//不以./ ../ /开头的，按照另外一种加载机制，非路径加载模式，按照以下规则查找：</span></span><br><span class="line">	<span class="comment">//在module对象有一个属性paths,里面保存的是非路径模式下的查找列表。</span></span><br><span class="line">paths:</span><br><span class="line">   [ <span class="string">'/Users/haominglfs/Documents/es6/node_modules'</span>,</span><br><span class="line">     <span class="string">'/Users/haominglfs/Documents/node_modules'</span>,</span><br><span class="line">     <span class="string">'/Users/haominglfs/node_modules'</span>,</span><br><span class="line">     <span class="string">'/Users/node_modules'</span>,</span><br><span class="line">     <span class="string">'/node_modules'</span> ]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>global 文件夹:所有项目都可以使用的模块,在node安装目录下node_modules文件夹。</p>
-</li>
-</ul>
-</li>
-<li><p>核心模块：node内置模块:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="comment">//如果自己定义的模块和核心模块冲突，则默认加载核心模块。</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>模块文件后缀处理机制：</p>
-<p>.js&gt;.json&gt;.node</p>
-</li>
-<li><p>es6模块化</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//每个模块只能存在一个default</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="number">100</span></span><br><span class="line"><span class="comment">//导入</span></span><br><span class="line"><span class="keyword">import</span> &#123;a&#125; <span class="keyword">from</span> <span class="string">'./m1'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> m1 <span class="keyword">from</span> <span class="string">'./m1'</span></span><br><span class="line"><span class="comment">//导入默认,直接赋值</span></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./m1'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>内置对象</p>
-<ul>
-<li><p>events</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> eventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">eventEmitter</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.growup();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    growup()&#123;</span><br><span class="line">        setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.age++;</span><br><span class="line">            <span class="keyword">this</span>.emit(<span class="string">'growup'</span>) <span class="comment">//触发事件</span></span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person(<span class="string">'郝明'</span>);</span><br><span class="line"></span><br><span class="line">p1.addListener(<span class="string">'growup'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//注册监听器</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'growup 1'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(p1.eventNames())</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>process(全局对象，不需要引入)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//process.argv 属性返回一个数组，其中包含当启动 Node.js 进程时传入的命令行参数。</span></span><br><span class="line"><span class="built_in">console</span>.log(process.argv)</span><br><span class="line"></span><br><span class="line"><span class="comment">//环境变量</span></span><br><span class="line"><span class="built_in">console</span>.log(process.env)</span><br><span class="line"></span><br><span class="line"><span class="comment">//标准输入输出</span></span><br><span class="line">process.stdout.write(<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line">process.stdin.on(<span class="string">'data'</span>,(e)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'用户输入'</span>+e.toString())</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>stream</p>
-<ul>
-<li>四种基本类型<ul>
-<li>Writable  可写入数据的流。 fs.createWriteStream()</li>
-<li>Readable 可读取数据的流。 fs.createReadStream()</li>
-<li>Duplex  可读又可写的流。 Net.Socket()</li>
-<li>Transform 在读写过程中可以修改后转换</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>buffer</p>
-</li>
-</ul>
-</li>
-<li><p>filesystem</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="comment">//First Error :node 中的一种约定，如果一个回调可能有错误发生，那么约定回调函数的第一个参数用来做//错误对象</span></span><br><span class="line"><span class="comment">// fs.writeFile('./1.txt','你好我好',(err)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//     if(err) throw err</span></span><br><span class="line"><span class="comment">//     console.log('文件已保存')</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let res = fs.writeFileSync('./2.txt','你好','utf8')</span></span><br><span class="line"><span class="comment">// console.log(res)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//返回buffer</span></span><br><span class="line">fs.readFile(<span class="string">'./1.txt'</span>,(err,data)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(err) <span class="keyword">throw</span> err</span><br><span class="line">    <span class="built_in">console</span>.log(data.toString())</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> content = fs.readFileSync(<span class="string">'./2.txt'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(content)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> st = fs.statSync(<span class="string">'./1.txt'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(st)</span><br><span class="line">    <span class="built_in">console</span>.log(st.isFile())</span><br><span class="line">    <span class="built_in">console</span>.log(st.isDirectory())</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除</span></span><br><span class="line"><span class="comment">//fs.unlinkSync('./1.txt')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//文件夹</span></span><br><span class="line"><span class="comment">//fs.mkdirSync('./a')</span></span><br><span class="line"><span class="comment">//不能递归创建文件夹</span></span><br><span class="line"><span class="comment">//fs.mkdirSync('./a/b/c')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//不能删除非空文件夹</span></span><br><span class="line">fs.rmdirSync(<span class="string">'./a'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dir = <span class="string">'./a'</span>;</span><br><span class="line"><span class="comment">// let files = fs.readdirSync(dir);</span></span><br><span class="line"><span class="comment">// files.forEach(child=&gt;&#123;</span></span><br><span class="line"><span class="comment">//     fs.unlinkSync(dir+'/'+child);</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line">rmdir(dir)</span><br><span class="line"><span class="comment">//递归删除文件夹</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmdir</span>(<span class="params">dirpath</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> files = fs.readdirSync(dirpath);</span><br><span class="line">    files.forEach(<span class="function"><span class="params">child</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> childPath = dirpath+<span class="string">'/'</span>+child;</span><br><span class="line">        <span class="keyword">let</span> st = fs.statSync(childPath)</span><br><span class="line">        <span class="keyword">if</span>(st.isDirectory())&#123;</span><br><span class="line">            rmdir(childPath)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            fs.unlinkSync(childPath);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    fs.rmdirSync(dirpath)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听文件或目录</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">fs.watchFile(<span class="string">'./2.txt'</span>,(e)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>npm</p>
-<ul>
-<li>能不安装全局就不安装全局。</li>
-<li>命令行工具(第三方模块)：<ul>
-<li>commander</li>
-<li>chalk</li>
-<li>Inquirer</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p>​       </p>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/02/13/node-js/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -481,7 +403,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-02-13 12:25:21" itemprop="dateModified" datetime="2019-02-13T12:25:21+08:00">2019-02-13</time>
+                <time title="修改时间：2019-10-03 19:00:44" itemprop="dateModified" datetime="2019-10-03T19:00:44+08:00">2019-10-03</time>
               </span>
             
           
@@ -522,94 +444,15 @@
 <li><p>数据类型</p>
 <p>Number、Boolean、String、<strong>Symbol</strong>、Null、Undefined、Object</p>
 <p>Symbol:es6新增数据类型-基本类型，值是由Symbol函数调用产生的</p>
-</li>
-<li><p>作用域</p>
-<p>let、const</p>
-</li>
-<li><p>解构赋值</p>
-<ul>
-<li><p>数组解构</p>
-<p>let [a,b,c] = [1,2,3]</p>
-</li>
-<li><p>对象解构</p>
-<p>let {foo,bar}  = {foo:”aaa”,bar:”bbb”};//左侧变量的名称解构顺序无关</p>
-<p>let {foo:f,bar:b} = {foo:”aaa”,bar:”bbb”};//取别名</p>
-<p>let {foo:[a,b]} = {foo:[10,20],bar:”bbb”}//多重解构</p>
-</li>
-</ul>
-</li>
-<li><p>扩展运算符  …</p>
-<p>把数组、对象转成参数序列。</p>
-<p>var arr = [1,7,3,6,5];</p>
-<p>var arr2 = [‘a’,’b’,’c’];</p>
-<p>Math.max(…arr);</p>
-<p>var arr3 = […arr,…arr2];</p>
-</li>
-<li><p>模板字符串（保持格式、表达式解析）</p>
-<p>反引号   ${}</p>
-</li>
-<li><p>对象简洁表示法</p>
-<p>当对象的key与对应的属性所引用的变量或函数同名的时候，可以简写成一个。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a:a,</span><br><span class="line">    fn:fn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//简写方式</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a:,</span><br><span class="line">    fn</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>属性名表达式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">'hh'</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    [x]:<span class="number">1</span>  <span class="comment">//key可以为动态的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>迭代</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> attrs = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> attr <span class="keyword">in</span> attrs)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(attr)  <span class="comment">// 0 1 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> attr <span class="keyword">of</span> attrs)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(attr)  <span class="comment">// a b c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>迭代器</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">            left :<span class="number">100</span>,</span><br><span class="line">            top :<span class="number">200</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">obj[<span class="built_in">Symbol</span>.iterator] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> keys = <span class="built_in">Object</span>.keys(obj) <span class="comment">//['left','top']</span></span><br><span class="line">    <span class="keyword">let</span> len = keys.length;</span><br><span class="line">    <span class="keyword">let</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(n&lt;len)&#123;</span><br><span class="line">                <span class="keyword">return</span>&#123;</span><br><span class="line">                    value:&#123;<span class="attr">k</span>:keys[n],<span class="attr">v</span>:obj[keys[n++]]&#125;,</span><br><span class="line">                    done:<span class="literal">false</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span>&#123;</span><br><span class="line">                    done:<span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> &#123;k,v&#125; <span class="keyword">of</span> obj)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(k,v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>函数扩展</p>
-<ol>
-<li><p>参数默认值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params">x=<span class="number">0</span>,y=<span class="number">2</span></span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>rest参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arrayPush</span>(<span class="params">arr,...newData</span>)</span>&#123;&#125;<span class="comment">//从第二个参数开始，后面的数据全部赋值给newData参数 newData是一个数组，剩余参数只能写在形参的最后面</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>箭头函数</p>
-<p>注意事项：</p>
-<ul>
-<li>内部this对象指向创建期上下文对象，在函数创建时就绑定好了。普通函数的this指向是在函数的执行期绑定的</li>
-<li>不能作为构造函数，不能new</li>
-<li>没有arguements</li>
-<li>不能作为生成器函数</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>Array</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>].includes(<span class="string">'c'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">//every  如果都为真，返回真，否则为假  做全选操作</span></span><br><span class="line"><span class="keyword">var</span> arr4 = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">19</span>]</span><br><span class="line"><span class="keyword">var</span> res = arr4.every(<span class="function"><span class="params">v</span>=&gt;</span>&#123;<span class="keyword">return</span> v&gt;<span class="number">5</span>&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(res)   <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//some  只要有一个为真，就为真</span></span><br><span class="line"><span class="keyword">var</span> arr4 = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">19</span>]</span><br><span class="line"><span class="keyword">var</span> res = arr4.some(<span class="function"><span class="params">v</span>=&gt;</span>&#123;<span class="keyword">return</span> v&gt;<span class="number">5</span>&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(res) <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//filter</span></span><br><span class="line"><span class="keyword">var</span> arr4 = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">19</span>]</span><br><span class="line"><span class="keyword">var</span> res = arr4.filter(<span class="function"><span class="params">v</span>=&gt;</span>&#123;<span class="keyword">return</span> v&gt;<span class="number">5</span>&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(res)  <span class="comment">//[8,19]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//map  映射</span></span><br><span class="line"><span class="keyword">var</span> arr4 = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">19</span>]</span><br><span class="line"><span class="keyword">var</span> res = arr4.map(<span class="function"><span class="params">v</span>=&gt;</span>&#123;<span class="keyword">return</span> v*<span class="number">5</span>&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(res) <span class="comment">//[5, 25, 40, 95]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//reduce 拆分  购物车计算总和</span></span><br><span class="line"><span class="keyword">var</span> arr4 = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">19</span>]</span><br><span class="line"><span class="keyword">var</span> res = arr4.reduce(<span class="function">(<span class="params">prev,current</span>)=&gt;</span>&#123;<span class="keyword">return</span> prev+current&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res) <span class="comment">//33</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Object</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//只改变第一个参数，如果有相同的会覆盖第一个参数的值；浅拷贝</span></span><br><span class="line"><span class="keyword">let</span> obj1 = <span class="built_in">Object</span>.assign(&#123;&#125;,&#123;<span class="attr">x</span>:<span class="number">1</span>,<span class="attr">y</span>:<span class="number">12</span>&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(obj1)</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义属性  configurable/enumerable/writable 默认都为false</span></span><br><span class="line">obj4 = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;</span><br><span class="line">obj4.y = <span class="number">12</span>;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj4,<span class="string">'z'</span>,&#123;<span class="attr">value</span>:<span class="number">88</span>&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(obj4)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>集合</p>
-<ol>
-<li><p>weakMap</p>
-<p>类似map,但是key必须是对象，特点是key是弱引用的，GC机制不考虑回收问题。</p>
-</li>
-</ol>
-</li>
-<li><p>异步</p>
-<ol>
-<li><p>promise</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Promise 构造函数，接受一个参数 callback,把要执行的异步任务放置在callback中</span></span><br><span class="line"><span class="comment">//promise内部会维护一个状态  默认是pending  成功：resolved   失败：rejected</span></span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//当promise被实例化的时候，callback就会执行</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//可以通过传入的resolve,reject两个函数，去改变当前Promise任务的状态</span></span><br><span class="line">        <span class="comment">//调用resolve函数，把状态改成resolved.调用reject函数，把状态改成rejected</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"1"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//promise对象下有一个方法：then,该方法在promise状态发生改变时，触发then的回调</span></span><br><span class="line"></span><br><span class="line">        reject()</span><br><span class="line"></span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//then会接受两个参数：这两个参数都是回调，当对应的promise对象的状态变成resolved,那么then的</span></span><br><span class="line"><span class="comment">//第一个callback就会被执行，如果状态变成了rejected,那么then的第二个callback就会被执行。</span></span><br><span class="line"><span class="comment">// let p2 =  p.then(()=&gt;&#123;</span></span><br><span class="line"><span class="comment">//     console.log("成功")</span></span><br><span class="line"><span class="comment">// &#125;,()=&gt;&#123;</span></span><br><span class="line"><span class="comment">//     console.log("失败")</span></span><br><span class="line"><span class="comment">// &#125;);</span></span><br><span class="line"><span class="comment">//then执行后，无论执行的那个回调函数，都会返回一个新的成功状态的promise对象</span></span><br><span class="line">p.then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>)</span><br><span class="line">&#125;,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"a"</span>)</span><br><span class="line">    <span class="comment">// return new Promise((resolve,reject)=&gt;&#123;</span></span><br><span class="line">    <span class="comment">//     reject()</span></span><br><span class="line">    <span class="comment">// &#125;)</span></span><br><span class="line">    <span class="comment">//上面的简写</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject();</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"3"</span>)</span><br><span class="line">&#125;,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"b"</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"4"</span>)</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">err</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//catch方法和then一样，也会返回一个resolved状态的promise对象</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'错了'</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"5"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ps1 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//传递参数给then</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        <span class="comment">//reject('出错了')</span></span><br><span class="line">        resolve(<span class="number">100</span>)</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ps2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//传递参数给then</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        <span class="comment">//reject('出错了')</span></span><br><span class="line">        resolve(<span class="number">100</span>)</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(<span class="number">300</span>)</span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//[]中放promise对象，都完成后执行then</span></span><br><span class="line"><span class="built_in">Promise</span>.all([ps1,ps2])</span><br><span class="line">    .then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data)<span class="comment">//返回的data为所有执行结果的数组</span></span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//谁先跑完触发then,另一个不管了</span></span><br><span class="line"><span class="built_in">Promise</span>.race([])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>generator</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">    <span class="keyword">yield</span> getData();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"3"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">        f.next()</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//返回一个迭代器函数</span></span><br><span class="line"><span class="keyword">let</span> f = fn();</span><br><span class="line">f.next();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>async、await</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">//resolve(100)</span></span><br><span class="line">        reject(<span class="string">'err'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">222</span>)</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> v = <span class="keyword">await</span> getData();</span><br><span class="line">        <span class="built_in">console</span>.log(v);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">333</span>)</span><br><span class="line">    &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(e)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn1();</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
-<p>​     </p>
-<p>​     </p>
-<p>​     </p>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/02/07/es6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -673,7 +516,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-02-07 21:52:18" itemprop="dateModified" datetime="2019-02-07T21:52:18+08:00">2019-02-07</time>
+                <time title="修改时间：2019-10-03 19:04:45" itemprop="dateModified" datetime="2019-10-03T19:04:45+08:00">2019-10-03</time>
               </span>
             
           
@@ -766,11 +609,19 @@
                 
               
 
-              <time title="创建时间：2019-01-24 21:30:22 / 修改时间：21:46:07" itemprop="dateCreated datePublished" datetime="2019-01-24T21:30:22+08:00">2019-01-24</time>
+              <time title="创建时间：2019-01-24 21:30:22" itemprop="dateCreated datePublished" datetime="2019-01-24T21:30:22+08:00">2019-01-24</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 19:05:10" itemprop="dateModified" datetime="2019-10-03T19:05:10+08:00">2019-10-03</time>
+              </span>
             
           
 
@@ -809,26 +660,15 @@
           <ol>
 <li><p>项目结构：</p>
 <p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190124213320.png" alt></p>
-</li>
-<li><p>类路径：指的是编译后的class文件的位置，如果是IDEA的话，一般在<strong>\项目名\out\artifacts\项目扩展名WEB-INF\classes\a.txt</strong> </p>
-</li>
-<li><p>编译后文件路径</p>
-<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190124213734.png" alt></p>
-</li>
-<li><p>获取类路径下资源的方式</p>
-<ul>
-<li><p>ClassLoader</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PathController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/path"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPath</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//如果资源文件不是直接在src下，而是在其他包下面,要改成			getResourceAsStream("com/haominglfs/test/a.txt")  开头没有斜杠 </span></span><br><span class="line">        InputStream resourceAsStream =</span><br><span class="line">                <span class="keyword">this</span>.getClass().getClassLoader().getResourceAsStream(<span class="string">"a.txt"</span>);</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(resourceAsStream,<span class="string">"UTF-8"</span>));</span><br><span class="line">        String s = br.readLine();</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Class </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//得到Class</span><br><span class="line">Class c = this.getClass();</span><br><span class="line">//相对于当前.class文件所在目录,开头还是没有斜杆的</span><br><span class="line">InputStream input = c.getResourceAsStream(&quot;a.txt&quot;);</span><br></pre></td></tr></table></figure>
-<p>如果资源文件和.class文件不同目录</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getResourceAsStream(<span class="string">"/a.txt"</span>);   注意：这里加了一个斜杆</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/01/24/javaweb获取类路径下资源/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -892,7 +732,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-01-21 23:04:55" itemprop="dateModified" datetime="2019-01-21T23:04:55+08:00">2019-01-21</time>
+                <time title="修改时间：2019-10-03 19:05:48" itemprop="dateModified" datetime="2019-10-03T19:05:48+08:00">2019-10-03</time>
               </span>
             
           
@@ -938,96 +778,15 @@
 </li>
 <li><p>@ComponentScan(value=”要扫描的包”)</p>
 <p>包扫描注解</p>
-</li>
-<li><p>@Scope</p>
-<p>调整组件的作用域（默认是单实例）</p>
-</li>
-<li><p>@Lazy</p>
-<p>懒加载（默认单实例bean在容器创建的时候创建）</p>
-</li>
-<li><p>@Conditional({Condition})</p>
-<p>按照一定的条件进行判断，满足条件给容器中注册bean;</p>
-<p>Condition实现Condition接口，实现matches方法；</p>
-<p>放在类上，统一设置。</p>
-</li>
-<li><p>@Import,给容器中注册组件方式：</p>
-<ul>
-<li>包扫描+组件标注注解（@Controller/@Service/@Repository/@Component）[自己写的类]</li>
-<li>@Bean[导入的第三方包里面的组件]</li>
-<li>@Import[快速给容器中导入一个组件]; <ul>
-<li>@Import(要导入容器中的组件)，容器中就会自动注册这个组件，id默认是全类名。</li>
-<li>实现ImportSelector接口:返回需要导入的组件的全类名数组，方法不要返回null。</li>
-<li>ImportBeanDefinitionRegistrar的实现类。</li>
-</ul>
-</li>
-<li>使用spring提供的FactoryBean;默认获取到的是工厂bean调用getObject创建的对象。要获取工厂bean本身，需要给id前面加一个&amp;</li>
-</ul>
-</li>
-<li><p>生命周期</p>
-<ul>
-<li><p>指定初始化和销毁方法</p>
-<p>@Bean(init-method=””,destory-method=””)</p>
-<p>初始化：对象创建完成并赋值好，调用初始化方法</p>
-<p>销毁：单实例：容器关闭的时候；多实例：容器不会管理这个bean,容器不会调用销毁方法。</p>
-</li>
-<li><p>让bean实现接口InitializingBean、DisposableBean。</p>
-</li>
-<li><p>@PostConstruct:在bean创建完成并且属性赋值完成，来进行初始化方法；@PreDistory:销毁时要调用的方法。</p>
-</li>
-<li><p>BeanPostProcessor:bean的后置处理器，在bean初始化前后进行一些处理工作。</p>
-<p>postProcessBeforeInitialization：bean初始化之前调用方法。</p>
-<p>postProcessAfterInitialization：在初始化之后工作。</p>
-</li>
-</ul>
-</li>
-<li><p>属性赋值</p>
-<ul>
-<li>@Value赋值<ul>
-<li>基本数值</li>
-<li>SpEL表达式：#{}</li>
-<li>${}：取出配置文件中的值</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>@PropertySource(value=”classpath:”)</p>
-<p>读取外部配置文件</p>
-</li>
-<li><p>自动装配</p>
-<ul>
-<li>@Autowired;默认优先按照类型去容器中找对应的组件，如果找到多个相同类型的组件，再将属性的名称作为组件的id去容器中查找。</li>
-<li>@Qualifire(“bookDao”);明确指定要装配的id</li>
-<li>@Primary:spring自动装配的时候，默认使用首选的bean;也可以使用@Qualifire明确指定。<ul>
-<li>Spring还支持使用@Resource(JSR250)和@Inject(JSR330)[java规范注解]<ul>
-<li>@Resource没有支持@Primary和@Autowired(required=false)的功能。</li>
-<li>@Inject：需要先导入javax.inject的包。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>如果组件只有一个有参构造器，@Autowired可以省略。</li>
-<li>@Bean标注的方法创建对象时，方法参数的值从容器中获取。</li>
-</ul>
-</li>
-<li><p>自定义组件使用spring容器底层的一些组件（ApplicationContext、BeanFactory…），自定义组件实现xxxAware。xxxAware的功能是使用xxxProcessor实现的：</p>
-<p>ApplicationContextAware—&gt;ApplicationContextAwareProcessor后置处理器。</p>
-</li>
-<li><p>@Profile</p>
-<p>spring为我们提供的可以根据当前的环境，动态的激活和切换一系列组件的功能。</p>
-<p>指定组件在哪个环境的情况下才能注册到容器中。</p>
-<p>@Profile(“default”)  @Profile(“dev”)  @Profile(“test”)  @Profile(“prod”)   默认是default</p>
-<ul>
-<li><p>使用命令行动态参数切换 （在虚拟机参数位置）  -Dspring.profiles.active=test   激活test环境</p>
-</li>
-<li><p>使用代码的方式 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">applicationContext.getEnvironment().setActiveProfiles(<span class="string">"test"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>没有标注@Profile的bean,在所有环境下都会注册到容器。</p>
-</li>
-</ul>
-</li>
-</ol>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/01/19/spring注解/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1194,7 +953,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-12-17 10:06:48" itemprop="dateModified" datetime="2018-12-17T10:06:48+08:00">2018-12-17</time>
+                <time title="修改时间：2019-10-03 19:06:23" itemprop="dateModified" datetime="2019-10-03T19:06:23+08:00">2019-10-03</time>
               </span>
             
           
@@ -1234,38 +993,24 @@
           <ol>
 <li><p>Hibernate提供了以下几种检索对象的方式：</p>
 <ul>
-<li>导航对象图检索方式:  根据已经加载的对象导航到其他对象。</li>
-<li>OID 检索方式:  按照对象的OID来检索对象。</li>
-<li>HQL 检索方式: 使用面向对象的 HQL 查询语言。</li>
-<li>QBC 检索方式: 使用QBC(QueryBy Criteria) API 来检索对象. 这种API封装了基于字符串形式的查询语句,提供了更加面向对象的查询接口。</li>
-<li>本地SQL检索方式:使用本地数据库的SQL查询语句。</li>
-</ul>
+<li><p>导航对象图检索方式:  根据已经加载的对象导航到其他对象。</p>
 </li>
-<li><p>HQL(HibernateQuery Language) 是面向对象的查询语言, 它和SQL查询语言有些相似.在Hibernate提供的各种检索方式中,HQL 是使用最广的一种检索方式.它有如下功能:</p>
-<ul>
-<li>在查询语句中设定各种查询条件。</li>
-<li>支持投影查询,即仅检索出对象的部分属性。</li>
-<li>支持分页查询。</li>
-<li>支持连接查询。</li>
-<li>支持分组查询,允许使用HAVING和GROUPBY 关键字。</li>
-<li>提供内置聚集函数,如sum(),min() 和 max()。</li>
-<li>支持子查询。</li>
-<li>支持动态绑定参数。</li>
-<li>能够调用用户定义的 SQL 函数或标准的SQL函数。</li>
-</ul>
+<li><p>OID 检索方式:  按照对象的OID来检索对象。</p>
 </li>
-<li><p>HQL检索方式包括以下步骤:</p>
-<ul>
-<li>通过Session的createQuery()方法创建一个Query对象,它包括一个HQL查询语句.HQL 查询语句中可以包含命名参数。</li>
-<li>动态绑定参数。</li>
-<li>调用Query相关方法执行查询语句。</li>
-</ul>
+<li><p>HQL 检索方式: 使用面向对象的 HQL 查询语言。</p>
 </li>
-<li><p>测试用例</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br></pre></td><td class="code"><pre><span class="line">	@Test</span><br><span class="line">	public void testBatch()&#123;</span><br><span class="line">		session.doWork(new Work() &#123;			</span><br><span class="line">			@Override</span><br><span class="line">			public void execute(Connection connection) throws SQLException &#123;</span><br><span class="line">				//通过 JDBC 原生的 API 进行操作, 效率最高, 速度最快!</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testManageSession()&#123;</span><br><span class="line">		</span><br><span class="line">		//获取 Session</span><br><span class="line">		//开启事务</span><br><span class="line">		Session session = HibernateUtils.getInstance().getSession();</span><br><span class="line">		System.out.println("--&gt;" + session.hashCode());</span><br><span class="line">		Transaction transaction = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		DepartmentDao departmentDao = new DepartmentDao();</span><br><span class="line">		</span><br><span class="line">		Department dept = new Department();</span><br><span class="line">		dept.setName("ATGUIGU");</span><br><span class="line">		</span><br><span class="line">		departmentDao.save(dept);</span><br><span class="line">		departmentDao.save(dept);</span><br><span class="line">		departmentDao.save(dept);</span><br><span class="line">		</span><br><span class="line">		//若 Session 是由 thread 来管理的, 则在提交或回滚事务时, 已经关闭 Session 了. </span><br><span class="line">		transaction.commit();</span><br><span class="line">		System.out.println(session.isOpen()); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testQueryIterate()&#123;</span><br><span class="line">		Department dept = (Department) session.get(Department.class, 70);</span><br><span class="line">		System.out.println(dept.getName());</span><br><span class="line">		System.out.println(dept.getEmps().size()); </span><br><span class="line">		</span><br><span class="line">		Query query = session.createQuery("FROM Employee e WHERE e.dept.id = 80");</span><br><span class="line">//		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = query.list();</span><br><span class="line">//		System.out.println(emps.size()); </span><br><span class="line">		</span><br><span class="line">		Iterator<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> empIt = query.iterate();</span><br><span class="line">		while(empIt.hasNext())&#123;</span><br><span class="line">			System.out.println(empIt.next().getName()); </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testUpdateTimeStampCache()&#123;</span><br><span class="line">		Query query = session.createQuery("FROM Employee");</span><br><span class="line">		query.setCacheable(true);</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = query.list();</span><br><span class="line">		System.out.println(emps.size());</span><br><span class="line">		</span><br><span class="line">		Employee employee = (Employee) session.get(Employee.class, 100);</span><br><span class="line">		employee.setSalary(30000);</span><br><span class="line">		</span><br><span class="line">		emps = query.list();</span><br><span class="line">		System.out.println(emps.size());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testQueryCache()&#123;</span><br><span class="line">		Query query = session.createQuery("FROM Employee");</span><br><span class="line">		query.setCacheable(true);</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = query.list();</span><br><span class="line">		System.out.println(emps.size());</span><br><span class="line">		</span><br><span class="line">		emps = query.list();</span><br><span class="line">		System.out.println(emps.size());</span><br><span class="line">		</span><br><span class="line">		Criteria criteria = session.createCriteria(Employee.class);</span><br><span class="line">		criteria.setCacheable(true);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testCollectionSecondLevelCache()&#123;</span><br><span class="line">		Department dept = (Department) session.get(Department.class, 80);</span><br><span class="line">		System.out.println(dept.getName());</span><br><span class="line">		System.out.println(dept.getEmps().size()); </span><br><span class="line">		</span><br><span class="line">		transaction.commit();</span><br><span class="line">		session.close();</span><br><span class="line">		</span><br><span class="line">		session = sessionFactory.openSession();</span><br><span class="line">		transaction = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		Department dept2 = (Department) session.get(Department.class, 80);</span><br><span class="line">		System.out.println(dept2.getName());</span><br><span class="line">		System.out.println(dept2.getEmps().size()); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testHibernateSecondLevelCache()&#123;</span><br><span class="line">		Employee employee = (Employee) session.get(Employee.class, 100);</span><br><span class="line">		System.out.println(employee.getName()); </span><br><span class="line">		</span><br><span class="line">		transaction.commit();</span><br><span class="line">		session.close();</span><br><span class="line">		</span><br><span class="line">		session = sessionFactory.openSession();</span><br><span class="line">		transaction = session.beginTransaction();</span><br><span class="line">		</span><br><span class="line">		Employee employee2 = (Employee) session.get(Employee.class, 100);</span><br><span class="line">		System.out.println(employee2.getName()); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testHQLUpdate()&#123;</span><br><span class="line">		String hql = "DELETE FROM Department d WHERE d.id = :id";</span><br><span class="line">		</span><br><span class="line">		session.createQuery(hql).setInteger("id", 280)</span><br><span class="line">		                        .executeUpdate();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testNativeSQL()&#123;</span><br><span class="line">		String sql = "INSERT INTO gg_department VALUES(?, ?)";</span><br><span class="line">		Query query = session.createSQLQuery(sql);</span><br><span class="line">		</span><br><span class="line">		query.setInteger(0, 280)</span><br><span class="line">		     .setString(1, "ATGUIGU")</span><br><span class="line">		     .executeUpdate();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testQBC4()&#123;</span><br><span class="line">		Criteria criteria = session.createCriteria(Employee.class);</span><br><span class="line">		</span><br><span class="line">		//1. 添加排序</span><br><span class="line">		criteria.addOrder(Order.asc("salary"));</span><br><span class="line">		criteria.addOrder(Order.desc("email"));</span><br><span class="line">		</span><br><span class="line">		//2. 添加翻页方法</span><br><span class="line">		int pageSize = 5;</span><br><span class="line">		int pageNo = 3;</span><br><span class="line">		criteria.setFirstResult((pageNo - 1) * pageSize)</span><br><span class="line">		        .setMaxResults(pageSize)</span><br><span class="line">		        .list();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testQBC3()&#123;</span><br><span class="line">		Criteria criteria = session.createCriteria(Employee.class);</span><br><span class="line">		</span><br><span class="line">		//统计查询: 使用 Projection 来表示: 可以由 Projections 的静态方法得到</span><br><span class="line">		criteria.setProjection(Projections.max("salary"));</span><br><span class="line">		</span><br><span class="line">		System.out.println(criteria.uniqueResult()); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testQBC2()&#123;</span><br><span class="line">		Criteria criteria = session.createCriteria(Employee.class);</span><br><span class="line">		</span><br><span class="line">		//1. AND: 使用 Conjunction 表示</span><br><span class="line">		//Conjunction 本身就是一个 Criterion 对象</span><br><span class="line">		//且其中还可以添加 Criterion 对象</span><br><span class="line">		Conjunction conjunction = Restrictions.conjunction();</span><br><span class="line">		conjunction.add(Restrictions.like("name", "a", MatchMode.ANYWHERE));</span><br><span class="line">		Department dept = new Department();</span><br><span class="line">		dept.setId(80);</span><br><span class="line">		conjunction.add(Restrictions.eq("dept", dept));</span><br><span class="line">		System.out.println(conjunction); </span><br><span class="line">		</span><br><span class="line">		//2. OR</span><br><span class="line">		Disjunction disjunction = Restrictions.disjunction();</span><br><span class="line">		disjunction.add(Restrictions.ge("salary", 6000F));</span><br><span class="line">		disjunction.add(Restrictions.isNull("email"));</span><br><span class="line">		</span><br><span class="line">		criteria.add(disjunction);</span><br><span class="line">		criteria.add(conjunction);</span><br><span class="line">		</span><br><span class="line">		criteria.list();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testQBC()&#123;</span><br><span class="line">		//1. 创建一个 Criteria 对象</span><br><span class="line">		Criteria criteria = session.createCriteria(Employee.class);</span><br><span class="line">		</span><br><span class="line">		//2. 添加查询条件: 在 QBC 中查询条件使用 Criterion 来表示</span><br><span class="line">		//Criterion 可以通过 Restrictions 的静态方法得到</span><br><span class="line">		criteria.add(Restrictions.eq("email", "SKUMAR"));</span><br><span class="line">		criteria.add(Restrictions.gt("salary", 5000F));</span><br><span class="line">		</span><br><span class="line">		//3. 执行查询</span><br><span class="line">		Employee employee = (Employee) criteria.uniqueResult();</span><br><span class="line">		System.out.println(employee); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testLeftJoinFetch2()&#123;</span><br><span class="line">		String hql = "SELECT e FROM Employee e INNER JOIN e.dept";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = query.list();</span><br><span class="line">		System.out.println(emps.size()); </span><br><span class="line">		</span><br><span class="line">		for(Employee emp: emps)&#123;</span><br><span class="line">			System.out.println(emp.getName() + ", " + emp.getDept().getName());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testLeftJoin()&#123;</span><br><span class="line">		String hql = "SELECT DISTINCT d FROM Department d LEFT JOIN d.emps";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Department</span>&gt;</span> depts = query.list();</span><br><span class="line">		System.out.println(depts.size());</span><br><span class="line">		</span><br><span class="line">		for(Department dept: depts)&#123;</span><br><span class="line">			System.out.println(dept.getName() + ", " + dept.getEmps().size()); </span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">//		List<span class="tag">&lt;<span class="name">Object</span> []&gt;</span> result = query.list(); </span><br><span class="line">//		result = new ArrayList<span class="tag">&lt;&gt;</span>(new LinkedHashSet<span class="tag">&lt;&gt;</span>(result));</span><br><span class="line">//		System.out.println(result); </span><br><span class="line">//		</span><br><span class="line">//		for(Object [] objs: result)&#123;</span><br><span class="line">//			System.out.println(Arrays.asList(objs));</span><br><span class="line">//		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testLeftJoinFetch()&#123;</span><br><span class="line">//		String hql = "SELECT DISTINCT d FROM Department d LEFT JOIN FETCH d.emps";</span><br><span class="line">		String hql = "FROM Department d INNER JOIN FETCH d.emps";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Department</span>&gt;</span> depts = query.list();</span><br><span class="line">		depts = new ArrayList<span class="tag">&lt;&gt;</span>(new LinkedHashSet(depts));</span><br><span class="line">		System.out.println(depts.size()); </span><br><span class="line">		</span><br><span class="line">		for(Department dept: depts)&#123;</span><br><span class="line">			System.out.println(dept.getName() + "-" + dept.getEmps().size());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testGroupBy()&#123;</span><br><span class="line">		String hql = "SELECT min(e.salary), max(e.salary) "</span><br><span class="line">				+ "FROM Employee e "</span><br><span class="line">				+ "GROUP BY e.dept "</span><br><span class="line">				+ "HAVING min(salary) &gt; :minSal";</span><br><span class="line">		</span><br><span class="line">		Query query = session.createQuery(hql)</span><br><span class="line">				             .setFloat("minSal", 8000);</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Object</span> []&gt;</span> result = query.list();</span><br><span class="line">		for(Object [] objs: result)&#123;</span><br><span class="line">			System.out.println(Arrays.asList(objs));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testFieldQuery2()&#123;</span><br><span class="line">		String hql = "SELECT new Employee(e.email, e.salary, e.dept) "</span><br><span class="line">				+ "FROM Employee e "</span><br><span class="line">				+ "WHERE e.dept = :dept";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		Department dept = new Department();</span><br><span class="line">		dept.setId(80);</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> result = query.setEntity("dept", dept)</span><br><span class="line">				                     .list();</span><br><span class="line">		</span><br><span class="line">		for(Employee emp: result)&#123;</span><br><span class="line">			System.out.println(emp.getId() + ", " + emp.getEmail() </span><br><span class="line">					+ ", " + emp.getSalary() + ", " + emp.getDept());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testFieldQuery()&#123;</span><br><span class="line">		String hql = "SELECT e.email, e.salary, e.dept FROM Employee e WHERE e.dept = :dept";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		Department dept = new Department();</span><br><span class="line">		dept.setId(80);</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Object[]</span>&gt;</span> result = query.setEntity("dept", dept)</span><br><span class="line">				                     .list();</span><br><span class="line">		</span><br><span class="line">		for(Object [] objs: result)&#123;</span><br><span class="line">			System.out.println(Arrays.asList(objs));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testNamedQuery()&#123;</span><br><span class="line">		Query query = session.getNamedQuery("salaryEmps");</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = query.setFloat("minSal", 5000)</span><br><span class="line">				                   .setFloat("maxSal", 10000)</span><br><span class="line">				                   .list();</span><br><span class="line">		</span><br><span class="line">		System.out.println(emps.size()); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testPageQuery()&#123;</span><br><span class="line">		String hql = "FROM Employee";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		int pageNo = 22;</span><br><span class="line">		int pageSize = 5;</span><br><span class="line">		</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = </span><br><span class="line">								query.setFirstResult((pageNo - 1) * pageSize)</span><br><span class="line">								     .setMaxResults(pageSize)</span><br><span class="line">								     .list();</span><br><span class="line">		System.out.println(emps);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testHQLNamedParameter()&#123;</span><br><span class="line">		</span><br><span class="line">		//1. 创建 Query 对象</span><br><span class="line">		//基于命名参数. </span><br><span class="line">		String hql = "FROM Employee e WHERE e.salary &gt; :sal AND e.email LIKE :email";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		//2. 绑定参数</span><br><span class="line">		query.setFloat("sal", 7000)</span><br><span class="line">		     .setString("email", "%A%");</span><br><span class="line">		</span><br><span class="line">		//3. 执行查询</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = query.list();</span><br><span class="line">		System.out.println(emps.size());  </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testHQL()&#123;</span><br><span class="line">		</span><br><span class="line">		//1. 创建 Query 对象</span><br><span class="line">		//基于位置的参数. </span><br><span class="line">		String hql = "FROM Employee e WHERE e.salary &gt; ? AND e.email LIKE ? AND e.dept = ? "</span><br><span class="line">				+ "ORDER BY e.salary";</span><br><span class="line">		Query query = session.createQuery(hql);</span><br><span class="line">		</span><br><span class="line">		//2. 绑定参数</span><br><span class="line">		//Query 对象调用 setXxx 方法支持方法链的编程风格.</span><br><span class="line">		Department dept = new Department();</span><br><span class="line">		dept.setId(80); </span><br><span class="line">		query.setFloat(0, 6000)</span><br><span class="line">		     .setString(1, "%A%")</span><br><span class="line">		     .setEntity(2, dept);</span><br><span class="line">		</span><br><span class="line">		//3. 执行查询</span><br><span class="line">		List<span class="tag">&lt;<span class="name">Employee</span>&gt;</span> emps = query.list();</span><br><span class="line">		System.out.println(emps.size());  </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>QBC 检索方式: 使用QBC(QueryBy Criteria) API 来检索对象. 这种API封装了基于字符串形式的查询语句,提供了更加面向对象的查询接口。</p>
 </li>
-</ol>
-
+<li><p>本地SQL检索方式:使用本地数据库的SQL查询语句。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/12/16/hibernate-HQL查询/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1603,7 +1348,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-02-02 15:00:18" itemprop="dateModified" datetime="2019-02-02T15:00:18+08:00">2019-02-02</time>
+                <time title="修改时间：2019-10-03 19:01:22" itemprop="dateModified" datetime="2019-10-03T19:01:22+08:00">2019-10-03</time>
               </span>
             
           
@@ -1647,26 +1392,15 @@
 <p>Nullable.length //错误，可能为空，不能直接获取长度</p>
 <p>Nullable!!.length //正确，强制认定nullable不可空</p>
 <p>Nullable?.length //正确，若nullable为空，返回空</p>
-<h3 id="智能类型转换"><a href="#智能类型转换" class="headerlink" title="智能类型转换"></a>智能类型转换</h3><ol>
-<li><p>java style 类型转换</p>
-<p>val sub:subClass  = parent as subClass</p>
-<p>类似于java的类型转换，失败则抛出异常</p>
-</li>
-<li><p>安全类型转换</p>
-<p>val sub :subClass = parent as? subClass</p>
-<p>如果转换失败，返回null,不抛出异常</p>
-</li>
-</ol>
-<h3 id="Lamdba表达式"><a href="#Lamdba表达式" class="headerlink" title="Lamdba表达式"></a>Lamdba表达式</h3><ul>
-<li>写法：{[参数列表] -&gt;  [函数体,最后一行是返回值 ]}</li>
-</ul>
-<h3 id="var还是val"><a href="#var还是val" class="headerlink" title="var还是val?"></a>var还是val?</h3><ul>
-<li>原则：如果两种方式都能满足需求的情况下，优先使用val声明，因为一方面val声明的变量是只读，一旦初始化后不能修改，还可以避免程序运行时错误的修改变量的内容；另一方面在声明引用类型使用val,对象的引用不会被修改，但是引用内容可以修改，这样会更加安全，也符合函数式编程的技术要求。</li>
-</ul>
-<h3 id="Elvis运算符"><a href="#Elvis运算符" class="headerlink" title="Elvis运算符"></a>Elvis运算符</h3><ul>
-<li>A ?: B  如果A不为空值则结果为A,否则结果为B。</li>
-</ul>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/12/12/kotlin/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1759,7 +1493,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

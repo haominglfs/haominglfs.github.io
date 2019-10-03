@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法 程序正常执行结束 程序在执行过程中遇到了异常或错误而异常终止 由于操作系统出现错误而导致java虚拟机进程结束  类的加载、链接与初始化 加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个jav">
+  <meta name="description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法  程序正常执行结束  程序在执行过程中遇到了异常或错误而异常终止  由于操作系统出现错误而导致java虚拟机进程结束">
 <meta name="keywords" content="jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jvm学习笔记">
 <meta property="og:url" content="https://haominglfs.github.io/2017/06/17/jvm学习笔记/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法 程序正常执行结束 程序在执行过程中遇到了异常或错误而异常终止 由于操作系统出现错误而导致java虚拟机进程结束  类的加载、链接与初始化 加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个jav">
+<meta property="og:description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法  程序正常执行结束  程序在执行过程中遇到了异常或错误而异常终止  由于操作系统出现错误而导致java虚拟机进程结束">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-30T08:41:47.526Z">
+<meta property="og:updated_time" content="2019-10-03T11:20:57.949Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm学习笔记">
-<meta name="twitter:description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法 程序正常执行结束 程序在执行过程中遇到了异常或错误而异常终止 由于操作系统出现错误而导致java虚拟机进程结束  类的加载、链接与初始化 加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个jav">
+<meta name="twitter:description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法  程序正常执行结束  程序在执行过程中遇到了异常或错误而异常终止  由于操作系统出现错误而导致java虚拟机进程结束">
   <link rel="canonical" href="https://haominglfs.github.io/2017/06/17/jvm学习笔记/">
 
 
@@ -286,7 +286,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-04-30 16:41:47" itemprop="dateModified" datetime="2018-04-30T16:41:47+08:00">2018-04-30</time>
+                <time title="修改时间：2019-10-03 19:20:57" itemprop="dateModified" datetime="2019-10-03T19:20:57+08:00">2019-10-03</time>
               </span>
             
           
@@ -338,10 +338,15 @@
       
         <h2 id="java虚拟机与程序的生命周期"><a href="#java虚拟机与程序的生命周期" class="headerlink" title="java虚拟机与程序的生命周期"></a>java虚拟机与程序的生命周期</h2><p>在如下几种情况下，java虚拟机将结束生命周期：</p>
 <ul>
-<li>执行了System.exit()方法</li>
-<li>程序正常执行结束</li>
-<li>程序在执行过程中遇到了异常或错误而异常终止</li>
-<li>由于操作系统出现错误而导致java虚拟机进程结束</li>
+<li><p>执行了System.exit()方法</p>
+</li>
+<li><p>程序正常执行结束</p>
+</li>
+<li><p>程序在执行过程中遇到了异常或错误而异常终止</p>
+</li>
+<li><p>由于操作系统出现错误而导致java虚拟机进程结束</p>
+<a id="more"></a>
+</li>
 </ul>
 <h2 id="类的加载、链接与初始化"><a href="#类的加载、链接与初始化" class="headerlink" title="类的加载、链接与初始化"></a>类的加载、链接与初始化</h2><ul>
 <li>加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构，Class对象封装了类在方法区内的数据结构，并且向java程序员提供了访问方法区内的数据结构的接口</li>
@@ -501,7 +506,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

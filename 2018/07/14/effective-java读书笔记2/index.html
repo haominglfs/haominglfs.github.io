@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="haominglfs的博客">
 <meta property="og:description" content="第一条：考虑用静态工厂方法代替构造器优势： 静态工厂方法有名字，当一个类需要多个带有相同签名的构造器时，就用静态工厂方法代替构造器，并且慎重的选择名称以便突出他们之间的区别。  不必在每次调用它们的时候都创建一个新对象。  它们可以返回原返回类型的任何子类型的对象。这样我们在选择返回对象的类时就有了更大的灵活性。  创建参数化类型实例的时候，它们使代码变得更加简洁(但在新版本的java中已经可以省">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-14T09:48:21.799Z">
+<meta property="og:updated_time" content="2019-10-03T11:17:12.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="effective-java读书笔记2">
 <meta name="twitter:description" content="第一条：考虑用静态工厂方法代替构造器优势： 静态工厂方法有名字，当一个类需要多个带有相同签名的构造器时，就用静态工厂方法代替构造器，并且慎重的选择名称以便突出他们之间的区别。  不必在每次调用它们的时候都创建一个新对象。  它们可以返回原返回类型的任何子类型的对象。这样我们在选择返回对象的类时就有了更大的灵活性。  创建参数化类型实例的时候，它们使代码变得更加简洁(但在新版本的java中已经可以省">
@@ -275,11 +275,19 @@
                 
               
 
-              <time title="创建时间：2018-07-14 17:46:55 / 修改时间：17:48:21" itemprop="dateCreated datePublished" datetime="2018-07-14T17:46:55+08:00">2018-07-14</time>
+              <time title="创建时间：2018-07-14 17:46:55" itemprop="dateCreated datePublished" datetime="2018-07-14T17:46:55+08:00">2018-07-14</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 19:17:12" itemprop="dateModified" datetime="2019-10-03T19:17:12+08:00">2019-10-03</time>
+              </span>
             
           
 
@@ -326,6 +334,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+  <a id="more"></a>
 <p>劣势</p>
 <ul>
 <li>类如果不含公有的或者受保护的构造器，就不能被子类化。</li>
@@ -498,7 +507,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

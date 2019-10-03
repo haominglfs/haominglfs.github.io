@@ -63,7 +63,7 @@
 <meta property="og:description" content="今天在联想笔记本安装centos7,安装完成后无法连接wifi，最后发现是联想电脑的问题，以下为解决方法： 解决方法：把影响无线wifi开关的ideapad_laptop加入黑名单12345sudo vi /etc/modprobe.d/ideapad.conf文件内容：blacklist ideapad_laptop#保存并关闭后再执行sudo modprobe -r ideapad_lapto">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://haominglfs.github.io/Users/haominglfs/Library/Application%20Support/typora-user-images/image-20190225154410713.png">
-<meta property="og:updated_time" content="2019-02-25T09:36:14.227Z">
+<meta property="og:updated_time" content="2019-10-03T10:59:47.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7无法连接wifi">
 <meta name="twitter:description" content="今天在联想笔记本安装centos7,安装完成后无法连接wifi，最后发现是联想电脑的问题，以下为解决方法： 解决方法：把影响无线wifi开关的ideapad_laptop加入黑名单12345sudo vi /etc/modprobe.d/ideapad.conf文件内容：blacklist ideapad_laptop#保存并关闭后再执行sudo modprobe -r ideapad_lapto">
@@ -276,11 +276,19 @@
                 
               
 
-              <time title="创建时间：2019-02-25 15:00:51 / 修改时间：17:36:14" itemprop="dateCreated datePublished" datetime="2019-02-25T15:00:51+08:00">2019-02-25</time>
+              <time title="创建时间：2019-02-25 15:00:51" itemprop="dateCreated datePublished" datetime="2019-02-25T15:00:51+08:00">2019-02-25</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 18:59:47" itemprop="dateModified" datetime="2019-10-03T18:59:47+08:00">2019-10-03</time>
+              </span>
             
           
 
@@ -318,6 +326,7 @@
       
         <p>今天在联想笔记本安装centos7,安装完成后无法连接wifi，最后发现是联想电脑的问题，以下为解决方法：</p>
 <h3 id="解决方法：把影响无线wifi开关的ideapad-laptop加入黑名单"><a href="#解决方法：把影响无线wifi开关的ideapad-laptop加入黑名单" class="headerlink" title="解决方法：把影响无线wifi开关的ideapad_laptop加入黑名单"></a>解决方法：把影响无线wifi开关的ideapad_laptop加入黑名单</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/modprobe.d/ideapad.conf</span><br><span class="line">文件内容：blacklist ideapad_laptop</span><br><span class="line"><span class="meta">#</span>保存并关闭后再执行</span><br><span class="line">sudo modprobe -r ideapad_laptop</span><br><span class="line"><span class="meta">#</span>重启之后，wifi就可以使用了。</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查询内核日志，查看是否需要安装无线网卡的固件</span><br><span class="line">dmesg | grep firmware</span><br><span class="line"><span class="meta">#</span> 正常：iwlwifi loaded firmware version ....</span><br><span class="line"><span class="meta">#</span> 错误：IOCSIFFLAGS: No such file or directory，此时需要安装固件</span><br><span class="line"><span class="meta">#</span> 错误：firmware: requesting iwlwifi-5000-1.ucode</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装firmware，需要查看网卡型号，先安装工具</span><br><span class="line">yum -y install pciutils*</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看无线网卡型号</span><br><span class="line">lspci</span><br><span class="line"><span class="meta">#</span> Ethernet controller: Realtek Semiconductor Co., Ltd. .....有线网卡</span><br><span class="line"><span class="meta">#</span>  Intel Corporation Dual Band Wireless-AC 3165.......无线网卡</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查找并安装</span><br><span class="line">yum list | grep "3165"</span><br><span class="line">yum -y install iwl3945-firmware</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 安装配置工具，安装net-tools后，可以使用ifconfig</span><br><span class="line">yum install iw</span><br><span class="line">yum install wpa_supplicant</span><br><span class="line">yum install net-tools</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看无线网接口</span><br><span class="line">iw dev</span><br><span class="line"><span class="meta">#</span> interface wlp3s0  ... addr ... type...</span><br><span class="line"><span class="meta">#</span> 有channel 1 (2412 MHz)....表示已连接</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看接口连接信息</span><br><span class="line">iw wlp3s0 link</span><br><span class="line"><span class="meta">#</span> Not connectted.   未连接</span><br><span class="line"><span class="meta">#</span> Connected to ...  SSID:test... 已连接</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看网络接口/网卡状态</span><br><span class="line">ifconfig</span><br><span class="line"><span class="meta">#</span> 注：未连接wifi前，/etc/sysconfig/network-scripts没有发现wlp3s0的配置，</span><br><span class="line"><span class="meta">#</span> 连接成功之后，出现同wifi的SSID相同名称的配置</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看网络接口/网卡状态</span><br><span class="line">ip addr     # 会显示已获取的IP</span><br><span class="line">ip link     # 显示网卡</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 启用/禁用wlp3s0接口，两种方法等同。up时需要数秒</span><br><span class="line">ifconfig wlp3s0 up/down     # ping提示：connect: Network is unreachable</span><br><span class="line">ip link set dev wlp3s0 up/down  # ping提示：Name or service not known</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rfkill list  #查看是否无线卡被锁住</span><br><span class="line">sudo modprobe -r ideapad-laptop</span><br><span class="line">sudo rfkill unblock all</span><br></pre></td></tr></table></figure>
@@ -440,7 +449,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

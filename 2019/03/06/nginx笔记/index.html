@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="安装1brew install nginx   /usr/local/var/log/nginx   日志地址  配置 location  root指令： 123456789101112131415location /img/ &amp;#123;    alias /var/www/image/;&amp;#125;#若按照上述配置的话，则访问/img/目录里面的文件时，ningx会自动去/var/www/im">
+  <meta name="description" content="安装1brew install nginx   /usr/local/var/log/nginx   日志地址">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx笔记">
 <meta property="og:url" content="https://haominglfs.github.io/2019/03/06/nginx笔记/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="安装1brew install nginx   /usr/local/var/log/nginx   日志地址  配置 location  root指令： 123456789101112131415location /img/ &amp;#123;    alias /var/www/image/;&amp;#125;#若按照上述配置的话，则访问/img/目录里面的文件时，ningx会自动去/var/www/im">
+<meta property="og:description" content="安装1brew install nginx   /usr/local/var/log/nginx   日志地址">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190306202143.png">
-<meta property="og:updated_time" content="2019-03-07T15:12:17.247Z">
+<meta property="og:updated_time" content="2019-10-03T10:59:12.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx笔记">
-<meta name="twitter:description" content="安装1brew install nginx   /usr/local/var/log/nginx   日志地址  配置 location  root指令： 123456789101112131415location /img/ &amp;#123;    alias /var/www/image/;&amp;#125;#若按照上述配置的话，则访问/img/目录里面的文件时，ningx会自动去/var/www/im">
+<meta name="twitter:description" content="安装1brew install nginx   /usr/local/var/log/nginx   日志地址">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190306202143.png">
   <link rel="canonical" href="https://haominglfs.github.io/2019/03/06/nginx笔记/">
 
@@ -287,7 +287,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-07 23:12:17" itemprop="dateModified" datetime="2019-03-07T23:12:17+08:00">2019-03-07</time>
+                <time title="修改时间：2019-10-03 18:59:12" itemprop="dateModified" datetime="2019-10-03T18:59:12+08:00">2019-10-03</time>
               </span>
             
           
@@ -329,6 +329,7 @@
 <blockquote>
 <p>/usr/local/var/log/nginx   日志地址</p>
 </blockquote>
+<a id="more"></a>
 <h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
 <li><p>location  root指令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">location /img/ &#123;</span><br><span class="line">    alias /var/www/image/;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span>若按照上述配置的话，则访问/img/目录里面的文件时，ningx会自动去/var/www/image/目录找文件</span><br><span class="line">location /img/ &#123;</span><br><span class="line">    root /var/www/image;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span>若按照这种配置的话，则访问/img/目录下的文件时，nginx会去/var/www/image/img/目录下找文件。</span><br><span class="line">alias是一个目录别名的定义，root则是最上层目录的定义。</span><br><span class="line">一直以为root是指的/var/www/image目录下，应该 是 /var/www/image/img/ </span><br><span class="line">还有一个重要的区别是alias后面必须要用“/”结束，否则会找不到文件的。。。而root则可有可无</span><br><span class="line">可以是绝对目录，也可以是相对目录(相对于nginx的安装目录)</span><br><span class="line"></span><br><span class="line">uri解析</span><br><span class="line">=  精确匹配</span><br></pre></td></tr></table></figure>
@@ -458,7 +459,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
