@@ -55,17 +55,17 @@
   };
 </script>
 
-  <meta name="description" content="缓存级别  第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。 第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类： 内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语句">
+  <meta name="description" content="缓存级别  第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。 第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类：  内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hibernate缓存">
 <meta property="og:url" content="https://haominglfs.github.io/2018/12/13/hibernate缓存/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="缓存级别  第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。 第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类： 内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语句">
+<meta property="og:description" content="缓存级别  第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。 第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类：  内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-14T11:52:27.067Z">
+<meta property="og:updated_time" content="2019-10-03T11:31:54.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hibernate缓存">
-<meta name="twitter:description" content="缓存级别  第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。 第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类： 内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语句">
+<meta name="twitter:description" content="缓存级别  第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。 第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类：  内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语">
   <link rel="canonical" href="https://haominglfs.github.io/2018/12/13/hibernate缓存/">
 
 
@@ -285,7 +285,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-12-14 19:52:27" itemprop="dateModified" datetime="2018-12-14T19:52:27+08:00">2018-12-14</time>
+                <time title="修改时间：2019-10-03 19:31:54" itemprop="dateModified" datetime="2019-10-03T19:31:54+08:00">2019-10-03</time>
               </span>
             
           
@@ -326,9 +326,13 @@
 <li><p>缓存级别</p>
 <ul>
 <li>第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。</li>
-<li>第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类：<ul>
-<li>内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语句放到SessionFactory的缓存中,映射元数据是映射文件中数据（.hbm.xml文件中的数据）的复制.该内置缓存是只读的。</li>
-<li>外置缓存(二级缓存):一个可配置的缓存插件.在默认情况下,SessionFactory不会启用这个缓存插件.外置缓存中的数据是数据库数据的复制,外置缓存的物理介质可以是内存或硬盘。</li>
+<li><p>第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类：</p>
+<ul>
+<li><p>内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语句放到SessionFactory的缓存中,映射元数据是映射文件中数据（.hbm.xml文件中的数据）的复制.该内置缓存是只读的。</p>
+</li>
+<li><p>外置缓存(二级缓存):一个可配置的缓存插件.在默认情况下,SessionFactory不会启用这个缓存插件.外置缓存中的数据是数据库数据的复制,外置缓存的物理介质可以是内存或硬盘。</p>
+<a id="more"></a>
+</li>
 </ul>
 </li>
 </ul>

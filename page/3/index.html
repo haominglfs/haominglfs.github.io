@@ -1198,7 +1198,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-12-14 19:52:27" itemprop="dateModified" datetime="2018-12-14T19:52:27+08:00">2018-12-14</time>
+                <time title="修改时间：2019-10-03 19:31:54" itemprop="dateModified" datetime="2019-10-03T19:31:54+08:00">2019-10-03</time>
               </span>
             
           
@@ -1239,52 +1239,20 @@
 <li><p>缓存级别</p>
 <ul>
 <li>第一级别的缓存是Session级别的缓存，它是属于事务范围的缓存。这一级别的缓存由hibernate管理的。</li>
-<li>第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类：<ul>
-<li>内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语句放到SessionFactory的缓存中,映射元数据是映射文件中数据（.hbm.xml文件中的数据）的复制.该内置缓存是只读的。</li>
-<li>外置缓存(二级缓存):一个可配置的缓存插件.在默认情况下,SessionFactory不会启用这个缓存插件.外置缓存中的数据是数据库数据的复制,外置缓存的物理介质可以是内存或硬盘。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>二级缓存的适用场景</p>
+<li><p>第二级别的缓存是SessionFactory级别的缓存，它是属于进程范围的缓存，sessionFactory级别的缓存分为两类：</p>
 <ul>
-<li>适合放入二级缓存中的数据：<ul>
-<li>很少被修改</li>
-<li>不是很重要的数据,允许出现偶尔的并发问题</li>
-</ul>
+<li><p>内置缓存: Hibernate 自带的, 不可卸载.通常在Hibernate的初始化阶段,Hibernate 会把映射元数据和预定义的 SQL语句放到SessionFactory的缓存中,映射元数据是映射文件中数据（.hbm.xml文件中的数据）的复制.该内置缓存是只读的。</p>
 </li>
-<li>不适合放入二级缓存中的数据：<ul>
-<li>经常被修改</li>
-<li>财务数据,绝对不允许出现并发问题</li>
-<li>与其他应用程序共享的数据</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>管理二级缓存，二级缓存是可配置的的插件,Hibernate 允许选用以下类型的缓存插件:</p>
-<ul>
-<li>EHCache: 可作为进程范围内的缓存,存放数据的物理介质可以是内存或硬盘,对Hibernate的查询缓存提供了支持。</li>
-<li>其他看官方文档。</li>
-</ul>
-</li>
-<li><p>使用二级缓存的步骤:</p>
-<ol>
-<li><p>加入二级缓存插件的 jar 包及配置文件:</p>
-<ul>
-<li>复制 \hibernate-release-4.2.4.Final\lib\optional\ehcache*.jar 到当前 Hibrenate 应用的类路径下</li>
-<li>复制 \hibernate-release-4.2.4.Final\project\etc\ehcachexml 到当前 WEB 应用的类路径下</li>
-</ul>
-</li>
-<li><p>配置 hibernate.cfg.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 启用二级缓存 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cache.use_second_level_cache"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置使用的二级缓存的产品 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.cache.region.factory_class"</span>&gt;</span>org.hibernate.cache.ehcache.EhCacheRegionFactory<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置对哪些类使用 hibernate 的二级缓存 (实际上也可以在 .hbm.xml 文件中配置对哪些类使用二级缓存, 及二级缓存的策略是什么)--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">class-cache</span> <span class="attr">usage</span>=<span class="string">"read-write"</span> <span class="attr">class</span>=<span class="string">"com.atguigu.hibernate.entities.Employee"</span>/&gt;</span></span><br><span class="line">===============================集合的二级缓存</span><br><span class="line"><span class="tag">&lt;<span class="name">collection-cache</span> <span class="attr">usage</span>=<span class="string">"read-write"</span> <span class="attr">collection</span>=<span class="string">"com.atguigu.hibernate.entities.Department.emps"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--也可以在 .hbm.xml 文件中进行配置--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"emps"</span> <span class="attr">table</span>=<span class="string">"GG_EMPLOYEE"</span> <span class="attr">inverse</span>=<span class="string">"true"</span> <span class="attr">lazy</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">cache</span> <span class="attr">usage</span>=<span class="string">"read-write"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"DEPT_ID"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">one-to-many</span> <span class="attr">class</span>=<span class="string">"com.atguigu.hibernate.entities.Employee"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--注意: 还需要配置集合中的元素对应的持久化类也使用二级缓存! 否则将会多出 n 条 SQL 语句. --&gt;</span></span><br><span class="line">=================================查询缓存</span><br><span class="line"><span class="comment">&lt;!-- 查询缓存: 默认情况下, 设置的缓存对 HQL 及 QBC 查询时无效的, 但可以通过以下方式使其是有效的  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cache.use_query_cache"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 调用 Query 或 Criteria 的 setCacheable(true) 方法  查询缓存依赖于二级缓存 --&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ehcache 的配置文件: ehcache.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ehcache</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--  </span></span><br><span class="line"><span class="comment">    	指定一个目录：当 EHCache 把数据写到硬盘上时, 将把数据写到这个目录下.</span></span><br><span class="line"><span class="comment">    --&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">"d:\\tempDirectory"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--  </span></span><br><span class="line"><span class="comment">    	设置缓存的默认数据过期策略 </span></span><br><span class="line"><span class="comment">    --&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">        <span class="attr">maxElementsInMemory</span>=<span class="string">"10000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToIdleSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToLiveSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">overflowToDisk</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line"></span><br><span class="line">   	<span class="comment">&lt;!--  </span></span><br><span class="line"><span class="comment">   		设定具体的命名缓存的数据过期策略。每个命名缓存代表一个缓存区域</span></span><br><span class="line"><span class="comment">   		缓存区域(region)：一个具有名称的缓存块，可以给每一个缓存块设置不同的缓存策略。</span></span><br><span class="line"><span class="comment">   		如果没有设置任何的缓存区域，则所有被缓存的对象，都将使用默认的缓存策略。即：&lt;defaultCache.../&gt;</span></span><br><span class="line"><span class="comment">   		Hibernate 在不同的缓存区域保存不同的类/集合。</span></span><br><span class="line"><span class="comment">			对于类而言，区域的名称是类名。如:com.atguigu.domain.Customer</span></span><br><span class="line"><span class="comment">			对于集合而言，区域的名称是类名加属性名。如com.atguigu.domain.Customer.orders</span></span><br><span class="line"><span class="comment">   	--&gt;</span></span><br><span class="line">   	<span class="comment">&lt;!--  </span></span><br><span class="line"><span class="comment">   		name: 设置缓存的名字,它的取值为类的全限定名或类的集合的名字 </span></span><br><span class="line"><span class="comment">		maxElementsInMemory: 设置基于内存的缓存中可存放的对象最大数目 </span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		eternal: 设置对象是否为永久的, true表示永不过期,</span></span><br><span class="line"><span class="comment">		此时将忽略timeToIdleSeconds 和 timeToLiveSeconds属性; 默认值是false </span></span><br><span class="line"><span class="comment">		timeToIdleSeconds:设置对象空闲最长时间,以秒为单位, 超过这个时间,对象过期。</span></span><br><span class="line"><span class="comment">		当对象过期时,EHCache会把它从缓存中清除。如果此值为0,表示对象可以无限期地处于空闲状态。 </span></span><br><span class="line"><span class="comment">		timeToLiveSeconds:设置对象生存最长时间,超过这个时间,对象过期。</span></span><br><span class="line"><span class="comment">		如果此值为0,表示对象可以无限期地存在于缓存中. 该属性值必须大于或等于 timeToIdleSeconds 属性值 </span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		overflowToDisk:设置基于内存的缓存中的对象数目达到上限后,是否把溢出的对象写到基于硬盘的缓存中 </span></span><br><span class="line"><span class="comment">   	--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">name</span>=<span class="string">"com.atguigu.hibernate.entities.Employee"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">maxElementsInMemory</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToIdleSeconds</span>=<span class="string">"300"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToLiveSeconds</span>=<span class="string">"600"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">overflowToDisk</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">name</span>=<span class="string">"com.atguigu.hibernate.entities.Department.emps"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">maxElementsInMemory</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">eternal</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToIdleSeconds</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToLiveSeconds</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">overflowToDisk</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-
+<li><p>外置缓存(二级缓存):一个可配置的缓存插件.在默认情况下,SessionFactory不会启用这个缓存插件.外置缓存中的数据是数据库数据的复制,外置缓存的物理介质可以是内存或硬盘。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/12/13/hibernate缓存/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
