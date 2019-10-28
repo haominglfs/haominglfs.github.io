@@ -244,6 +244,381 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/10/28/浏览器缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="A programmer's blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/10/28/浏览器缓存/" class="post-title-link" itemprop="url">浏览器缓存</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-28 19:30:35 / 修改时间：20:55:03" itemprop="dateCreated datePublished" datetime="2019-10-28T19:30:35+08:00">2019-10-28</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>85</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="缓存过程"><a href="#缓存过程" class="headerlink" title="缓存过程"></a>缓存过程</h4><p>浏览器第一次向服务器发起该请求后拿到请求结果，会根据响应报文中HTTP头的缓存标识，决定是否缓存结果，是则将请求结果和缓存标识存入浏览器缓存中，简单的过程如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20191028205224.png" alt></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/10/23/SQL优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="A programmer's blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/10/23/SQL优化/" class="post-title-link" itemprop="url">SQL优化</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-23 23:12:48" itemprop="dateCreated datePublished" datetime="2019-10-23T23:12:48+08:00">2019-10-23</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-28 19:29:28" itemprop="dateModified" datetime="2019-10-28T19:29:28+08:00">2019-10-28</time>
+              </span>
+            
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ol>
+<li>3层Btree可以存放上百万条数据</li>
+<li>Btree一般指的是B+树，数据全部存放在叶子节点中。</li>
+<li>B+树中查询任意的数据次数：n次（B+树的高度）</li>
+</ol>
+<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><ol>
+<li>单值索引    单列的索引，一个表可以有多个单值索引</li>
+<li>唯一索引    不能重复    可以为null</li>
+<li>符合索引    多个列构成的索引</li>
+<li>主键索引    不能重复，不能为null</li>
+</ol>
+<h4 id="SQL性能问题"><a href="#SQL性能问题" class="headerlink" title="SQL性能问题"></a>SQL性能问题</h4><ol>
+<li>分析sql的执行计划（explain）,可以模拟SQL优化器执行sql语句</li>
+<li>Mysql查询优化会干扰我们的优化。</li>
+</ol>
+<h4 id="explain-参数解析："><a href="#explain-参数解析：" class="headerlink" title="explain 参数解析："></a>explain 参数解析：</h4><ol>
+<li><p>id:编号  </p>
+<ul>
+<li><p>id值相同，从上往下顺序执行;</p>
+</li>
+<li><p>id值越大越优先查询 (本质：在嵌套子查询时，先查内层 再查外层)</p>
+</li>
+</ul>
+</li>
+<li><p>select_type 查询类型</p>
+<ul>
+<li><p>PRIMARY:包含子查询SQL中的 主查询 （最外层）</p>
+</li>
+<li><p>SUBQUERY：包含子查询SQL中的 子查询 （非最外层）</p>
+</li>
+<li><p>simple:简单查询（不包含子查询、union）</p>
+</li>
+<li><p>derived:衍生查询(使用到了临时表)</p>
+<ul>
+<li><p>在from子查询中只有一张表</p>
+<blockquote>
+<p>explain select  cr.cname     from ( select * from course where tid in (1,2) ) cr ;</p>
+</blockquote>
+</li>
+<li><p>在from子查询中， 如果有table1 union table2 ，则table1 就是derived,table2就是union</p>
+<blockquote>
+<p>explain select  cr.cname     from ( select <em> from course where tid = 1  union select </em> from course where tid = 2 ) cr ;</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>table</p>
+</li>
+<li><p>partitions  </p>
+</li>
+<li><p>type  类型（索引类型）</p>
+<ul>
+<li>system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;all  其中：system,const只是理想情况；实际能达到 ref&gt;range</li>
+<li>system（忽略）: 只有一条数据的系统表 ；或 衍生表只有一条数据的主查询</li>
+<li>const:仅仅能查到一条数据的SQL ,用于Primary key 或unique索引  （类型 与索引类型有关）</li>
+<li>eq_ref:唯一性索引：对于每个索引键的查询，返回匹配唯一行数据（有且只有1个，不能多 、不能0）;常见于唯一索引 和主键索引</li>
+<li>非唯一性索引，对于每个索引键的查询，返回匹配的所有行（0，多）</li>
+</ul>
+</li>
+<li><p>possible_keys  预测用到的索引</p>
+</li>
+<li><p>key   实际使用的索引</p>
+</li>
+<li><p>key_len   实际使用的索引的长度</p>
+</li>
+<li><p>ref    表之间的引用</p>
+</li>
+<li><p>rows  通过索引查询到的数据量</p>
+</li>
+<li><p>filtered </p>
+</li>
+<li><p>Extra  额外的信息</p>
+</li>
+</ol>
+<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><ol>
+<li>聚集索引：页节点包含了完整的数据记录。（innoDB的主键索引）</li>
+<li>非聚集索引  （myISAM的主键索引）</li>
+</ol>
+<h4 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><ol>
+<li><p>为什么InnoDB表必须有主键，并且推荐使用整形的自增主键。</p>
+<p>InnoDB的索引和数据存在同一个<code>表名.ibd</code>文件中</p>
+<p>自增：可以减少B+树的分裂。</p>
+</li>
+</ol>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/10/08/springboot学习1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="A programmer's blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/10/08/springboot学习1/" class="post-title-link" itemprop="url">springboot学习1</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-08 16:23:21 / 修改时间：16:24:24" itemprop="dateCreated datePublished" datetime="2019-10-08T16:23:21+08:00">2019-10-08</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>0</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/30/macosX挂载NFS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -622,7 +997,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-03 18:54:19" itemprop="dateModified" datetime="2019-10-03T18:54:19+08:00">2019-10-03</time>
+                <time title="修改时间：2019-10-28 20:57:35" itemprop="dateModified" datetime="2019-10-28T20:57:35+08:00">2019-10-28</time>
               </span>
             
           
@@ -664,9 +1039,9 @@
 <p><a href="https://www.hanewin.net/index.html" target="_blank" rel="noopener">下载地址</a></p>
 </li>
 <li><p>打开nfs客户端，配置如下</p>
-<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/nfs.PNG" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/nfs.PNG" alt></p>
 <p>编辑要共享的目录后，重启服务器，列表中就会显示共享的服务器。如果不生效，则打开win7的服务管理器重启nfsd服务。</p>
-<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/services.PNG" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/services.PNG" alt></p>
 </li>
 <li><p>问题</p>
 <ul>
@@ -1014,336 +1389,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/05/websocket使用总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content="A programmer's blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="haominglfs的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/09/05/websocket使用总结/" class="post-title-link" itemprop="url">websocket使用总结</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-05 18:12:10" itemprop="dateCreated datePublished" datetime="2019-09-05T18:12:10+08:00">2019-09-05</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-03 18:56:58" itemprop="dateModified" datetime="2019-10-03T18:56:58+08:00">2019-10-03</time>
-              </span>
-            
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>6.6k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>11 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>公司门户系统有一个显示待办消息的需求，要求其他系统产生的待办消息要及时的在门户系统中展示，网上查找了解到有ajax轮询和websocket两种主要方式，为了及时性，最终选择了websocket方式。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/09/05/websocket使用总结/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/05/kindeditor跨域问题解决/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content="A programmer's blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="haominglfs的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/09/05/kindeditor跨域问题解决/" class="post-title-link" itemprop="url">kindeditor跨域问题解决</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-05 17:38:25" itemprop="dateCreated datePublished" datetime="2019-09-05T17:38:25+08:00">2019-09-05</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-03 18:57:11" itemprop="dateModified" datetime="2019-10-03T18:57:11+08:00">2019-10-03</time>
-              </span>
-            
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>8.1k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>14 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><p>因为在A系统中需要嵌入B系统的页面，两个系统有相同的父域名，所以使用了iframe+domain的方式解决跨域问题，在A系统的页面中加入了<code>document.domain = &#39;exame.com.cn&#39;;</code>;但是在嵌入kindeditor富文本编辑器后，上传图片出现跨域问题。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/09/05/kindeditor跨域问题解决/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2019/09/02/tomcat源码4-Pipeline-Value管道/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="haominglfs">
-      <meta itemprop="description" content="A programmer's blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="haominglfs的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/09/02/tomcat源码4-Pipeline-Value管道/" class="post-title-link" itemprop="url">tomcat源码4-Pipeline-Value管道</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-02 15:04:43" itemprop="dateCreated datePublished" datetime="2019-09-02T15:04:43+08:00">2019-09-02</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-03 18:58:01" itemprop="dateModified" datetime="2019-10-03T18:58:01+08:00">2019-10-03</time>
-              </span>
-            
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>907</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>2 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190902163506.png" alt></p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/09/02/tomcat源码4-Pipeline-Value管道/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -1392,7 +1437,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1418,7 +1463,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1473,12 +1518,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">230k</span>
+    <span title="站点总字数">231k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:23</span>
+    <span title="站点阅读时长">6:25</span>
 </div>
 
         
