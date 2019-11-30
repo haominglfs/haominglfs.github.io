@@ -64,7 +64,8 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/haominglfs/images/master/20190306202143.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20191121230659.png">
-<meta property="og:updated_time" content="2019-11-27T12:51:59.621Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20191129102658.png">
+<meta property="og:updated_time" content="2019-11-30T03:27:42.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx笔记">
 <meta name="twitter:description" content="安装12brew install nginxyum install nginx">
@@ -288,7 +289,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 20:51:59" itemprop="dateModified" datetime="2019-11-27T20:51:59+08:00">2019-11-27</time>
+                <time title="修改时间：2019-11-30 11:27:42" itemprop="dateModified" datetime="2019-11-30T11:27:42+08:00">2019-11-30</time>
               </span>
             
           
@@ -302,7 +303,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3k</span>
+              <span>4.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -312,7 +313,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>5 分钟</span>
+              <span>7 分钟</span>
             </span>
           
 
@@ -373,6 +374,25 @@
 <p>gzip  压缩</p>
 <p>gzip_comp_level  压缩比</p>
 <p>http_gzip_static_module    扩展压缩模块，预读gzip功能</p>
+<p>跨域访问：Access-Control-Allow-</p>
+<p>防盗链：http_referer   </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">valid_referers none blocked 116.62.103.228</span><br><span class="line"><span class="meta">if($</span>valid_referers)&#123;</span><br><span class="line">	return 403</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代理服务"><a href="#代理服务" class="headerlink" title="代理服务"></a>代理服务</h4><p>代理区别：代理的对象不一样</p>
+<ol>
+<li><p>正向代理代理的对象是客户端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resolver 8.8.8.8</span><br><span class="line">location / &#123;</span><br><span class="line">	proxy_pass http://$http_host$request_uri</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反向代理代理的对象是服务端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy_pass  http(https)://hostname:port/app</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>补充：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">proxy_buffering  #缓冲区</span><br><span class="line">proxy_redirect   #跳转重定向</span><br><span class="line">proxy_set_header field value  #设置请求头</span><br><span class="line">proxy_connect_timeout time    #连接超时时间</span><br><span class="line">proxy_read_timeout 						#读超时</span><br><span class="line">proxy_send_timeout						#发送给客户端超时</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20191129102658.png" alt></p>
+</li>
+</ol>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">upstream name&#123;</span><br><span class="line">	server  http://ip:port/app  server状态</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>server 状态</span><br><span class="line">down #当前的server暂时不参与负载均衡</span><br><span class="line">backup #预留的备份服务器</span><br><span class="line">max_fails #允许请求失败的次数</span><br><span class="line">fail_timeout #经过max_fails 失败后，服务暂停的时间</span><br><span class="line">max_conns #限制最大接收的连接数</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>调度算法</span><br><span class="line">轮询：按时间顺序逐一分配到不同的后端服务器</span><br><span class="line">加权轮询：weight值越大，分配到的访问几率越高</span><br><span class="line">ip_hash： 每个请求按访问ip的hash结果分配，这样来自同一个ip的固定访问一个后端服务器</span><br><span class="line">url_hash: 按照访问的url的hash结果来分配请求，每个url定向到同一个后端服务器  hash $request_uri</span><br><span class="line">least_conn：最少连接数，那个机器连接数少就分发</span><br><span class="line">hash关键数值: hash自定义的key</span><br></pre></td></tr></table></figure>
+<h4 id="缓存服务"><a href="#缓存服务" class="headerlink" title="缓存服务"></a>缓存服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">proxy_cache_path  #缓存路径</span><br><span class="line">levels=1:2</span><br><span class="line">keys_zone=缓存名称:缓存大小</span><br><span class="line">max_size=10g  #缓存最大空间</span><br><span class="line">inactive=60m  #如果60分钟未使用，则会淘汰</span><br><span class="line">use_temp_path=off #临时目录(建议关闭)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -451,7 +471,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本参数使用"><span class="nav-number">2.</span> <span class="nav-text">基本参数使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装路径"><span class="nav-number">2.1.</span> <span class="nav-text">安装路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译参数"><span class="nav-number">2.2.</span> <span class="nav-text">编译参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置"><span class="nav-number">2.3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#默认配置"><span class="nav-number">2.3.1.</span> <span class="nav-text">默认配置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx变量"><span class="nav-number">2.4.</span> <span class="nav-text">nginx变量</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx模块"><span class="nav-number">3.</span> <span class="nav-text">nginx模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx官方模块"><span class="nav-number">3.1.</span> <span class="nav-text">nginx官方模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx第三方模块"><span class="nav-number">3.2.</span> <span class="nav-text">nginx第三方模块</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx静态服务器"><span class="nav-number">4.</span> <span class="nav-text">nginx静态服务器</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本参数使用"><span class="nav-number">2.</span> <span class="nav-text">基本参数使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装路径"><span class="nav-number">2.1.</span> <span class="nav-text">安装路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译参数"><span class="nav-number">2.2.</span> <span class="nav-text">编译参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置"><span class="nav-number">2.3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#默认配置"><span class="nav-number">2.3.1.</span> <span class="nav-text">默认配置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx变量"><span class="nav-number">2.4.</span> <span class="nav-text">nginx变量</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx模块"><span class="nav-number">3.</span> <span class="nav-text">nginx模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx官方模块"><span class="nav-number">3.1.</span> <span class="nav-text">nginx官方模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx第三方模块"><span class="nav-number">3.2.</span> <span class="nav-text">nginx第三方模块</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx静态服务器"><span class="nav-number">4.</span> <span class="nav-text">nginx静态服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代理服务"><span class="nav-number">5.</span> <span class="nav-text">代理服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#负载均衡"><span class="nav-number">6.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存服务"><span class="nav-number">7.</span> <span class="nav-text">缓存服务</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -548,12 +568,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">238k</span>
+    <span title="站点总字数">239k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:37</span>
+    <span title="站点阅读时长">6:39</span>
 </div>
 
         
