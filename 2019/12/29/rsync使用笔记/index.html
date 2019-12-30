@@ -55,17 +55,17 @@
   };
 </script>
 
-  <meta name="description" content="rsync特征 速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。 安全：rsync在传输中允许使用ssh协议加密数据。 更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。 特权：不需要特殊权限来安装和执行rsync。  rsync语法12$ rsync options source destination#source和">
+  <meta name="description" content="rsync特征 速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。  安全：rsync在传输中允许使用ssh协议加密数据。  更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。  特权：不需要特殊权限来安装和执行rsync。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rsync使用笔记">
 <meta property="og:url" content="https://haominglfs.github.io/2019/12/29/rsync使用笔记/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="rsync特征 速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。 安全：rsync在传输中允许使用ssh协议加密数据。 更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。 特权：不需要特殊权限来安装和执行rsync。  rsync语法12$ rsync options source destination#source和">
+<meta property="og:description" content="rsync特征 速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。  安全：rsync在传输中允许使用ssh协议加密数据。  更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。  特权：不需要特殊权限来安装和执行rsync。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-30T01:28:28.555Z">
+<meta property="og:updated_time" content="2019-12-30T01:38:27.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rsync使用笔记">
-<meta name="twitter:description" content="rsync特征 速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。 安全：rsync在传输中允许使用ssh协议加密数据。 更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。 特权：不需要特殊权限来安装和执行rsync。  rsync语法12$ rsync options source destination#source和">
+<meta name="twitter:description" content="rsync特征 速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。  安全：rsync在传输中允许使用ssh协议加密数据。  更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。  特权：不需要特殊权限来安装和执行rsync。">
   <link rel="canonical" href="https://haominglfs.github.io/2019/12/29/rsync使用笔记/">
 
 
@@ -285,7 +285,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-30 09:28:28" itemprop="dateModified" datetime="2019-12-30T09:28:28+08:00">2019-12-30</time>
+                <time title="修改时间：2019-12-30 09:38:27" itemprop="dateModified" datetime="2019-12-30T09:38:27+08:00">2019-12-30</time>
               </span>
             
           
@@ -323,10 +323,15 @@
 
       
         <h3 id="rsync特征"><a href="#rsync特征" class="headerlink" title="rsync特征"></a>rsync特征</h3><ol>
-<li>速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。</li>
-<li>安全：rsync在传输中允许使用ssh协议加密数据。</li>
-<li>更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。</li>
-<li>特权：不需要特殊权限来安装和执行rsync。</li>
+<li><p>速度：第一次的rsync同步源的整个目录到目标位置。之后，rsync只传递改变的块或字节到目标位置，传输非常快。</p>
+</li>
+<li><p>安全：rsync在传输中允许使用ssh协议加密数据。</p>
+</li>
+<li><p>更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。</p>
+</li>
+<li><p>特权：不需要特殊权限来安装和执行rsync。</p>
+<a id="more"></a>
+</li>
 </ol>
 <h3 id="rsync语法"><a href="#rsync语法" class="headerlink" title="rsync语法"></a>rsync语法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> rsync options source destination</span><br><span class="line"><span class="meta">#</span>source和destination可以是本地或远程。在远程的情况下，需要指定登录名、远程服务器的名称和位置。</span><br></pre></td></tr></table></figure>
 <h3 id="rsync使用示例"><a href="#rsync使用示例" class="headerlink" title="rsync使用示例"></a>rsync使用示例</h3><ol>
