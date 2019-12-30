@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="haominglfs的博客">
 <meta property="og:description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法  程序正常执行结束  程序在执行过程中遇到了异常或错误而异常终止  由于操作系统出现错误而导致java虚拟机进程结束">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-03T11:20:57.949Z">
+<meta property="og:updated_time" content="2019-12-27T08:47:19.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm学习笔记">
 <meta name="twitter:description" content="java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：  执行了System.exit()方法  程序正常执行结束  程序在执行过程中遇到了异常或错误而异常终止  由于操作系统出现错误而导致java虚拟机进程结束">
@@ -286,7 +286,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-03 19:20:57" itemprop="dateModified" datetime="2019-10-03T19:20:57+08:00">2019-10-03</time>
+                <time title="修改时间：2019-12-27 16:47:19" itemprop="dateModified" datetime="2019-12-27T16:47:19+08:00">2019-12-27</time>
               </span>
             
           
@@ -313,7 +313,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>725</span>
+              <span>3.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -323,7 +323,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>6 分钟</span>
             </span>
           
 
@@ -336,7 +336,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="java虚拟机与程序的生命周期"><a href="#java虚拟机与程序的生命周期" class="headerlink" title="java虚拟机与程序的生命周期"></a>java虚拟机与程序的生命周期</h2><p>在如下几种情况下，java虚拟机将结束生命周期：</p>
+        <h3 id="java虚拟机与程序的生命周期"><a href="#java虚拟机与程序的生命周期" class="headerlink" title="java虚拟机与程序的生命周期"></a>java虚拟机与程序的生命周期</h3><p>在如下几种情况下，java虚拟机将结束生命周期：</p>
 <ul>
 <li><p>执行了System.exit()方法</p>
 </li>
@@ -348,7 +348,7 @@
 <a id="more"></a>
 </li>
 </ul>
-<h2 id="类的加载、链接与初始化"><a href="#类的加载、链接与初始化" class="headerlink" title="类的加载、链接与初始化"></a>类的加载、链接与初始化</h2><ul>
+<h3 id="类的加载、链接与初始化"><a href="#类的加载、链接与初始化" class="headerlink" title="类的加载、链接与初始化"></a>类的加载、链接与初始化</h3><ul>
 <li>加载:查找并加载类的二进制数据，就是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构，Class对象封装了类在方法区内的数据结构，并且向java程序员提供了访问方法区内的数据结构的接口</li>
 <li><p>链接:  </p>
 <ol>
@@ -360,7 +360,7 @@
 <li><p>初始化：为类的静态变量赋予正确的初始值</p>
 </li>
 </ul>
-<h2 id="java程序对类的使用方式分为两种"><a href="#java程序对类的使用方式分为两种" class="headerlink" title="java程序对类的使用方式分为两种:"></a>java程序对类的使用方式分为两种:</h2><ol>
+<h3 id="java程序对类的使用方式分为两种"><a href="#java程序对类的使用方式分为两种" class="headerlink" title="java程序对类的使用方式分为两种:"></a>java程序对类的使用方式分为两种:</h3><ol>
 <li>主动使用(六种):<ul>
 <li>创建类的实例</li>
 <li>访问某个类或接口的静态变量，或者对该静态变量赋值</li>
@@ -373,13 +373,85 @@
 <li>被动使用，除了以上六种情况，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化</li>
 <li>所有的java虚拟机实现必须在每个类或接口被java程序<strong>首次主动使用</strong>时才初始化他们，其他使用java类的方式都被看做是对类的被动使用，都不会导致类的初始化</li>
 </ol>
-<h2 id="加载-class文件的方式"><a href="#加载-class文件的方式" class="headerlink" title="加载.class文件的方式:"></a>加载.class文件的方式:</h2><ul>
+<h3 id="加载-class文件的方式"><a href="#加载-class文件的方式" class="headerlink" title="加载.class文件的方式:"></a>加载.class文件的方式:</h3><ul>
 <li>从本地系统中直接加载</li>
 <li>通过网络下载.class文件</li>
 <li>从zip,jar等归档文件中加载.class文件</li>
 <li>从专有数据库中提取.class文件</li>
 <li>将java原文件动态编译为.class文件</li>
 </ul>
+<h3 id="线程运行诊断"><a href="#线程运行诊断" class="headerlink" title="线程运行诊断"></a>线程运行诊断</h3><ol>
+<li><p>Cpu 占用过多</p>
+<ul>
+<li>用top定位那个进程对cpu的占用过高。</li>
+<li>ps H -eo pid,tid,%cpu | grep 进程id(用ps进一步定位是那个线程引起的cpu占用过高)</li>
+<li>Jstack 进程id<ul>
+<li>可以根据线程id找到问题的线程，进一步定位问题代码的源码行数。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>堆内存</p>
+<ul>
+<li>jps 查看当前系统中有哪些java进程</li>
+<li>Jmap 查看堆内存占用情况 jmap -heap 进程id</li>
+<li>Jconsole 图形界面</li>
+</ul>
+</li>
+<li><p>StringTable特性</p>
+<ul>
+<li>常量池中的字符串仅是符号，第一次用到时才变成对象。</li>
+<li>利用串池的机制，来避免重复创建字符串对象。</li>
+<li>字符串拼接的原理是StringBuilder(1.8)</li>
+<li>字符串常量拼接的原理是编译器优化。</li>
+<li>可以使用intern方法，主动将串池中还没有的字符串放入串池<ul>
+<li>1.8将这个字符串对象尝试放入串池，如果有则并不会放入，如果没有则放入串池；两种情况都会把串池中的对象返回。</li>
+<li>1.6将这个字符串对象尝试放入串池，如果有则并不会放入，如果没有会把此对象复制一份放入串池；两种情况都会把串池中的对象返回。</li>
+</ul>
+</li>
+<li>性能调优<ul>
+<li>调整-XX:StringTableSize=桶个数</li>
+<li>考虑将字符串对象是否入池</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>四种引用</p>
+<ul>
+<li><p>强引用</p>
+<p>只有所用GC Roots 对象都不强引用该对象，该对象才能被垃圾回收。</p>
+</li>
+<li><p>软引用(SoftReference)</p>
+<ul>
+<li><p>仅有软引用引用该对象时，在垃圾回收后，内存仍不足时会再次发出垃圾回收，回收软引用对象</p>
+</li>
+<li><p>可以配合引用队列释放软引用对象自身</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//-Xmx20m -XX:+PrintGCDetails -verbose:gc</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">soft</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;SoftReference&lt;<span class="keyword">byte</span>[]&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        ReferenceQueue&lt;<span class="keyword">byte</span>[]&gt; queue = <span class="keyword">new</span> ReferenceQueue();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="comment">//关联了引用队列，当软引用关联的byte[]被回收时，软引用自己会加入到queue中去</span></span><br><span class="line">            SoftReference&lt;<span class="keyword">byte</span>[]&gt; ref = <span class="keyword">new</span> SoftReference&lt;&gt;(<span class="keyword">new</span> <span class="keyword">byte</span>[_4MB],queue);</span><br><span class="line">            System.out.println(ref.get());</span><br><span class="line">            list.add(ref);</span><br><span class="line">            System.out.println(list.size());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//从队列中获取无用的软引用对象并移除</span></span><br><span class="line">        java.lang.ref.Reference&lt;? extends <span class="keyword">byte</span>[]&gt; ref = queue.poll();</span><br><span class="line">        <span class="keyword">while</span> (ref != <span class="keyword">null</span>)&#123;</span><br><span class="line">            list.remove(ref);</span><br><span class="line">            ref = queue.poll();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"循环结束："</span>+list.size());</span><br><span class="line">        System.out.println(<span class="string">"============================"</span>);</span><br><span class="line">        <span class="keyword">for</span> (SoftReference&lt;<span class="keyword">byte</span>[]&gt; softReference : list) &#123;</span><br><span class="line">            System.out.println(softReference.get());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>弱引用(WeakReference)</p>
+<ul>
+<li><p>只有弱引用引用该对象时，在垃圾回收时，无论内存是否充足，都会回收弱引用对象</p>
+</li>
+<li><p>可以配合引用队列释放弱引用对象自身</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">weak</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;WeakReference&lt;<span class="keyword">byte</span>[]&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//ReferenceQueue&lt;byte[]&gt; queue = new ReferenceQueue();</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++) &#123;</span><br><span class="line">            <span class="comment">//关联了引用队列，当软引用关联的byte[]被回收时，软引用自己会加入到queue中去</span></span><br><span class="line">            WeakReference&lt;<span class="keyword">byte</span>[]&gt; ref = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> <span class="keyword">byte</span>[_4MB]);</span><br><span class="line">            System.out.println(ref.get());</span><br><span class="line">            list.add(ref);</span><br><span class="line">            <span class="keyword">for</span> (WeakReference&lt;<span class="keyword">byte</span>[]&gt; weakReference : list) &#123;</span><br><span class="line">                System.out.println(weakReference.get()+<span class="string">"  "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(list.size());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//从队列中获取无用的软引用对象并移除</span></span><br><span class="line"><span class="comment">//        java.lang.ref.Reference&lt;? extends byte[]&gt; ref = queue.poll();</span></span><br><span class="line"><span class="comment">//        while (ref != null)&#123;</span></span><br><span class="line"><span class="comment">//            list.remove(ref);</span></span><br><span class="line"><span class="comment">//            ref = queue.poll();</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        System.out.println(<span class="string">"循环结束："</span>+list.size());</span><br><span class="line">        System.out.println(<span class="string">"============================"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>虚引用(PhantomReference)</p>
+<ul>
+<li>必须配合引用队列使用，主要配合ByteBuffer使用，被引用对象回收时，会将虚引用入队，由Reference Handler 线程调用虚引用相关方法释放直接内存。</li>
+</ul>
+</li>
+<li><p>终结器引用(FinalReference)</p>
+<ul>
+<li>无需手动编码，但其内部配合引用队列使用，在垃圾回收时，终结器引用入队（被引用对象暂时没有被回收），再由Finalizer线程通过终结器引用找到被引用对象并调用他的finalize方法，第二次GC时才能回收被引用对</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 
     </div>
 
@@ -467,7 +539,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java虚拟机与程序的生命周期"><span class="nav-number">1.</span> <span class="nav-text">java虚拟机与程序的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的加载、链接与初始化"><span class="nav-number">2.</span> <span class="nav-text">类的加载、链接与初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java程序对类的使用方式分为两种"><span class="nav-number">3.</span> <span class="nav-text">java程序对类的使用方式分为两种:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载-class文件的方式"><span class="nav-number">4.</span> <span class="nav-text">加载.class文件的方式:</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java虚拟机与程序的生命周期"><span class="nav-number">1.</span> <span class="nav-text">java虚拟机与程序的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的加载、链接与初始化"><span class="nav-number">2.</span> <span class="nav-text">类的加载、链接与初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java程序对类的使用方式分为两种"><span class="nav-number">3.</span> <span class="nav-text">java程序对类的使用方式分为两种:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载-class文件的方式"><span class="nav-number">4.</span> <span class="nav-text">加载.class文件的方式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程运行诊断"><span class="nav-number">5.</span> <span class="nav-text">线程运行诊断</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -483,7 +555,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -564,12 +636,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">239k</span>
+    <span title="站点总字数">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:39</span>
+    <span title="站点阅读时长">6:48</span>
 </div>
 
         
