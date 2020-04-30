@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://haominglfs.github.io/"/>
-  <updated>2020-04-21T13:58:00.104Z</updated>
+  <updated>2020-04-29T09:06:57.167Z</updated>
   <id>https://haominglfs.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ideaVim安装配置</title>
+    <link href="https://haominglfs.github.io/2020/04/29/ideaVim%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
+    <id>https://haominglfs.github.io/2020/04/29/ideaVim%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</id>
+    <published>2020-04-29T06:03:40.000Z</published>
+    <updated>2020-04-29T09:06:57.167Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>和安装其它插件一样，直接在插件市场搜索ideaVim安装即可。</p><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="快捷键设置"><a href="#快捷键设置" class="headerlink" title="快捷键设置"></a>快捷键设置</h4><p>ideaViim键与idea快捷键有冲突，可以在Editor Vim Emulation设置，我的快捷键设置如下：</p><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200429143559.png" alt></p><a id="more"></a><h3 id="ideavim配置文件讲解"><a href="#ideavim配置文件讲解" class="headerlink" title=".ideavim配置文件讲解"></a>.ideavim配置文件讲解</h3><h5 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h5><p>开发过idea插件的人都知道，在idea中，任何目录选项上的点击操作，工具栏上的按钮都会被映射为一个<code>action</code>。即点击对应的按钮或者选项，执行相应的<code>action</code>。理解很简单，这就是MVC的思想，比如springmvc， 一个访问路径映射为一个控制器中的方法这样子。</p><p>明白<code>action</code>映射这一点很重要。因为ideavim的插件支持使用vim命令执行对应的<code>action</code>。所以，这个设计逻辑就打通了vim和idea的交互，使得我们可以在vim中完成所有和idea相关的操作。</p><h5 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h5><p>vim的定位是文本编辑。所以在idea中一般情况下vim快捷键和命令生效的基本条件就是当前窗口焦点在编辑区。这是最基础的条件，如果你当前的快键键在<code>Project</code>或者<code>Run</code>这些侧边栏中，按vim的命令肯定是不会生效的。</p><p>明白了基本条件，那我们要做的第一件事也是最重要的事情就是在idea中，如何快速的将焦点回到的编辑区。答案是：Esc</p><p>这应该是使用vim的人最能接受的快捷键了。所以，到这里基本的操作思路就很明确，当前的焦点要么在编辑区外，要么在编辑区内。而返回编辑区的操作很简单，就是<code>Esc</code>。当焦点在编辑区的时候，就可以随心所欲的使用vim的指令和快捷键了。</p><h5 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h5><p>有了idea基本的了解之后，我们就可以着手配置自己的vim了。ideavim插件的配置通常是<code>~/.ideavimrc</code>，所以将自己的配置脚本写在对应的文件中即可。当然如果你已经有了自己的vim配置文件在<code>~/.vimrc</code>下，那只需要在ideavim的配置文件中添加一行命令即可全部读取映射过来</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.vimrc</span><br></pre></td></tr></table></figure><p>在~目录下，创建.ideavimrc</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">"设置高亮搜索</span><br><span class="line">set hlsearch</span><br><span class="line"></span><br><span class="line">"重命名文件</span><br><span class="line">nnoremap &lt;Space&gt;rf :action RenameFile&lt;CR&gt;</span><br><span class="line">"跳到指定类</span><br><span class="line">nnoremap &lt;Space&gt;gc :action GotoClass&lt;CR&gt;</span><br><span class="line">"查找使用</span><br><span class="line">nnoremap &lt;Space&gt;fu :action FindUsages&lt;CR&gt;</span><br><span class="line">"跳转到方法的声明</span><br><span class="line">nnoremap &lt;Space&gt;gs :action GotoSuperMethod&lt;CR&gt;</span><br></pre></td></tr></table></figure><h5 id="在vim中执行idea的action"><a href="#在vim中执行idea的action" class="headerlink" title="在vim中执行idea的action"></a>在vim中执行idea的action</h5><p>为了执行idea中的<code>action</code>，ideavim有两个额外的命令来支持这一操作。</p><ul><li><code>:actionlist [pattern]</code></li><li><code>:action {actionName}</code></li></ul><p>第一个命令actionlist是帮助查看idea中有哪些命令。第二个命令是执行对应的<code>action</code>这样子。有了这两个命令的帮助我们就可以在ideavim的配置文件中使用map命令来映射idea的<code>action</code>到vim的快捷键中。</p><h2 id="Vim-中的-remap，noremap"><a href="#Vim-中的-remap，noremap" class="headerlink" title="Vim 中的 remap，noremap"></a>Vim 中的 remap，noremap</h2><p><code>remap</code>是一个使映射以递归方式工作的<strong>选项</strong> 。</p><p><code>:map</code>和<code>:noremap</code>是各种映射命令的<strong>递归</strong>和<strong>非递归</strong>版本。这意味着，如果你这样做：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:map j gg</span><br><span class="line">:map Q j</span><br><span class="line">:noremap W j</span><br></pre></td></tr></table></figure><p><code>j</code>将映射到<code>gg</code> 。 <code>Q</code> <em>也</em>将映射到<code>gg</code> ，因为<code>j</code>将被扩展用于递归映射。 <code>W</code>将被映射到<code>j</code> （而不是<code>gg</code> ），因为<code>j</code>不会针对非递归映射进行扩展。</p><p>现在请记住，Vim 是一个<strong>模态编辑器</strong> 。它具有<strong>普通</strong>模式， <strong>可视</strong>模式和其他模式。</p><p>对于这些映射集中的每一个，都有一个<a href="http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1" target="_blank" rel="noopener">映射</a>#Creating_keymaps)可以在正常，可视，选择和操作员模式下工作（ <code>:map</code>和<code>:noremap</code> ），一个在普通模式下工作（ <code>:nmap</code>和<code>:nnoremap</code> ），一个在可视模式下（ <code>:vmap</code>和<code>:vnoremap</code> ）等等。</p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://programtip.com/zh/art-127704" target="_blank" rel="noopener">https://programtip.com/zh/art-127704</a></p><p><a href="https://blog.csdn.net/qq_40250122/article/details/102054921" target="_blank" rel="noopener">https://blog.csdn.net/qq_40250122/article/details/102054921</a></p><p><a href="https://my.oschina.net/funcy/blog/1832719" target="_blank" rel="noopener">https://my.oschina.net/funcy/blog/1832719</a></p><p><a href="https://blog.csdn.net/CoderBruis/article/details/94735816" target="_blank" rel="noopener">https://blog.csdn.net/CoderBruis/article/details/94735816</a></p><p><a href="https://routinepanic.com/questions/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping" target="_blank" rel="noopener">https://routinepanic.com/questions/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h3&gt;&lt;p&gt;和安装其它插件一样，直接在插件市场搜索ideaVim安装即可。&lt;/p&gt;
+&lt;h3 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h3&gt;&lt;h4 id=&quot;快捷键设置&quot;&gt;&lt;a href=&quot;#快捷键设置&quot; class=&quot;headerlink&quot; title=&quot;快捷键设置&quot;&gt;&lt;/a&gt;快捷键设置&lt;/h4&gt;&lt;p&gt;ideaViim键与idea快捷键有冲突，可以在Editor Vim Emulation设置，我的快捷键设置如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/haominglfs/images/20200429143559.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="idea" scheme="https://haominglfs.github.io/categories/idea/"/>
+    
+    
+      <category term="idea vim" scheme="https://haominglfs.github.io/tags/idea-vim/"/>
+    
+  </entry>
   
   <entry>
     <title>ELK安装配置</title>
@@ -457,25 +482,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;问题背景&quot;&gt;&lt;a href=&quot;#问题背景&quot; class=&quot;headerlink&quot; title=&quot;问题背景&quot;&gt;&lt;/a&gt;问题背景&lt;/h3&gt;&lt;p&gt;因为在A系统中需要嵌入B系统的页面，两个系统有相同的父域名，所以使用了iframe+domain的方式解决跨域问题，在A系统的页面中加入了&lt;code&gt;document.domain = &amp;#39;exame.com.cn&amp;#39;;&lt;/code&gt;;但是在嵌入kindeditor富文本编辑器后，上传图片出现跨域问题。&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>tomcat源码4-Pipeline-Value管道</title>
-    <link href="https://haominglfs.github.io/2019/09/02/tomcat%E6%BA%90%E7%A0%814-Pipeline-Value%E7%AE%A1%E9%81%93/"/>
-    <id>https://haominglfs.github.io/2019/09/02/tomcat%E6%BA%90%E7%A0%814-Pipeline-Value%E7%AE%A1%E9%81%93/</id>
-    <published>2019-09-02T07:04:43.000Z</published>
-    <updated>2019-10-03T10:58:01.386Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20190902163506.png" alt></p><a id="more"></a><p>每个容器（Engine/Host/Context/Wrap）包含一个pipeline，每个pipeline包含一个valve集合，位于前面的valve做完业务处理后将调用后面的valve做业务处理，而容器的缺省valve位于集合的最后一个位置，负责调用下层容器的pipeline的第一个valve做请求处理。调用会从Engine的第一个valve调用开始，一直执行到调用Wrapper的缺省valve：StandardWrapperValve，而filter与servlet的处理就是在这个valve中进行的 。Engine的第一个valve是由Adapter调用的，在connector章节中也看到CoyoteAdapter在处理完request以后会执行<code>connector.getContainer().getPipeline().getFirst().invoke(request, response)</code>。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;ContainerBase&gt;&gt;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The Pipeline object with which this Container is associated.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Pipeline pipeline = <span class="keyword">new</span> StandardPipeline(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">startInternal</span><span class="params">()</span> <span class="keyword">throws</span> LifecycleException </span>&#123;</span><br><span class="line">       .......</span><br><span class="line">        <span class="comment">// Start the Valves in our pipeline (including the basic), if any</span></span><br><span class="line">        <span class="keyword">if</span> (pipeline <span class="keyword">instanceof</span> Lifecycle) &#123;</span><br><span class="line">            ((Lifecycle) pipeline).start();</span><br><span class="line">        &#125;</span><br><span class="line">.......</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/haominglfs/images/master/20190902163506.png&quot; alt&gt;&lt;/p&gt;
     
     </summary>
     
