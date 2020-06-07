@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="haominglfs的博客" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="keywords" content="idea 热加载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="idea热加载配置">
+<meta property="og:url" content="https://haominglfs.github.io/2020/06/07/idea热加载配置/index.html">
+<meta property="og:site_name" content="haominglfs的博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607151649.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607143035.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607143722.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607143942.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607144328.png">
+<meta property="og:image" content="https://haominglfs.github.io/Users/haominglfs/Library/Application%20Support/typora-user-images/image-20200607144729835.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607145054.png">
+<meta property="og:updated_time" content="2020-06-07T07:17:13.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="idea热加载配置">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607151649.png">
+  <link rel="canonical" href="https://haominglfs.github.io/2020/06/07/idea热加载配置/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>idea热加载配置 | haominglfs的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">haominglfs的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Let's coding!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2020/06/07/idea热加载配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="A programmer's blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">idea热加载配置
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-07 14:15:43 / 修改时间：15:17:13" itemprop="dateCreated datePublished" datetime="2020-06-07T14:15:43+08:00">2020-06-07</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>425</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607151649.png" alt></p>
+<a id="more"></a>
+<h3 id="热加载方式"><a href="#热加载方式" class="headerlink" title="热加载方式"></a>热加载方式</h3><ol>
+<li>JRebel 收费，有点贵</li>
+<li>Spring-Loader  不稳定</li>
+<li>DCEVM+Hotswap Agent 免费（当然选择这种）</li>
+</ol>
+<h3 id="DCEVM-Hotswap-Agent"><a href="#DCEVM-Hotswap-Agent" class="headerlink" title="DCEVM+Hotswap Agent"></a>DCEVM+Hotswap Agent</h3><h4 id="下载DCEVM"><a href="#下载DCEVM" class="headerlink" title="下载DCEVM"></a>下载DCEVM</h4><p><a href="https://github.com/dcevm/dcevm/releases/download/light-jdk8u51%2B3/DCEVM-light-8u51-installer.jar" target="_blank" rel="noopener">latest release of DCEVM Java patch</a></p>
+<p><code>sudo java -jar DCEVM-8u181-installer-build2.jar</code></p>
+<p>选择jdk安装目录，并点击”Install DCEVM as altjvm”按钮</p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607143035.png" alt></p>
+<h4 id="下载Hotswap-agent-jar"><a href="#下载Hotswap-agent-jar" class="headerlink" title="下载Hotswap agent jar"></a>下载Hotswap agent jar</h4><p><a href="https://github.com/HotswapProjects/HotswapAgent/releases" target="_blank" rel="noopener">latest release of Hotswap agent jar</a></p>
+<p>放到任意目录</p>
+<h4 id="安装idea插件-HotSwapAgent"><a href="#安装idea插件-HotSwapAgent" class="headerlink" title="安装idea插件 HotSwapAgent"></a>安装idea插件 HotSwapAgent</h4><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607143722.png" alt></p>
+<h4 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h4><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607143942.png" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607144328.png" alt></p>
+<h4 id="以debug模式启动应用程序"><a href="#以debug模式启动应用程序" class="headerlink" title="以debug模式启动应用程序"></a>以debug模式启动应用程序</h4><p><img src="/Users/haominglfs/Library/Application Support/typora-user-images/image-20200607144729835.png" alt="image-20200607144729835"></p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>修改代码或者添加新方法，点击编译</p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200607145054.png" alt></p>
+<h3 id="更多信息"><a href="#更多信息" class="headerlink" title="更多信息"></a>更多信息</h3><h3 id="DCEVM-amp-HotswapAgent"><a href="#DCEVM-amp-HotswapAgent" class="headerlink" title="DCEVM &amp; HotswapAgent"></a><a href="https://dcevm.github.io/" target="_blank" rel="noopener">DCEVM</a> &amp; <a href="http://www.hotswapagent.org/" target="_blank" rel="noopener">HotswapAgent</a></h3><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/dmitry-zhuravlev/hotswap-agent-intellij-plugin" target="_blank" rel="noopener">https://github.com/dmitry-zhuravlev/hotswap-agent-intellij-plugin</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/idea-热加载/" rel="tag"># idea 热加载</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/05/30/java8学习/" rel="next" title="java8学习">
+                  <i class="fa fa-chevron-left"></i> java8学习
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#热加载方式"><span class="nav-number">1.</span> <span class="nav-text">热加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCEVM-Hotswap-Agent"><span class="nav-number">2.</span> <span class="nav-text">DCEVM+Hotswap Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载DCEVM"><span class="nav-number">2.1.</span> <span class="nav-text">下载DCEVM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载Hotswap-agent-jar"><span class="nav-number">2.2.</span> <span class="nav-text">下载Hotswap agent jar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装idea插件-HotSwapAgent"><span class="nav-number">2.3.</span> <span class="nav-text">安装idea插件 HotSwapAgent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置插件"><span class="nav-number">2.4.</span> <span class="nav-text">配置插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以debug模式启动应用程序"><span class="nav-number">2.5.</span> <span class="nav-text">以debug模式启动应用程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">2.6.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多信息"><span class="nav-number">3.</span> <span class="nav-text">更多信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCEVM-amp-HotswapAgent"><span class="nav-number">4.</span> <span class="nav-text">DCEVM &amp; HotswapAgent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">haominglfs</p>
+  <div class="site-description" itemprop="description">A programmer's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/haominglfs" title="GitHub &rarr; https://github.com/haominglfs" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:haominglfs@163.com" title="E-Mail &rarr; mailto:haominglfs@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-haominglfs"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haominglfs</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">292k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8:07</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'ff50d69081e9281e438b',
+      clientSecret: '0be546000d62d416755a762d27474c05ac6e0862',
+      repo: 'haominglfs.github.io',
+      owner: 'haominglfs',
+      admin: ['haominglfs'],
+      id: 'ce22f010901210f257974a4f5a361550',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
