@@ -65,7 +65,7 @@
 <meta property="og:description" content="安装和安装其它插件一样，直接在插件市场搜索ideaVim安装即可。 配置快捷键设置ideaViim键与idea快捷键有冲突，可以在Editor Vim Emulation设置，我的快捷键设置如下：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200429143559.png">
-<meta property="og:updated_time" content="2020-06-07T09:00:20.942Z">
+<meta property="og:updated_time" content="2020-06-25T08:32:50.043Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ideaVim安装配置">
 <meta name="twitter:description" content="安装和安装其它插件一样，直接在插件市场搜索ideaVim安装即可。 配置快捷键设置ideaViim键与idea快捷键有冲突，可以在Editor Vim Emulation设置，我的快捷键设置如下：">
@@ -289,7 +289,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-07 17:00:20" itemprop="dateModified" datetime="2020-06-07T17:00:20+08:00">2020-06-07</time>
+                <time title="修改时间：2020-06-25 16:32:50" itemprop="dateModified" datetime="2020-06-25T16:32:50+08:00">2020-06-25</time>
               </span>
             
           
@@ -343,6 +343,10 @@
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="快捷键设置"><a href="#快捷键设置" class="headerlink" title="快捷键设置"></a>快捷键设置</h4><p>ideaViim键与idea快捷键有冲突，可以在Editor Vim Emulation设置，我的快捷键设置如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200429143559.png" alt></p>
 <a id="more"></a>
+<h4 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h4><ul>
+<li>zo:打开折叠</li>
+<li>zc:关闭折叠</li>
+</ul>
 <h3 id="ideavim配置文件讲解"><a href="#ideavim配置文件讲解" class="headerlink" title=".ideavim配置文件讲解"></a>.ideavim配置文件讲解</h3><h5 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h5><p>开发过idea插件的人都知道，在idea中，任何目录选项上的点击操作，工具栏上的按钮都会被映射为一个<code>action</code>。即点击对应的按钮或者选项，执行相应的<code>action</code>。理解很简单，这就是MVC的思想，比如springmvc， 一个访问路径映射为一个控制器中的方法这样子。</p>
 <p>明白<code>action</code>映射这一点很重要。因为ideavim的插件支持使用vim命令执行对应的<code>action</code>。所以，这个设计逻辑就打通了vim和idea的交互，使得我们可以在vim中完成所有和idea相关的操作。</p>
 <h5 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h5><p>vim的定位是文本编辑。所以在idea中一般情况下vim快捷键和命令生效的基本条件就是当前窗口焦点在编辑区。这是最基础的条件，如果你当前的快键键在<code>Project</code>或者<code>Run</code>这些侧边栏中，按vim的命令肯定是不会生效的。</p>
@@ -375,6 +379,12 @@
     
     
     
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="haominglfs wechat" style="width: 200px; max-width: 100%;">
+  <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
         
       
 
@@ -458,7 +468,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#快捷键设置"><span class="nav-number">2.1.</span> <span class="nav-text">快捷键设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ideavim配置文件讲解"><span class="nav-number">3.</span> <span class="nav-text">.ideavim配置文件讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑"><span class="nav-number">3.0.1.</span> <span class="nav-text">逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常规操作"><span class="nav-number">3.0.2.</span> <span class="nav-text">常规操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置-1"><span class="nav-number">3.0.3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在vim中执行idea的action"><span class="nav-number">3.0.4.</span> <span class="nav-text">在vim中执行idea的action</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim-中的-remap，noremap"><span class="nav-number"></span> <span class="nav-text">Vim 中的 remap，noremap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#快捷键设置"><span class="nav-number">2.1.</span> <span class="nav-text">快捷键设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用快捷键"><span class="nav-number">2.2.</span> <span class="nav-text">常用快捷键</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ideavim配置文件讲解"><span class="nav-number">3.</span> <span class="nav-text">.ideavim配置文件讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑"><span class="nav-number">3.0.1.</span> <span class="nav-text">逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常规操作"><span class="nav-number">3.0.2.</span> <span class="nav-text">常规操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置-1"><span class="nav-number">3.0.3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在vim中执行idea的action"><span class="nav-number">3.0.4.</span> <span class="nav-text">在vim中执行idea的action</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim-中的-remap，noremap"><span class="nav-number"></span> <span class="nav-text">Vim 中的 remap，noremap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -474,7 +484,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -487,7 +497,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -500,7 +510,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -560,12 +570,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">292k</span>
+    <span title="站点总字数">294k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:07</span>
+    <span title="站点阅读时长">8:11</span>
 </div>
 
         

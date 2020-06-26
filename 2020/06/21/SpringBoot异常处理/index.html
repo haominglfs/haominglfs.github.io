@@ -56,17 +56,18 @@
   };
 </script>
 
-  <meta name="description" content="A programmer&apos;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="haominglfs的博客">
-<meta property="og:url" content="https://haominglfs.github.io/tags/idea-热加载/index.html">
+  <meta name="keywords" content="springboot,exception">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot异常处理">
+<meta property="og:url" content="https://haominglfs.github.io/2020/06/21/SpringBoot异常处理/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="A programmer&apos;s blog">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200626105320.jpg">
+<meta property="og:updated_time" content="2020-06-26T03:15:03.438Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="haominglfs的博客">
-<meta name="twitter:description" content="A programmer&apos;s blog">
-  <link rel="canonical" href="https://haominglfs.github.io/tags/idea-热加载/">
+<meta name="twitter:title" content="SpringBoot异常处理">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200626105320.jpg">
+  <link rel="canonical" href="https://haominglfs.github.io/2020/06/21/SpringBoot异常处理/">
 
 
 <script id="page-configurations">
@@ -74,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: idea,热加载 | haominglfs的博客</title>
+  <title>SpringBoot异常处理 | haominglfs的博客</title>
   
 
 
@@ -237,82 +238,176 @@
         <div class="content-wrap">
             
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block tag">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">idea,热加载<small>标签</small>
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://haominglfs.github.io/2020/06/21/SpringBoot异常处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haominglfs">
+      <meta itemprop="description" content="A programmer's blog">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="haominglfs的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SpringBoot异常处理
+
+          
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-21 18:06:45" itemprop="dateCreated datePublished" datetime="2020-06-21T18:06:45+08:00">2020-06-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-26 11:15:03" itemprop="dateModified" datetime="2020-06-26T11:15:03+08:00">2020-06-26</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/exception/" itemprop="url" rel="index"><span itemprop="name">exception</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>249</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+        <p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200626105320.jpg" alt="img"></p>
+<a id="more"></a>
+<ol>
+<li><p>统一异常处理</p>
+<p><a href="http://www.gxitsky.com/2019/01/30/springboot-app-38-global-exception-handle/" target="_blank" rel="noopener">http://www.gxitsky.com/2019/01/30/springboot-app-38-global-exception-handle/</a></p>
+<p><a href="http://www.zhaojun.im/springboot-exception/" target="_blank" rel="noopener">http://www.zhaojun.im/springboot-exception/</a></p>
+<p><a href="https://www.jianshu.com/p/9792846ee029" target="_blank" rel="noopener">https://www.jianshu.com/p/9792846ee029</a></p>
+<p><a href="https://www.cnblogs.com/harrychinese/p/SpringBoot_exception_handler_best_practice.html" target="_blank" rel="noopener">https://www.cnblogs.com/harrychinese/p/SpringBoot_exception_handler_best_practice.html</a></p>
+</li>
+</ol>
 
-  
-  
+    </div>
 
-  
     
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
-  
+    
+    
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="haominglfs wechat" style="width: 200px; max-width: 100%;">
+  <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-06-07T14:15:43+08:00"
-              content="2020-06-07">
-          06-07
-        </time>
-      </div>
-
-      <h2 class="post-title">
+      
         
-          <a class="post-title-link" href="/2020/06/07/idea热加载配置/" itemprop="url">
-            <span itemprop="name">idea热加载配置</span>
-          </a>
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/springboot/" rel="tag"># springboot</a>
+            
+              <a href="/tags/exception/" rel="tag"># exception</a>
+            
+          </div>
         
-      </h2>
 
-    </header>
-  </article>
+        
 
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/06/21/SpringSecurity/" rel="next" title="SpringSecurity">
+                  <i class="fa fa-chevron-left"></i> SpringSecurity
+                </a>
+              
+            </div>
 
+            <span class="post-nav-divider"></span>
 
-    </div>
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -325,6 +420,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -351,7 +451,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -364,7 +464,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -377,7 +477,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -437,12 +537,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">292k</span>
+    <span title="站点总字数">294k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:07</span>
+    <span title="站点阅读时长">8:11</span>
 </div>
 
         
@@ -503,6 +603,24 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'ff50d69081e9281e438b',
+      clientSecret: '0be546000d62d416755a762d27474c05ac6e0862',
+      repo: 'haominglfs.github.io',
+      owner: 'haominglfs',
+      admin: ['haominglfs'],
+      id: '8f74fd0161417f9c97e38a65b0ef852c',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>

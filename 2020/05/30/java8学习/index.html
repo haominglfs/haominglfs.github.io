@@ -56,17 +56,17 @@
   };
 </script>
 
-  <meta name="description" content="函数式 函数式接口就是只定义一个抽象方法的接口  函数式接口的抽象方法的签名称为函数描述符。  Predicate:java.util.function.Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。 Consumer:java.util.function.Consumer接口定义了一个名叫accept的抽象方法，它接受泛型T的对象，没有返回（">
+  <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8学习">
 <meta property="og:url" content="https://haominglfs.github.io/2020/05/30/java8学习/index.html">
 <meta property="og:site_name" content="haominglfs的博客">
-<meta property="og:description" content="函数式 函数式接口就是只定义一个抽象方法的接口  函数式接口的抽象方法的签名称为函数描述符。  Predicate:java.util.function.Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。 Consumer:java.util.function.Consumer接口定义了一个名叫accept的抽象方法，它接受泛型T的对象，没有返回（">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-31T08:25:12.742Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200626111451.jpg">
+<meta property="og:updated_time" content="2020-06-26T03:16:02.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8学习">
-<meta name="twitter:description" content="函数式 函数式接口就是只定义一个抽象方法的接口  函数式接口的抽象方法的签名称为函数描述符。  Predicate:java.util.function.Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。 Consumer:java.util.function.Consumer接口定义了一个名叫accept的抽象方法，它接受泛型T的对象，没有返回（">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/haominglfs/images/20200626111451.jpg">
   <link rel="canonical" href="https://haominglfs.github.io/2020/05/30/java8学习/">
 
 
@@ -286,9 +286,22 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-31 16:25:12" itemprop="dateModified" datetime="2020-05-31T16:25:12+08:00">2020-05-31</time>
+                <time title="修改时间：2020-06-26 11:16:02" itemprop="dateModified" datetime="2020-06-26T11:16:02+08:00">2020-06-26</time>
               </span>
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -300,7 +313,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>657</span>
+              <span>1.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -310,7 +323,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
           
 
@@ -323,7 +336,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="函数式"><a href="#函数式" class="headerlink" title="函数式"></a>函数式</h3><ol>
+        <p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200626111451.jpg" alt="img"></p>
+<a id="more"></a>
+<h3 id="函数式"><a href="#函数式" class="headerlink" title="函数式"></a>函数式</h3><ol>
 <li><p>函数式接口就是只定义一个抽象方法的接口</p>
 </li>
 <li><p>函数式接口的抽象方法的签名称为函数描述符。</p>
@@ -335,7 +350,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="流"><a href="#流" class="headerlink" title="流"></a>流</h3><ol>
+<h3 id="流"><a href="#流" class="headerlink" title="流"></a>流</h3><h4 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h4><ol>
 <li>filter 筛选</li>
 <li>distinct 去重 （据流所生成元素的hashCode和equals方法实现）</li>
 <li>切片<ul>
@@ -346,7 +361,25 @@
 <li>limit 截短流</li>
 <li>skip 跳过元素</li>
 <li>map 映射 （使用映射一词，是因为它和转换类似，但其中的细微差别在于它是“创建一个新版本”而不是去“修改”）</li>
-<li>flatMap 扁平化为一个流</li>
+<li>flatMap 扁平化为一个流，把一个流中的每个值都换成另一个流，然后把所有的流连接起来成为一个流</li>
+<li>allMatch 匹配所有元素</li>
+<li>anyMatch 至少匹配一个</li>
+<li>noneMatch 没有任何匹配元素</li>
+<li>findAny 返回当前流中的任意元素</li>
+<li>findFist  查找第一个元素</li>
+</ol>
+<h4 id="原始类型流特化"><a href="#原始类型流特化" class="headerlink" title="原始类型流特化"></a>原始类型流特化</h4><p>Java 8引入了三个原始类型特化流接口来解决这个问题：IntStream、DoubleStream和LongStream，分别将流中的元素特化为int、long和double，从而避免了暗含的装箱成本。</p>
+<h5 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h5><p>mapToInt、mapToDouble和mapToLong</p>
+<h5 id="转换回对象流"><a href="#转换回对象流" class="headerlink" title="转换回对象流"></a>转换回对象流</h5><p>boxed</p>
+<h4 id="数值范围"><a href="#数值范围" class="headerlink" title="数值范围"></a>数值范围</h4><ol>
+<li>range  不包含结束值</li>
+<li>rangeClosed 包含结束值</li>
+</ol>
+<h4 id="构建流"><a href="#构建流" class="headerlink" title="构建流"></a>构建流</h4><h5 id="由值创建流"><a href="#由值创建流" class="headerlink" title="由值创建流"></a>由值创建流</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; java = Stream.of(<span class="string">"java"</span>, <span class="string">"php"</span>, <span class="string">"js"</span>);</span><br><span class="line">Stream&lt;Object&gt; empty = Stream.empty(); <span class="comment">//创建空流</span></span><br></pre></td></tr></table></figure>
+<h5 id="由数组创建流"><a href="#由数组创建流" class="headerlink" title="由数组创建流"></a>由数组创建流</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] numbers = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">11</span>,<span class="number">23</span>&#125;;</span><br><span class="line">IntStream stream = Arrays.stream(numbers);</span><br></pre></td></tr></table></figure>
+<h5 id="由文件生成流"><a href="#由文件生成流" class="headerlink" title="由文件生成流"></a>由文件生成流</h5><h5 id="由函数生成无限流"><a href="#由函数生成无限流" class="headerlink" title="由函数生成无限流"></a>由函数生成无限流</h5><ol>
+<li>Stream.iterate</li>
+<li>Stream.generate</li>
 </ol>
 <p>​    </p>
 
@@ -355,10 +388,25 @@
     
     
     
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="haominglfs wechat" style="width: 200px; max-width: 100%;">
+  <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
         
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/java/" rel="tag"># java</a>
+            
+          </div>
+        
 
         
 
@@ -427,7 +475,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式"><span class="nav-number">1.</span> <span class="nav-text">函数式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流"><span class="nav-number">2.</span> <span class="nav-text">流</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式"><span class="nav-number">1.</span> <span class="nav-text">函数式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流"><span class="nav-number">2.</span> <span class="nav-text">流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用方法"><span class="nav-number">2.1.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原始类型流特化"><span class="nav-number">2.2.</span> <span class="nav-text">原始类型流特化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常用方法-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#转换回对象流"><span class="nav-number">2.2.2.</span> <span class="nav-text">转换回对象流</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数值范围"><span class="nav-number">2.3.</span> <span class="nav-text">数值范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建流"><span class="nav-number">2.4.</span> <span class="nav-text">构建流</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#由值创建流"><span class="nav-number">2.4.1.</span> <span class="nav-text">由值创建流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#由数组创建流"><span class="nav-number">2.4.2.</span> <span class="nav-text">由数组创建流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#由文件生成流"><span class="nav-number">2.4.3.</span> <span class="nav-text">由文件生成流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#由函数生成无限流"><span class="nav-number">2.4.4.</span> <span class="nav-text">由函数生成无限流</span></a></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -443,7 +491,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -456,7 +504,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -469,7 +517,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -529,12 +577,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">292k</span>
+    <span title="站点总字数">294k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:07</span>
+    <span title="站点阅读时长">8:11</span>
 </div>
 
         
