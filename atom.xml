@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://haominglfs.github.io/"/>
-  <updated>2020-10-21T13:24:46.604Z</updated>
+  <updated>2020-10-21T15:03:49.196Z</updated>
   <id>https://haominglfs.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>rabbitMQ集群</title>
+    <link href="https://haominglfs.github.io/2020/10/21/rabbitMQ%E9%9B%86%E7%BE%A4/"/>
+    <id>https://haominglfs.github.io/2020/10/21/rabbitMQ%E9%9B%86%E7%BE%A4/</id>
+    <published>2020-10-21T13:36:20.000Z</published>
+    <updated>2020-10-21T15:03:49.196Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021230114.png" alt></p><a id="more"></a><h3 id="单一模式"><a href="#单一模式" class="headerlink" title="单一模式"></a>单一模式</h3><p>参考<a href="https://blog.haomingzx.top/2020/02/22/RabbitMQ%E5%AD%A6%E4%B9%A0/" target="_blank" rel="noopener">https://blog.haomingzx.top/2020/02/22/RabbitMQ%E5%AD%A6%E4%B9%A0/</a></p><blockquote><p>登录rabbitmq报错User can only log in via localhost?</p><p>配置文件/etc/rabbitmq/添加 如下配置</p><p><code>loopback_users = none</code></p></blockquote><h3 id="普通模式"><a href="#普通模式" class="headerlink" title="普通模式"></a>普通模式</h3><p>默认的集群模式。</p><h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><table><thead><tr><th><strong>IP地址</strong></th><th><strong>主机名</strong></th><th><strong>操作系统</strong></th><th><strong>防火墙和SELinux</strong></th><th><strong>用途</strong></th></tr></thead><tbody><tr><td>192.168.56.114</td><td>mq1</td><td>CentOS7(64位)</td><td>关闭</td><td>磁盘节点</td></tr><tr><td>192.168.56.115</td><td>mq2</td><td>CentOS7(64位)</td><td>关闭</td><td>内存节点</td></tr></tbody></table><blockquote><p>RabbitMQ集群节点必须在同一网段里，如果是跨广域网，效果会变差。</p></blockquote><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol><li><p>修改主机名  <code>vi /etc/hostname</code>，mq2相同操作,修改后需要重启系统生效。</p><p><code>mq1.localdomain</code></p></li><li><p>修改hosts文件 <code>vi /etc/hosts</code></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.56.114 mq1</span><br><span class="line">192.168.56.125 mq2</span><br></pre></td></tr></table></figure></li></ol><ol start="3"><li><p>拷贝erlang.cookie</p><p>Rabbitmq的集群是依附于erlang的集群来工作的,所以必须先构建起erlang的集群景象。Erlang的集群中各节点是经由过程一个magic cookie来实现的,这个cookie存放在/var/lib/rabbitmq/.erlang.cookie中，文件是400的权限。所以必须保证各节点cookie一致,不然节点之间就无法通信。</p></li><li><p>安装插件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins list //查看插件安装情况</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management //启用rabbitmq_management服务</span><br></pre></td></tr></table></figure></li></ol><ol start="5"><li><p>将mq1作为内存节点加入mq1节点集群中，在mq2执行如下命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl stop_app    //停掉rabbit应用</span><br><span class="line">rabbitmqctl join_cluster --ram rabbit@mq1 //加入到磁盘节点 ram表示内存节点</span><br><span class="line">rabbitmqctl start_app  //启动rabbit应用</span><br></pre></td></tr></table></figure></li><li><p>查看集群状态</p><p><code>rabbitmqctl cluster_status</code></p><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021223926.png" alt></p></li></ol><h3 id="镜像模式"><a href="#镜像模式" class="headerlink" title="镜像模式"></a>镜像模式</h3><p>把需要的队列做成镜像队列，存在于多个节点，属于RabbiMQ的HA方案，在对业务可靠性要求较高的场合中比较适用；要实现镜像模式，需要先搭建一个普通集群模式，在这个模式的基础上再配置镜像模式以实现高可用。</p><p>上面已经完成RabbitMQ默认集群模式，但并不保证队列的高可用性，尽管交换机、绑定这些可以复制到集群里的任何一个节点，但是队列内容不会复制。虽然该模式解决一项目组节点压力，但队列节点宕机直接导致该队列无法应用，只能等待重启，所以要想在队列节点宕机或故障也能正常应用，就要复制队列内容到集群里的每个节点，必须要创建镜像队列。</p><p>镜像队列是基于普通的集群模式的，然后再添加一些策略，所以你还是得先配置普通集群，然后才能设置镜像队列，我们就以上面的集群接着做。</p><h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><ol><li><p>登录控制台 <a href="http://192.168.56.114:15672/#/" target="_blank" rel="noopener">http://192.168.56.114:15672/#/</a></p><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021230318.png" alt></p><ul><li>Name:策略名称</li><li>Pattern：匹配的规则，这里表示匹配a开头的队列，如果是匹配所有的队列，那就是^.</li><li>Definition:使用ha-mode模式中的all，也就是同步所有匹配的队列。问号链接帮助文档。</li></ul></li></ol><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://blog.51cto.com/11134648/2155934" target="_blank" rel="noopener">https://blog.51cto.com/11134648/2155934</a></p><p><a href="https://www.rabbitmq.com/access-control.html#default-state" target="_blank" rel="noopener">https://www.rabbitmq.com/access-control.html#default-state</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/haominglfs/images/20201021230114.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="rabbitMQ" scheme="https://haominglfs.github.io/categories/rabbitMQ/"/>
+    
+    
+      <category term="rabbitMQ" scheme="https://haominglfs.github.io/tags/rabbitMQ/"/>
+    
+  </entry>
   
   <entry>
     <title>redis高可用方案</title>
@@ -463,28 +486,6 @@
 &lt;li&gt;&lt;p&gt;更少的带宽：rsync分别在发送和接收端对数据进行压缩和解压缩。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;特权：不需要特殊权限来安装和执行rsync。&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>zookeeper学习笔记</title>
-    <link href="https://haominglfs.github.io/2019/12/03/zookeeper%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>https://haominglfs.github.io/2019/12/03/zookeeper%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
-    <published>2019-12-03T09:36:27.000Z</published>
-    <updated>2020-02-26T08:53:10.419Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ol><li><p>启动  ./zkServer.sh start</p></li><li><p>客户端连接 ./zkCli.sh</p><a id="more"></a></li></ol><h3 id="客户端命令学习"><a href="#客户端命令学习" class="headerlink" title="客户端命令学习"></a>客户端命令学习</h3><ul><li><p>ls /</p></li><li><p>ls2 /</p></li><li><p>stat</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cZxid = 0x0   #id</span><br><span class="line">ctime = Thu Jan 01 08:00:00 CST 1970 #创建时间</span><br><span class="line">mZxid = 0x0   #修改id</span><br><span class="line">mtime = Thu Jan 01 08:00:00 CST 1970  #修改时间</span><br><span class="line">pZxid = 0x6   #子节点id</span><br><span class="line">cversion = 2  #子节点版本</span><br><span class="line">dataVersion = 0 #当前节点数据版本号</span><br><span class="line">aclVersion = 0   #当前节点权限的版本号</span><br><span class="line">ephemeralOwner = 0x0 #是否是临时节点</span><br><span class="line">dataLength = 0   #数据长度</span><br><span class="line">numChildren = 2  #子节点数量</span><br></pre></td></tr></table></figure></li></ul><ol start="3"><li><p>session过期，则临时节点znode会被抛弃</p></li><li><p>create命令</p></li><li><p>set命令</p></li><li><p>delete命令</p></li></ol><h3 id="watcher-机制"><a href="#watcher-机制" class="headerlink" title="watcher 机制"></a>watcher 机制</h3><h4 id="watcher"><a href="#watcher" class="headerlink" title="watcher"></a>watcher</h4><ul><li>针对每个节点的操作，都会有一个监督者-&gt;watcher</li><li>当监控的某个对象(znode)发生变化,则触发watcher事件</li><li>zk中的watcher是一次性的，触发后立即销毁</li></ul><h4 id="watcher事件类型1"><a href="#watcher事件类型1" class="headerlink" title="watcher事件类型1"></a>watcher事件类型1</h4><ul><li>创建父节点触发：NodeCreated</li><li>修改父节点数据触发：NodeDataChanged</li><li>删除父节点触发：NodeDeleted</li></ul><h4 id="watcher事件类型2"><a href="#watcher事件类型2" class="headerlink" title="watcher事件类型2"></a>watcher事件类型2</h4><ul><li>ls为父节点设置watcher,创建子节点触发：NodeChildrenChanged</li><li>ls为父节点设置watcher,删除子节点触发：NodeChildrenChanged</li><li>ls为父节点设置watcher,修改子节点不触发事件</li></ul><h3 id="ACL权限控制"><a href="#ACL权限控制" class="headerlink" title="ACL权限控制"></a>ACL权限控制</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>针对节点设置相关读写权限，目的是为了保证数据安全</p><h4 id="acl命令"><a href="#acl命令" class="headerlink" title="acl命令"></a>acl命令</h4><ol><li>getAcl:获取某个节点的acl权限信息</li><li>setAcl:设置某个节点的acl权限信息</li><li>addauth:输入认证授权信息，注册时输入明文密码(登录)，但在zk系统中，密码是以加密的形式存在的</li></ol><h4 id="acl构成"><a href="#acl构成" class="headerlink" title="acl构成"></a>acl构成</h4><ol><li><p>zk的acl通过<code>[scheme:id:permisions]</code>来构成权限列表</p><ul><li><code>scheme</code>:代表采用的某种权限机制<ul><li><code>world</code>:<code>world</code>下只有一个<code>id</code>,即只有一个用户，也就是<code>anyone</code>,组合写法<code>world:anyone[permissions]</code></li><li><code>auth</code>:代表认证登录，需要注册用户有权限就可以，形式为<code>auth:user:password:[permissions]</code></li><li><code>digest</code>:需要对密码加密才能访问，组合形式为：<code>digest:username:BASE64(SHA1(password))[permissions]</code></li><li><code>ip</code>:此时现在ip访问，比如：<code>ip:192.168.1.1:[permissions]</code></li><li><code>super</code>:代表超级管理员，拥有所有权限</li></ul></li></ul></li></ol><ul><li>Id:代表允许访问的用户<ul><li>permisions:权限组合字符串<ul><li>CREATE：创建子节点</li><li>READ：获取节点、子节点</li><li>WRITE：设置节点数据</li><li>DELETE：删除子节点</li><li>ADMIN：设置权限</li></ul></li></ul></li></ul><h3 id="四字命令"><a href="#四字命令" class="headerlink" title="四字命令"></a>四字命令</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><ul><li>zk可以通过它自身提供的简写命令来和服务器进行交互</li><li>需要使用到nc命令，安装 <code>yum install nc</code></li><li><code>echo [commond]  | nc [ip][port]</code></li></ul><h4 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h4><ul><li><code>[stat]</code>:查看zk的状态信息，以及是否mode</li><li><code>[ruok]</code>:查看当前zkserver是否启动，返回imok</li><li><code>[dump]</code>:列出未经使用的会话和临时节点</li><li><code>[conf]</code>:查看服务器配置</li><li><code>[cons]</code>:连接到服务端的客户端信息</li><li><code>[envi]</code>:环境变量</li><li><code>[mntr]</code>:监控zk健康信息</li><li><code>[wchs]</code>:展示watch的信息</li><li><code>[wchc]</code>与<code>[wchp]</code> :session 与watch 及path 与watch 的信息</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;启动&quot;&gt;&lt;a href=&quot;#启动&quot; class=&quot;headerlink&quot; title=&quot;启动&quot;&gt;&lt;/a&gt;启动&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;启动  ./zkServer.sh start&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;客户端连接 ./zkCli.sh&lt;/p&gt;
     
     </summary>
     
