@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>nginx笔记 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">nginx笔记</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">nginx笔记</h1><div class="post-meta">2019-03-06</div><div class="post-content"><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200503165259.png" style="zoom:100%;" />
+
+<span id="more"></span>
+
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">brew install nginx
+#linux安装
+yum install nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200627102442.png"></p>
+<h4 id="基本参数使用"><a href="#基本参数使用" class="headerlink" title="基本参数使用"></a>基本参数使用</h4><h5 id="安装路径"><a href="#安装路径" class="headerlink" title="安装路径"></a>安装路径</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rpm -ql nginx   #查看安装路径
+nginx -t -c nginx.conf #检查配置文件
+nginx -s reload  -c nginx.conf #使配置文件生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20191121230659.png"></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&#x2F;etc&#x2F;logrotate.d&#x2F;nginx  nginx日志轮转，用于logrotate服务的日志切割
+
+&#x2F;etc&#x2F;nginx
+&#x2F;etc&#x2F;nginx&#x2F;nginx.conf
+&#x2F;etc&#x2F;nginx&#x2F;conf.d
+&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;default.conf  nginx 配置文件
+
+&#x2F;etc&#x2F;nginx&#x2F;fastcgi_params
+&#x2F;etc&#x2F;nginx&#x2F;scgi_params
+&#x2F;etc&#x2F;nginx&#x2F;uwsgi_params  cgi配置
+
+&#x2F;etc&#x2F;nginx&#x2F;koi-utf
+&#x2F;etc&#x2F;nginx&#x2F;koi-win
+&#x2F;etc&#x2F;nginx&#x2F;win-utf  编码转换映射转化文件
+
+&#x2F;etc&#x2F;nginx&#x2F;mime.types 设置http协议的Content-Type 与扩展名对应关系
+
+&#x2F;etc&#x2F;sysconfig&#x2F;nginx
+&#x2F;etc&#x2F;sysconfig&#x2F;nginx-debug
+&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;nginx-debug.service
+&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;nginx.service       配置系统守护进程管理器管理方式
+
+&#x2F;etc&#x2F;nginx&#x2F;modules
+&#x2F;usr&#x2F;lib64&#x2F;nginx&#x2F;modules   模块目录
+
+&#x2F;usr&#x2F;sbin&#x2F;nginx
+&#x2F;usr&#x2F;sbin&#x2F;nginx-debug    启动管理终端命令
+
+&#x2F;usr&#x2F;share&#x2F;doc&#x2F;nginx-1.16.1
+&#x2F;usr&#x2F;share&#x2F;doc&#x2F;nginx-1.16.1&#x2F;COPYRIGHT
+&#x2F;usr&#x2F;share&#x2F;man&#x2F;man8&#x2F;nginx.8.gz    手册和帮助文件
+
+&#x2F;var&#x2F;cache&#x2F;nginx   开启缓存后的缓存目录
+
+&#x2F;var&#x2F;log&#x2F;nginx   日志目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="编译参数"><a href="#编译参数" class="headerlink" title="编译参数"></a>编译参数</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nginx -V
+
+--prefix&#x3D;&#x2F;etc&#x2F;nginx 
+--sbin-path&#x3D;&#x2F;usr&#x2F;sbin&#x2F;nginx 
+--modules-path&#x3D;&#x2F;usr&#x2F;lib64&#x2F;nginx&#x2F;modules 
+--conf-path&#x3D;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf 
+--error-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log 
+--http-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log 
+--pid-path&#x3D;&#x2F;var&#x2F;run&#x2F;nginx.pid 
+--lock-path&#x3D;&#x2F;var&#x2F;run&#x2F;nginx.lock    安装路径
+
+--http-client-body-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;client_temp 
+--http-proxy-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;proxy_temp 
+--http-fastcgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;fastcgi_temp 
+--http-uwsgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;uwsgi_temp 
+--http-scgi-temp-path&#x3D;&#x2F;var&#x2F;cache&#x2F;nginx&#x2F;scgi_temp     执行对应模块时，nginx所保留的临时性文件
+
+--user&#x3D;nginx 
+--group&#x3D;nginx   设定nginx进程启动的用户和用户组
+
+--with-cc-opt   gcc编译的额外参数
+--with-ld-opt   设置附加参数，链接系统库<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><h6 id="默认配置"><a href="#默认配置" class="headerlink" title="默认配置"></a>默认配置</h6><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#设置nginx服务的系统使用用户
+#如果希望所有用户都可以启动Nginx进程，有两种办法：一是将此指令行注释掉;一种是设置为nobody
+#user nobody nobody
+user  nginx;  
+#工作进程数,从理论上来说，worker process的值越大，可以支持的并发处理量也越多
+# worker_processes number | auto(自动检测)
+worker_processes  1;  
+#错误日志
+#error_log file | stderr [debug | info | notice ｜warn｜ error|crit｜ alert | emerg];
+error_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log warn;  
+#服务启动时pid
+pid        &#x2F;var&#x2F;run&#x2F;nginx.pid;   
+
+events &#123;
+		#在《UNIX网络编程》第1卷里提到过一个叫“惊群”的问题（Thundering herd problem），大致意思是，当某一时刻只有一个网络连接到来时，多个睡眠进程会被同时叫醒，但只有一个进程可获得连接。如果每次唤醒的进程数目太多，会影响一部分系统性能。在Nginx服务器的多进程下，就有可能出现这样的问题。为了解决这样的问题，Nginx配置中包含了这样一条指令accept_mutex，当其设置为开启的时候，将会对多个Nginx进程接收连接进行序列化，防止多个进程对连接的争抢
+		accept mutex on | off;
+		#每个Nginx服务器的worker process都有能力同时接收多个新到达的网络连接，但是这需要在配置文件中进行设置
+		multi_accept on | off;
+		#Nginx服务器提供了多种事件驱动模型来处理网络消息其中，method可选择的内容有：select、poll、kqueue、epoll、rtsig、&#x2F;dev&#x2F;poll以及eventport
+		use method;
+		#每个进程允许的最大连接数
+    worker_connections  1024; 
+&#125;
+
+#http模块
+location &#x2F;img&#x2F; &#123;
+    alias &#x2F;var&#x2F;www&#x2F;image&#x2F;;
+&#125;
+#若按照上述配置的话，则访问&#x2F;img&#x2F;目录里面的文件时，ningx会自动去&#x2F;var&#x2F;www&#x2F;image&#x2F;目录找文件
+location &#x2F;img&#x2F; &#123;
+    root &#x2F;var&#x2F;www&#x2F;image;
+&#125;
+#若按照这种配置的话，则访问&#x2F;img&#x2F;目录下的文件时，nginx会去&#x2F;var&#x2F;www&#x2F;image&#x2F;img&#x2F;目录下找文件。
+alias是一个目录别名的定义，root则是最上层目录的定义。
+一直以为root是指的&#x2F;var&#x2F;www&#x2F;image目录下，应该 是 &#x2F;var&#x2F;www&#x2F;image&#x2F;img&#x2F; 
+还有一个重要的区别是alias后面必须要用“&#x2F;”结束，否则会找不到文件的。。。而root则可有可无
+可以是绝对目录，也可以是相对目录(相对于nginx的安装目录)
+
+uri解析
+&#x3D;  精确匹配,如果已经匹配成功，就停止继续向下搜索并立即处理此请求
+^～ 匹配以某个uri开头的请求，不支持正则表达式
+#如果uri包含正则表达式，就必须要使用“～”或者“～*”标识。
+～ 用于表示uri包含正则表达式，并且区分大小写。
+～* 用于表示uri包含正则表达式，并且不区分大小写。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="nginx变量"><a href="#nginx变量" class="headerlink" title="nginx变量"></a>nginx变量</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">1.http请求变量
+	arg_PARAMETER  #请求参数
+	http_HEADER    #请求头
+	sent_http_HEADER #响应头
+2.内置变量
+3.自定义变量<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="nginx模块"><a href="#nginx模块" class="headerlink" title="nginx模块"></a>nginx模块</h4><h5 id="nginx官方模块"><a href="#nginx官方模块" class="headerlink" title="nginx官方模块"></a>nginx官方模块</h5><ol>
+<li><p>http_stub_status_module nginx的客户端状态</p>
+</li>
+<li><p>http_random_index_module  目录中随机选择一个主页</p>
+</li>
+<li><p>http_sub_module  http内容替换</p>
+</li>
+<li><p>limit_conn_module   连接频率限制</p>
+</li>
+<li><p>limit_req_module  请求频率限制</p>
+</li>
+<li><p>http_access_module  基于ip的访问控制</p>
+<p>局限性：如果中间有代理的话，使用$remote_addr 就会不准确</p>
+<p>方法：</p>
+<ul>
+<li>采用别的http头信息控制，如HTTP_X_FORWARD_FOR</li>
+<li>结合geo模块</li>
+<li>通过http自定义变量传递</li>
+</ul>
+</li>
+<li><p>http_auth_basic_module 基于用户的信任登录</p>
+<p>局限：</p>
+<ul>
+<li>用户信息依赖文件方式</li>
+<li>操作管理机械，效率低下</li>
+</ul>
+<p>解决方案：</p>
+<ul>
+<li>结合lua</li>
+<li>Nginx和ldap打通，利用nginx-auth-ldap模块</li>
+</ul>
+</li>
+</ol>
+<h5 id="nginx第三方模块"><a href="#nginx第三方模块" class="headerlink" title="nginx第三方模块"></a>nginx第三方模块</h5><h4 id="nginx静态服务器"><a href="#nginx静态服务器" class="headerlink" title="nginx静态服务器"></a>nginx静态服务器</h4><p>文件读取：sendfile</p>
+<p>tcp_nopush  sendfile 开启的情况下，提高网络包的传输效率</p>
+<p>tcp_nodelay  keepalive下，提高网络包的传输实时性</p>
+<p>gzip  压缩</p>
+<p>gzip_comp_level  压缩比</p>
+<p>http_gzip_static_module    扩展压缩模块，预读gzip功能</p>
+<p>跨域访问：Access-Control-Allow-</p>
+<p>防盗链：http_referer   </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">valid_referers none blocked 116.62.103.228
+if($valid_referers)&#123;
+	return 403
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="代理服务"><a href="#代理服务" class="headerlink" title="代理服务"></a>代理服务</h4><p>代理区别：代理的对象不一样</p>
+<ol>
+<li><p>正向代理代理的对象是客户端</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">resolver 8.8.8.8
+location &#x2F; &#123;
+	proxy_pass http:&#x2F;&#x2F;$http_host$request_uri
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>反向代理代理的对象是服务端</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">proxy_pass  http(https):&#x2F;&#x2F;hostname:port&#x2F;app
+#在使用该指令的过程中还要注意，URL中是否包含有URI，Nginx服务器的处理方式是不同的。如果URL中不包含URI，Nginx服务器不会改变原地址的URI；但是如果包含了URI，Nginx服务器将会使用新的URI替代原来的URI。我们举例来说明。例子如下
+server&#123;
+	listen 80;
+	server name www.myweb. name;
+	location &#x2F;server&#x2F;
+    &#123;
+    		proxy_pass http:&#x2F;&#x2F;192.168.1.1;
+    &#125;
+# 如果客户端使用“http:&#x2F;&#x2F;www.myweb.name&#x2F;server”发起请求，该请求被配置中显示的location块进行处理，由于proxy_pass指令的URL变量不含有URI，所以转向的地址为“http:&#x2F;&#x2F;192.168.1.1&#x2F;server”
+server&#123;
+	listen 80;
+	server name www.myweb. name;
+	location &#x2F;server&#x2F;
+    &#123;
+    		proxy_pass http:&#x2F;&#x2F;192.168.1.1&#x2F;loc&#x2F;;
+    &#125;
+#在该配置实例中，proxy_pass指令的URL包含了URI“&#x2F;loc&#x2F;”。如果客户端仍然使用“http:&#x2F;&#x2F;www. myweb.name&#x2F;server&#x2F;”发起请求，Nginx服务器将会把地址转向“http:&#x2F;&#x2F;192.168.1.1&#x2F;loc&#x2F;”
+
+#通过上面的实例，我们可以总结出，在使用proxy_pass指令时，如果不想改变原地址中的URI，就不要在URL变量中配置URI
+
+#明白了上面这两个例子的用法，我们来解释大家经常讨论的一个问题，就是proxy_pass指令的URL变量末尾是否加斜杠“&#x2F;”的问题。
+#配置1: proxy_pass http:&#x2F;&#x2F;192.168.1.1;
+#配置2: proxy_pass http:&#x2F;&#x2F;192.168.1.1&#x2F;;
+#配置1和配置2的区别在于，配置2中proxy_pass指令的URL变量末尾添加了斜杠“&#x2F;”，这意味着配置2中proxy_pass指令的URL变量包含了URI “&#x2F;”，而配置1中proxy_pass指令的URL变量不包含URI。理解了这一点，我们就可以解释下面的实例和现象了。大家注意各例子之间的对比。
+server
+&#123;
+	listen 80;
+	server name www.myweb. name;
+	location &#x2F;  #注意location的uri变量
+  &#123;	
+    #配置1: proxy_pass http:&#x2F;&#x2F;192.168.1.1;
+    #配置2: proxy_pass http:&#x2F;&#x2F;192.168.1.1&#x2F;;
+  &#125;
+#在该配置中，location块使用“&#x2F;”作为uri变量的值来匹配不包含URI的请求URL。由于请求URL中不包含URI，因此配置1和配置2的效果是一样的。比如，客户端的请求URL为“http:&#x2F;&#x2F;www.myweb.name&#x2F;index.htm”，其将会被实例1中的location块匹配成功并进行处理。不管使用配置1还是配置2，转向的URL都为：“http:&#x2F;&#x2F;192.168.1.1&#x2F;index.htm”
+
+server
+&#123;
+	listen 80;
+	server name www.myweb. name;
+	location &#x2F;server&#x2F;  #注意location的uri变量
+  &#123;	
+    #配置1: proxy_pass http:&#x2F;&#x2F;192.168.1.1;
+    #配置2: proxy_pass http:&#x2F;&#x2F;192.168.1.1&#x2F;;
+  &#125;
+ #在该配置中，location块使用“&#x2F;server&#x2F;”作为uri变量的值来匹配包含URI “&#x2F;server&#x2F;”的请求URL。这时，使用配置1和配置2的转向结果就不相同了。使用配置1的时候，proxy_pass指令中的URL变量不包含URI，Nginx服务器将不改变原地址的URI；使用配置2的时候，proxy_pass指令中的URL变量包含URI “&#x2F;”，Nginx服务器会将原地址的URI替换为“&#x2F;”。
+ 
+#比如，客户端的请求URL为“http:&#x2F;&#x2F;www.myweb.name&#x2F;server&#x2F;index.htm”，将会被实例2中的location块匹配成功并进行处理。使用配置1的时候，转向的URL为“http:&#x2F;&#x2F;192.168.1.1&#x2F;server&#x2F;index.htm”，原地址的URI “&#x2F;server&#x2F;”未被改变；但使用配置2时，转向的URL为“http:&#x2F;&#x2F;192.168.1.1&#x2F;index.htm”，可以看到，原地址的URI “&#x2F;server&#x2F;”被替换为“&#x2F;”。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>补充：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">proxy_buffering  #缓冲区
+proxy_redirect   #跳转重定向
+proxy_set_header field value  #设置请求头
+proxy_connect_timeout time    #连接超时时间
+proxy_read_timeout 						#读超时
+proxy_send_timeout						#发送给客户端超时<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20191129102658.png"></p>
+</li>
+</ol>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">upstream name&#123;
+	server  http:&#x2F;&#x2F;ip:port&#x2F;app  server状态
+&#125;
+
+#server 状态
+down #当前的server暂时不参与负载均衡
+backup #预留的备份服务器
+max_fails #允许请求失败的次数
+fail_timeout #经过max_fails 失败后，服务暂停的时间
+max_conns #限制最大接收的连接数
+
+#调度算法
+轮询：按时间顺序逐一分配到不同的后端服务器
+加权轮询：weight值越大，分配到的访问几率越高
+ip_hash： 每个请求按访问ip的hash结果分配，这样来自同一个ip的固定访问一个后端服务器
+url_hash: 按照访问的url的hash结果来分配请求，每个url定向到同一个后端服务器  hash $request_uri
+least_conn：最少连接数，那个机器连接数少就分发
+hash关键数值: hash自定义的key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="缓存服务"><a href="#缓存服务" class="headerlink" title="缓存服务"></a>缓存服务</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">proxy_cache_path  #缓存路径
+levels&#x3D;1:2
+keys_zone&#x3D;缓存名称:缓存大小
+max_size&#x3D;10g  #缓存最大空间
+inactive&#x3D;60m  #如果60分钟未使用，则会淘汰
+use_temp_path&#x3D;off #临时目录(建议关闭)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h4><ol>
+<li><p>rewrite</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rewrite regex replacement [flag]
+flag:
+	last #停止rewirte监测    (进入location后会重新请求一次)
+	break #停止rewirte监测  （进入location后不会出来）
+	redirect #返回302临时重定向，地址栏会显示跳转后的地址
+	permanent #返回301永久重定向，地址栏会显示跳转后的地址  (只发送一次请求，浏览器会记住重定向的地址，以后的请求不会再请求后端服务)
+	
+优先级：
+	server&gt;location<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+</div><div class="tags"><a href="/tags/nginx"><i class="fa fa-tag">nginx</i></a></div><div class="post-nav"><a class="pre" href="/2019/03/18/vue-xue-xi/">vue学习</a><a class="next" href="/2019/03/02/wang-luo-zhi-shi-bi-ji/">网络知识笔记</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

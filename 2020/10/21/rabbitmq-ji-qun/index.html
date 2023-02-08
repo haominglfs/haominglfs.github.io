@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>rabbitMQ集群 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">rabbitMQ集群</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">rabbitMQ集群</h1><div class="post-meta">2020-10-21<span> | </span><span class="category"><a href="/categories/rabbitMQ/">rabbitMQ</a></span></div><div class="post-content"><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021230114.png"></p>
+<span id="more"></span>
+
+<h3 id="单一模式"><a href="#单一模式" class="headerlink" title="单一模式"></a>单一模式</h3><p>参考<a target="_blank" rel="noopener" href="https://blog.haomingzx.top/2020/02/22/RabbitMQ%E5%AD%A6%E4%B9%A0/">https://blog.haomingzx.top/2020/02/22/RabbitMQ%E5%AD%A6%E4%B9%A0/</a></p>
+<blockquote>
+<p>登录rabbitmq报错User can only log in via localhost?</p>
+<p>配置文件&#x2F;etc&#x2F;rabbitmq&#x2F;添加 如下配置</p>
+<p><code>loopback_users = none</code></p>
+</blockquote>
+<h3 id="普通模式"><a href="#普通模式" class="headerlink" title="普通模式"></a>普通模式</h3><p>默认的集群模式。</p>
+<h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><table>
+<thead>
+<tr>
+<th><strong>IP地址</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>操作系统</strong></th>
+<th><strong>防火墙和SELinux</strong></th>
+<th><strong>用途</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>192.168.56.114</td>
+<td>mq1</td>
+<td>CentOS7(64位)</td>
+<td>关闭</td>
+<td>磁盘节点</td>
+</tr>
+<tr>
+<td>192.168.56.115</td>
+<td>mq2</td>
+<td>CentOS7(64位)</td>
+<td>关闭</td>
+<td>内存节点</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>RabbitMQ集群节点必须在同一网段里，如果是跨广域网，效果会变差。</p>
+</blockquote>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
+<li><p>修改主机名  <code>vi /etc/hostname</code>，mq2相同操作,修改后需要重启系统生效。</p>
+<p><code>mq1.localdomain</code></p>
+</li>
+<li><p>修改hosts文件 <code>vi /etc/hosts</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">192.168.56.114 mq1
+192.168.56.125 mq2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>拷贝erlang.cookie</p>
+<p>Rabbitmq的集群是依附于erlang的集群来工作的,所以必须先构建起erlang的集群景象。Erlang的集群中各节点是经由过程一个magic cookie来实现的,这个cookie存放在&#x2F;var&#x2F;lib&#x2F;rabbitmq&#x2F;.erlang.cookie中，文件是400的权限。所以必须保证各节点cookie一致,不然节点之间就无法通信。</p>
+</li>
+<li><p>安装插件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rabbitmq-plugins list &#x2F;&#x2F;查看插件安装情况
+rabbitmq-plugins enable rabbitmq_management &#x2F;&#x2F;启用rabbitmq_management服务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>将mq1作为内存节点加入mq1节点集群中，在mq2执行如下命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">rabbitmqctl stop_app    &#x2F;&#x2F;停掉rabbit应用
+rabbitmqctl join_cluster --ram rabbit@mq1 &#x2F;&#x2F;加入到磁盘节点 ram表示内存节点
+rabbitmqctl start_app  &#x2F;&#x2F;启动rabbit应用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>查看集群状态</p>
+<p><code>rabbitmqctl cluster_status</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021223926.png"></p>
+</li>
+<li><p>更改节点类型</p>
+<blockquote>
+<p><strong>内存节点</strong>： 内存节点将所有的队列、交换机、绑定、用户、权限和 vhost 的元数据定义存储在内存中，好处是可以使得像交换机和队列声明等操作更加的快速。例外情况是：持久的 queue 的内容将被保存到磁盘。 </p>
+<p><strong>磁盘节点</strong>： 将元数据存储在磁盘中，单节点系统只允许磁盘类型的节点，防止重启 RabbitMQ 的时候，丢失系统的配置信息。  </p>
+<p><strong>注意点：</strong>   </p>
+<p>1、内存节点由于不进行磁盘读写，它的性能比磁盘节点高。    </p>
+<p>2、集群中可以存在多个磁盘节点，磁盘节点越多整个集群可用性越好，但是集群整体性能不会线性增加，需要权衡考虑。    </p>
+<p>3、RabbitMQ 要求在集群中至少有一个磁盘节点，所有其他节点可以是内存节点，当节点加入或者离开集群时，必须要将该变更通知到至少一个磁盘节点。如果集群中唯一的一个磁盘节点崩溃的话，集群仍然可以保持运行，但是无法进行其他操作（增删改查），直到节点恢复。    </p>
+<p>4、设置两个磁盘节点，至少有一个是可用的，可以保存元数据的更改。</p>
+</blockquote>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 停止节点 
+sbin&#x2F;rabbitmqctl stop_app 
+# 与集群通讯，从集群中删除节点 
+sbin&#x2F;rabbitmqctl reset 
+# 以RAM模式重新加入集群 
+sbin&#x2F;rabbitmqctl join_cluster rabbit@MQ1 --ram 
+# 启动节点 
+sbin&#x2F;rabbitmqctl start_app <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>节点单机状态时，reset 命令将清空节点的状态，并将其恢复到空白状态。当节点是集群的一部分时，该命令也会和集群中的磁盘节点通信，告诉他们该节点正在离开集群。</p>
+<p>这很重要，不然，集群会认为该节点出了故障，并期望其最终能够恢复回来，在该节点回来之前，集群禁止新的节点加入。</p>
+</li>
+</ol>
+<h3 id="镜像模式"><a href="#镜像模式" class="headerlink" title="镜像模式"></a>镜像模式</h3><p>把需要的队列做成镜像队列，存在于多个节点，属于RabbiMQ的HA方案，在对业务可靠性要求较高的场合中比较适用；要实现镜像模式，需要先搭建一个普通集群模式，在这个模式的基础上再配置镜像模式以实现高可用。</p>
+<p>上面已经完成RabbitMQ默认集群模式，但并不保证队列的高可用性，尽管交换机、绑定这些可以复制到集群里的任何一个节点，但是队列内容不会复制。虽然该模式解决一项目组节点压力，但队列节点宕机直接导致该队列无法应用，只能等待重启，所以要想在队列节点宕机或故障也能正常应用，就要复制队列内容到集群里的每个节点，必须要创建镜像队列。</p>
+<p>镜像队列是基于普通的集群模式的，然后再添加一些策略，所以你还是得先配置普通集群，然后才能设置镜像队列，我们就以上面的集群接着做。</p>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><h5 id="图形界面配置"><a href="#图形界面配置" class="headerlink" title="图形界面配置"></a>图形界面配置</h5><ol>
+<li><p>登录控制台 <a target="_blank" rel="noopener" href="http://192.168.56.114:15672/#/">http://192.168.56.114:15672/#/</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021230318.png"></p>
+<ul>
+<li>Name:策略名称</li>
+<li>Pattern：匹配的规则，这里表示匹配a开头的队列，如果是匹配所有的队列，那就是^.</li>
+<li>Definition:使用ha-mode模式中的all，也就是同步所有匹配的队列。问号链接帮助文档。</li>
+</ul>
+</li>
+</ol>
+<h5 id="命令行配置"><a href="#命令行配置" class="headerlink" title="命令行配置"></a>命令行配置</h5><p><code>rabbitmqctl set_policy &lt;name&gt; [-p &lt;vhost&gt;] &lt;pattern&gt; &lt;definition&gt; [--apply-to &lt;apply-to&gt;]</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">name: 策略名称    
+vhost: 指定vhost, 默认值 &#x2F;    
+pattern: 通过正则表达式匹配哪些需要镜像, ^为所有    
+definition:         
+ha-mode: 指明镜像队列的模式，有效值为 all&#x2F;exactly&#x2F;nodes
+	all     表示在集群所有的节点上进行镜像，无需设置ha-params            
+	exactly 表示在指定个数的节点上进行镜像，节点的个数由ha-params指定             
+	nodes   表示在指定的节点上进行镜像，节点名称通过ha-params指定
+ha-params: 
+	ha-mode 模式需要用到的参数         
+ha-sync-mode: 镜像队列中消息的同步方式，有效值为automatic，manually    
+apply-to: 策略作用对象。可选值3个，默认all 
+	exchanges 表示镜像 exchange       
+	queues    表示镜像 queue        
+	all       表示镜像 exchange和queue<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例命令：</p>
+<p><code>rabbitmqctl set_policy admin &quot;^&quot; &#39;&#123;&quot;ha-mode&quot;:&quot;all&quot;,&quot;ha-sync-mode&quot;:&quot;automatic&quot;&#125;&#39;</code></p>
+<table>
+<thead>
+<tr>
+<th><strong>ha-mode</strong></th>
+<th><strong>ha-params</strong></th>
+<th><strong>功能</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>all</td>
+<td>空</td>
+<td>镜像队列将会在整个集群中复制。当一个新的节点加入后，也会在这 个节点上复制一份。</td>
+</tr>
+<tr>
+<td>exactly</td>
+<td>count</td>
+<td>镜像队列将会在集群上复制 count 份。如果集群数量少于 count 时候，队列会复制到所有节点上。如果大于 Count 集群，有一个节点 crash 后，新进入节点也不会做新的镜像。</td>
+</tr>
+<tr>
+<td>nodes</td>
+<td>node name</td>
+<td>镜像队列会在 node name 中复制。如果这个名称不是集群中的一个，这不会触发错误。如果在这个 node list 中没有一个节点在线，那么这个 queue 会被声明在 client 连接的节点。</td>
+</tr>
+</tbody></table>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://blog.51cto.com/11134648/2155934">https://blog.51cto.com/11134648/2155934</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.rabbitmq.com/access-control.html#default-state">https://www.rabbitmq.com/access-control.html#default-state</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/passzhang/p/13207426.html">https://www.cnblogs.com/passzhang/p/13207426.html</a></p>
+</div><div class="tags"><a href="/tags/rabbitMQ"><i class="fa fa-tag">rabbitMQ</i></a></div><div class="post-nav"><a class="pre" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a><a class="next" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

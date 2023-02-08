@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>jvm性能监控与调优 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">jvm性能监控与调优</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">jvm性能监控与调优</h1><div class="post-meta">2020-03-23<span> | </span><span class="category"><a href="/categories/jvm/">jvm</a></span></div><div class="post-content"><h3 id="jvm参数类型"><a href="#jvm参数类型" class="headerlink" title="jvm参数类型"></a>jvm参数类型</h3><span id="more"></span>
+
+<ul>
+<li><p>标准参数(jvm各个版本基本不变)</p>
+<ul>
+<li>&#96;&#96;&#96;shell<br>-help<br>-server<br>-client<br>-version<br>-cp<br>-classpath<pre class="line-numbers language-none"><code class="language-none">
+* X参数（非标准化参数，变化比较小）
+
+  * &#96;&#96;&#96;shell
+    -Xint 解释执行
+    -Xcomp 第一次使用就编译成本地代码
+    -Xmixed 混合模式，JVM自己来决定是否编译成本地代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>XX参数（用的比较多，主要用来JVM调优和debug）</p>
+<ul>
+<li><p>Boolean类型</p>
+<p>格式：-XX:[+-]<name>表示启用或者禁用name属性</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-XX:+UseConcMarkSweepGC
+-XX:+UseG1GC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>非Boolean类型</p>
+<p>格式：-XX:<name>&#x3D;<value> 表示name属性的值是value</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-XX:MaxGCPauseMillis&#x3D;500
+XX:GCTimeRatio&#x3D;19
+
+#-Xms -Xmx 属于XX参数
+-Xms 等价于 -XX:InitialHeapSize
+-Xmx 等价于 -XX:MaxHeapSize<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h3 id="查看jvm运行时参数"><a href="#查看jvm运行时参数" class="headerlink" title="查看jvm运行时参数"></a>查看jvm运行时参数</h3><ul>
+<li>&#96;&#96;&#96;shell<br>-XX:+PrintFlagsInitial 查看初始值<br>-XX:+PrintFlagsFinal  查看最终值<br>-XX:+UnlockExperimentalVMOptions 解锁实验参数<br>-XX:+UnlockDiagnosticVMOptions 解锁诊断参数<br>-XX:+PrintCommandLineFlags  打印命令行参数<pre class="line-numbers language-none"><code class="language-none">
+* &#96;-XX:+PrintFlagsFinal&#96;  
+
+  &#96;java  -XX:+PrintFlagsFinal -version&#96;
+
+  ![](https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;haominglfs&#x2F;images&#x2F;20200323234316.png)
+
+  &#x3D;表示默认值
+
+  :&#x3D;被用户或者jvm修改后的值
+
+* jinfo
+
+  &#96;&#96;&#96;shell
+  jinfo -flags 55208  打印被修改过的jvm参数值
+  jinfo -flag &lt;name&gt; 55208  打印对应name的参数值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200323234724.png"></li>
+</ul>
+<h3 id="查看jvm统计信息"><a href="#查看jvm统计信息" class="headerlink" title="查看jvm统计信息"></a>查看jvm统计信息</h3><ul>
+<li><p>jstat</p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200323235354.png"></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">options: 
+ -class 类装载
+ -compiler JIT编译信息
+ -gc 垃圾回收信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>类装载</p>
+</li>
+<li><p>垃圾收集</p>
+<p>S0C S1C S0U S1U : S0与S1的总量与使用量</p>
+<p>EC EU ：Eden区总量与使用量</p>
+<p>OC OU：Old区的总量与使用量</p>
+<p>MC MU：Metaspace 区总量与使用量</p>
+<p>CCSC CCSU：压缩类空间总量与使用量</p>
+<p>YGC YGCT ：YongGC的次数与时间</p>
+<p>FGC FGCT：FullGC的次数与时间</p>
+<p>GCT：总的GC时间</p>
+</li>
+<li><p>JIT编译</p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200324001144.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="导出内存映像文件"><a href="#导出内存映像文件" class="headerlink" title="导出内存映像文件"></a>导出内存映像文件</h3><ul>
+<li><p>内存溢出自动导出</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath&#x3D;.&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+</li>
+<li><p>使用jmap命令手动导出</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">jmap -dump:format&#x3D;b,file&#x3D;heap.hprof &lt;虚拟机id&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+</div><div class="tags"><a href="/tags/jvm"><i class="fa fa-tag">jvm</i></a></div><div class="post-nav"><a class="pre" href="/2020/04/06/lei-tu/">类图</a><a class="next" href="/2020/02/26/hexo-shi-yong-zong-jie/">hexo使用总结</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

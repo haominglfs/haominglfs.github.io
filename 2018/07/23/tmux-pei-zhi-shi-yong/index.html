@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>tmux配置使用 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">tmux配置使用</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">tmux配置使用</h1><div class="post-meta">2018-07-23</div><div class="post-content"><h3 id="什么是tmux"><a href="#什么是tmux" class="headerlink" title="什么是tmux"></a>什么是tmux</h3><p>tmux是一个工具，用于在终端窗口中运行多个终端会话，可以使终端会话进入后台运行。</p>
+<span id="more"></span>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><blockquote>
+<p>$ brew install tmux</p>
+</blockquote>
+<h3 id="快捷键前缀"><a href="#快捷键前缀" class="headerlink" title="快捷键前缀"></a>快捷键前缀</h3><p>为了使自身的快捷键不和其他软件的快捷键产生冲突，tmux提供了一个快捷键前缀。当使用快捷键时要先按下快捷键前缀，然后再按下快捷键，默认的前缀是Ctrl-b</p>
+<h3 id="创建会话"><a href="#创建会话" class="headerlink" title="创建会话"></a>创建会话</h3><blockquote>
+<p>tmux new -s <name-of-my-session></p>
+</blockquote>
+<p>假如还需要开发另一个项目，可以再创建一个新会话，但原来的会话不会消失，若要创建一个新会话，只需要按下</p>
+<p><prefix> :，然后输入</p>
+<blockquote>
+<p>new -s <name-of-my-new-session></p>
+</blockquote>
+<p>除非显式的关闭会话，否则tmux的会话在重启计算机之前都不会消失。</p>
+<h3 id="切换会话"><a href="#切换会话" class="headerlink" title="切换会话"></a>切换会话</h3><ol>
+<li><p>获取会话列表</p>
+<blockquote>
+<p><prefix> s</p>
+</blockquote>
+<p>列表中的每个会话都有一个 ID，该 ID 是从 0 开始的。按下对应的 ID 就可以进入会话。如果你已经创建了一个或多个会话，但是还没有运行 tmux，那么可以输入如下命令以接入已开启的会话:</p>
+<blockquote>
+<p>tmux attach</p>
+</blockquote>
+</li>
+<li><p>会话外获取会话列表：</p>
+<blockquote>
+<p>tmux  ls</p>
+<p>tmux attach&#x2F;a -t   <name-of-session>    在会话外进入session</p>
+<p>tmux attach&#x2F;a   进入列表第一个会话</p>
+<p><prefix> d    临时退出但不删除会话</p>
+<p><prefix> :kill-session 在会话内退出并删除session</p>
+<p><prefix> :kill-server 删除所有session</p>
+<p>tmux kill-session -t <name-of-session> 在会话外删除指定session</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h3><p>一个tmux中可以包含多个窗口。</p>
+<blockquote>
+<p><prefix> c   创建窗口</p>
+<p><prefix> w  查看窗口列表</p>
+<p><prefix> 0 切换到指定窗口，窗口对应的数字</p>
+<p><prefix> n 切换到下一个窗口</p>
+<p><prefix> p 切换到上一个窗口</p>
+<p><prefix> l 在相邻的两个窗口切换</p>
+<p><prefix> , 重命名窗口</p>
+<p><prefix> f 在多个窗口里搜索关键字</p>
+<p><prefix> &amp; 删除窗口</p>
+</blockquote>
+<h3 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h3><p>一个tmux窗口可以分割成多个窗格，并且窗格可以在不同的窗口中移动、合并、拆分。</p>
+<blockquote>
+<p><prefix> “  水平分割</p>
+<p><prefix> % 垂直分割</p>
+<p><prefix> o 按顺序在Pane之间移动</p>
+<p><prefix> 方向键   上下左右选择pane</p>
+<p><prefix> :resize-pane -U   #向上调整大小</p>
+<p><prefix> :resize-pane -D #向下</p>
+<p><prefix> :resize-pane -L #向左</p>
+<p><prefix> :resize-pane -R #向右</p>
+<p><prefix> :resize-pane -D 5 #向下移动5行</p>
+<p><prefix>  { （往左边，往上面）</p>
+<p><prefix>  } （往右边，往下面）</p>
+<p><prefix> x 删除pane</p>
+<p><prefix> 空格  更换pane排版</p>
+<p><prefix> ！ 移动pane至新的window</p>
+<p><prefix> :join-pane -t $window_name   移动pane合并至某个window</p>
+<p><prefix>  Ctrl+o   按顺序移动pane位置</p>
+<p><prefix>  q 显示pane编号</p>
+</blockquote>
+<h3 id="滚动屏幕"><a href="#滚动屏幕" class="headerlink" title="滚动屏幕"></a>滚动屏幕</h3><blockquote>
+<p><prefix>  [  进入copy-mode 模式，就可以进行屏幕滚动，q键退出。</p>
+</blockquote>
+</div><div class="tags"><a href="/tags/shell"><i class="fa fa-tag">shell</i></a></div><div class="post-nav"><a class="pre" href="/2018/08/01/mac-an-zhuang-autojump/">mac安装autojump</a><a class="next" href="/2018/07/16/svn-an-zhuang-he-pei-zhi/">svn安装和配置</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>ceph部署 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">ceph部署</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">ceph部署</h1><div class="post-meta">2022-03-19<span> | </span><span class="category"><a href="/categories/ceph/">ceph</a></span></div><div class="post-content"><p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/202203191826828.png"></p>
+<span id="more"></span>
+
+<p>ceph-deploy部署三节点ceph集群</p>
+<h3 id="ceph版本"><a href="#ceph版本" class="headerlink" title="ceph版本"></a>ceph版本</h3><p>Ceph：Nautilus（14.2.22）<br>Ceph-deploy：2.0.1</p>
+<h3 id="机器信息"><a href="#机器信息" class="headerlink" title="机器信息"></a>机器信息</h3><p>操作系统版本</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@node-1 ~]# cat &#x2F;etc&#x2F;centos-release
+CentOS Linux release 7.9.2009 (Core)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>IP地址</th>
+<th>主机名</th>
+<th>附加磁盘(OSD)</th>
+<th>集群角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>172.16.214.169</td>
+<td>node-1</td>
+<td>一块20G磁盘（&#x2F;dev&#x2F;sdb）</td>
+<td>mon，mgr，osd0（主节点）</td>
+</tr>
+<tr>
+<td>172.16.214.170</td>
+<td>node-2</td>
+<td>一块20G磁盘（&#x2F;dev&#x2F;sdb）</td>
+<td>osd1</td>
+</tr>
+<tr>
+<td>172.16.214.171</td>
+<td>node-2</td>
+<td>一块20G磁盘（&#x2F;dev&#x2F;sdb）</td>
+<td>osd2</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>如果环境允许，可以用一个 ceph-admin 节点专门放置 mon,mgr,mds 等这些组件，osd 放置在其他节点，更便于管理</p>
+</blockquote>
+<h3 id="关闭防火墙和selinux"><a href="#关闭防火墙和selinux" class="headerlink" title="关闭防火墙和selinux"></a>关闭防火墙和selinux</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sed -i  &quot;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;permissive&#x2F;g&quot; &#x2F;etc&#x2F;selinux&#x2F;config
+setenforce 0
+systemctl stop firewalld
+systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="配置hosts文件"><a href="#配置hosts文件" class="headerlink" title="配置hosts文件"></a>配置hosts文件</h3><p>在所有节点执行：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">172.16.214.169 node-1
+172.16.214.170 node-2
+172.16.214.171 node-3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="配置-ssh-无密码访问"><a href="#配置-ssh-无密码访问" class="headerlink" title="配置 ssh 无密码访问"></a>配置 ssh 无密码访问</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@node-1 ~]$ ssh-keygen          （每一步都按回车，口令密码留空）
+[root@node-1 ~]$ ssh-copy-id root@node-1
+[root@node-1 ~]$ ssh-copy-id root@node-2
+[root@node-1 ~]$ ssh-copy-id root@node-3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="配置-ntp-时间同步"><a href="#配置-ntp-时间同步" class="headerlink" title="配置 ntp 时间同步"></a>配置 ntp 时间同步</h3><p>全部节点都需要执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum -y intall ntp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>node1节点操作：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vim &#x2F;etc&#x2F;ntp.conf
+#注释掉默认的配置项：
+ #server 0.centos.pool.ntp.org iburst
+ #server 1.centos.pool.ntp.org iburst
+ #server 2.centos.pool.ntp.org iburst
+ #server 3.centos.pool.ntp.org iburst
+#添加配置项：
+server  ntp1.aliyun.com     #阿里云ntp服务器
+
+#node2&#x2F;node3节点操作：
+vim &#x2F;etc&#x2F;ntp.conf
+#同样注释掉默认的server配置项：
+#添加配置项：
+server 172.16.214.169     #node-1-ntp服务器
+
+#全部节点都执行：
+systemctl restart ntpd
+systemctl enable ntpd
+
+#查看ntp连接情况和状态
+[root@node-1 etc]# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+ 120.25.115.20   .INIT.          16 u    -   64    0    0.000    0.000   0.000
+
+[root@node-2 ~]# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+ node-1          .INIT.          16 u    -   64    0    0.000    0.000   0.000
+
+[root@node-3 ~]# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+ node-1          .INIT.          16 u    -   64    0    0.000    0.000   0.000
+ 
+[root@node-1 ~]# ntpstat
+synchronised to NTP server (84.16.73.33) at stratum 2
+   time correct to within 139659 ms
+   polling server every 64 s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="部署-Ceph-集群"><a href="#部署-Ceph-集群" class="headerlink" title="部署 Ceph 集群"></a>部署 Ceph 集群</h3><h4 id="添加阿里云的-base-源和-epel-源"><a href="#添加阿里云的-base-源和-epel-源" class="headerlink" title="添加阿里云的 base 源和 epel 源"></a>添加阿里云的 base 源和 epel 源</h4><p>所有节点都执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">备份系统原本的源
+[root@node-1 ~]# mkdir &#x2F;mnt&#x2F;repo_bak
+[root@node-1 ~]# mv &#x2F;etc&#x2F;yum.repos.d&#x2F;* &#x2F;mnt&#x2F;repo_bak
+添加新源
+[root@node-1 ~]# wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo
+[root@node-1 ~]# wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;epel.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;epel-7.repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="添加ceph的yum源"><a href="#添加ceph的yum源" class="headerlink" title="添加ceph的yum源"></a>添加ceph的yum源</h4><p>所有节点都执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vim &#x2F;etc&#x2F;yum.repos.d&#x2F;ceph.repo
+[Ceph]
+name&#x3D;Ceph
+baseurl&#x3D;http:&#x2F;&#x2F;download.ceph.com&#x2F;rpm-nautilus&#x2F;el7&#x2F;x86_64
+enabled&#x3D;1
+gpgcheck&#x3D;1
+type&#x3D;rpm-md
+gpgkey&#x3D;https:&#x2F;&#x2F;download.ceph.com&#x2F;keys&#x2F;release.asc
+priority&#x3D;1
+
+[Ceph-noarch]
+name&#x3D;Ceph noarch packages
+baseurl&#x3D;http:&#x2F;&#x2F;download.ceph.com&#x2F;rpm-nautilus&#x2F;el7&#x2F;noarch
+enabled&#x3D;1
+gpgcheck&#x3D;1
+type&#x3D;rpm-md
+gpgkey&#x3D;https:&#x2F;&#x2F;download.ceph.com&#x2F;keys&#x2F;release.asc
+priority&#x3D;1
+
+[ceph-source]
+name&#x3D;Ceph source packages
+baseurl&#x3D;http:&#x2F;&#x2F;download.ceph.com&#x2F;rpm-nautilus&#x2F;el7&#x2F;SRPMS
+enabled&#x3D;1
+gpgcheck&#x3D;1
+type&#x3D;rpm-md
+gpgkey&#x3D;https:&#x2F;&#x2F;download.ceph.com&#x2F;keys&#x2F;release.asc
+priority&#x3D;1
+
+#更新yum缓存及系统软件
+yum makecache
+yum -y update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="查看ceph版本，判断yum是否配置正确"><a href="#查看ceph版本，判断yum是否配置正确" class="headerlink" title="查看ceph版本，判断yum是否配置正确"></a>查看ceph版本，判断yum是否配置正确</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@node-1 ~] yum list ceph --showduplicates |sort -r
+ * updates: mirrors.aliyun.com
+Loading mirror speeds from cached hostfile
+Loaded plugins: fastestmirror
+Installed Packages
+ * extras: mirrors.aliyun.com
+ceph.x86_64                       2:14.2.9-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.8-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.7-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.6-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.5-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.4-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.3-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.22-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.22-0.el7                        @x86_64
+ceph.x86_64                       2:14.2.21-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.2-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.20-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.19-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.18-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.17-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.16-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.15-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.14-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.13-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.12-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.11-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.1-0.el7                         x86_64 
+ceph.x86_64                       2:14.2.10-0.el7                        x86_64 
+ceph.x86_64                       2:14.2.0-0.el7                         x86_64 
+ceph.x86_64                       2:14.1.1-0.el7                         x86_64 
+ceph.x86_64                       2:14.1.0-0.el7                         x86_64 
+ * base: mirrors.aliyun.com
+Available Packages
+
+
+[root@node-1 ~] yum list ceph-deploy --showduplicates |sort -r
+ * updates: mirrors.aliyun.com
+Loading mirror speeds from cached hostfile
+Loaded plugins: fastestmirror
+Installed Packages
+ * extras: mirrors.aliyun.com
+ceph-deploy.noarch                      2.0.1-0                           norch 
+ceph-deploy.noarch                      2.0.1-0                           @norch
+ceph-deploy.noarch                      2.0.0-0                           norch 
+ceph-deploy.noarch                      1.5.39-0                          norch 
+ceph-deploy.noarch                      1.5.38-0                          norch 
+ceph-deploy.noarch                      1.5.37-0                          norch 
+ceph-deploy.noarch                      1.5.36-0                          norch 
+ceph-deploy.noarch                      1.5.35-0                          norch 
+ceph-deploy.noarch                      1.5.34-0                          norch 
+ceph-deploy.noarch                      1.5.33-0                          norch 
+ceph-deploy.noarch                      1.5.32-0                          norch 
+ceph-deploy.noarch                      1.5.31-0                          norch 
+ceph-deploy.noarch                      1.5.30-0                          norch 
+ceph-deploy.noarch                      1.5.29-0                          norch 
+ceph-deploy.noarch                      1.5.25-1.el7                      epel  
+ * base: mirrors.aliyun.com
+Available Packages
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="安装-ceph-deploy"><a href="#安装-ceph-deploy" class="headerlink" title="安装 ceph-deploy"></a>安装 ceph-deploy</h4><p>在主节点 node-1 上执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum -y install python-setuptools   #安装ceph依赖包
+yum install ceph-deploy  （默认会选择安装2.0最新版本）
+
+#查看ceph-deploy安装版本
+[root@node-1 ceph-deploy] ceph-deploy --version
+2.0.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="初始化集群"><a href="#初始化集群" class="headerlink" title="初始化集群"></a>初始化集群</h4><p>在主节点 node-1 上执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir &#x2F;root&#x2F;ceph-deploy
+cd &#x2F;root&#x2F;ceph-deploy
+ceph-deploy new --public-network 172.16.214.0&#x2F;24 --cluster-network 172.16.214.0&#x2F;24 node-1
+#在该目录下生成了新集群的一些配置文件
+[root@node-1 ceph-deploy]# ll
+total 280
+-rw-------  1 root root    113 Mar 10 20:33 ceph.bootstrap-mds.keyring
+-rw-------  1 root root    113 Mar 10 20:33 ceph.bootstrap-mgr.keyring
+-rw-------  1 root root    113 Mar 10 20:33 ceph.bootstrap-osd.keyring
+-rw-------  1 root root    113 Mar 10 20:33 ceph.bootstrap-rgw.keyring
+-rw-------  1 root root    151 Mar 10 20:33 ceph.client.admin.keyring
+-rw-r--r--  1 root root    300 Mar 10 21:44 ceph.conf
+-rw-r--r--. 1 root root 255706 Mar 10 21:44 ceph-deploy-ceph.log
+-rw-------. 1 root root     73 Mar 10 11:50 ceph.mon.keyring<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h4 id="安装-ceph"><a href="#安装-ceph" class="headerlink" title="安装 ceph"></a>安装 ceph</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ceph-deploy install --no-adjust-repos node-1 node-2 node-3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="初始化-ceph-monitor"><a href="#初始化-ceph-monitor" class="headerlink" title="初始化 ceph monitor"></a>初始化 ceph monitor</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ceph-deploy mon create-initial<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="同步配置文件"><a href="#同步配置文件" class="headerlink" title="同步配置文件"></a>同步配置文件</h4><p>将当前临时文件夹下的配置文件同步到所有节点的 &#x2F;etc&#x2F;ceph&#x2F; 下</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ceph-deploy install --no-adjust-repos node-1 node-2 node-3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="安装-ceph-mgr"><a href="#安装-ceph-mgr" class="headerlink" title="安装 ceph mgr"></a>安装 ceph mgr</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ceph-deploy mgr create node-1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="配置-Mgr-Dashboard-模块"><a href="#配置-Mgr-Dashboard-模块" class="headerlink" title="配置 Mgr-Dashboard 模块"></a>配置 Mgr-Dashboard 模块</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#安装 ceph-mgr-dashboard
+yum -y install ceph-mgr-dashboard
+#开启 dashboard 模块
+ceph mgr module enable dashboard
+
+#默认情况下，仪表板的所有 HTTP 连接均使用 SSL&#x2F;TLS 进行保护。  
+#要快速启动并运行仪表板，可以使用以下命令生成并安装自签名证书
+[root@node-1 ceph-deploy ~]$ sudo ceph dashboard create-self-signed-cert
+Self-signed certificate created
+
+#创建具有管理员角色的用户:
+ceph dashboard set-login-credentials admin admin
+
+#查看 ceph-mgr 服务:
+[root@node-1 ceph-deploy]# ceph mgr services
+&#123;
+	&quot;dashboard&quot;: &quot;https:&#x2F;&#x2F;node-1:8443&#x2F;&quot;
+&#125;
+
+#浏览器访问测试:  
+http:&#x2F;&#x2F;172.16.214.169:8443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="安装-ceph-mds"><a href="#安装-ceph-mds" class="headerlink" title="安装 ceph mds"></a>安装 ceph mds</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ceph-deploy mds create node-1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="为集群增加-osd"><a href="#为集群增加-osd" class="headerlink" title="为集群增加 osd"></a>为集群增加 osd</h4><p>我这个环境有三台虚拟机，每台虚拟机上有额外 1 块硬盘用于 ceph 集群，即sdb。这个要根据自己的环境找到正确的硬盘。可以使用<code>lsblk</code>命令查看。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ceph-deploy osd create --data &#x2F;dev&#x2F;sdb node-1
+ceph-deploy osd create --data &#x2F;dev&#x2F;sdb node-2
+ceph-deploy osd create --data &#x2F;dev&#x2F;sdb node-3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="检查集群状态"><a href="#检查集群状态" class="headerlink" title="检查集群状态"></a>检查集群状态</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#ceph 健康： ceph health  
+[root@node-1 ceph-deploy]# ceph health
+HEALTH_OK
+
+#ceph 集群详细状态：ceph -s  
+[root@node-1 ceph-deploy]# ceph -s
+  cluster:
+    id:     707ccbc6-e01b-4722-89bc-7c98e04a80a2
+    health: HEALTH_OK
+ 
+  services:
+    mon: 1 daemons, quorum node-1 (age 64m)
+    mgr: node-1(active, since 63m)
+    mds:  1 up:standby
+    osd: 3 osds: 3 up (since 12m), 3 in (since 33h)
+ 
+  data:
+    pools:   4 pools, 64 pgs
+    objects: 48 objects, 31 MiB
+    usage:   3.2 GiB used, 57 GiB &#x2F; 60 GiB avail
+    pgs:     64 active+clean
+
+#ceph 集群 osd 状态：ceph osd tree
+[root@node-1 ceph-deploy]# ceph osd tree
+ID CLASS WEIGHT  TYPE NAME       STATUS REWEIGHT PRI-AFF 
+-1       0.05846 root default                            
+-3       0.01949     host node-1                         
+ 0   hdd 0.01949         osd.0       up  1.00000 1.00000 
+-5       0.01949     host node-2                         
+ 1   hdd 0.01949         osd.1       up  1.00000 1.00000 
+-7       0.01949     host node-3                         
+ 2   hdd 0.01949         osd.2       up  1.00000 1.00000 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</div><div class="tags"><a href="/tags/ceph"><i class="fa fa-tag">ceph</i></a></div><div class="post-nav"><a class="pre" href="/2022/03/24/assertj/">AssertJ</a><a class="next" href="/2022/03/09/junit5/">JUnit</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

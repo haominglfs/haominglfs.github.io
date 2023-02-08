@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>mysql高可用方案 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mysql高可用方案</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mysql高可用方案</h1><div class="post-meta">2020-10-19<span> | </span><span class="category"><a href="/categories/mysql/">mysql</a></span></div><div class="post-content"><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021151526.png" style="zoom:150%;" />
+
+<span id="more"></span>
+
+<h3 id="galera集群"><a href="#galera集群" class="headerlink" title="galera集群"></a>galera集群</h3><h4 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h4><p>galera集群至少需要三个节点的服务器硬件，以下操作在三个节点执行。安装后，在任意一个节点执行SQL，都是同步的。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ol>
+<li><p>添加RPM源 vi etc&#x2F;yum.repos.d&#x2F;galera.repo</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[galera]
+name &#x3D; Galera
+baseurl &#x3D; https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;galera-3&#x2F;DIST&#x2F;RELEASE&#x2F;ARCH gpgkey &#x3D; https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;GPG-KEY-galeracluster.com gpgcheck &#x3D; 1
+
+[mysql-wsrep]
+name &#x3D; MySQL-wsrep
+baseurl&#x3D;https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;mysql-wsrep-VERSION&#x2F;DIST&#x2F;RELEASE&#x2F;ARCH 
+gpgkey &#x3D; https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;GPG-KEY-galeracluster.com
+gpgcheck &#x3D; 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>yum 安装</p>
+<p><code>yum install galera-3 mysql-wsrep-5.7 rsync</code></p>
+</li>
+<li><p>配置开机自启动</p>
+<p><code>systemctl enable mysqld</code></p>
+</li>
+<li><p>启动mysql</p>
+<p><code>systemctl start mysqld</code></p>
+</li>
+<li><p>登录MySql命令行，修改密码</p>
+<blockquote>
+<p>如果版本为5.7，系统为root设置了随机密码，需要修改配置文件 &#x2F;etc&#x2F;my.cnf,在最后添加如下配置，并重启mysql服务</p>
+<p><code>skip-grant-tables=1 #跳过密码验证，等密码设置成功后，再将此配置删除掉</code></p>
+</blockquote>
+</li>
+<li><p>登录mysql</p>
+<p><code>mysql -uroot -p</code></p>
+</li>
+<li><p>修改密码</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">update mysql.user set authentication_string&#x3D;password(&#39;001!&#39;) where user&#x3D;&#39;root&#39;;
+flush privileges;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>设置远程访问</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;001!&#39; WITH GRANT OPTION;
+flush privileges;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>如果执行出现如下错误</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">ERROR 3009 (HY000): Column count of mysql.user is wrong. Expected 45, found 43. Created with MySQL 50649, now running 50730. Please use mysql_upgrade to fix this error.<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>原因：用户在创建时选择的是MySQL5.7的版本，而导入的备份文件为MySQL5.6的，版本不一致导致MySQL系统表有差异所之后。执行如下命令解决:mysql_upgrade -uroot -p</p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021154120.png"></p>
+</blockquote>
+</li>
+<li><p>服务器关闭selinux</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">setenforce 0
+sed -i &quot;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;g&quot; &#x2F;etc&#x2F;selinux&#x2F;config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>服务器关闭防火墙或者添加端口允许</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 3306  MySQL client connections and mysqldump SST
+firewall-cmd --zone&#x3D;public --add-port&#x3D;3306&#x2F;tcp --permanent
+# 4567  Galera Cluster replication traffic
+firewall-cmd --zone&#x3D;public --add-port&#x3D;4567&#x2F;tcp --permanent
+# 4568  IST
+firewall-cmd --zone&#x3D;public --add-port&#x3D;4568&#x2F;tcp --permanent<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h4 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h4><ol>
+<li><p>修改 &#x2F;etc&#x2F;my.cnf 文件，添加配置</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">!includedir &#x2F;etc&#x2F;my.cnf.d&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>增加配置文件 &#x2F;etc&#x2F;my.cnf.d&#x2F;galera.cnf</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
+binlog_format&#x3D;ROW #binlog文件格式：行
+default-storage-engine&#x3D;innodb
+innodb_autoinc_lock_mode&#x3D;2
+bind-address&#x3D;0.0.0.0
+
+# Galera Provider Configuration
+wsrep_on&#x3D;ON
+wsrep_provider&#x3D;&#x2F;usr&#x2F;lib64&#x2F;galera-3&#x2F;libgalera_smm.so
+
+# Galera Cluster Configuration
+wsrep_cluster_name&#x3D;&quot;fucloud_cluster&quot;
+wsrep_cluster_address&#x3D;&quot;gcomm:&#x2F;&#x2F;192.168.56.108,192.168.56.109,192.168.56.110&quot;  #整个集群的IP地址
+
+# Galera Synchronization Configuration
+wsrep_sst_method&#x3D;rsync  #拷贝模式xtrabackup-v2 或者 rsync
+#wsrep_sst_method&#x3D;xtrabackup-v2
+
+# Galera Node Configuration 节点配置，每个节点只是这部分不同
+wsrep_node_address&#x3D;&quot;192.168.56.110&quot; #本节点ip地址
+wsrep_node_name&#x3D;&quot;mysql3&quot; #本节点名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h4 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h4><ol>
+<li><p>随机选择一个节点，使用专用脚本 mysqld_bootstrap 初始化集群</p>
+<p><code>mysqld_bootstrap</code></p>
+</li>
+<li><p>在其他节点上启动 mysqld 服务</p>
+<p><code>systemctl start mysqld</code></p>
+</li>
+</ol>
+<h4 id="集群测试"><a href="#集群测试" class="headerlink" title="集群测试"></a>集群测试</h4><ol>
+<li><p>确认集群启动成功（返回当前的集群节点数量）</p>
+<p><code>mysql&gt; show status like &#39;wsrep_cluster_size&#39;;</code></p>
+</li>
+<li><p>查看galera状态 </p>
+<p><code>mysql&gt; show status like &#39;wsrep%&#39;;</code></p>
+</li>
+</ol>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weijie0717/p/8445167.html">https://www.cnblogs.com/weijie0717/p/8445167.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/colben/blog/1831527">https://my.oschina.net/colben/blog/1831527</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/14089205/2477697">https://blog.51cto.com/14089205/2477697</a></p>
+<p><a target="_blank" rel="noopener" href="https://galeracluster.com/">https://galeracluster.com/</a></p>
+<h3 id="双主mysql-keepalived集群"><a href="#双主mysql-keepalived集群" class="headerlink" title="双主mysql+keepalived集群"></a>双主mysql+keepalived集群</h3><p>两台mysql互为主备，使用keepalived监控mysql状态，进行自动failover。</p>
+<h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><h5 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h5><p>mysql安装参考以上。</p>
+<h5 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h5><ol>
+<li><p>创建依赖环境</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost yum -y install openssl-devel gcc gcc-c++
+[root@localhost mkdir &#x2F;etc&#x2F;keepalived
+[root@localhost wget https:&#x2F;&#x2F;www.keepalived.org&#x2F;software&#x2F;keepalived-2.0.18.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>安装keepalived</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost]# tar -zxvf keepalived-2.0.18.tar.gz
+[root@localhost]# mv keepalived-2.0.18 &#x2F;usr&#x2F;local&#x2F;keepalived
+[root@localhost]# cd &#x2F;usr&#x2F;local&#x2F;keepalived
+[root@localhost]# .&#x2F;configure &amp;&amp; make &amp;&amp; make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>创建启动文件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost]# cp -a &#x2F;usr&#x2F;local&#x2F;etc&#x2F;keepalived   &#x2F;etc&#x2F;init.d&#x2F;
+[root@localhost]# cp -a &#x2F;usr&#x2F;local&#x2F;etc&#x2F;sysconfig &#x2F;keepalived&#x2F;etc&#x2F;sysconfig&#x2F;
+[root@localhost]# cp -a &#x2F;usr&#x2F;local&#x2F;sbin&#x2F;keepalived  &#x2F;usr&#x2F;sbin&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>设置开机启动</p>
+<p><code>[root@localhost yum.repos.d]# systemctl enable keepalived</code></p>
+</li>
+</ol>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><h5 id="mysql主备配置"><a href="#mysql主备配置" class="headerlink" title="mysql主备配置"></a>mysql主备配置</h5><ol>
+<li><p>配置服务器mysql1，修改&#x2F;etc&#x2F;my.cnf文件，增加如下配置：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
+server-id&#x3D;1             #id唯一
+log-bin&#x3D;mysql-bin       #开启binlog日志功能
+auto-increment-increment&#x3D;2
+auto-increment-offset&#x3D;1
+log-slave-updates<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>配置服务器mysql2，修改&#x2F;etc&#x2F;my.cnf文件，增加如下配置：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
+server-id&#x3D;2
+log-bin&#x3D;mysql-bin       #开启binlog日志功能 
+auto-increment-increment&#x3D;2
+auto-increment-offset&#x3D;2
+log-slave-updates<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>重启两台服务器的mysql服务</p>
+<p><code>systemctl restart mysqld</code></p>
+</li>
+<li><p>在mysql1服务器上建立账户并授权</p>
+<p><code>grant replication slave on *.* to &#39;itscmpsync&#39;@&#39;%&#39; identified by &#39;dcits001!&#39;;</code></p>
+<blockquote>
+<p>注：一般不用root帐号，“%”表示所有客户端都可能连，只要帐号，密码正确，此处可用具体客户端IP代替，如192.168.56.109(mysql2服务器的ip地址)，加强安全</p>
+</blockquote>
+</li>
+<li><p>登录mysql1服务器的mysql，查询master的状态</p>
+<p><code>mysql&gt; show master status;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021140558.png"></p>
+<blockquote>
+<p>注：执行完此步骤后不要再操作master1服务器MYSQL，防止主服务器状态值变化</p>
+</blockquote>
+</li>
+<li><p>配置mysql2服务器</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mysql&gt;change master to master_host&#x3D;&#39;101.200.56.108&#39;,master_user&#x3D;&#39;itscmpsync&#39;,master_password&#x3D;&#39;dcits001!&#39;,master_log_file&#x3D;&#39;mysql-bin.000008&#39;,master_log_pos&#x3D;154;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>注：master_log_file和master_log_pos的值应与mysql1服务器状态列出的值对应</p>
+</blockquote>
+</li>
+<li><p>启动mysql2服务器复制功能</p>
+<p><code>mysql&gt;start slave; </code></p>
+</li>
+<li><p>检查mysql2服务器复制功能状态</p>
+<p><code>mysql&gt;show slave status\G</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021140620.png"></p>
+<blockquote>
+<p>Slave_IO_Running: Yes &#x2F;&#x2F;此状态必须YES </p>
+<p>Slave_SQL_Running: Yes &#x2F;&#x2F;此状态必须YES</p>
+</blockquote>
+</li>
+<li><p>同样的操作，设置mysql1为mysql2的从服务器，在mysql2服务器上建立账户并授权</p>
+<p><code>mysql&gt;grant replication slave on *.* to &#39;itscmpsync&#39;@&#39;%&#39; identified by &#39;dcits001!&#39;;</code></p>
+<blockquote>
+<p>注：一般不用root帐号，“%”表示所有客户端都可能连，只要帐号，密码正确，此处可用具体客户端IP代替，如192.168.56.108(mysql1服务器的ip地址)，加强安全</p>
+</blockquote>
+</li>
+<li><p>登录mysql2服务器的mysql，查询master的状态</p>
+<p><code>mysql&gt;show master status;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021140642.png"></p>
+<blockquote>
+<p>注：执行完此步骤后不要再操作主服务器MYSQL，防止主服务器状态值变化</p>
+</blockquote>
+</li>
+<li><p>配置mysql1服务器</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mysql&gt;change master to master_host&#x3D;&#39;192.168.56.109&#39;,master_user&#x3D;&#39;itscmpsync&#39;,master_password&#x3D;&#39;dcits001!&#39;,master_log_file&#x3D;&#39;mysql-bin.000010&#39;,master_log_pos&#x3D;154;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>注：master_log_file和master_log_pos的值应与mysql2服务器状态列出的值对应</p>
+</blockquote>
+</li>
+<li><p>启动mysql1服务器复制功能</p>
+<p><code>mysql&gt;show slave status\G</code></p>
+</li>
+<li><p>检查mysql1服务器复制功能状态</p>
+<p><code>mysql&gt;show slave status\G</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021140659.png"></p>
+</li>
+</ol>
+<h5 id="keepalived配置"><a href="#keepalived配置" class="headerlink" title="keepalived配置"></a>keepalived配置</h5><ol>
+<li><p>编辑mysql1服务器keepalived配置文件，&#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">global_defs &#123;
+  router_id mysql-1  #运行keepalived服务器标识
+&#125;
+
+vrrp_instance VI_1 &#123;
+   state BACKUP       #指定keepalived的角色，两台配置此处均是BACKUP，设为BACKUP将根据优先级决定主或从
+   interface enp0s8		#指定检测网络的接口
+   #虚拟路由标示，这个标示是一个数字(取值在0-255之间，用来区分多个instance的VRRP组播)，同一个vrrp实例使用		唯一的标示，确保和mysql2相同，同网内不同集群此项必须不同，否则发生冲突
+   virtual_router_id 51   
+   priority 100#用来选举master,该项取值范围是1-255（在此范围之外会被识别成默认值100），数值大的为master
+   advert_int 1		        #发vrrp包的时间间隔，即多久进行一次master选举（可以认为是健康检测时间间隔）
+   #不抢占，允许优先级较低的作为master，即使有priority更高的节点启动，一般只在优先级高的mysql配置
+   Nopreempt 
+   authentication &#123;  #认证区域，认证类型有PASS和HA(IPSEC),推荐使用PASS(密码只识别前8位)
+       auth_type PASS
+       auth_pass 1111
+   &#125;
+   virtual_ipaddress &#123;    #VIP区域，指定vip地址
+       192.168.56.150     #虚拟vip
+   &#125;
+&#125;
+
+#设置虚拟服务器，需要指定虚拟IP地址和服务端口，IP与端口之间用空格隔开
+virtual_server 192.168.56.150 3306 &#123; 
+   delay_loop 2   #每隔2秒检查一次real_server状态
+   lb_algo rr			 #设置后端调度算法，这里设置为rr,即轮询算法
+   lb_kind DR     #设置LVS实现负载均衡的机制，有NAT、TUN、DR三个模式可选
+   #会话保持时间，单位为秒。这个选项对动态网页非常有用，为集群系统中的session共享提供了一个很好的解决方案，有了这个会话保持功能，用户的请求会被一只分发到某个服务节点，直到超过这个会话的保持时间
+   persistence_timeout 60 
+   protocol TCP    #指定转发协议类型，有TCP和UDP两种
+   real_server 192.168.56.108 3306 &#123; #配置服务节点1，需要指定real server的真实IP地址和端口
+       weight 3  #配置服务的权重
+       notify_down &#x2F;etc&#x2F;keepalived&#x2F;bin&#x2F;mysql.sh  #检测到服务down后执行的脚本
+       TCP_CHECK &#123;
+            connect_timeout 3         #连接超时时间 
+            nb_get_retry 3            #重连次数
+            delay_before_retry 3      #重连间隔时间
+            connect_port 3306		      #健康检查端口 
+       &#125;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>编辑mysql2服务器keepalived配置文件，&#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">global_defs &#123;
+  router_id mysql-2         #服务器标识
+&#125;
+
+vrrp_instance VI_1 &#123;
+   state BACKUP
+   interface enp0s8
+   virtual_router_id 51
+   priority 50               #优先级，用来选举
+   advert_int 1
+   authentication &#123;
+       auth_type PASS
+       auth_pass 1111
+   &#125;
+   virtual_ipaddress &#123;
+       192.168.56.150
+   &#125;
+&#125;
+
+virtual_server 192.168.56.150 3306 &#123;
+   delay_loop 2
+   lb_algo rr
+   lb_kind DR
+   persistence_timeout 60
+   protocol TCP
+   real_server 192.168.56.109 3306 &#123; 
+       weight 3
+       notify_down    &#x2F;etc&#x2F;keepalived&#x2F;bin&#x2F;mysql.sh
+       TCP_CHECK &#123;
+            connect_timeout 3
+            nb_get_retry 3
+            delay_before_retry 3
+            connect_port 3306
+       &#125;
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+</li>
+<li><p>分别在mysql1和mysql2上创建服务down后脚本 &#x2F;etc&#x2F;keepalived&#x2F;bin&#x2F;mysql.sh</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!&#x2F;bin&#x2F;bash
+pkill keepalived
+sleep  10
+systemctl start keepalived<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>配置运行权限</p>
+<p><code>chmod +x mysql.sh</code></p>
+</li>
+<li><p>启动keepalived</p>
+<p><code>systemctl start keepalived </code></p>
+</li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
+<li>采用keepalived作为高可用方案时，两个节点最好都设置成BACKUP模式，避免因为意外情况下（比如脑裂）相互抢占导致往两个节点写入相同数据而引发冲突；</li>
+<li>把两个节点的auto_increment_increment（自增步长）和auto_increment_offset（自增起始值）设成不同值。其目的是为了避免master节点意外宕机时，可能会有部分binlog未能及时复制到slave上被应用，从而会导致slave新写入数据的自增值和原先master上冲突了，因此一开始就使其错开；当然了，如果有合适的容错机制能解决主从自增ID冲突的话，也可以不这么做；</li>
+<li>.slave节点服务器配置不要太差，否则更容易导致复制延迟。作为热备节点的slave服务器，硬件配置不能低于master节点；</li>
+<li>如果对延迟问题很敏感的话，可考虑使用<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/tdsql?from=10680">MariaDB</a>分支版本，或者直接上线MySQL 5.7最新版本，利用多线程复制的方式可以很大程度降低复制延迟；</li>
+</ol>
+<h4 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1139739">https://cloud.tencent.com/developer/article/1139739</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1343127">https://cloud.tencent.com/developer/article/1343127</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1343127">https://cloud.tencent.com/developer/article/1343127</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gered/p/11221702.html">https://www.cnblogs.com/gered/p/11221702.html</a></p>
+</div><div class="tags"><a href="/tags/mysql"><i class="fa fa-tag">mysql</i></a></div><div class="post-nav"><a class="pre" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a><a class="next" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

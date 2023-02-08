@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>MariaDB+Galera集群+haproxy+keepalived | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">MariaDB+Galera集群+haproxy+keepalived</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">MariaDB+Galera集群+haproxy+keepalived</h1><div class="post-meta">2020-11-23<span> | </span><span class="category"><a href="/categories/mariadb/">mariadb</a></span></div><div class="post-content"><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201123230920.png" style="zoom:150%;" />
+
+<span id="more"></span>
+
+<h3 id="Galera集群"><a href="#Galera集群" class="headerlink" title="Galera集群"></a>Galera集群</h3><h4 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h4><p>Galera集群至少需要三个节点的服务器硬件，以下操作在三个节点执行。安装后，在任意一个节点执行SQL，都是同步的。</p>
+<p>现有三台服务器，ip分别为10.30.1.14、10.30.1.15、10.30.1.16。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ol>
+<li><p>3台服务器的主机名修改：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">hostnamectl set-hostname node1
+hostnamectl set-hostname node2
+hostnamectl set-hostname node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器的hosts文件修改：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">10.30.1.14 node1
+10.30.1.15 node2
+10.30.1.16 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>建立3台服务器之间的SSH免密通信（3台服务器执行）：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ssh-keygen -t rsa
+ssh-copy-id node1
+ssh-copy-id node2
+ssh-copy-id node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器关闭Selinux:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">setenforce 0
+sed -i &quot;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;g&quot; &#x2F;etc&#x2F;selinux&#x2F;config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器关闭防火墙或者添加端口允许:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 3306  MySQL client connections and mysqldump SST
+firewall-cmd --zone&#x3D;public --add-port&#x3D;3306&#x2F;tcp --permanent
+# 4567  Galera Cluster replication traffic
+firewall-cmd --zone&#x3D;public --add-port&#x3D;4567&#x2F;tcp --permanent
+# 4568  IST
+firewall-cmd --zone&#x3D;public --add-port&#x3D;4568&#x2F;tcp --permanent
+# 4444  all SSTs besides mysqldump
+firewall-cmd --zone&#x3D;public --add-port&#x3D;4444&#x2F;tcp --permanent
+firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器设置Yum源:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd &#x2F;etc&#x2F;yum.repos.d
+cat &gt;&gt; mariadb.repo &lt;&lt;EOF
+[mariadb]
+name &#x3D; MariaDB
+baseurl &#x3D; https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;10.4&#x2F;centos7-amd64
+gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;RPM-GPG-KEY-MariaDB
+gpgcheck&#x3D;1
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器安装软件:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install MariaDB-server MariaDB-client galera-4 -y<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>3台服务器配置远程访问:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">grant</span> <span class="token keyword">all</span> <span class="token keyword">privileges</span> <span class="token keyword">on</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">to</span> root<span class="token variable">@'%'</span> identified <span class="token keyword">by</span> <span class="token string">'d001!'</span> <span class="token keyword">with</span> <span class="token keyword">grant</span> <span class="token keyword">option</span><span class="token punctuation">;</span>
+flush <span class="token keyword">privileges</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器配置编码为utf-8,编辑配置文件vi &#x2F;etc&#x2F;my.cnf:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[client]
+default-character-set &#x3D; utf8mb4
+
+[mysql]
+default-character-set &#x3D; utf8mb4
+
+[mysqld]
+character-set-client-handshake &#x3D; FALSE
+character-set-server &#x3D; utf8mb4
+collation-server &#x3D; utf8mb4_unicode_ci
+init_connect&#x3D;&#39;SET NAMES utf8mb4&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h4 id="galera集群配置"><a href="#galera集群配置" class="headerlink" title="galera集群配置"></a>galera集群配置</h4><ol>
+<li><p>编辑Node1上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[galera]
+# Mandatory settings
+wsrep_on&#x3D;ON
+wsrep_provider&#x3D;&#x2F;usr&#x2F;lib64&#x2F;galera-4&#x2F;libgalera_smm.so
+wsrep_cluster_address&#x3D;&quot;gcomm:&#x2F;&#x2F;10.30.1.14,10.30.1.15,10.30.1.16&quot; #整个集群的IP地址
+binlog_format&#x3D;row # binlog文件格式：行
+default_storage_engine&#x3D;InnoDB
+innodb_autoinc_lock_mode&#x3D;2
+# Allow server to accept connections on all interfaces.
+# bind-address&#x3D;0.0.0.0
+# Optional setting
+# wsrep_slave_threads&#x3D;1
+# innodb_flush_log_at_trx_commit&#x3D;0
+wsrep_provider_options&#x3D;&quot;gcache.size&#x3D;1G&quot;
+wsrep_cluster_name&#x3D;MariaDB-Galera-Cluster
+wsrep_node_name&#x3D;node1 #hostname，对应前面网路配置&#x2F;etc&#x2F;hosts
+wsrep_node_address&#x3D;10.30.1.14 #机器IP地址
+wsrep_sst_method&#x3D;rsync #拷贝模式xtrabackup-v2 或者 rsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>编辑Node2上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[galera]
+# Mandatory settings
+wsrep_on&#x3D;ON
+wsrep_provider&#x3D;&#x2F;usr&#x2F;lib64&#x2F;galera-4&#x2F;libgalera_smm.so
+wsrep_cluster_address&#x3D;&quot;gcomm:&#x2F;&#x2F;10.30.1.14,10.30.1.15,10.30.1.16&quot; #整个集群的IP地址
+binlog_format&#x3D;row # binlog文件格式：行
+default_storage_engine&#x3D;InnoDB
+innodb_autoinc_lock_mode&#x3D;2
+# Allow server to accept connections on all interfaces.
+# bind-address&#x3D;0.0.0.0
+# Optional setting
+# wsrep_slave_threads&#x3D;1
+# innodb_flush_log_at_trx_commit&#x3D;0
+wsrep_provider_options&#x3D;&quot;gcache.size&#x3D;1G&quot;
+wsrep_cluster_name&#x3D;MariaDB-Galera-Cluster
+wsrep_node_name&#x3D;node2 #hostname，对应前面网路配置&#x2F;etc&#x2F;hosts
+wsrep_node_address&#x3D;10.30.1.15 #机器IP地址
+wsrep_sst_method&#x3D;rsync #拷贝模式xtrabackup-v2 或者 rsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>编辑Node3上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[galera]
+# Mandatory settings
+wsrep_on&#x3D;ON
+wsrep_provider&#x3D;&#x2F;usr&#x2F;lib64&#x2F;galera-4&#x2F;libgalera_smm.so
+wsrep_cluster_address&#x3D;&quot;gcomm:&#x2F;&#x2F;10.30.1.14,10.30.1.15,10.30.1.16&quot; #整个集群的IP地址
+binlog_format&#x3D;row # binlog文件格式：行
+default_storage_engine&#x3D;InnoDB
+innodb_autoinc_lock_mode&#x3D;2
+# Allow server to accept connections on all interfaces.
+# bind-address&#x3D;0.0.0.0
+# Optional setting
+# wsrep_slave_threads&#x3D;1
+# innodb_flush_log_at_trx_commit&#x3D;0
+wsrep_provider_options&#x3D;&quot;gcache.size&#x3D;1G&quot;
+wsrep_cluster_name&#x3D;MariaDB-Galera-Cluster
+wsrep_node_name&#x3D;node3 #hostname，对应前面网路配置&#x2F;etc&#x2F;hosts
+wsrep_node_address&#x3D;10.30.1.16 #机器IP地址
+wsrep_sst_method&#x3D;rsync #拷贝模式xtrabackup-v2 或者 rsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>启动集群</p>
+<ul>
+<li><p>启动第一个节点，底层命令是：mysqld –wsrep-new-cluster</p>
+<p><code>galera_new_cluster</code></p>
+</li>
+<li><p>在其他节点上启动服务</p>
+<p><code>systemctl start mariadb.service</code></p>
+</li>
+<li><p>主节点中添加集群认证用户galera，密码galera（可选）</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> <span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">ON</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">TO</span> <span class="token string">'galera'</span><span class="token variable">@'%'</span> IDENTIFIED <span class="token keyword">BY</span> <span class="token string">'galera'</span> <span class="token keyword">WITH</span> <span class="token keyword">GRANT</span> <span class="token keyword">OPTION</span><span class="token punctuation">;</span>
+MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> flush <span class="token keyword">privileges</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>故障排查</p>
+<blockquote>
+<p>启动集群时报错[ERROR] WSREP: It may not be safe to bootstrap the cluster from this node. It was not the last one to leave the cluster and may not contain all the updates.</p>
+<p><code>打开文件/var/lib/mysql/grastate.dat，修改safe_to_bootstrap的值置为1</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>集群测试</p>
+<ul>
+<li><p>确认集群启动成功（返回当前的集群节点数量）</p>
+<p><code>mysql&gt; show status like &#39;wsrep_cluster_size&#39;;</code></p>
+</li>
+<li><p>查看galera状态</p>
+<p><code>mysql&gt; show status like &#39;wsrep%&#39;;</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="HAProxy"><a href="#HAProxy" class="headerlink" title="HAProxy"></a>HAProxy</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p><code>yum install -y haproxy </code></p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>编辑HAProxy配置文件 <code>vi /etc/haproxy/haproxy.cfg</code>,配置如下(两台haproxy服务器配置相同):</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">global
+    log         127.0.0.1 local2
+    chroot      &#x2F;var&#x2F;lib&#x2F;haproxy
+    pidfile     &#x2F;var&#x2F;run&#x2F;haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+    # turn on stats unix socket
+    stats socket &#x2F;var&#x2F;lib&#x2F;haproxy&#x2F;stats
+    
+defaults
+    mode                    http
+    log                     global
+    option                  tcplog
+    option                  dontlognull
+    option http-server-close
+    #option forwardfor       except 127.0.0.0&#x2F;8
+    option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 3000
+    
+listen galera
+    bind 0.0.0.0:13306
+    balance roundrobin
+    mode tcp
+    option tcpka
+    option mysql-check user haproxy
+    server galera-mariadb-1 192.168.123.36:3306 check weight 1
+    server galera-mariadb-2 192.168.123.35:3306 check weight 1
+    server galera-mariadb-3 192.168.123.34:3306 check weight 1
+    
+listen stats
+## HAProxy stats web gui running on port 9000 - username and password: haproxy.
+    bind 0.0.0.0:9000
+    mode http
+    stats enable
+    stats uri &#x2F;stats
+    stats realm HAProxy\ Statistics
+    stats auth haproxy:haproxy
+    stats admin if TRUE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p><code>systemctl start haproxy</code></p>
+<h3 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h3><h4 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h4><ol>
+<li><p>创建依赖环境：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum -y install openssl-devel gcc gcc-c++
+mkdir &#x2F;etc&#x2F;keepalived
+wget https:&#x2F;&#x2F;www.keepalived.org&#x2F;software&#x2F;keepalived-2.0.18.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>安装keepalived:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">tar -zxvf keepalived-2.0.18.tar.gz
+mv keepalived-2.0.18 &#x2F;usr&#x2F;local&#x2F;keepalived
+cd &#x2F;usr&#x2F;local&#x2F;keepalived
+.&#x2F;configure &amp;&amp; make &amp;&amp; make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>设置开机启动</p>
+<p><code>systemctl enable keepalived</code></p>
+</li>
+</ol>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><ol>
+<li><p>编辑haproxy检测脚本，<code>vi /etc/keepalived/chk_haproxy.sh</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!&#x2F;bin&#x2F;bash
+chkha&#x3D;&#96;ps -C haproxy --no-header |wc -l&#96;
+if [ $chkha -eq 0 ];then
+  systemctl stop keepalived
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>赋予脚本执行权限</p>
+<p><code>chmod  +x chk_haproxy.sh</code></p>
+</li>
+<li><p>编辑keepalived主配置文件，<code>vi /etc/keepalived/keepalived.conf</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">global_defs &#123;
+    router_id Haproxy1  #服务器标识
+&#125;
+
+vrrp_script chk_haproxy &#123;
+    script &quot;&#x2F;etc&#x2F;keepalived&#x2F;chk_haproxy.sh&quot;
+    interval 1  #（检测脚本执行的间隔，单位是秒)
+    weight 2		#权重
+&#125;
+
+vrrp_instance VI_1 &#123;
+    state MASTER     #指定keepalived的角色，MASTER为主，BACKUP为备
+    interface eth0   #绑定的网卡
+    virtual_router_id 201   #虚拟路由编号，主从要一直
+    priority 100     #优先级，数值越大，获取处理请求的优先级越高
+    advert_int 1			#检查间隔，默认为1s(vrrp组播周期秒数)
+    authentication &#123;  #设置验证类型和密码，MASTER和BACKUP必须使用相同的密码才能正常通信
+        auth_type PASS
+        auth_pass 1111
+    &#125;
+    track_script &#123;
+        chk_haproxy   #调用检测脚本）
+    &#125;
+    virtual_ipaddress &#123;
+       10.30.1.26     #定义虚拟ip(VIP)，可多设，每行一个
+    &#125;
+    track_interface &#123;
+        eth0
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>编辑keepalived备配置文件，<code>vi /etc/keepalived/keepalived.conf</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">global_defs &#123;
+    router_id Haproxy2
+&#125;
+
+vrrp_script chk_haproxy &#123;
+    script &quot;&#x2F;etc&#x2F;keepalived&#x2F;chk_haproxy.sh&quot;
+    interval 1
+    weight 2
+&#125;
+
+vrrp_instance VI_1 &#123;
+    state BACKUP
+    interface eth0
+    virtual_router_id 201
+    priority 99
+    advert_int 1
+    authentication &#123;
+        auth_type PASS
+        auth_pass 1111
+    &#125;
+    track_script &#123;
+        chk_haproxy
+    &#125;
+    virtual_ipaddress &#123;
+        192.168.123.44
+    &#125;
+    track_interface &#123;
+        eth0
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>如果开启了防火墙，需打开如下配置</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">firewall-cmd --add-rich-rule&#x3D;&#39;rule protocol value&#x3D;&quot;vrrp&quot; accept&#39; --permanent
+firewall-cmd --reload
+firewall-cmd --list-all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>启动keepalived</p>
+<p><code>systemctl start keepalived </code></p>
+</li>
+</ol>
+</div><div class="tags"><a href="/tags/mariadb"><i class="fa fa-tag">mariadb</i></a><a href="/tags/galera"><i class="fa fa-tag">galera</i></a><a href="/tags/haproxy"><i class="fa fa-tag">haproxy</i></a><a href="/tags/keepalived"><i class="fa fa-tag">keepalived</i></a></div><div class="post-nav"><a class="pre" href="/2021/12/31/2021-12-31-kvm/">kvm</a><a class="next" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
