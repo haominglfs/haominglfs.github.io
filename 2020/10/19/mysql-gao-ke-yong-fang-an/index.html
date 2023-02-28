@@ -1,19 +1,181 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>mysql高可用方案 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mysql高可用方案</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mysql高可用方案</h1><div class="post-meta">2020-10-19<span> | </span><span class="category"><a href="/categories/mysql/">mysql</a></span></div><div class="post-content"><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021151526.png" style="zoom:150%;" />
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>mysql高可用方案 | haominglfs的博客</title><meta name="author" content="haominglfs"><meta name="copyright" content="haominglfs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="article">
+<meta property="og:title" content="mysql高可用方案">
+<meta property="og:url" content="https://haominglfs.github.io/2020/10/19/mysql-gao-ke-yong-fang-an/index.html">
+<meta property="og:site_name" content="haominglfs的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2020-10-19T08:19:55.000Z">
+<meta property="article:modified_time" content="2020-10-21T07:41:32.739Z">
+<meta property="article:author" content="haominglfs">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://haominglfs.github.io/2020/10/19/mysql-gao-ke-yong-fang-an/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mysql高可用方案',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-10-21 15:41:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="haominglfs的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="haominglfs的博客"><span class="site-name">haominglfs的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">mysql高可用方案</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-19T08:19:55.000Z" title="发表于 2020-10-19 16:19:55">2020-10-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-21T07:41:32.739Z" title="更新于 2020-10-21 15:41:32">2020-10-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/mysql/">mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="mysql高可用方案"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201021151526.png" style="zoom:150%;" />
 
 <span id="more"></span>
 
 <h3 id="galera集群"><a href="#galera集群" class="headerlink" title="galera集群"></a>galera集群</h3><h4 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h4><p>galera集群至少需要三个节点的服务器硬件，以下操作在三个节点执行。安装后，在任意一个节点执行SQL，都是同步的。</p>
 <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ol>
 <li><p>添加RPM源 vi etc&#x2F;yum.repos.d&#x2F;galera.repo</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[galera]
-name &#x3D; Galera
-baseurl &#x3D; https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;galera-3&#x2F;DIST&#x2F;RELEASE&#x2F;ARCH gpgkey &#x3D; https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;GPG-KEY-galeracluster.com gpgcheck &#x3D; 1
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>galera<span class="token punctuation">]</span>
+name <span class="token operator">=</span> Galera
+baseurl <span class="token operator">=</span> https://releases.galeracluster.com/galera-3/DIST/RELEASE/ARCH gpgkey <span class="token operator">=</span> https://releases.galeracluster.com/GPG-KEY-galeracluster.com gpgcheck <span class="token operator">=</span> <span class="token number">1</span>
 
-[mysql-wsrep]
-name &#x3D; MySQL-wsrep
-baseurl&#x3D;https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;mysql-wsrep-VERSION&#x2F;DIST&#x2F;RELEASE&#x2F;ARCH 
-gpgkey &#x3D; https:&#x2F;&#x2F;releases.galeracluster.com&#x2F;GPG-KEY-galeracluster.com
-gpgcheck &#x3D; 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>mysql-wsrep<span class="token punctuation">]</span>
+name <span class="token operator">=</span> MySQL-wsrep
+<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>https://releases.galeracluster.com/mysql-wsrep-VERSION/DIST/RELEASE/ARCH 
+gpgkey <span class="token operator">=</span> https://releases.galeracluster.com/GPG-KEY-galeracluster.com
+gpgcheck <span class="token operator">=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>yum 安装</p>
 <p><code>yum install galera-3 mysql-wsrep-5.7 rsync</code></p>
@@ -50,43 +212,43 @@ flush privileges;<span aria-hidden="true" class="line-numbers-rows"><span></spa
 </blockquote>
 </li>
 <li><p>服务器关闭selinux</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">setenforce 0
-sed -i &quot;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;g&quot; &#x2F;etc&#x2F;selinux&#x2F;config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setenforce <span class="token number">0</span>
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">"s/SELINUX=enforcing/SELINUX=disabled/g"</span> /etc/selinux/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>服务器关闭防火墙或者添加端口允许</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 3306  MySQL client connections and mysqldump SST
-firewall-cmd --zone&#x3D;public --add-port&#x3D;3306&#x2F;tcp --permanent
-# 4567  Galera Cluster replication traffic
-firewall-cmd --zone&#x3D;public --add-port&#x3D;4567&#x2F;tcp --permanent
-# 4568  IST
-firewall-cmd --zone&#x3D;public --add-port&#x3D;4568&#x2F;tcp --permanent<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 3306  MySQL client connections and mysqldump SST</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">3306</span>/tcp <span class="token parameter variable">--permanent</span>
+<span class="token comment"># 4567  Galera Cluster replication traffic</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4567</span>/tcp <span class="token parameter variable">--permanent</span>
+<span class="token comment"># 4568  IST</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4568</span>/tcp <span class="token parameter variable">--permanent</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <h4 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h4><ol>
 <li><p>修改 &#x2F;etc&#x2F;my.cnf 文件，添加配置</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">!includedir &#x2F;etc&#x2F;my.cnf.d&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">!</span>includedir /etc/my.cnf.d/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>增加配置文件 &#x2F;etc&#x2F;my.cnf.d&#x2F;galera.cnf</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
-binlog_format&#x3D;ROW #binlog文件格式：行
-default-storage-engine&#x3D;innodb
-innodb_autoinc_lock_mode&#x3D;2
-bind-address&#x3D;0.0.0.0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
+<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>ROW <span class="token comment">#binlog文件格式：行</span>
+default-storage-engine<span class="token operator">=</span>innodb
+<span class="token assign-left variable">innodb_autoinc_lock_mode</span><span class="token operator">=</span><span class="token number">2</span>
+bind-address<span class="token operator">=</span><span class="token number">0.0</span>.0.0
 
-# Galera Provider Configuration
-wsrep_on&#x3D;ON
-wsrep_provider&#x3D;&#x2F;usr&#x2F;lib64&#x2F;galera-3&#x2F;libgalera_smm.so
+<span class="token comment"># Galera Provider Configuration</span>
+<span class="token assign-left variable">wsrep_on</span><span class="token operator">=</span>ON
+<span class="token assign-left variable">wsrep_provider</span><span class="token operator">=</span>/usr/lib64/galera-3/libgalera_smm.so
 
-# Galera Cluster Configuration
-wsrep_cluster_name&#x3D;&quot;fucloud_cluster&quot;
-wsrep_cluster_address&#x3D;&quot;gcomm:&#x2F;&#x2F;192.168.56.108,192.168.56.109,192.168.56.110&quot;  #整个集群的IP地址
+<span class="token comment"># Galera Cluster Configuration</span>
+<span class="token assign-left variable">wsrep_cluster_name</span><span class="token operator">=</span><span class="token string">"fucloud_cluster"</span>
+<span class="token assign-left variable">wsrep_cluster_address</span><span class="token operator">=</span><span class="token string">"gcomm://192.168.56.108,192.168.56.109,192.168.56.110"</span>  <span class="token comment">#整个集群的IP地址</span>
 
-# Galera Synchronization Configuration
-wsrep_sst_method&#x3D;rsync  #拷贝模式xtrabackup-v2 或者 rsync
-#wsrep_sst_method&#x3D;xtrabackup-v2
+<span class="token comment"># Galera Synchronization Configuration</span>
+<span class="token assign-left variable">wsrep_sst_method</span><span class="token operator">=</span>rsync  <span class="token comment">#拷贝模式xtrabackup-v2 或者 rsync</span>
+<span class="token comment">#wsrep_sst_method=xtrabackup-v2</span>
 
-# Galera Node Configuration 节点配置，每个节点只是这部分不同
-wsrep_node_address&#x3D;&quot;192.168.56.110&quot; #本节点ip地址
-wsrep_node_name&#x3D;&quot;mysql3&quot; #本节点名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token comment"># Galera Node Configuration 节点配置，每个节点只是这部分不同</span>
+<span class="token assign-left variable">wsrep_node_address</span><span class="token operator">=</span><span class="token string">"192.168.56.110"</span> <span class="token comment">#本节点ip地址</span>
+<span class="token assign-left variable">wsrep_node_name</span><span class="token operator">=</span><span class="token string">"mysql3"</span> <span class="token comment">#本节点名称</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <h4 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h4><ol>
 <li><p>随机选择一个节点，使用专用脚本 mysqld_bootstrap 初始化集群</p>
@@ -112,20 +274,20 @@ wsrep_node_name&#x3D;&quot;mysql3&quot; #本节点名称<span aria-hidden="true"
 <h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><h5 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h5><p>mysql安装参考以上。</p>
 <h5 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h5><ol>
 <li><p>创建依赖环境</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost yum -y install openssl-devel gcc gcc-c++
-[root@localhost mkdir &#x2F;etc&#x2F;keepalived
-[root@localhost wget https:&#x2F;&#x2F;www.keepalived.org&#x2F;software&#x2F;keepalived-2.0.18.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost yum <span class="token parameter variable">-y</span> <span class="token function">install</span> openssl-devel gcc gcc-c++
+<span class="token punctuation">[</span>root@localhost <span class="token function">mkdir</span> /etc/keepalived
+<span class="token punctuation">[</span>root@localhost <span class="token function">wget</span> https://www.keepalived.org/software/keepalived-2.0.18.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>安装keepalived</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost]# tar -zxvf keepalived-2.0.18.tar.gz
-[root@localhost]# mv keepalived-2.0.18 &#x2F;usr&#x2F;local&#x2F;keepalived
-[root@localhost]# cd &#x2F;usr&#x2F;local&#x2F;keepalived
-[root@localhost]# .&#x2F;configure &amp;&amp; make &amp;&amp; make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost<span class="token punctuation">]</span><span class="token comment"># tar -zxvf keepalived-2.0.18.tar.gz</span>
+<span class="token punctuation">[</span>root@localhost<span class="token punctuation">]</span><span class="token comment"># mv keepalived-2.0.18 /usr/local/keepalived</span>
+<span class="token punctuation">[</span>root@localhost<span class="token punctuation">]</span><span class="token comment"># cd /usr/local/keepalived</span>
+<span class="token punctuation">[</span>root@localhost<span class="token punctuation">]</span><span class="token comment"># ./configure &amp;&amp; make &amp;&amp; make install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>创建启动文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost]# cp -a &#x2F;usr&#x2F;local&#x2F;etc&#x2F;keepalived   &#x2F;etc&#x2F;init.d&#x2F;
-[root@localhost]# cp -a &#x2F;usr&#x2F;local&#x2F;etc&#x2F;sysconfig &#x2F;keepalived&#x2F;etc&#x2F;sysconfig&#x2F;
-[root@localhost]# cp -a &#x2F;usr&#x2F;local&#x2F;sbin&#x2F;keepalived  &#x2F;usr&#x2F;sbin&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost<span class="token punctuation">]</span><span class="token comment"># cp -a /usr/local/etc/keepalived   /etc/init.d/</span>
+<span class="token punctuation">[</span>root@localhost<span class="token punctuation">]</span><span class="token comment"># cp -a /usr/local/etc/sysconfig /keepalived/etc/sysconfig/</span>
+<span class="token punctuation">[</span>root@localhost<span class="token punctuation">]</span><span class="token comment"># cp -a /usr/local/sbin/keepalived  /usr/sbin/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>设置开机启动</p>
 <p><code>[root@localhost yum.repos.d]# systemctl enable keepalived</code></p>
@@ -133,19 +295,19 @@ wsrep_node_name&#x3D;&quot;mysql3&quot; #本节点名称<span aria-hidden="true"
 </ol>
 <h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><h5 id="mysql主备配置"><a href="#mysql主备配置" class="headerlink" title="mysql主备配置"></a>mysql主备配置</h5><ol>
 <li><p>配置服务器mysql1，修改&#x2F;etc&#x2F;my.cnf文件，增加如下配置：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
-server-id&#x3D;1             #id唯一
-log-bin&#x3D;mysql-bin       #开启binlog日志功能
-auto-increment-increment&#x3D;2
-auto-increment-offset&#x3D;1
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
+server-id<span class="token operator">=</span><span class="token number">1</span>             <span class="token comment">#id唯一</span>
+log-bin<span class="token operator">=</span>mysql-bin       <span class="token comment">#开启binlog日志功能</span>
+auto-increment-increment<span class="token operator">=</span><span class="token number">2</span>
+auto-increment-offset<span class="token operator">=</span><span class="token number">1</span>
 log-slave-updates<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>配置服务器mysql2，修改&#x2F;etc&#x2F;my.cnf文件，增加如下配置：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
-server-id&#x3D;2
-log-bin&#x3D;mysql-bin       #开启binlog日志功能 
-auto-increment-increment&#x3D;2
-auto-increment-offset&#x3D;2
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
+server-id<span class="token operator">=</span><span class="token number">2</span>
+log-bin<span class="token operator">=</span>mysql-bin       <span class="token comment">#开启binlog日志功能 </span>
+auto-increment-increment<span class="token operator">=</span><span class="token number">2</span>
+auto-increment-offset<span class="token operator">=</span><span class="token number">2</span>
 log-slave-updates<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>重启两台服务器的mysql服务</p>
@@ -165,7 +327,7 @@ log-slave-updates<span aria-hidden="true" class="line-numbers-rows"><span></span
 </blockquote>
 </li>
 <li><p>配置mysql2服务器</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mysql&gt;change master to master_host&#x3D;&#39;101.200.56.108&#39;,master_user&#x3D;&#39;itscmpsync&#39;,master_password&#x3D;&#39;dcits001!&#39;,master_log_file&#x3D;&#39;mysql-bin.000008&#39;,master_log_pos&#x3D;154;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql<span class="token operator">></span>change master to <span class="token assign-left variable">master_host</span><span class="token operator">=</span><span class="token string">'101.200.56.108'</span>,master_user<span class="token operator">=</span><span class="token string">'itscmpsync'</span>,master_password<span class="token operator">=</span><span class="token string">'dcits001!'</span>,master_log_file<span class="token operator">=</span><span class="token string">'mysql-bin.000008'</span>,master_log_pos<span class="token operator">=</span><span class="token number">154</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <blockquote>
 <p>注：master_log_file和master_log_pos的值应与mysql1服务器状态列出的值对应</p>
@@ -196,7 +358,7 @@ log-slave-updates<span aria-hidden="true" class="line-numbers-rows"><span></span
 </blockquote>
 </li>
 <li><p>配置mysql1服务器</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mysql&gt;change master to master_host&#x3D;&#39;192.168.56.109&#39;,master_user&#x3D;&#39;itscmpsync&#39;,master_password&#x3D;&#39;dcits001!&#39;,master_log_file&#x3D;&#39;mysql-bin.000010&#39;,master_log_pos&#x3D;154;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql<span class="token operator">></span>change master to <span class="token assign-left variable">master_host</span><span class="token operator">=</span><span class="token string">'192.168.56.109'</span>,master_user<span class="token operator">=</span><span class="token string">'itscmpsync'</span>,master_password<span class="token operator">=</span><span class="token string">'dcits001!'</span>,master_log_file<span class="token operator">=</span><span class="token string">'mysql-bin.000010'</span>,master_log_pos<span class="token operator">=</span><span class="token number">154</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <blockquote>
 <p>注：master_log_file和master_log_pos的值应与mysql2服务器状态列出的值对应</p>
@@ -212,92 +374,92 @@ log-slave-updates<span aria-hidden="true" class="line-numbers-rows"><span></span
 </ol>
 <h5 id="keepalived配置"><a href="#keepalived配置" class="headerlink" title="keepalived配置"></a>keepalived配置</h5><ol>
 <li><p>编辑mysql1服务器keepalived配置文件，&#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">global_defs &#123;
-  router_id mysql-1  #运行keepalived服务器标识
-&#125;
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global_defs <span class="token punctuation">&#123;</span>
+  router_id mysql-1  <span class="token comment">#运行keepalived服务器标识</span>
+<span class="token punctuation">&#125;</span>
 
-vrrp_instance VI_1 &#123;
-   state BACKUP       #指定keepalived的角色，两台配置此处均是BACKUP，设为BACKUP将根据优先级决定主或从
-   interface enp0s8		#指定检测网络的接口
-   #虚拟路由标示，这个标示是一个数字(取值在0-255之间，用来区分多个instance的VRRP组播)，同一个vrrp实例使用		唯一的标示，确保和mysql2相同，同网内不同集群此项必须不同，否则发生冲突
-   virtual_router_id 51   
-   priority 100#用来选举master,该项取值范围是1-255（在此范围之外会被识别成默认值100），数值大的为master
-   advert_int 1		        #发vrrp包的时间间隔，即多久进行一次master选举（可以认为是健康检测时间间隔）
-   #不抢占，允许优先级较低的作为master，即使有priority更高的节点启动，一般只在优先级高的mysql配置
+vrrp_instance VI_1 <span class="token punctuation">&#123;</span>
+   state BACKUP       <span class="token comment">#指定keepalived的角色，两台配置此处均是BACKUP，设为BACKUP将根据优先级决定主或从</span>
+   interface enp0s8		<span class="token comment">#指定检测网络的接口</span>
+   <span class="token comment">#虚拟路由标示，这个标示是一个数字(取值在0-255之间，用来区分多个instance的VRRP组播)，同一个vrrp实例使用		唯一的标示，确保和mysql2相同，同网内不同集群此项必须不同，否则发生冲突</span>
+   virtual_router_id <span class="token number">51</span>   
+   priority <span class="token number">100</span><span class="token comment">#用来选举master,该项取值范围是1-255（在此范围之外会被识别成默认值100），数值大的为master</span>
+   advert_int <span class="token number">1</span>		        <span class="token comment">#发vrrp包的时间间隔，即多久进行一次master选举（可以认为是健康检测时间间隔）</span>
+   <span class="token comment">#不抢占，允许优先级较低的作为master，即使有priority更高的节点启动，一般只在优先级高的mysql配置</span>
    Nopreempt 
-   authentication &#123;  #认证区域，认证类型有PASS和HA(IPSEC),推荐使用PASS(密码只识别前8位)
+   authentication <span class="token punctuation">&#123;</span>  <span class="token comment">#认证区域，认证类型有PASS和HA(IPSEC),推荐使用PASS(密码只识别前8位)</span>
        auth_type PASS
-       auth_pass 1111
-   &#125;
-   virtual_ipaddress &#123;    #VIP区域，指定vip地址
-       192.168.56.150     #虚拟vip
-   &#125;
-&#125;
+       auth_pass <span class="token number">1111</span>
+   <span class="token punctuation">&#125;</span>
+   virtual_ipaddress <span class="token punctuation">&#123;</span>    <span class="token comment">#VIP区域，指定vip地址</span>
+       <span class="token number">192.168</span>.56.150     <span class="token comment">#虚拟vip</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-#设置虚拟服务器，需要指定虚拟IP地址和服务端口，IP与端口之间用空格隔开
-virtual_server 192.168.56.150 3306 &#123; 
-   delay_loop 2   #每隔2秒检查一次real_server状态
-   lb_algo rr			 #设置后端调度算法，这里设置为rr,即轮询算法
-   lb_kind DR     #设置LVS实现负载均衡的机制，有NAT、TUN、DR三个模式可选
-   #会话保持时间，单位为秒。这个选项对动态网页非常有用，为集群系统中的session共享提供了一个很好的解决方案，有了这个会话保持功能，用户的请求会被一只分发到某个服务节点，直到超过这个会话的保持时间
-   persistence_timeout 60 
-   protocol TCP    #指定转发协议类型，有TCP和UDP两种
-   real_server 192.168.56.108 3306 &#123; #配置服务节点1，需要指定real server的真实IP地址和端口
-       weight 3  #配置服务的权重
-       notify_down &#x2F;etc&#x2F;keepalived&#x2F;bin&#x2F;mysql.sh  #检测到服务down后执行的脚本
-       TCP_CHECK &#123;
-            connect_timeout 3         #连接超时时间 
-            nb_get_retry 3            #重连次数
-            delay_before_retry 3      #重连间隔时间
-            connect_port 3306		      #健康检查端口 
-       &#125;
-   &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">#设置虚拟服务器，需要指定虚拟IP地址和服务端口，IP与端口之间用空格隔开</span>
+virtual_server <span class="token number">192.168</span>.56.150 <span class="token number">3306</span> <span class="token punctuation">&#123;</span> 
+   delay_loop <span class="token number">2</span>   <span class="token comment">#每隔2秒检查一次real_server状态</span>
+   lb_algo rr			 <span class="token comment">#设置后端调度算法，这里设置为rr,即轮询算法</span>
+   lb_kind DR     <span class="token comment">#设置LVS实现负载均衡的机制，有NAT、TUN、DR三个模式可选</span>
+   <span class="token comment">#会话保持时间，单位为秒。这个选项对动态网页非常有用，为集群系统中的session共享提供了一个很好的解决方案，有了这个会话保持功能，用户的请求会被一只分发到某个服务节点，直到超过这个会话的保持时间</span>
+   persistence_timeout <span class="token number">60</span> 
+   protocol TCP    <span class="token comment">#指定转发协议类型，有TCP和UDP两种</span>
+   real_server <span class="token number">192.168</span>.56.108 <span class="token number">3306</span> <span class="token punctuation">&#123;</span> <span class="token comment">#配置服务节点1，需要指定real server的真实IP地址和端口</span>
+       weight <span class="token number">3</span>  <span class="token comment">#配置服务的权重</span>
+       notify_down /etc/keepalived/bin/mysql.sh  <span class="token comment">#检测到服务down后执行的脚本</span>
+       TCP_CHECK <span class="token punctuation">&#123;</span>
+            connect_timeout <span class="token number">3</span>         <span class="token comment">#连接超时时间 </span>
+            nb_get_retry <span class="token number">3</span>            <span class="token comment">#重连次数</span>
+            delay_before_retry <span class="token number">3</span>      <span class="token comment">#重连间隔时间</span>
+            connect_port <span class="token number">3306</span>		      <span class="token comment">#健康检查端口 </span>
+       <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>编辑mysql2服务器keepalived配置文件，&#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">global_defs &#123;
-  router_id mysql-2         #服务器标识
-&#125;
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global_defs <span class="token punctuation">&#123;</span>
+  router_id mysql-2         <span class="token comment">#服务器标识</span>
+<span class="token punctuation">&#125;</span>
 
-vrrp_instance VI_1 &#123;
+vrrp_instance VI_1 <span class="token punctuation">&#123;</span>
    state BACKUP
    interface enp0s8
-   virtual_router_id 51
-   priority 50               #优先级，用来选举
-   advert_int 1
-   authentication &#123;
+   virtual_router_id <span class="token number">51</span>
+   priority <span class="token number">50</span>               <span class="token comment">#优先级，用来选举</span>
+   advert_int <span class="token number">1</span>
+   authentication <span class="token punctuation">&#123;</span>
        auth_type PASS
-       auth_pass 1111
-   &#125;
-   virtual_ipaddress &#123;
-       192.168.56.150
-   &#125;
-&#125;
+       auth_pass <span class="token number">1111</span>
+   <span class="token punctuation">&#125;</span>
+   virtual_ipaddress <span class="token punctuation">&#123;</span>
+       <span class="token number">192.168</span>.56.150
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-virtual_server 192.168.56.150 3306 &#123;
-   delay_loop 2
+virtual_server <span class="token number">192.168</span>.56.150 <span class="token number">3306</span> <span class="token punctuation">&#123;</span>
+   delay_loop <span class="token number">2</span>
    lb_algo rr
    lb_kind DR
-   persistence_timeout 60
+   persistence_timeout <span class="token number">60</span>
    protocol TCP
-   real_server 192.168.56.109 3306 &#123; 
-       weight 3
-       notify_down    &#x2F;etc&#x2F;keepalived&#x2F;bin&#x2F;mysql.sh
-       TCP_CHECK &#123;
-            connect_timeout 3
-            nb_get_retry 3
-            delay_before_retry 3
-            connect_port 3306
-       &#125;
-   &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+   real_server <span class="token number">192.168</span>.56.109 <span class="token number">3306</span> <span class="token punctuation">&#123;</span> 
+       weight <span class="token number">3</span>
+       notify_down    /etc/keepalived/bin/mysql.sh
+       TCP_CHECK <span class="token punctuation">&#123;</span>
+            connect_timeout <span class="token number">3</span>
+            nb_get_retry <span class="token number">3</span>
+            delay_before_retry <span class="token number">3</span>
+            connect_port <span class="token number">3306</span>
+       <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 </li>
 <li><p>分别在mysql1和mysql2上创建服务down后脚本 &#x2F;etc&#x2F;keepalived&#x2F;bin&#x2F;mysql.sh</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!&#x2F;bin&#x2F;bash
-pkill keepalived
-sleep  10
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token function">pkill</span> keepalived
+<span class="token function">sleep</span>  <span class="token number">10</span>
 systemctl start keepalived<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>配置运行权限</p>
@@ -317,4 +479,4 @@ systemctl start keepalived<span aria-hidden="true" class="line-numbers-rows"><sp
 <p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1343127">https://cloud.tencent.com/developer/article/1343127</a></p>
 <p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1343127">https://cloud.tencent.com/developer/article/1343127</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gered/p/11221702.html">https://www.cnblogs.com/gered/p/11221702.html</a></p>
-</div><div class="tags"><a href="/tags/mysql"><i class="fa fa-tag">mysql</i></a></div><div class="post-nav"><a class="pre" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a><a class="next" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://haominglfs.github.io">haominglfs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://haominglfs.github.io/2020/10/19/mysql-gao-ke-yong-fang-an/">https://haominglfs.github.io/2020/10/19/mysql-gao-ke-yong-fang-an/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://haominglfs.github.io" target="_blank">haominglfs的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mysql/">mysql</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/10/21/redis-gao-ke-yong-fang-an/" title="redis高可用方案"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">redis高可用方案</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/23/echart-bai-du-di-tu/" title="echart+百度地图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">echart+百度地图</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">haominglfs</div><div class="author-info__description">A programmer's blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#galera%E9%9B%86%E7%BE%A4"><span class="toc-number">1.</span> <span class="toc-text">galera集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-number">1.1.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.</span> <span class="toc-text">集群配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E9%9B%86%E7%BE%A4"><span class="toc-number">1.4.</span> <span class="toc-text">启动集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.</span> <span class="toc-text">集群测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">1.6.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E4%B8%BBmysql-keepalived%E9%9B%86%E7%BE%A4"><span class="toc-number">2.</span> <span class="toc-text">双主mysql+keepalived集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-1"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mysql"><span class="toc-number">2.1.1.</span> <span class="toc-text">mysql</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#keepalived"><span class="toc-number">2.1.2.</span> <span class="toc-text">keepalived</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mysql%E4%B8%BB%E5%A4%87%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">mysql主备配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#keepalived%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.2.</span> <span class="toc-text">keepalived配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83-1"><span class="toc-number">2.4.</span> <span class="toc-text">参考</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/24/assertj/" title="AssertJ">AssertJ</a><time datetime="2022-03-24T12:44:21.000Z" title="发表于 2022-03-24 20:44:21">2022-03-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/19/ceph-bu-shu/" title="ceph部署">ceph部署</a><time datetime="2022-03-19T10:09:44.000Z" title="发表于 2022-03-19 18:09:44">2022-03-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/junit5/" title="JUnit">JUnit</a><time datetime="2022-03-09T09:18:06.000Z" title="发表于 2022-03-09 17:18:06">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/dan-yuan-ce-shi/" title="单元测试">单元测试</a><time datetime="2022-03-09T03:15:21.000Z" title="发表于 2022-03-09 11:15:21">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/31/2021-12-31-kvm/" title="kvm">kvm</a><time datetime="2021-12-31T14:15:21.000Z" title="发表于 2021-12-31 22:15:21">2021-12-31</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By haominglfs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

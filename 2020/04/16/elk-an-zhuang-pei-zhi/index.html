@@ -1,4 +1,168 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>ELK安装配置 | haominglfs的博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">ELK安装配置</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">ELK安装配置</h1><div class="post-meta">2020-04-16<span> | </span><span class="category"><a href="/categories/%E6%97%A5%E5%BF%97/">日志</a></span></div><div class="post-content"><h3 id="ELK常见架构"><a href="#ELK常见架构" class="headerlink" title="ELK常见架构"></a>ELK常见架构</h3><h4 id="Elasticsearch-Logstash-Kibana"><a href="#Elasticsearch-Logstash-Kibana" class="headerlink" title="Elasticsearch + Logstash + Kibana"></a>Elasticsearch + Logstash + Kibana</h4><p>这是一种最简单的架构。这种架构，通过logstash收集日志，Elasticsearch分析日志，然后在Kibana(web界面)中展示。这种架构虽然是官网介绍里的方式，但是往往在生产中很少使用。</p>
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>ELK安装配置 | haominglfs的博客</title><meta name="author" content="haominglfs"><meta name="copyright" content="haominglfs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ELK常见架构Elasticsearch + Logstash + Kibana这是一种最简单的架构。这种架构，通过logstash收集日志，Elasticsearch分析日志，然后在Kibana(web界面)中展示。这种架构虽然是官网介绍里的方式，但是往往在生产中很少使用。 Elasticsearch + Logstash + filebeat + Kibana与上一种架构相比，这种架构增加了一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK安装配置">
+<meta property="og:url" content="https://haominglfs.github.io/2020/04/16/elk-an-zhuang-pei-zhi/index.html">
+<meta property="og:site_name" content="haominglfs的博客">
+<meta property="og:description" content="ELK常见架构Elasticsearch + Logstash + Kibana这是一种最简单的架构。这种架构，通过logstash收集日志，Elasticsearch分析日志，然后在Kibana(web界面)中展示。这种架构虽然是官网介绍里的方式，但是往往在生产中很少使用。 Elasticsearch + Logstash + filebeat + Kibana与上一种架构相比，这种架构增加了一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2020-04-16T13:54:25.000Z">
+<meta property="article:modified_time" content="2020-04-21T13:58:00.104Z">
+<meta property="article:author" content="haominglfs">
+<meta property="article:tag" content="Elasticsearch Logstash Kibana">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://haominglfs.github.io/2020/04/16/elk-an-zhuang-pei-zhi/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ELK安装配置',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-04-21 21:58:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="haominglfs的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="haominglfs的博客"><span class="site-name">haominglfs的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ELK安装配置</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-16T13:54:25.000Z" title="发表于 2020-04-16 21:54:25">2020-04-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-04-21T13:58:00.104Z" title="更新于 2020-04-21 21:58:00">2020-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ELK安装配置"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="ELK常见架构"><a href="#ELK常见架构" class="headerlink" title="ELK常见架构"></a>ELK常见架构</h3><h4 id="Elasticsearch-Logstash-Kibana"><a href="#Elasticsearch-Logstash-Kibana" class="headerlink" title="Elasticsearch + Logstash + Kibana"></a>Elasticsearch + Logstash + Kibana</h4><p>这是一种最简单的架构。这种架构，通过logstash收集日志，Elasticsearch分析日志，然后在Kibana(web界面)中展示。这种架构虽然是官网介绍里的方式，但是往往在生产中很少使用。</p>
 <h4 id="Elasticsearch-Logstash-filebeat-Kibana"><a href="#Elasticsearch-Logstash-filebeat-Kibana" class="headerlink" title="Elasticsearch + Logstash + filebeat + Kibana"></a>Elasticsearch + Logstash + filebeat + Kibana</h4><p>与上一种架构相比，这种架构增加了一个filebeat模块。filebeat是一个轻量的日志收集代理，用来部署在客户端，优势是消耗非常少的资源(较logstash)， 所以生产中，往往会采取这种架构方式，但是这种架构有一个缺点，当logstash出现故障， 会造成日志的丢失。</p>
 <h4 id="Elasticsearch-Logstash-filebeat-redis-也可以是其他中间件，比如kafka-Kibana"><a href="#Elasticsearch-Logstash-filebeat-redis-也可以是其他中间件，比如kafka-Kibana" class="headerlink" title="Elasticsearch + Logstash + filebeat + redis(也可以是其他中间件，比如kafka) + Kibana"></a>Elasticsearch + Logstash + filebeat + redis(也可以是其他中间件，比如kafka) + Kibana</h4><p>这种架构是上面那个架构的完善版，通过增加中间件，来避免数据的丢失。当Logstash出现故障，日志还是存在中间件中，当Logstash再次启动，则会读取中间件中积压的日志。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20200416220019.png"></p>
@@ -9,37 +173,37 @@
 <h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><p>filebeat由2个主要组件构成：prospector和harvesters。这两类组件一起协同完成Filebeat的工作，从指定文件中把数据读取出来，然后发送事件数据到配置的output中。</p>
 <p>harvesters：主要负责进行单个文件的内容收集；在运行过程中，每一个Harvester会对一个文件逐行进行内容读取，并且把读写到的内容发送到配置的output中。</p>
 <p>Prospector负责管理Harvsters，并且找到所有需要进行读取的数据源。如果input type配置的是log类，Prospector将会去配置度路径下查找所有能匹配上的文件，然后为每一个文件创建一个Harvster。每个Prospector都运行在自己的Go routine里。</p>
-<p>当你开启filebeat程序的时候，它会启动一个或多个探测器（prospectors）去检测你指定的日志目录或文件，对于探测器找出的每一个日志文件，filebeat启动收割进程（harvester），每一个收割进程读取一个日志文件的新内容，并发送这些新的日志数据到处理程序（spooler），处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。    </p>
-<h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl -L -O https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;downloads&#x2F;beats&#x2F;filebeat&#x2F;filebeat-5.2.2-x86_64.rpm
-sudo rpm -vi filebeat-5.2.2-x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>当你开启filebeat程序的时候，它会启动一个或多个探测器（prospectors）去检测你指定的日志目录或文件，对于探测器找出的每一个日志文件，filebeat启动收割进程（harvester），每一个收割进程读取一个日志文件的新内容，并发送这些新的日志数据到处理程序（spooler），处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。	</p>
+<h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token parameter variable">-O</span> https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.2.2-x86_64.rpm
+<span class="token function">sudo</span> <span class="token function">rpm</span> <span class="token parameter variable">-vi</span> filebeat-5.2.2-x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Filebeat prospectors &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
-#filebeat.prospectors模块用来指定日志文件的来源。
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#=========================== Filebeat prospectors =============================</span>
+<span class="token comment">#filebeat.prospectors模块用来指定日志文件的来源。</span>
 filebeat.prospectors:
-- input_type: log #input_type 指定日志类型，在这里是log， 应该也可以是json
-  enabled: true
-  paths:  #paths指定日志文件路径。
-    - &#x2F;root&#x2F;myapp&#x2F;tomcat&#x2F;tomcat8&#x2F;logs&#x2F;*.log
-#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; redis &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+- input_type: log <span class="token comment">#input_type 指定日志类型，在这里是log， 应该也可以是json</span>
+  enabled: <span class="token boolean">true</span>
+  paths:  <span class="token comment">#paths指定日志文件路径。</span>
+    - /root/myapp/tomcat/tomcat8/logs/*.log
+<span class="token comment">#================================ redis =====================================</span>
 output.redis:
-    hosts: [&quot;152.136.233.203:6379&quot;]
-    password: &quot;redis&quot;
+    hosts: <span class="token punctuation">[</span><span class="token string">"152.136.233.203:6379"</span><span class="token punctuation">]</span>
+    password: <span class="token string">"redis"</span>
     datatype: list
-    key: &quot;tomcat-log&quot;
-    db: 1
+    key: <span class="token string">"tomcat-log"</span>
+    db: <span class="token number">1</span>
 
-#document_type：这个字段是用来给日志打标记的。 
-#fields: 也是打标记，主要为了后面日志分析查找的方便，存储的时候也会根据fields分类存储，相同fields的数据存在同一个redis key中
-#fields_under_root: 如果该选项设置为true， 则该fields会存储在top-level中。
-#tail_files: 这个选项如果设置为true，则读取日志文件的新内容，而忽略原有的内容，一般要设置为true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">#document_type：这个字段是用来给日志打标记的。 </span>
+<span class="token comment">#fields: 也是打标记，主要为了后面日志分析查找的方便，存储的时候也会根据fields分类存储，相同fields的数据存在同一个redis key中</span>
+<span class="token comment">#fields_under_root: 如果该选项设置为true， 则该fields会存储在top-level中。</span>
+<span class="token comment">#tail_files: 这个选项如果设置为true，则读取日志文件的新内容，而忽略原有的内容，一般要设置为true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl start filebeat<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start filebeat<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
 <li><p>filebeat怎么设置从头开始读取</p>
 <ol>
 <li><p>找到registry文件的位置，如果没有单独配置那么文件路径为<code>/var/lib/filebeat/registry</code>，不在也没关心，可以直接find命令查找</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">find &#x2F; -name registry<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> / <span class="token parameter variable">-name</span> registry<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>关闭filebeat –&gt; 删掉registry文件 –&gt; 启动filebeat</p>
 </li>
@@ -48,61 +212,61 @@ output.redis:
 <li><p>Filebeat插件启动失败，不能直接查找报错原因</p>
 <p>老是在filebeat启动的这一步骤上出错，但是由于filebeat是由systemd启动的，因此原因也经常查不清楚，因此并不能直观的查出错误在哪里，所以今天教给大家两个寻找错误的根源的方法:</p>
 <p>直接使用filebeat的启动方法，而不使用systemctl start filebeat来启动。比如：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&#x2F;usr&#x2F;share&#x2F;filebeat&#x2F;bin&#x2F;filebeat -c &#x2F;etc&#x2F;filebeat&#x2F;filebeat.yml -path.home &#x2F;usr&#x2F;share&#x2F;filebeat -path.config &#x2F;etc&#x2F;filebeat -path.data &#x2F;var&#x2F;lib&#x2F;filebeat -path.logs &#x2F;var&#x2F;log&#x2F;filebeat<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/usr/share/filebeat/bin/filebeat <span class="token parameter variable">-c</span> /etc/filebeat/filebeat.yml <span class="token parameter variable">-path.home</span> /usr/share/filebeat <span class="token parameter variable">-path.config</span> /etc/filebeat <span class="token parameter variable">-path.data</span> /var/lib/filebeat <span class="token parameter variable">-path.logs</span> /var/log/filebeat<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ol>
-<h3 id="logstash-安装配置"><a href="#logstash-安装配置" class="headerlink" title="logstash 安装配置"></a>logstash 安装配置</h3><h4 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">wget https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;downloads&#x2F;logstash&#x2F;logstash-5.2.2.tar.gz
-tar xf logstash-5.2.0.tar.gz -C &#x2F;opt&#x2F;app&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="logstash-安装配置"><a href="#logstash-安装配置" class="headerlink" title="logstash 安装配置"></a>logstash 安装配置</h3><h4 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://artifacts.elastic.co/downloads/logstash/logstash-5.2.2.tar.gz
+<span class="token function">tar</span> xf logstash-5.2.0.tar.gz <span class="token parameter variable">-C</span> /opt/app/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p &#x2F;data&#x2F;ls-data  #创建&#x2F;data&#x2F;ls-data目录，用于logstash数据的存放
-chown -R logstash:logstash &#x2F;data&#x2F;ls-data #修改该目录的拥有者为logstash
-mkdir -p &#x2F;log&#x2F;ls-log #创建&#x2F;data&#x2F;ls-log目录，用于logstash日志的存放
-chown -R logstash:logstash &#x2F;log&#x2F;ls-log #修改该目录的拥有者为logstash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /data/ls-data  <span class="token comment">#创建/data/ls-data目录，用于logstash数据的存放</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> logstash:logstash /data/ls-data <span class="token comment">#修改该目录的拥有者为logstash</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /log/ls-log <span class="token comment">#创建/data/ls-log目录，用于logstash日志的存放</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> logstash:logstash /log/ls-log <span class="token comment">#修改该目录的拥有者为logstash</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p &#x2F;config&#x2F;logstash&#x2F;config.d
-vim logstash.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /config/logstash/config.d
+<span class="token function">vim</span> logstash.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">input &#123;
-  redis &#123;
-    host &#x3D;&gt; &quot;localhost&quot;
-    port &#x3D;&gt; &quot;6379&quot;
-    db &#x3D;&gt; &quot;1&quot;
-    data_type &#x3D;&gt; &quot;list&quot;
-    key &#x3D;&gt; &quot;tomcat-log&quot;
-    codec &#x3D;&gt; plain &#123;
-          charset &#x3D;&gt; &quot;UTF-8&quot;
-    &#125;
-  &#125;
-&#125;
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">input <span class="token punctuation">&#123;</span>
+  redis <span class="token punctuation">&#123;</span>
+    <span class="token function">host</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"localhost"</span>
+    port <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"6379"</span>
+    db <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"1"</span>
+    data_type <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"list"</span>
+    key <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"tomcat-log"</span>
+    codec <span class="token operator">=</span><span class="token operator">></span> plain <span class="token punctuation">&#123;</span>
+          charset <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"UTF-8"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-output &#123;
-  elasticsearch &#123; 
-  	hosts &#x3D;&gt; [&quot;localhost:9200&quot;] 
-  	index &#x3D;&gt; &quot;tomcat-log&quot;
-  &#125;
-  stdout &#123; codec &#x3D;&gt; rubydebug &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+output <span class="token punctuation">&#123;</span>
+  elasticsearch <span class="token punctuation">&#123;</span> 
+  	hosts <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">[</span><span class="token string">"localhost:9200"</span><span class="token punctuation">]</span> 
+  	index <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"tomcat-log"</span>
+  <span class="token punctuation">&#125;</span>
+  stdout <span class="token punctuation">&#123;</span> codec <span class="token operator">=</span><span class="token operator">></span> rubydebug <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>input是redis， 需要指定redis的host 和port以及db，还要指明数据的类型，list表示这是一个redis的list对象。key指明redis中的key名称。</p>
 <p>output 是elasticsearch， hosts指明elasticsearch的ip和端口，index指明这个日志存在elasticsearch中的索引名称。</p>
-<h4 id="修改配置文件-x2F-opt-x2F-logstash-5-2-2-x2F-config-x2F-logstash-yml"><a href="#修改配置文件-x2F-opt-x2F-logstash-5-2-2-x2F-config-x2F-logstash-yml" class="headerlink" title="修改配置文件(&#x2F;opt&#x2F;logstash-5.2.2&#x2F;config&#x2F;logstash.yml)"></a>修改配置文件(&#x2F;opt&#x2F;logstash-5.2.2&#x2F;config&#x2F;logstash.yml)</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 设置数据的存储路径为&#x2F;data&#x2F;ls-data
-path.data: &#x2F;data&#x2F;ls-data
-# 设置管道配置文件路径为&#x2F;etc&#x2F;logstash&#x2F;conf.d
-path.config: &#x2F;etc&#x2F;logstash&#x2F;conf.d
-# 设置日志文件的存储路径为&#x2F;log&#x2F;ls-log
-path.logs: &#x2F;log&#x2F;ls-log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="修改配置文件-x2F-opt-x2F-logstash-5-2-2-x2F-config-x2F-logstash-yml"><a href="#修改配置文件-x2F-opt-x2F-logstash-5-2-2-x2F-config-x2F-logstash-yml" class="headerlink" title="修改配置文件(&#x2F;opt&#x2F;logstash-5.2.2&#x2F;config&#x2F;logstash.yml)"></a>修改配置文件(&#x2F;opt&#x2F;logstash-5.2.2&#x2F;config&#x2F;logstash.yml)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置数据的存储路径为/data/ls-data</span>
+path.data: /data/ls-data
+<span class="token comment"># 设置管道配置文件路径为/etc/logstash/conf.d</span>
+path.config: /etc/logstash/conf.d
+<span class="token comment"># 设置日志文件的存储路径为/log/ls-log</span>
+path.logs: /log/ls-log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h5 id="测试logstash"><a href="#测试logstash" class="headerlink" title="测试logstash"></a>测试logstash</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">.&#x2F;logstash -f &#x2F;config&#x2F;logstash&#x2F;config.d&#x2F;logstash.conf --config.test_and_exit
-#--config.test_and_exit表示，检查测试创建的logstash.conf配置文件，是否有问题，如果没有问题，执行之后，显示Configuration OK 证明配置成功！<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="测试logstash"><a href="#测试logstash" class="headerlink" title="测试logstash"></a>测试logstash</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./logstash <span class="token parameter variable">-f</span> /config/logstash/config.d/logstash.conf <span class="token parameter variable">--config.test_and_exit</span>
+<span class="token comment">#--config.test_and_exit表示，检查测试创建的logstash.conf配置文件，是否有问题，如果没有问题，执行之后，显示Configuration OK 证明配置成功！</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h4 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nohup &#x2F;usr&#x2F;share&#x2F;logstash&#x2F;bin&#x2F;logstash -f &#x2F;etc&#x2F;logstash&#x2F;conf.d&#x2F;logstash.conf &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nohup</span> /usr/share/logstash/bin/logstash <span class="token parameter variable">-f</span> /etc/logstash/conf.d/logstash.conf <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="elasticsearch安装"><a href="#elasticsearch安装" class="headerlink" title="elasticsearch安装"></a>elasticsearch安装</h3><h4 id="下载-2"><a href="#下载-2" class="headerlink" title="下载"></a>下载</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl -L -O https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;downloads&#x2F;elasticsearch&#x2F;elasticsearch-5.2.2.tar.gz
-tar -xvf elasticsearch-5.2.2.tar.gz -C  &#x2F;opt&#x2F;app&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="elasticsearch安装"><a href="#elasticsearch安装" class="headerlink" title="elasticsearch安装"></a>elasticsearch安装</h3><h4 id="下载-2"><a href="#下载-2" class="headerlink" title="下载"></a>下载</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token parameter variable">-O</span> https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.2.tar.gz
+<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> elasticsearch-5.2.2.tar.gz <span class="token parameter variable">-C</span>  /opt/app/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p &#x2F;data&#x2F;es-data #创建&#x2F;data&#x2F;es-data目录，用于elasticsearch数据的存放
-chown -R elasticsearch:elasticsearch &#x2F;data&#x2F;es-data  #修改该目录的拥有者为elasticsearch
-mkdir -p &#x2F;log&#x2F;es-log   #创建&#x2F;data&#x2F;es-log目录，用于elasticsearch日志的存放
-chown -R elasticsearch:elasticsearch &#x2F;log&#x2F;es-log #修改该目录的拥有者为elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /data/es-data <span class="token comment">#创建/data/es-data目录，用于elasticsearch数据的存放</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> elasticsearch:elasticsearch /data/es-data  <span class="token comment">#修改该目录的拥有者为elasticsearch</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /log/es-log   <span class="token comment">#创建/data/es-log目录，用于elasticsearch日志的存放</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> elasticsearch:elasticsearch /log/es-log <span class="token comment">#修改该目录的拥有者为elasticsearch</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="修改配置文件-x2F-opt-x2F-elasticsearch-5-2-2-x2F-config-x2F-elasticsearch-yml"><a href="#修改配置文件-x2F-opt-x2F-elasticsearch-5-2-2-x2F-config-x2F-elasticsearch-yml" class="headerlink" title="修改配置文件 (&#x2F;opt&#x2F;elasticsearch-5.2.2&#x2F;config&#x2F;elasticsearch.yml)"></a>修改配置文件 (&#x2F;opt&#x2F;elasticsearch-5.2.2&#x2F;config&#x2F;elasticsearch.yml)</h4><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment">#设置data存放的路径为/data/es-data</span>
 <span class="token key atrule">path.data</span><span class="token punctuation">:</span> /data/es<span class="token punctuation">-</span>data
@@ -120,22 +284,22 @@ chown -R elasticsearch:elasticsearch &#x2F;log&#x2F;es-log #修改该目录的�
 <span class="token key atrule">http.cors.allow-origin</span><span class="token punctuation">:</span> <span class="token string">"*"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="启动-2"><a href="#启动-2" class="headerlink" title="启动"></a>启动</h4><p><em><strong>注意，如果你使用root用户启动elasticsearch，就会报错，启动失败，这是因为elasticsearch不允许用root用户启动。可以创建一个用户，用来启动elasticsearch</strong></em></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">groupadd elasticsearch  #添加组
-useradd -g elasticsearch elasticsearch #添加用户
-chown -R elasticsearch:elasticsearch  &#x2F;opt&#x2F;app&#x2F;elasticsearch-5.2.2&#x2F; #设置权限
-&#x2F;opt&#x2F;app&#x2F;elasticsearch-5.2.2&#x2F;bin&#x2F;elasticsearch -d  #启动，后台运行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">groupadd</span> elasticsearch  <span class="token comment">#添加组</span>
+<span class="token function">useradd</span> <span class="token parameter variable">-g</span> elasticsearch elasticsearch <span class="token comment">#添加用户</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> elasticsearch:elasticsearch  /opt/app/elasticsearch-5.2.2/ <span class="token comment">#设置权限</span>
+/opt/app/elasticsearch-5.2.2/bin/elasticsearch <span class="token parameter variable">-d</span>  <span class="token comment">#启动，后台运行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="kibana安装配置"><a href="#kibana安装配置" class="headerlink" title="kibana安装配置"></a>kibana安装配置</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">wget https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;downloads&#x2F;kibana&#x2F;kibana-5.2.2-linux-x86_64.tar.gz
-tar -xzf kibana-5.2.2-linux-x86_64.tar.gz -C &#x2F;opt&#x2F;app&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="kibana安装配置"><a href="#kibana安装配置" class="headerlink" title="kibana安装配置"></a>kibana安装配置</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://artifacts.elastic.co/downloads/kibana/kibana-5.2.2-linux-x86_64.tar.gz
+<span class="token function">tar</span> <span class="token parameter variable">-xzf</span> kibana-5.2.2-linux-x86_64.tar.gz <span class="token parameter variable">-C</span> /opt/app/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h4 id="配置-x2F-opt-x2F-app-x2F-kibana-5-2-2-linux-x86-64-x2F-config-x2F-kibana-yml"><a href="#配置-x2F-opt-x2F-app-x2F-kibana-5-2-2-linux-x86-64-x2F-config-x2F-kibana-yml" class="headerlink" title="配置(&#x2F;opt&#x2F;app&#x2F;kibana-5.2.2-linux-x86_64&#x2F;config&#x2F;kibana.yml)"></a>配置(&#x2F;opt&#x2F;app&#x2F;kibana-5.2.2-linux-x86_64&#x2F;config&#x2F;kibana.yml)</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">server.host: &quot;0.0.0.0&quot; #指明服务运行的地址
-elasticsearch.url: &quot;http:&#x2F;&#x2F;localhost:9200&quot; #指明elasticsearch运行的地址和端口
-kibana.index: &quot;.kibana&quot;  #指明kibana使用的索引，这个是自定义的。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="配置-x2F-opt-x2F-app-x2F-kibana-5-2-2-linux-x86-64-x2F-config-x2F-kibana-yml"><a href="#配置-x2F-opt-x2F-app-x2F-kibana-5-2-2-linux-x86-64-x2F-config-x2F-kibana-yml" class="headerlink" title="配置(&#x2F;opt&#x2F;app&#x2F;kibana-5.2.2-linux-x86_64&#x2F;config&#x2F;kibana.yml)"></a>配置(&#x2F;opt&#x2F;app&#x2F;kibana-5.2.2-linux-x86_64&#x2F;config&#x2F;kibana.yml)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server.host: <span class="token string">"0.0.0.0"</span> <span class="token comment">#指明服务运行的地址</span>
+elasticsearch.url: <span class="token string">"http://localhost:9200"</span> <span class="token comment">#指明elasticsearch运行的地址和端口</span>
+kibana.index: <span class="token string">".kibana"</span>  <span class="token comment">#指明kibana使用的索引，这个是自定义的。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="启动-3"><a href="#启动-3" class="headerlink" title="启动"></a>启动</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&#x2F;opt&#x2F;app&#x2F;kibana-5.2.2-linux-x86_64&#x2F;bin&#x2F;kibana<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="启动-3"><a href="#启动-3" class="headerlink" title="启动"></a>启动</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/opt/app/kibana-5.2.2-linux-x86_64/bin/kibana<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e7362ccfe7e3">https://www.jianshu.com/p/e7362ccfe7e3</a></p>
 <p><a target="_blank" rel="noopener" href="http://www.justdojava.com/2019/08/11/elk-install/">http://www.justdojava.com/2019/08/11/elk-install/</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.51cto.com/liqingbiao/2177873">https://blog.51cto.com/liqingbiao/2177873</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/FengGeBlog/p/10644170.html">https://www.cnblogs.com/FengGeBlog/p/10644170.html</a></p>
-</div><div class="tags"><a href="/tags/Elasticsearch Logstash Kibana"><i class="fa fa-tag">Elasticsearch Logstash Kibana</i></a></div><div class="post-nav"><a class="pre" href="/2020/04/29/ideavim-an-zhuang-pei-zhi/">ideaVim安装配置</a><a class="next" href="/2020/04/06/lei-tu/">类图</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://haominglfs.github.io">haominglfs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://haominglfs.github.io/2020/04/16/elk-an-zhuang-pei-zhi/">https://haominglfs.github.io/2020/04/16/elk-an-zhuang-pei-zhi/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://haominglfs.github.io" target="_blank">haominglfs的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Elasticsearch-Logstash-Kibana/">Elasticsearch Logstash Kibana</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/04/29/ideavim-an-zhuang-pei-zhi/" title="ideaVim安装配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ideaVim安装配置</div></div></a></div><div class="next-post pull-right"><a href="/2020/04/06/lei-tu/" title="类图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">类图</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">haominglfs</div><div class="author-info__description">A programmer's blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ELK%E5%B8%B8%E8%A7%81%E6%9E%B6%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">ELK常见架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Elasticsearch-Logstash-Kibana"><span class="toc-number">1.1.</span> <span class="toc-text">Elasticsearch + Logstash + Kibana</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Elasticsearch-Logstash-filebeat-Kibana"><span class="toc-number">1.2.</span> <span class="toc-text">Elasticsearch + Logstash + filebeat + Kibana</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Elasticsearch-Logstash-filebeat-redis-%E4%B9%9F%E5%8F%AF%E4%BB%A5%E6%98%AF%E5%85%B6%E4%BB%96%E4%B8%AD%E9%97%B4%E4%BB%B6%EF%BC%8C%E6%AF%94%E5%A6%82kafka-Kibana"><span class="toc-number">1.3.</span> <span class="toc-text">Elasticsearch + Logstash + filebeat + redis(也可以是其他中间件，比如kafka) + Kibana</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filebeat%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text">filebeat安装部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.3.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">2.5.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">2.6.</span> <span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logstash-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">logstash 安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-1"><span class="toc-number">3.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-1"><span class="toc-number">3.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.</span> <span class="toc-text">创建配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-x2F-opt-x2F-logstash-5-2-2-x2F-config-x2F-logstash-yml"><span class="toc-number">3.4.</span> <span class="toc-text">修改配置文件(&#x2F;opt&#x2F;logstash-5.2.2&#x2F;config&#x2F;logstash.yml)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95logstash"><span class="toc-number">3.4.1.</span> <span class="toc-text">测试logstash</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-1"><span class="toc-number">3.5.</span> <span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#elasticsearch%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">elasticsearch安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-2"><span class="toc-number">4.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-2"><span class="toc-number">4.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-x2F-opt-x2F-elasticsearch-5-2-2-x2F-config-x2F-elasticsearch-yml"><span class="toc-number">4.3.</span> <span class="toc-text">修改配置文件 (&#x2F;opt&#x2F;elasticsearch-5.2.2&#x2F;config&#x2F;elasticsearch.yml)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-2"><span class="toc-number">4.4.</span> <span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kibana%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">kibana安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">5.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-x2F-opt-x2F-app-x2F-kibana-5-2-2-linux-x86-64-x2F-config-x2F-kibana-yml"><span class="toc-number">5.2.</span> <span class="toc-text">配置(&#x2F;opt&#x2F;app&#x2F;kibana-5.2.2-linux-x86_64&#x2F;config&#x2F;kibana.yml)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-3"><span class="toc-number">5.3.</span> <span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/24/assertj/" title="AssertJ">AssertJ</a><time datetime="2022-03-24T12:44:21.000Z" title="发表于 2022-03-24 20:44:21">2022-03-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/19/ceph-bu-shu/" title="ceph部署">ceph部署</a><time datetime="2022-03-19T10:09:44.000Z" title="发表于 2022-03-19 18:09:44">2022-03-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/junit5/" title="JUnit">JUnit</a><time datetime="2022-03-09T09:18:06.000Z" title="发表于 2022-03-09 17:18:06">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/dan-yuan-ce-shi/" title="单元测试">单元测试</a><time datetime="2022-03-09T03:15:21.000Z" title="发表于 2022-03-09 11:15:21">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/31/2021-12-31-kvm/" title="kvm">kvm</a><time datetime="2021-12-31T14:15:21.000Z" title="发表于 2021-12-31 22:15:21">2021-12-31</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By haominglfs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

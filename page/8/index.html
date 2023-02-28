@@ -1,30 +1,353 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="A programmer's blog"><title>haominglfs的博客 | Let's coding!</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 6.1.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">haominglfs的博客</h1><a id="logo" href="/.">haominglfs的博客</a><p class="description">Let's coding!</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2018/07/14/effective-java-du-shu-bi-ji-2/">effective-java读书笔记2</a></h1><div class="post-meta">2018-07-14</div><div class="post-content"><h5 id="第一条：考虑用静态工厂方法代替构造器"><a href="#第一条：考虑用静态工厂方法代替构造器" class="headerlink" title="第一条：考虑用静态工厂方法代替构造器"></a>第一条：考虑用静态工厂方法代替构造器</h5><h6 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h6><ul>
-<li><p>静态工厂方法有名字，当一个类需要多个带有相同签名的构造器时，就用静态工厂方法代替构造器，并且慎重的选择名称以便突出他们之间的区别。</p>
-</li>
-<li><p>不必在每次调用它们的时候都创建一个新对象。</p>
-</li>
-<li><p>它们可以返回原返回类型的任何子类型的对象。这样我们在选择返回对象的类时就有了更大的灵活性。</p>
-</li>
-<li><p>创建参数化类型实例的时候，它们使代码变得更加简洁(但在新版本的java中已经可以省略)</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><p class="readmore"><a href="/2018/07/14/effective-java-du-shu-bi-ji-2/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2018/07/14/cmder-pei-zhi-shi-yong/">cmder配置使用</a></h1><div class="post-meta">2018-07-14</div><div class="post-content"><h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p><a target="_blank" rel="noopener" href="http://cmder.net/">cmder官网</a></p>
-<p>下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版 cmder 自带了 msysgit, 压缩包 23M, 除了 git 本身这个命令之外, 里面可以使用大量的 linux 命令；比如 grep, curl(没有 wget)； 像vim, grep, tar, unzip, ssh, ls, bash, perl 对于爱折腾的Coder更是痛点需求。 </p></div><p class="readmore"><a href="/2018/07/14/cmder-pei-zhi-shi-yong/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2018/05/04/js-gao-ji-cheng-xu-she-ji-du-shu-bi-ji-2/">js高级程序设计-读书笔记2</a></h1><div class="post-meta">2018-05-04</div><div class="post-content"><h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><ol>
-<li>Object类型<br> 创建Object实例的方式有两种： <pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> person <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  person<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Nicholas"</span><span class="token punctuation">;</span>
-  person<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">;</span>
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>haominglfs的博客 - Let's coding!</title><meta name="author" content="haominglfs"><meta name="copyright" content="haominglfs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="A programmer&#39;s blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="haominglfs的博客">
+<meta property="og:url" content="https://haominglfs.github.io/page/8/index.html">
+<meta property="og:site_name" content="haominglfs的博客">
+<meta property="og:description" content="A programmer&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="haominglfs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://haominglfs.github.io/page/8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'haominglfs的博客',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-02-28 16:46:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-  <span class="token comment">//字面量方式:</span>
-  <span class="token keyword">var</span> person <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">name</span> <span class="token operator">:</span> <span class="token string">"Nicholas"</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">age</span> <span class="token operator">:</span><span class="token number">29</span>
-  <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><p class="readmore"><a href="/2018/05/04/js-gao-ji-cheng-xu-she-ji-du-shu-bi-ji-2/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2018/04/30/js-gao-ji-cheng-xu-she-ji-du-shu-bi-ji/">js高级程序设计-读书笔记</a></h1><div class="post-meta">2018-04-30</div><div class="post-content"><h3 id="lt-script-gt-标签"><a href="#lt-script-gt-标签" class="headerlink" title="&lt;script&gt;标签"></a><code>&lt;script&gt;</code>标签</h3><ol>
-<li><p>无论如何包含代码，只要不存在defer和async属性，浏览器都会按照<code>&lt;script&gt;</code>元素在页面中出现的先后顺序对他们依次进行解析。</p>
-</li>
-<li><p>在文档的<code>&lt;head&gt;</code>元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到<code>&lt;body&gt;</code>标签时才开始呈现内容），所以，一般都这样写：</p></div><p class="readmore"><a href="/2018/04/30/js-gao-ji-cheng-xu-she-ji-du-shu-bi-ji/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2018/04/06/she-ji-mo-shi-zhi-ze-lian-mo-shi/">设计模式-职责链模式</a></h1><div class="post-meta">2018-04-06</div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>避免请求发送者与接收者 耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p></div><p class="readmore"><a href="/2018/04/06/she-ji-mo-shi-zhi-ze-lian-mo-shi/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2018/04/06/she-ji-mo-shi-zhuang-shi-mo-shi/">设计模式-装饰模式</a></h1><div class="post-meta">2018-04-06</div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。</p></div><p class="readmore"><a href="/2018/04/06/she-ji-mo-shi-zhuang-shi-mo-shi/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2018/04/06/she-ji-mo-shi-jian-zao-zhe-mo-shi/">设计模式-建造者模式</a></h1><div class="post-meta">2018-04-06</div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。</p></div><p class="readmore"><a href="/2018/04/06/she-ji-mo-shi-jian-zao-zhe-mo-shi/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2018/04/01/she-ji-mo-shi-yuan-xing-mo-shi/">设计模式-原型模式</a></h1><div class="post-meta">2018-04-01</div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。</p></div><p class="readmore"><a href="/2018/04/01/she-ji-mo-shi-yuan-xing-mo-shi/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/09/27/effective-java-du-shu-bi-ji/">effective java读书笔记</a></h1><div class="post-meta">2017-09-27</div><div class="post-content"><h5 id="第52条：通过接口引用对象"><a href="#第52条：通过接口引用对象" class="headerlink" title="第52条：通过接口引用对象"></a>第52条：通过接口引用对象</h5><p>如果有合适的接口类型存在，那么对于参数、返回值、变量和成员变量来说，就都应该使用接口类型进行声明；如果你养成了用接口作为类型的习惯，你的程序将会更加灵活，当你决定更换实现时，所要做的就只是构造器中类的名称。<br>有一点值得注意：如果原来的实现提供了某种特殊的功能，而这种功能并不是这个接口的通用约定所要求的，并且周围的代码又依赖于这种功能，那么新的实现也要提供相同的功能。<br>类实现了接口，但是提供了接口中不存在的额外的方法–例如LinkedHashMap。如果程序依赖于这些额外的方法，这种类就应该只被用来引用它的实例。<br>实际上，给定的对象是否具有适当的接口应该是很显然的。如果是，用接口引用对象就会使程序更加灵活；如果不是，则使用类层次结构中提供了必要功能的最基础的类。</p></div><p class="readmore"><a href="/2017/09/27/effective-java-du-shu-bi-ji/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/09/20/she-ji-mo-shi-gua-pei-qi-mo-shi/">设计模式-适配器模式</a></h1><div class="post-meta">2017-09-20</div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将一个接口转换成客户希望的另一个接口，使接口不兼容的哪些类可以一起工作，其别名为包装器（Wrapper）。</p></div><p class="readmore"><a href="/2017/09/20/she-ji-mo-shi-gua-pei-qi-mo-shi/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/09/16/she-ji-mo-shi-gong-han-fang-fa-mo-shi/">设计模式-工厂方法模式</a></h1><div class="post-meta">2017-09-16</div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>与简单工厂模式不同，在工厂方法模式中，不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p></div><p class="readmore"><a href="/2017/09/16/she-ji-mo-shi-gong-han-fang-fa-mo-shi/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/06/17/jvm-xue-xi-bi-ji/">jvm学习笔记</a></h1><div class="post-meta">2017-06-17</div><div class="post-content"><h2 id="java虚拟机与程序的生命周期"><a href="#java虚拟机与程序的生命周期" class="headerlink" title="java虚拟机与程序的生命周期"></a>java虚拟机与程序的生命周期</h2><p>在如下几种情况下，java虚拟机将结束生命周期：</p>
-<ul>
-<li><p>执行了System.exit()方法</p>
-</li>
-<li><p>程序正常执行结束</p>
-</li>
-<li><p>程序在执行过程中遇到了异常或错误而异常终止</p>
-</li>
-<li><p>由于操作系统出现错误而导致java虚拟机进程结束</p></div><p class="readmore"><a href="/2017/06/17/jvm-xue-xi-bi-ji/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/7/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">下一页</a></nav></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://haominglfs.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SpringSecurity/">SpringSecurity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ceph/">ceph</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/echart/">echart</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/exception/">exception</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/idea/">idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mariadb/">mariadb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/rabbitMQ/">rabbitMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/thymeleaf/">thymeleaf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/03/24/assertj/">AssertJ</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/19/ceph-bu-shu/">ceph部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/junit5/">JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/09/dan-yuan-ce-shi/">单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/12/31/2021-12-31-kvm/">kvm</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/">MariaDB+Galera集群+haproxy+keepalived</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/rabbitmq-ji-qun/">rabbitMQ集群</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/21/redis-gao-ke-yong-fang-an/">redis高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/mysql-gao-ke-yong-fang-an/">mysql高可用方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/23/echart-bai-du-di-tu/">echart+百度地图</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">haominglfs的博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0"></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="haominglfs的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="haominglfs的博客"><span class="site-name">haominglfs的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">haominglfs的博客</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/07/14/effective-java-du-shu-bi-ji-2/" title="effective-java读书笔记2">effective-java读书笔记2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-07-14T09:46:55.000Z" title="发表于 2018-07-14 17:46:55">2018-07-14</time></span></div><div class="content">第一条：考虑用静态工厂方法代替构造器优势：
+静态工厂方法有名字，当一个类需要多个带有相同签名的构造器时，就用静态工厂方法代替构造器，并且慎重的选择名称以便突出他们之间的区别。
+
+不必在每次调用它们的时候都创建一个新对象。
+
+它们可以返回原返回类型的任何子类型的对象。这样我们在选择返回对象的类时就有了更大的灵活性。
+
+创建参数化类型实例的时候，它们使代码变得更加简洁(但在新版本的java中已经可以省略)
+List&lt;String> list = new ArrayList&lt;String>();
+
+
+
+劣势
+
+类如果不含公有的或者受保护的构造器，就不能被子类化。
+它们与其它的静态方法实际上没有任何区别。在API文档中，它们没有像构造器那样在API文档中明确的标识出来。因此要想查明如何实例化一个类非常困难。
+
+第六条：避免创建不必要的对象String s = new String("bikini"); // DON'T DO THIS!
+String s = "bikini"; //good
+
+判断一个字符串是否是一个合法的罗马数字：
+// Performance can be g ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/07/14/cmder-pei-zhi-shi-yong/" title="cmder配置使用">cmder配置使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-07-14T09:37:56.000Z" title="发表于 2018-07-14 17:37:56">2018-07-14</time></span></div><div class="content">安装cmder官网
+下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版 cmder 自带了 msysgit, 压缩包 23M, 除了 git 本身这个命令之外, 里面可以使用大量的 linux 命令；比如 grep, curl(没有 wget)； 像vim, grep, tar, unzip, ssh, ls, bash, perl 对于爱折腾的Coder更是痛点需求。 
+
+
+配置cmder
+把 cmder 加到环境变量：可以把Cmder.exe存放的目录添加到系统环境变量；加完之后，Win+r一下输入cmder，即可。 
+
+添加 cmder 到右键菜单：在某个文件夹中打开终端，在管理员权限的终端输入以下语句即可： 
+
+Cmder.exe &#x2F;REGISTER ALL
+
+
+
+常用快捷键
+可以利用Tab，自动路径补全；
+可以利用Ctrl+T建立新页签；
+利用Ctrl+W关闭页签;
+还可以透过Ctrl+Tab切换页签;
+Alt+F4：关闭所有页签
+Alt+Shift+1：开启cmd. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/05/04/js-gao-ji-cheng-xu-she-ji-du-shu-bi-ji-2/" title="js高级程序设计-读书笔记2">js高级程序设计-读书笔记2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-05-04T14:37:24.000Z" title="发表于 2018-05-04 22:37:24">2018-05-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="content">引用类型
+Object类型 创建Object实例的方式有两种：
+ var person = new Object();
+  person.name = "Nicholas";
+  person.age = 29;
+  
+  //字面量方式:
+  var person = &#123;
+      name : "Nicholas",
+      age :29
+  &#125;
+ 
+
+一般来说，可以使用点表示法来访问对象属性，但也可以使用[]来访问对象属性，应该将要访问的属性以字符串的形式放在[]中，[]方法的主要优点是可以通过变量来访问属性。2. Array类型 
+
+创建方式：
+
+     var colors = new Array();
+  var colors = new Array(20);
+  var colors = new Array("red","blue","green");
+  var colors = new Array(3);//创建一个包含三项的数组
+  var colors = new Array("Greg");//创建包含"Greg"一项的数组
+  v ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/04/30/js-gao-ji-cheng-xu-she-ji-du-shu-bi-ji/" title="js高级程序设计-读书笔记">js高级程序设计-读书笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-04-30T13:40:38.000Z" title="发表于 2018-04-30 21:40:38">2018-04-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="content">&lt;script&gt;标签
+无论如何包含代码，只要不存在defer和async属性，浏览器都会按照&lt;script&gt;元素在页面中出现的先后顺序对他们依次进行解析。
+
+在文档的&lt;head&gt;元素中包含所有javascript标签，意味着必须等到全部的javascript代码都被下载、解析和执行完成后，才能开始呈现页面的内容（浏览器在遇到&lt;body&gt;标签时才开始呈现内容），所以，一般都这样写：
+ 
+ &lt;!DOCTYPE html&gt;
+&lt;html lang&#x3D;&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
+    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;&lt;device-width&gt;, initial-scale&#x3D;1.0&quot;&gt;
+    &lt;meta http-equiv&#x3D;&q ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/04/06/she-ji-mo-shi-zhi-ze-lian-mo-shi/" title="设计模式-职责链模式">设计模式-职责链模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-04-06T08:56:22.000Z" title="发表于 2018-04-06 16:56:22">2018-04-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">定义避免请求发送者与接收者 耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。
+
+
+UML
+
+Handler(抽象处理者):它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者 的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象(如结构图 中的successor)，作为其对下家的引用。通过该引用，处理者可以连成一条链。
+ConcreteHandler(具体处理者):它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是 否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者;在具体处理 者中可以访问链中下一个对象，以便请求的转发。
+
+总结
+职责链模式的主要优点如下:
+职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/04/06/she-ji-mo-shi-zhuang-shi-mo-shi/" title="设计模式-装饰模式">设计模式-装饰模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-04-06T07:25:51.000Z" title="发表于 2018-04-06 15:25:51">2018-04-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">定义动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。
+
+
+UML
+
+Component(抽象构件):它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。
+ConcreteComponent(具体构件):它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责(方法)。
+Decorator(抽象装饰类):它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。
+ConcreteDecorator(具体装饰类):它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，它可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。
+
+总结
+装饰模式的主要优点如下:
+对于扩展一个对象的功能，装饰 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/04/06/she-ji-mo-shi-jian-zao-zhe-mo-shi/" title="设计模式-建造者模式">设计模式-建造者模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-04-06T06:14:43.000Z" title="发表于 2018-04-06 14:14:43">2018-04-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">定义将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。
+
+
+UML
+
+Builder(抽象建造者):它为创建一个产品Product对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是buildPartX()，它们用于创建复杂对象的各个部件;另一 类方法是getResult()，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口。
+ConcreteBuilder(具体建造者):它实现了Builder接口，实现各个部件的具体构造和装配方 法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。
+Product(产品角色):它是被构建的复杂对象，包含多个组成部件，具体建造者创建该产品 的内部表示并定义它的装配过程。
+Director(指挥者):指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其construct()建造方法中调用建造者对象的部件构造与装 配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建 造者的类型 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2018/04/01/she-ji-mo-shi-yuan-xing-mo-shi/" title="设计模式-原型模式">设计模式-原型模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-04-01T08:21:26.000Z" title="发表于 2018-04-01 16:21:26">2018-04-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">定义使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。
+
+
+UML
+
+Prototype(抽象原型类):它是声明克隆方法的接口，是所有具体原型类的公共父类，可以 是抽象类也可以是接口，甚至还可以是具体实现类。
+ConcretePrototype(具体原型类):它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。
+Client(客户类):让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直 接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。由于客户类针对抽象原型类Prototype编程，因此用户可以根据需要选择具体 原型类，系统具有较好的可扩展性，增加或更换具体原型类都很方便。
+
+总结
+原型模式的主要优点如下:
+ (1) 当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。 (2) 扩展性较好，由于在原型模式中提供了抽象原型类，在客户端可以针对抽象原型类进行编程，而将具体原型类写在配置文件中，增加或减少产品类 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2017/09/27/effective-java-du-shu-bi-ji/" title="effective java读书笔记">effective java读书笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2017-09-27T13:04:04.000Z" title="发表于 2017-09-27 21:04:04">2017-09-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="content">第52条：通过接口引用对象如果有合适的接口类型存在，那么对于参数、返回值、变量和成员变量来说，就都应该使用接口类型进行声明；如果你养成了用接口作为类型的习惯，你的程序将会更加灵活，当你决定更换实现时，所要做的就只是构造器中类的名称。有一点值得注意：如果原来的实现提供了某种特殊的功能，而这种功能并不是这个接口的通用约定所要求的，并且周围的代码又依赖于这种功能，那么新的实现也要提供相同的功能。类实现了接口，但是提供了接口中不存在的额外的方法–例如LinkedHashMap。如果程序依赖于这些额外的方法，这种类就应该只被用来引用它的实例。实际上，给定的对象是否具有适当的接口应该是很显然的。如果是，用接口引用对象就会使程序更加灵活；如果不是，则使用类层次结构中提供了必要功能的最基础的类。
+
+
+第38条：检查参数的有效性每当编写方法或者构造器的时候，应该考虑它的参数有哪些限制，应该把这些限制写到文档中，并且在这个方法体的开头处，通过显式的检查来实施这些限制
+第43条：返回0长度的数组或者集合，而不是Null返回类型为数组或集合的方法没理由返回null，应该返回一个零长度的数组或者集合。可以做成在 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2017/09/20/she-ji-mo-shi-gua-pei-qi-mo-shi/" title="设计模式-适配器模式">设计模式-适配器模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2017-09-20T14:31:38.000Z" title="发表于 2017-09-20 22:31:38">2017-09-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">定义将一个接口转换成客户希望的另一个接口，使接口不兼容的哪些类可以一起工作，其别名为包装器（Wrapper）。
+
+
+UML根据适配器类与适配者类的关系不同，适配器模式可分为对象 适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系;在类适配 器模式中，适配器与适配者之间是继承(或实现)关系。在实际开发中，对象适配器的使用 频率更高,对象适配器结构如下:
+
+Target(目标抽象类):目标抽象类定义客户所需接口，可以是一个抽象类或接口也可以是具体类。
+Adapter(适配器类):适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个 Adaptee对象使二者产生联系。
+Adaptee(适配者类):适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可 能没有适配者类的源代码。
+
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2017/09/16/she-ji-mo-shi-gong-han-fang-fa-mo-shi/" title="设计模式-工厂方法模式">设计模式-工厂方法模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2017-09-16T05:20:24.000Z" title="发表于 2017-09-16 13:20:24">2017-09-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">定义与简单工厂模式不同，在工厂方法模式中，不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。
+
+
+UML
+
+Product(抽象产品):它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。
+ProductA(具体产品):它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。
+Factory(抽象工厂):在抽象工厂类中，声明了工厂方法（FactoryMethod)，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。
+FactoryA(具体工厂):它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。
+
+总结工厂方法模式的主要优点如下:
+
+用户只需要关心所需产品对应的工厂，不需要关心创建细节。
+系统中加入新产品时，无需修改抽象工厂和抽象产品类，只需要添加具体的产品类和工厂类，符合开闭原则。
+
+工厂方法模式的主要缺点如下:
+
+增加产品时，需要创建具体的产品类和具体的工厂类 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2017/06/17/jvm-xue-xi-bi-ji/" title="jvm学习笔记">jvm学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2017-06-17T09:06:38.000Z" title="发表于 2017-06-17 17:06:38">2017-06-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="content">java虚拟机与程序的生命周期在如下几种情况下，java虚拟机将结束生命周期：
+
+执行了System.exit()方法
+
+程序正常执行结束
+
+程序在执行过程中遇到了异常或错误而异常终止
+
+由于操作系统出现错误而导致java虚拟机进程结束
+
+
+加载.class文件的方式:
+从本地系统中直接加载
+通过网络下载.class文件
+从zip,jar等归档文件中加载.class文件
+从专有数据库中提取.class文件
+将java原文件动态编译为.class文件
+
+线程运行诊断
+Cpu 占用过多
+
+用top定位那个进程对cpu的占用过高。
+ps H -eo pid,tid,%cpu | grep 进程id(用ps进一步定位是那个线程引起的cpu占用过高)
+Jstack 进程id
+可以根据线程id找到问题的线程，进一步定位问题代码的源码行数。
+
+
+
+
+堆内存
+
+jps 查看当前系统中有哪些java进程
+Jmap 查看堆内存占用情况 jmap -heap 进程id
+Jconsole 图形界面
+
+
+StringTable特性
+
+常量池中的字符串仅是符号，第一次用到时才变成对象。
+利用串池的机制，来避免重复 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/7/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#content-inner">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#content-inner">9</a><a class="extend next" rel="next" href="/page/9/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">haominglfs</div><div class="author-info__description">A programmer's blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/24/assertj/" title="AssertJ">AssertJ</a><time datetime="2022-03-24T12:44:21.000Z" title="发表于 2022-03-24 20:44:21">2022-03-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/19/ceph-bu-shu/" title="ceph部署">ceph部署</a><time datetime="2022-03-19T10:09:44.000Z" title="发表于 2022-03-19 18:09:44">2022-03-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/junit5/" title="JUnit">JUnit</a><time datetime="2022-03-09T09:18:06.000Z" title="发表于 2022-03-09 17:18:06">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/dan-yuan-ce-shi/" title="单元测试">单元测试</a><time datetime="2022-03-09T03:15:21.000Z" title="发表于 2022-03-09 11:15:21">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/31/2021-12-31-kvm/" title="kvm">kvm</a><time datetime="2021-12-31T14:15:21.000Z" title="发表于 2021-12-31 22:15:21">2021-12-31</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/SpringSecurity/"><span class="card-category-list-name">SpringSecurity</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ceph/"><span class="card-category-list-name">ceph</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/echart/"><span class="card-category-list-name">echart</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/exception/"><span class="card-category-list-name">exception</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/git/"><span class="card-category-list-name">git</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/hexo/"><span class="card-category-list-name">hexo</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/iTerm2/"><span class="card-category-list-name">iTerm2</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/idea/"><span class="card-category-list-name">idea</span><span class="card-category-list-count">2</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/iTerm2%E9%85%8D%E7%BD%AE/" style="font-size: 1.1em; color: #999">iTerm2配置</a> <a href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">单元测试</a> <a href="/tags/svn/" style="font-size: 1.23em; color: #999ea6">svn</a> <a href="/tags/git/" style="font-size: 1.1em; color: #999">git</a> <a href="/tags/java/" style="font-size: 1.37em; color: #99a4b2">java</a> <a href="/tags/nginx/" style="font-size: 1.1em; color: #999">nginx</a> <a href="/tags/haproxy/" style="font-size: 1.23em; color: #999ea6">haproxy</a> <a href="/tags/spring/" style="font-size: 1.1em; color: #999">spring</a> <a href="/tags/rabbitMQ/" style="font-size: 1.1em; color: #999">rabbitMQ</a> <a href="/tags/springboot/" style="font-size: 1.23em; color: #999ea6">springboot</a> <a href="/tags/keepalived/" style="font-size: 1.23em; color: #999ea6">keepalived</a> <a href="/tags/AssertJ/" style="font-size: 1.1em; color: #999">AssertJ</a> <a href="/tags/%E5%B7%A5%E4%BD%9C/" style="font-size: 1.1em; color: #999">工作</a> <a href="/tags/windows/" style="font-size: 1.1em; color: #999">windows</a> <a href="/tags/thymeleaf/" style="font-size: 1.1em; color: #999">thymeleaf</a> <a href="/tags/%E6%96%AD%E8%A8%80/" style="font-size: 1.1em; color: #999">断言</a> <a href="/tags/%E7%83%AD%E5%8A%A0%E8%BD%BD/" style="font-size: 1.1em; color: #999">热加载</a> <a href="/tags/JUnit/" style="font-size: 1.1em; color: #999">JUnit</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.1em; color: #999">消息队列</a> <a href="/tags/vue/" style="font-size: 1.1em; color: #999">vue</a> <a href="/tags/ceph/" style="font-size: 1.1em; color: #999">ceph</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.5em; color: #99a9bf">设计模式</a> <a href="/tags/echart-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/" style="font-size: 1.1em; color: #999">-echart -百度地图</a> <a href="/tags/redis/" style="font-size: 1.1em; color: #999">redis</a> <a href="/tags/mysql/" style="font-size: 1.1em; color: #999">mysql</a> <a href="/tags/SpringSecurity/" style="font-size: 1.1em; color: #999">SpringSecurity</a> <a href="/tags/shadowsocks/" style="font-size: 1.1em; color: #999">shadowsocks</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/jvm/" style="font-size: 1.23em; color: #999ea6">jvm</a> <a href="/tags/tomcat/" style="font-size: 1.23em; color: #999ea6">tomcat</a> <a href="/tags/Elasticsearch-Logstash-Kibana/" style="font-size: 1.1em; color: #999">Elasticsearch Logstash Kibana</a> <a href="/tags/vim/" style="font-size: 1.23em; color: #999ea6">vim</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 1.1em; color: #999">浏览器</a> <a href="/tags/shell/" style="font-size: 1.1em; color: #999">shell</a> <a href="/tags/effective-java/" style="font-size: 1.1em; color: #999">effective-java</a> <a href="/tags/idea/" style="font-size: 1.23em; color: #999ea6">idea</a> <a href="/tags/%E7%B1%BB%E5%9B%BE-java/" style="font-size: 1.1em; color: #999">类图 java</a> <a href="/tags/js%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" style="font-size: 1.23em; color: #999ea6">js高级程序设计</a> <a href="/tags/jenkins/" style="font-size: 1.37em; color: #99a4b2">jenkins</a> <a href="/tags/mariadb/" style="font-size: 1.23em; color: #999ea6">mariadb</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/03/"><span class="card-archive-list-date">三月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/12/"><span class="card-archive-list-date">十二月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/10/"><span class="card-archive-list-date">十月 2020</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/08/"><span class="card-archive-list-date">八月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/07/"><span class="card-archive-list-date">七月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">六月 2020</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/05/"><span class="card-archive-list-date">五月 2020</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">101</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-02-28T08:46:12.122Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By haominglfs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
