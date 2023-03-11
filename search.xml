@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>kvm</title>
-    <url>/2021/12/31/2021-12-31-kvm/</url>
-    <content><![CDATA[]]></content>
+    <title>云计算之kvm</title>
+    <url>/2023/03/10/2021-12-31-kvm/</url>
+    <content><![CDATA[<h2 id="KVM简介"><a href="#KVM简介" class="headerlink" title="KVM简介"></a>KVM简介</h2><h2 id="KVM与QEMU"><a href="#KVM与QEMU" class="headerlink" title="KVM与QEMU"></a>KVM与QEMU</h2><h2 id="KVM与Libvirt"><a href="#KVM与Libvirt" class="headerlink" title="KVM与Libvirt"></a>KVM与Libvirt</h2>]]></content>
       <categories>
-        <category>mariadb</category>
+        <category>云计算</category>
       </categories>
       <tags>
-        <tag>mariadb</tag>
-        <tag>galera</tag>
-        <tag>haproxy</tag>
-        <tag>keepalived</tag>
+        <tag>kvm</tag>
+        <tag>虚拟化</tag>
+        <tag>云计算</tag>
       </tags>
   </entry>
   <entry>
@@ -319,6 +318,422 @@ kibana.index: <span class="token string">".kibana"</span>  <span class="token co
       <tags>
         <tag>JUnit</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>MariaDB+Galera集群+haproxy+keepalived</title>
+    <url>/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/</url>
+    <content><![CDATA[<h3 id="Galera集群"><a href="#Galera集群" class="headerlink" title="Galera集群"></a>Galera集群</h3><h4 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h4><p>Galera集群至少需要三个节点的服务器硬件，以下操作在三个节点执行。安装后，在任意一个节点执行SQL，都是同步的。</p>
+<p>现有三台服务器，ip分别为10.30.1.14、10.30.1.15、10.30.1.16。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ol>
+<li><p>3台服务器的主机名修改：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hostnamectl set-hostname node1
+hostnamectl set-hostname node2
+hostnamectl set-hostname node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器的hosts文件修改：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">10.30</span>.1.14 node1
+<span class="token number">10.30</span>.1.15 node2
+<span class="token number">10.30</span>.1.16 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>建立3台服务器之间的SSH免密通信（3台服务器执行）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen <span class="token parameter variable">-t</span> rsa
+ssh-copy-id node1
+ssh-copy-id node2
+ssh-copy-id node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器关闭Selinux:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setenforce <span class="token number">0</span>
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">"s/SELINUX=enforcing/SELINUX=disabled/g"</span> /etc/selinux/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器关闭防火墙或者添加端口允许:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 3306  MySQL client connections and mysqldump SST</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">3306</span>/tcp <span class="token parameter variable">--permanent</span>
+<span class="token comment"># 4567  Galera Cluster replication traffic</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4567</span>/tcp <span class="token parameter variable">--permanent</span>
+<span class="token comment"># 4568  IST</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4568</span>/tcp <span class="token parameter variable">--permanent</span>
+<span class="token comment"># 4444  all SSTs besides mysqldump</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4444</span>/tcp <span class="token parameter variable">--permanent</span>
+firewall-cmd <span class="token parameter variable">--reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器设置Yum源:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /etc/yum.repos.d
+<span class="token function">cat</span> <span class="token operator">>></span> mariadb.repo <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+[mariadb]
+name = MariaDB
+baseurl = https://mirrors.ustc.edu.cn/mariadb/yum/10.4/centos7-amd64
+gpgkey=https://mirrors.ustc.edu.cn/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器安装软件:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> MariaDB-server MariaDB-client galera-4 <span class="token parameter variable">-y</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>3台服务器配置远程访问:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">grant</span> <span class="token keyword">all</span> <span class="token keyword">privileges</span> <span class="token keyword">on</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">to</span> root<span class="token variable">@'%'</span> identified <span class="token keyword">by</span> <span class="token string">'d001!'</span> <span class="token keyword">with</span> <span class="token keyword">grant</span> <span class="token keyword">option</span><span class="token punctuation">;</span>
+flush <span class="token keyword">privileges</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>3台服务器配置编码为utf-8,编辑配置文件vi &#x2F;etc&#x2F;my.cnf:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>client<span class="token punctuation">]</span>
+default-character-set <span class="token operator">=</span> utf8mb4
+
+<span class="token punctuation">[</span>mysql<span class="token punctuation">]</span>
+default-character-set <span class="token operator">=</span> utf8mb4
+
+<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
+character-set-client-handshake <span class="token operator">=</span> FALSE
+character-set-server <span class="token operator">=</span> utf8mb4
+collation-server <span class="token operator">=</span> utf8mb4_unicode_ci
+<span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET NAMES utf8mb4'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h4 id="galera集群配置"><a href="#galera集群配置" class="headerlink" title="galera集群配置"></a>galera集群配置</h4><ol>
+<li><p>编辑Node1上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>galera<span class="token punctuation">]</span>
+<span class="token comment"># Mandatory settings</span>
+<span class="token assign-left variable">wsrep_on</span><span class="token operator">=</span>ON
+<span class="token assign-left variable">wsrep_provider</span><span class="token operator">=</span>/usr/lib64/galera-4/libgalera_smm.so
+<span class="token assign-left variable">wsrep_cluster_address</span><span class="token operator">=</span><span class="token string">"gcomm://10.30.1.14,10.30.1.15,10.30.1.16"</span> <span class="token comment">#整个集群的IP地址</span>
+<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>row <span class="token comment"># binlog文件格式：行</span>
+<span class="token assign-left variable">default_storage_engine</span><span class="token operator">=</span>InnoDB
+<span class="token assign-left variable">innodb_autoinc_lock_mode</span><span class="token operator">=</span><span class="token number">2</span>
+<span class="token comment"># Allow server to accept connections on all interfaces.</span>
+<span class="token comment"># bind-address=0.0.0.0</span>
+<span class="token comment"># Optional setting</span>
+<span class="token comment"># wsrep_slave_threads=1</span>
+<span class="token comment"># innodb_flush_log_at_trx_commit=0</span>
+<span class="token assign-left variable">wsrep_provider_options</span><span class="token operator">=</span><span class="token string">"gcache.size=1G"</span>
+<span class="token assign-left variable">wsrep_cluster_name</span><span class="token operator">=</span>MariaDB-Galera-Cluster
+<span class="token assign-left variable">wsrep_node_name</span><span class="token operator">=</span>node1 <span class="token comment">#hostname，对应前面网路配置/etc/hosts</span>
+<span class="token assign-left variable">wsrep_node_address</span><span class="token operator">=</span><span class="token number">10.30</span>.1.14 <span class="token comment">#机器IP地址</span>
+<span class="token assign-left variable">wsrep_sst_method</span><span class="token operator">=</span>rsync <span class="token comment">#拷贝模式xtrabackup-v2 或者 rsync</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>编辑Node2上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>galera<span class="token punctuation">]</span>
+<span class="token comment"># Mandatory settings</span>
+<span class="token assign-left variable">wsrep_on</span><span class="token operator">=</span>ON
+<span class="token assign-left variable">wsrep_provider</span><span class="token operator">=</span>/usr/lib64/galera-4/libgalera_smm.so
+<span class="token assign-left variable">wsrep_cluster_address</span><span class="token operator">=</span><span class="token string">"gcomm://10.30.1.14,10.30.1.15,10.30.1.16"</span> <span class="token comment">#整个集群的IP地址</span>
+<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>row <span class="token comment"># binlog文件格式：行</span>
+<span class="token assign-left variable">default_storage_engine</span><span class="token operator">=</span>InnoDB
+<span class="token assign-left variable">innodb_autoinc_lock_mode</span><span class="token operator">=</span><span class="token number">2</span>
+<span class="token comment"># Allow server to accept connections on all interfaces.</span>
+<span class="token comment"># bind-address=0.0.0.0</span>
+<span class="token comment"># Optional setting</span>
+<span class="token comment"># wsrep_slave_threads=1</span>
+<span class="token comment"># innodb_flush_log_at_trx_commit=0</span>
+<span class="token assign-left variable">wsrep_provider_options</span><span class="token operator">=</span><span class="token string">"gcache.size=1G"</span>
+<span class="token assign-left variable">wsrep_cluster_name</span><span class="token operator">=</span>MariaDB-Galera-Cluster
+<span class="token assign-left variable">wsrep_node_name</span><span class="token operator">=</span>node2 <span class="token comment">#hostname，对应前面网路配置/etc/hosts</span>
+<span class="token assign-left variable">wsrep_node_address</span><span class="token operator">=</span><span class="token number">10.30</span>.1.15 <span class="token comment">#机器IP地址</span>
+<span class="token assign-left variable">wsrep_sst_method</span><span class="token operator">=</span>rsync <span class="token comment">#拷贝模式xtrabackup-v2 或者 rsync</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>编辑Node3上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>galera<span class="token punctuation">]</span>
+<span class="token comment"># Mandatory settings</span>
+<span class="token assign-left variable">wsrep_on</span><span class="token operator">=</span>ON
+<span class="token assign-left variable">wsrep_provider</span><span class="token operator">=</span>/usr/lib64/galera-4/libgalera_smm.so
+<span class="token assign-left variable">wsrep_cluster_address</span><span class="token operator">=</span><span class="token string">"gcomm://10.30.1.14,10.30.1.15,10.30.1.16"</span> <span class="token comment">#整个集群的IP地址</span>
+<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>row <span class="token comment"># binlog文件格式：行</span>
+<span class="token assign-left variable">default_storage_engine</span><span class="token operator">=</span>InnoDB
+<span class="token assign-left variable">innodb_autoinc_lock_mode</span><span class="token operator">=</span><span class="token number">2</span>
+<span class="token comment"># Allow server to accept connections on all interfaces.</span>
+<span class="token comment"># bind-address=0.0.0.0</span>
+<span class="token comment"># Optional setting</span>
+<span class="token comment"># wsrep_slave_threads=1</span>
+<span class="token comment"># innodb_flush_log_at_trx_commit=0</span>
+<span class="token assign-left variable">wsrep_provider_options</span><span class="token operator">=</span><span class="token string">"gcache.size=1G"</span>
+<span class="token assign-left variable">wsrep_cluster_name</span><span class="token operator">=</span>MariaDB-Galera-Cluster
+<span class="token assign-left variable">wsrep_node_name</span><span class="token operator">=</span>node3 <span class="token comment">#hostname，对应前面网路配置/etc/hosts</span>
+<span class="token assign-left variable">wsrep_node_address</span><span class="token operator">=</span><span class="token number">10.30</span>.1.16 <span class="token comment">#机器IP地址</span>
+<span class="token assign-left variable">wsrep_sst_method</span><span class="token operator">=</span>rsync <span class="token comment">#拷贝模式xtrabackup-v2 或者 rsync</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>启动集群</p>
+<ul>
+<li><p>启动第一个节点，底层命令是：mysqld –wsrep-new-cluster</p>
+<p><code>galera_new_cluster</code></p>
+</li>
+<li><p>在其他节点上启动服务</p>
+<p><code>systemctl start mariadb.service</code></p>
+</li>
+<li><p>主节点中添加集群认证用户galera，密码galera（可选）</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> <span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">ON</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">TO</span> <span class="token string">'galera'</span><span class="token variable">@'%'</span> IDENTIFIED <span class="token keyword">BY</span> <span class="token string">'galera'</span> <span class="token keyword">WITH</span> <span class="token keyword">GRANT</span> <span class="token keyword">OPTION</span><span class="token punctuation">;</span>
+MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> flush <span class="token keyword">privileges</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>故障排查</p>
+<blockquote>
+<p>启动集群时报错[ERROR] WSREP: It may not be safe to bootstrap the cluster from this node. It was not the last one to leave the cluster and may not contain all the updates.</p>
+<p><code>打开文件/var/lib/mysql/grastate.dat，修改safe_to_bootstrap的值置为1</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>集群测试</p>
+<ul>
+<li><p>确认集群启动成功（返回当前的集群节点数量）</p>
+<p><code>mysql&gt; show status like &#39;wsrep_cluster_size&#39;;</code></p>
+</li>
+<li><p>查看galera状态</p>
+<p><code>mysql&gt; show status like &#39;wsrep%&#39;;</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="HAProxy"><a href="#HAProxy" class="headerlink" title="HAProxy"></a>HAProxy</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p><code>yum install -y haproxy </code></p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>编辑HAProxy配置文件 <code>vi /etc/haproxy/haproxy.cfg</code>,配置如下(两台haproxy服务器配置相同):</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global
+    log         <span class="token number">127.0</span>.0.1 local2
+    <span class="token function">chroot</span>      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     <span class="token number">4000</span>
+    user        haproxy
+    group       haproxy
+    daemon
+    <span class="token comment"># turn on stats unix socket</span>
+    stats socket /var/lib/haproxy/stats
+    
+defaults
+    mode                    http
+    log                     global
+    option                  tcplog
+    option                  dontlognull
+    option http-server-close
+    <span class="token comment">#option forwardfor       except 127.0.0.0/8</span>
+    option                  redispatch
+    retries                 <span class="token number">3</span>
+    <span class="token function">timeout</span> http-request    10s
+    <span class="token function">timeout</span> queue           1m
+    <span class="token function">timeout</span> connect         10s
+    <span class="token function">timeout</span> client          1m
+    <span class="token function">timeout</span> server          1m
+    <span class="token function">timeout</span> http-keep-alive 10s
+    <span class="token function">timeout</span> check           10s
+    maxconn                 <span class="token number">3000</span>
+    
+listen galera
+    <span class="token builtin class-name">bind</span> <span class="token number">0.0</span>.0.0:13306
+    balance roundrobin
+    mode tcp
+    option tcpka
+    option mysql-check user haproxy
+    server galera-mariadb-1 <span class="token number">192.168</span>.123.36:3306 check weight <span class="token number">1</span>
+    server galera-mariadb-2 <span class="token number">192.168</span>.123.35:3306 check weight <span class="token number">1</span>
+    server galera-mariadb-3 <span class="token number">192.168</span>.123.34:3306 check weight <span class="token number">1</span>
+    
+listen stats
+<span class="token comment">## HAProxy stats web gui running on port 9000 - username and password: haproxy.</span>
+    <span class="token builtin class-name">bind</span> <span class="token number">0.0</span>.0.0:9000
+    mode http
+    stats <span class="token builtin class-name">enable</span>
+    stats uri /stats
+    stats realm HAProxy<span class="token punctuation">\</span> Statistics
+    stats auth haproxy:haproxy
+    stats admin <span class="token keyword">if</span> TRUE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p><code>systemctl start haproxy</code></p>
+<h3 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h3><h4 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h4><ol>
+<li><p>创建依赖环境：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token parameter variable">-y</span> <span class="token function">install</span> openssl-devel gcc gcc-c++
+<span class="token function">mkdir</span> /etc/keepalived
+<span class="token function">wget</span> https://www.keepalived.org/software/keepalived-2.0.18.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>安装keepalived:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> keepalived-2.0.18.tar.gz
+<span class="token function">mv</span> keepalived-2.0.18 /usr/local/keepalived
+<span class="token builtin class-name">cd</span> /usr/local/keepalived
+./configure <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>设置开机启动</p>
+<p><code>systemctl enable keepalived</code></p>
+</li>
+</ol>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><ol>
+<li><p>编辑haproxy检测脚本，<code>vi /etc/keepalived/chk_haproxy.sh</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">chkha</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">ps</span> <span class="token parameter variable">-C</span> haproxy --no-header <span class="token operator">|</span><span class="token function">wc</span> <span class="token parameter variable">-l</span><span class="token variable">`</span></span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$chkha</span> <span class="token parameter variable">-eq</span> <span class="token number">0</span> <span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">then</span>
+  systemctl stop keepalived
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>赋予脚本执行权限</p>
+<p><code>chmod  +x chk_haproxy.sh</code></p>
+</li>
+<li><p>编辑keepalived主配置文件，<code>vi /etc/keepalived/keepalived.conf</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global_defs <span class="token punctuation">&#123;</span>
+    router_id Haproxy1  <span class="token comment">#服务器标识</span>
+<span class="token punctuation">&#125;</span>
+
+vrrp_script chk_haproxy <span class="token punctuation">&#123;</span>
+    script <span class="token string">"/etc/keepalived/chk_haproxy.sh"</span>
+    interval <span class="token number">1</span>  <span class="token comment">#（检测脚本执行的间隔，单位是秒)</span>
+    weight <span class="token number">2</span>		<span class="token comment">#权重</span>
+<span class="token punctuation">&#125;</span>
+
+vrrp_instance VI_1 <span class="token punctuation">&#123;</span>
+    state MASTER     <span class="token comment">#指定keepalived的角色，MASTER为主，BACKUP为备</span>
+    interface eth0   <span class="token comment">#绑定的网卡</span>
+    virtual_router_id <span class="token number">201</span>   <span class="token comment">#虚拟路由编号，主从要一直</span>
+    priority <span class="token number">100</span>     <span class="token comment">#优先级，数值越大，获取处理请求的优先级越高</span>
+    advert_int <span class="token number">1</span>			<span class="token comment">#检查间隔，默认为1s(vrrp组播周期秒数)</span>
+    authentication <span class="token punctuation">&#123;</span>  <span class="token comment">#设置验证类型和密码，MASTER和BACKUP必须使用相同的密码才能正常通信</span>
+        auth_type PASS
+        auth_pass <span class="token number">1111</span>
+    <span class="token punctuation">&#125;</span>
+    track_script <span class="token punctuation">&#123;</span>
+        chk_haproxy   <span class="token comment">#调用检测脚本）</span>
+    <span class="token punctuation">&#125;</span>
+    virtual_ipaddress <span class="token punctuation">&#123;</span>
+       <span class="token number">10.30</span>.1.26     <span class="token comment">#定义虚拟ip(VIP)，可多设，每行一个</span>
+    <span class="token punctuation">&#125;</span>
+    track_interface <span class="token punctuation">&#123;</span>
+        eth0
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>编辑keepalived备配置文件，<code>vi /etc/keepalived/keepalived.conf</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global_defs <span class="token punctuation">&#123;</span>
+    router_id Haproxy2
+<span class="token punctuation">&#125;</span>
+
+vrrp_script chk_haproxy <span class="token punctuation">&#123;</span>
+    script <span class="token string">"/etc/keepalived/chk_haproxy.sh"</span>
+    interval <span class="token number">1</span>
+    weight <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+
+vrrp_instance VI_1 <span class="token punctuation">&#123;</span>
+    state BACKUP
+    interface eth0
+    virtual_router_id <span class="token number">201</span>
+    priority <span class="token number">99</span>
+    advert_int <span class="token number">1</span>
+    authentication <span class="token punctuation">&#123;</span>
+        auth_type PASS
+        auth_pass <span class="token number">1111</span>
+    <span class="token punctuation">&#125;</span>
+    track_script <span class="token punctuation">&#123;</span>
+        chk_haproxy
+    <span class="token punctuation">&#125;</span>
+    virtual_ipaddress <span class="token punctuation">&#123;</span>
+        <span class="token number">192.168</span>.123.44
+    <span class="token punctuation">&#125;</span>
+    track_interface <span class="token punctuation">&#123;</span>
+        eth0
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>如果开启了防火墙，需打开如下配置</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">firewall-cmd --add-rich-rule<span class="token operator">=</span><span class="token string">'rule protocol value="vrrp" accept'</span> <span class="token parameter variable">--permanent</span>
+firewall-cmd <span class="token parameter variable">--reload</span>
+firewall-cmd --list-all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>启动keepalived</p>
+<p><code>systemctl start keepalived </code></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>mariadb</category>
+      </categories>
+      <tags>
+        <tag>mariadb</tag>
+        <tag>galera</tag>
+        <tag>haproxy</tag>
+        <tag>keepalived</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL优化</title>
+    <url>/2019/10/23/sql-you-hua/</url>
+    <content><![CDATA[<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ol>
+<li><p>3层Btree可以存放上百万条数据</p>
+</li>
+<li><p>Btree一般指的是B+树，数据全部存放在叶子节点中。</p>
+</li>
+<li><p>B+树中查询任意的数据次数：n次（B+树的高度）</p>
+<span id="more"></span></li>
+</ol>
+<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><ol>
+<li>单值索引    单列的索引，一个表可以有多个单值索引</li>
+<li>唯一索引    不能重复    可以为null</li>
+<li>符合索引    多个列构成的索引</li>
+<li>主键索引    不能重复，不能为null</li>
+</ol>
+<h4 id="SQL性能问题"><a href="#SQL性能问题" class="headerlink" title="SQL性能问题"></a>SQL性能问题</h4><ol>
+<li>分析sql的执行计划（explain）,可以模拟SQL优化器执行sql语句</li>
+<li>Mysql查询优化会干扰我们的优化。</li>
+</ol>
+<h4 id="explain-参数解析："><a href="#explain-参数解析：" class="headerlink" title="explain 参数解析："></a>explain 参数解析：</h4><ol>
+<li><p>id:编号  </p>
+<ul>
+<li><p>id值相同，从上往下顺序执行;</p>
+</li>
+<li><p>id值越大越优先查询 (本质：在嵌套子查询时，先查内层 再查外层)</p>
+</li>
+</ul>
+</li>
+<li><p>select_type 查询类型</p>
+<ul>
+<li><p>PRIMARY:包含子查询SQL中的 主查询 （最外层）</p>
+</li>
+<li><p>SUBQUERY：包含子查询SQL中的 子查询 （非最外层）</p>
+</li>
+<li><p>simple:简单查询（不包含子查询、union）</p>
+</li>
+<li><p>derived:衍生查询(使用到了临时表)</p>
+<ul>
+<li><p>在from子查询中只有一张表</p>
+<blockquote>
+<p>explain select  cr.cname 	from ( select * from course where tid in (1,2) ) cr ;</p>
+</blockquote>
+</li>
+<li><p>在from子查询中， 如果有table1 union table2 ，则table1 就是derived,table2就是union</p>
+<blockquote>
+<p>explain select  cr.cname 	from ( select * from course where tid &#x3D; 1  union select * from course where tid &#x3D; 2 ) cr ;</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>table</p>
+</li>
+<li><p>partitions  </p>
+</li>
+<li><p>type  类型（索引类型）</p>
+<ul>
+<li>system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;all  其中：system,const只是理想情况；实际能达到 ref&gt;range</li>
+<li>system（忽略）: 只有一条数据的系统表 ；或 衍生表只有一条数据的主查询</li>
+<li>const:仅仅能查到一条数据的SQL ,用于Primary key 或unique索引  （类型 与索引类型有关）</li>
+<li>eq_ref:唯一性索引：对于每个索引键的查询，返回匹配唯一行数据（有且只有1个，不能多 、不能0）;常见于唯一索引 和主键索引</li>
+<li>非唯一性索引，对于每个索引键的查询，返回匹配的所有行（0，多）</li>
+</ul>
+</li>
+<li><p>possible_keys  预测用到的索引</p>
+</li>
+<li><p>key   实际使用的索引</p>
+</li>
+<li><p>key_len   实际使用的索引的长度</p>
+</li>
+<li><p>ref    表之间的引用</p>
+</li>
+<li><p>rows  通过索引查询到的数据量</p>
+</li>
+<li><p>filtered </p>
+</li>
+<li><p>Extra  额外的信息</p>
+</li>
+</ol>
+<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><ol>
+<li>聚集索引：页节点包含了完整的数据记录。（innoDB的主键索引）</li>
+<li>非聚集索引  （myISAM的主键索引）</li>
+</ol>
+<h4 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><ol>
+<li><p>为什么InnoDB表必须有主键，并且推荐使用整形的自增主键。</p>
+<p>InnoDB的索引和数据存在同一个<code>表名.ibd</code>文件中</p>
+<p>自增：可以减少B+树的分裂。</p>
+</li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>RabbitMQ学习</title>
@@ -753,426 +1168,6 @@ channel<span class="token punctuation">.</span><span class="token function">basi
       <tags>
         <tag>消息队列</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>MariaDB+Galera集群+haproxy+keepalived</title>
-    <url>/2020/11/23/mariadb-galera-ji-qun-haproxy-keepalived/</url>
-    <content><![CDATA[<img src="https://cdn.jsdelivr.net/gh/haominglfs/images/20201123230920.png" style="zoom:150%;" />
-
-<span id="more"></span>
-
-<h3 id="Galera集群"><a href="#Galera集群" class="headerlink" title="Galera集群"></a>Galera集群</h3><h4 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h4><p>Galera集群至少需要三个节点的服务器硬件，以下操作在三个节点执行。安装后，在任意一个节点执行SQL，都是同步的。</p>
-<p>现有三台服务器，ip分别为10.30.1.14、10.30.1.15、10.30.1.16。</p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ol>
-<li><p>3台服务器的主机名修改：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hostnamectl set-hostname node1
-hostnamectl set-hostname node2
-hostnamectl set-hostname node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>3台服务器的hosts文件修改：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">10.30</span>.1.14 node1
-<span class="token number">10.30</span>.1.15 node2
-<span class="token number">10.30</span>.1.16 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>建立3台服务器之间的SSH免密通信（3台服务器执行）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen <span class="token parameter variable">-t</span> rsa
-ssh-copy-id node1
-ssh-copy-id node2
-ssh-copy-id node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>3台服务器关闭Selinux:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setenforce <span class="token number">0</span>
-<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">"s/SELINUX=enforcing/SELINUX=disabled/g"</span> /etc/selinux/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>3台服务器关闭防火墙或者添加端口允许:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 3306  MySQL client connections and mysqldump SST</span>
-firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">3306</span>/tcp <span class="token parameter variable">--permanent</span>
-<span class="token comment"># 4567  Galera Cluster replication traffic</span>
-firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4567</span>/tcp <span class="token parameter variable">--permanent</span>
-<span class="token comment"># 4568  IST</span>
-firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4568</span>/tcp <span class="token parameter variable">--permanent</span>
-<span class="token comment"># 4444  all SSTs besides mysqldump</span>
-firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">4444</span>/tcp <span class="token parameter variable">--permanent</span>
-firewall-cmd <span class="token parameter variable">--reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>3台服务器设置Yum源:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /etc/yum.repos.d
-<span class="token function">cat</span> <span class="token operator">>></span> mariadb.repo <span class="token operator">&lt;&lt;</span><span class="token string">EOF
-[mariadb]
-name = MariaDB
-baseurl = https://mirrors.ustc.edu.cn/mariadb/yum/10.4/centos7-amd64
-gpgkey=https://mirrors.ustc.edu.cn/mariadb/yum/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>3台服务器安装软件:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> MariaDB-server MariaDB-client galera-4 <span class="token parameter variable">-y</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li><p>3台服务器配置远程访问:</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">grant</span> <span class="token keyword">all</span> <span class="token keyword">privileges</span> <span class="token keyword">on</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">to</span> root<span class="token variable">@'%'</span> identified <span class="token keyword">by</span> <span class="token string">'d001!'</span> <span class="token keyword">with</span> <span class="token keyword">grant</span> <span class="token keyword">option</span><span class="token punctuation">;</span>
-flush <span class="token keyword">privileges</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>3台服务器配置编码为utf-8,编辑配置文件vi &#x2F;etc&#x2F;my.cnf:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>client<span class="token punctuation">]</span>
-default-character-set <span class="token operator">=</span> utf8mb4
-
-<span class="token punctuation">[</span>mysql<span class="token punctuation">]</span>
-default-character-set <span class="token operator">=</span> utf8mb4
-
-<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
-character-set-client-handshake <span class="token operator">=</span> FALSE
-character-set-server <span class="token operator">=</span> utf8mb4
-collation-server <span class="token operator">=</span> utf8mb4_unicode_ci
-<span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET NAMES utf8mb4'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
-<h4 id="galera集群配置"><a href="#galera集群配置" class="headerlink" title="galera集群配置"></a>galera集群配置</h4><ol>
-<li><p>编辑Node1上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>galera<span class="token punctuation">]</span>
-<span class="token comment"># Mandatory settings</span>
-<span class="token assign-left variable">wsrep_on</span><span class="token operator">=</span>ON
-<span class="token assign-left variable">wsrep_provider</span><span class="token operator">=</span>/usr/lib64/galera-4/libgalera_smm.so
-<span class="token assign-left variable">wsrep_cluster_address</span><span class="token operator">=</span><span class="token string">"gcomm://10.30.1.14,10.30.1.15,10.30.1.16"</span> <span class="token comment">#整个集群的IP地址</span>
-<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>row <span class="token comment"># binlog文件格式：行</span>
-<span class="token assign-left variable">default_storage_engine</span><span class="token operator">=</span>InnoDB
-<span class="token assign-left variable">innodb_autoinc_lock_mode</span><span class="token operator">=</span><span class="token number">2</span>
-<span class="token comment"># Allow server to accept connections on all interfaces.</span>
-<span class="token comment"># bind-address=0.0.0.0</span>
-<span class="token comment"># Optional setting</span>
-<span class="token comment"># wsrep_slave_threads=1</span>
-<span class="token comment"># innodb_flush_log_at_trx_commit=0</span>
-<span class="token assign-left variable">wsrep_provider_options</span><span class="token operator">=</span><span class="token string">"gcache.size=1G"</span>
-<span class="token assign-left variable">wsrep_cluster_name</span><span class="token operator">=</span>MariaDB-Galera-Cluster
-<span class="token assign-left variable">wsrep_node_name</span><span class="token operator">=</span>node1 <span class="token comment">#hostname，对应前面网路配置/etc/hosts</span>
-<span class="token assign-left variable">wsrep_node_address</span><span class="token operator">=</span><span class="token number">10.30</span>.1.14 <span class="token comment">#机器IP地址</span>
-<span class="token assign-left variable">wsrep_sst_method</span><span class="token operator">=</span>rsync <span class="token comment">#拷贝模式xtrabackup-v2 或者 rsync</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>编辑Node2上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>galera<span class="token punctuation">]</span>
-<span class="token comment"># Mandatory settings</span>
-<span class="token assign-left variable">wsrep_on</span><span class="token operator">=</span>ON
-<span class="token assign-left variable">wsrep_provider</span><span class="token operator">=</span>/usr/lib64/galera-4/libgalera_smm.so
-<span class="token assign-left variable">wsrep_cluster_address</span><span class="token operator">=</span><span class="token string">"gcomm://10.30.1.14,10.30.1.15,10.30.1.16"</span> <span class="token comment">#整个集群的IP地址</span>
-<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>row <span class="token comment"># binlog文件格式：行</span>
-<span class="token assign-left variable">default_storage_engine</span><span class="token operator">=</span>InnoDB
-<span class="token assign-left variable">innodb_autoinc_lock_mode</span><span class="token operator">=</span><span class="token number">2</span>
-<span class="token comment"># Allow server to accept connections on all interfaces.</span>
-<span class="token comment"># bind-address=0.0.0.0</span>
-<span class="token comment"># Optional setting</span>
-<span class="token comment"># wsrep_slave_threads=1</span>
-<span class="token comment"># innodb_flush_log_at_trx_commit=0</span>
-<span class="token assign-left variable">wsrep_provider_options</span><span class="token operator">=</span><span class="token string">"gcache.size=1G"</span>
-<span class="token assign-left variable">wsrep_cluster_name</span><span class="token operator">=</span>MariaDB-Galera-Cluster
-<span class="token assign-left variable">wsrep_node_name</span><span class="token operator">=</span>node2 <span class="token comment">#hostname，对应前面网路配置/etc/hosts</span>
-<span class="token assign-left variable">wsrep_node_address</span><span class="token operator">=</span><span class="token number">10.30</span>.1.15 <span class="token comment">#机器IP地址</span>
-<span class="token assign-left variable">wsrep_sst_method</span><span class="token operator">=</span>rsync <span class="token comment">#拷贝模式xtrabackup-v2 或者 rsync</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>编辑Node3上的&#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf 添加如下配置：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>galera<span class="token punctuation">]</span>
-<span class="token comment"># Mandatory settings</span>
-<span class="token assign-left variable">wsrep_on</span><span class="token operator">=</span>ON
-<span class="token assign-left variable">wsrep_provider</span><span class="token operator">=</span>/usr/lib64/galera-4/libgalera_smm.so
-<span class="token assign-left variable">wsrep_cluster_address</span><span class="token operator">=</span><span class="token string">"gcomm://10.30.1.14,10.30.1.15,10.30.1.16"</span> <span class="token comment">#整个集群的IP地址</span>
-<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>row <span class="token comment"># binlog文件格式：行</span>
-<span class="token assign-left variable">default_storage_engine</span><span class="token operator">=</span>InnoDB
-<span class="token assign-left variable">innodb_autoinc_lock_mode</span><span class="token operator">=</span><span class="token number">2</span>
-<span class="token comment"># Allow server to accept connections on all interfaces.</span>
-<span class="token comment"># bind-address=0.0.0.0</span>
-<span class="token comment"># Optional setting</span>
-<span class="token comment"># wsrep_slave_threads=1</span>
-<span class="token comment"># innodb_flush_log_at_trx_commit=0</span>
-<span class="token assign-left variable">wsrep_provider_options</span><span class="token operator">=</span><span class="token string">"gcache.size=1G"</span>
-<span class="token assign-left variable">wsrep_cluster_name</span><span class="token operator">=</span>MariaDB-Galera-Cluster
-<span class="token assign-left variable">wsrep_node_name</span><span class="token operator">=</span>node3 <span class="token comment">#hostname，对应前面网路配置/etc/hosts</span>
-<span class="token assign-left variable">wsrep_node_address</span><span class="token operator">=</span><span class="token number">10.30</span>.1.16 <span class="token comment">#机器IP地址</span>
-<span class="token assign-left variable">wsrep_sst_method</span><span class="token operator">=</span>rsync <span class="token comment">#拷贝模式xtrabackup-v2 或者 rsync</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>启动集群</p>
-<ul>
-<li><p>启动第一个节点，底层命令是：mysqld –wsrep-new-cluster</p>
-<p><code>galera_new_cluster</code></p>
-</li>
-<li><p>在其他节点上启动服务</p>
-<p><code>systemctl start mariadb.service</code></p>
-</li>
-<li><p>主节点中添加集群认证用户galera，密码galera（可选）</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> <span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">ON</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">TO</span> <span class="token string">'galera'</span><span class="token variable">@'%'</span> IDENTIFIED <span class="token keyword">BY</span> <span class="token string">'galera'</span> <span class="token keyword">WITH</span> <span class="token keyword">GRANT</span> <span class="token keyword">OPTION</span><span class="token punctuation">;</span>
-MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> flush <span class="token keyword">privileges</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>故障排查</p>
-<blockquote>
-<p>启动集群时报错[ERROR] WSREP: It may not be safe to bootstrap the cluster from this node. It was not the last one to leave the cluster and may not contain all the updates.</p>
-<p><code>打开文件/var/lib/mysql/grastate.dat，修改safe_to_bootstrap的值置为1</code></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>集群测试</p>
-<ul>
-<li><p>确认集群启动成功（返回当前的集群节点数量）</p>
-<p><code>mysql&gt; show status like &#39;wsrep_cluster_size&#39;;</code></p>
-</li>
-<li><p>查看galera状态</p>
-<p><code>mysql&gt; show status like &#39;wsrep%&#39;;</code></p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="HAProxy"><a href="#HAProxy" class="headerlink" title="HAProxy"></a>HAProxy</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p><code>yum install -y haproxy </code></p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>编辑HAProxy配置文件 <code>vi /etc/haproxy/haproxy.cfg</code>,配置如下(两台haproxy服务器配置相同):</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global
-    log         <span class="token number">127.0</span>.0.1 local2
-    <span class="token function">chroot</span>      /var/lib/haproxy
-    pidfile     /var/run/haproxy.pid
-    maxconn     <span class="token number">4000</span>
-    user        haproxy
-    group       haproxy
-    daemon
-    <span class="token comment"># turn on stats unix socket</span>
-    stats socket /var/lib/haproxy/stats
-    
-defaults
-    mode                    http
-    log                     global
-    option                  tcplog
-    option                  dontlognull
-    option http-server-close
-    <span class="token comment">#option forwardfor       except 127.0.0.0/8</span>
-    option                  redispatch
-    retries                 <span class="token number">3</span>
-    <span class="token function">timeout</span> http-request    10s
-    <span class="token function">timeout</span> queue           1m
-    <span class="token function">timeout</span> connect         10s
-    <span class="token function">timeout</span> client          1m
-    <span class="token function">timeout</span> server          1m
-    <span class="token function">timeout</span> http-keep-alive 10s
-    <span class="token function">timeout</span> check           10s
-    maxconn                 <span class="token number">3000</span>
-    
-listen galera
-    <span class="token builtin class-name">bind</span> <span class="token number">0.0</span>.0.0:13306
-    balance roundrobin
-    mode tcp
-    option tcpka
-    option mysql-check user haproxy
-    server galera-mariadb-1 <span class="token number">192.168</span>.123.36:3306 check weight <span class="token number">1</span>
-    server galera-mariadb-2 <span class="token number">192.168</span>.123.35:3306 check weight <span class="token number">1</span>
-    server galera-mariadb-3 <span class="token number">192.168</span>.123.34:3306 check weight <span class="token number">1</span>
-    
-listen stats
-<span class="token comment">## HAProxy stats web gui running on port 9000 - username and password: haproxy.</span>
-    <span class="token builtin class-name">bind</span> <span class="token number">0.0</span>.0.0:9000
-    mode http
-    stats <span class="token builtin class-name">enable</span>
-    stats uri /stats
-    stats realm HAProxy<span class="token punctuation">\</span> Statistics
-    stats auth haproxy:haproxy
-    stats admin <span class="token keyword">if</span> TRUE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p><code>systemctl start haproxy</code></p>
-<h3 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h3><h4 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h4><ol>
-<li><p>创建依赖环境：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token parameter variable">-y</span> <span class="token function">install</span> openssl-devel gcc gcc-c++
-<span class="token function">mkdir</span> /etc/keepalived
-<span class="token function">wget</span> https://www.keepalived.org/software/keepalived-2.0.18.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>安装keepalived:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> keepalived-2.0.18.tar.gz
-<span class="token function">mv</span> keepalived-2.0.18 /usr/local/keepalived
-<span class="token builtin class-name">cd</span> /usr/local/keepalived
-./configure <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>设置开机启动</p>
-<p><code>systemctl enable keepalived</code></p>
-</li>
-</ol>
-<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><ol>
-<li><p>编辑haproxy检测脚本，<code>vi /etc/keepalived/chk_haproxy.sh</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-<span class="token assign-left variable">chkha</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">ps</span> <span class="token parameter variable">-C</span> haproxy --no-header <span class="token operator">|</span><span class="token function">wc</span> <span class="token parameter variable">-l</span><span class="token variable">`</span></span>
-<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$chkha</span> <span class="token parameter variable">-eq</span> <span class="token number">0</span> <span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">then</span>
-  systemctl stop keepalived
-<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>赋予脚本执行权限</p>
-<p><code>chmod  +x chk_haproxy.sh</code></p>
-</li>
-<li><p>编辑keepalived主配置文件，<code>vi /etc/keepalived/keepalived.conf</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global_defs <span class="token punctuation">&#123;</span>
-    router_id Haproxy1  <span class="token comment">#服务器标识</span>
-<span class="token punctuation">&#125;</span>
-
-vrrp_script chk_haproxy <span class="token punctuation">&#123;</span>
-    script <span class="token string">"/etc/keepalived/chk_haproxy.sh"</span>
-    interval <span class="token number">1</span>  <span class="token comment">#（检测脚本执行的间隔，单位是秒)</span>
-    weight <span class="token number">2</span>		<span class="token comment">#权重</span>
-<span class="token punctuation">&#125;</span>
-
-vrrp_instance VI_1 <span class="token punctuation">&#123;</span>
-    state MASTER     <span class="token comment">#指定keepalived的角色，MASTER为主，BACKUP为备</span>
-    interface eth0   <span class="token comment">#绑定的网卡</span>
-    virtual_router_id <span class="token number">201</span>   <span class="token comment">#虚拟路由编号，主从要一直</span>
-    priority <span class="token number">100</span>     <span class="token comment">#优先级，数值越大，获取处理请求的优先级越高</span>
-    advert_int <span class="token number">1</span>			<span class="token comment">#检查间隔，默认为1s(vrrp组播周期秒数)</span>
-    authentication <span class="token punctuation">&#123;</span>  <span class="token comment">#设置验证类型和密码，MASTER和BACKUP必须使用相同的密码才能正常通信</span>
-        auth_type PASS
-        auth_pass <span class="token number">1111</span>
-    <span class="token punctuation">&#125;</span>
-    track_script <span class="token punctuation">&#123;</span>
-        chk_haproxy   <span class="token comment">#调用检测脚本）</span>
-    <span class="token punctuation">&#125;</span>
-    virtual_ipaddress <span class="token punctuation">&#123;</span>
-       <span class="token number">10.30</span>.1.26     <span class="token comment">#定义虚拟ip(VIP)，可多设，每行一个</span>
-    <span class="token punctuation">&#125;</span>
-    track_interface <span class="token punctuation">&#123;</span>
-        eth0
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>编辑keepalived备配置文件，<code>vi /etc/keepalived/keepalived.conf</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">global_defs <span class="token punctuation">&#123;</span>
-    router_id Haproxy2
-<span class="token punctuation">&#125;</span>
-
-vrrp_script chk_haproxy <span class="token punctuation">&#123;</span>
-    script <span class="token string">"/etc/keepalived/chk_haproxy.sh"</span>
-    interval <span class="token number">1</span>
-    weight <span class="token number">2</span>
-<span class="token punctuation">&#125;</span>
-
-vrrp_instance VI_1 <span class="token punctuation">&#123;</span>
-    state BACKUP
-    interface eth0
-    virtual_router_id <span class="token number">201</span>
-    priority <span class="token number">99</span>
-    advert_int <span class="token number">1</span>
-    authentication <span class="token punctuation">&#123;</span>
-        auth_type PASS
-        auth_pass <span class="token number">1111</span>
-    <span class="token punctuation">&#125;</span>
-    track_script <span class="token punctuation">&#123;</span>
-        chk_haproxy
-    <span class="token punctuation">&#125;</span>
-    virtual_ipaddress <span class="token punctuation">&#123;</span>
-        <span class="token number">192.168</span>.123.44
-    <span class="token punctuation">&#125;</span>
-    track_interface <span class="token punctuation">&#123;</span>
-        eth0
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>如果开启了防火墙，需打开如下配置</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">firewall-cmd --add-rich-rule<span class="token operator">=</span><span class="token string">'rule protocol value="vrrp" accept'</span> <span class="token parameter variable">--permanent</span>
-firewall-cmd <span class="token parameter variable">--reload</span>
-firewall-cmd --list-all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>启动keepalived</p>
-<p><code>systemctl start keepalived </code></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>mariadb</category>
-      </categories>
-      <tags>
-        <tag>mariadb</tag>
-        <tag>galera</tag>
-        <tag>haproxy</tag>
-        <tag>keepalived</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL优化</title>
-    <url>/2019/10/23/sql-you-hua/</url>
-    <content><![CDATA[<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ol>
-<li><p>3层Btree可以存放上百万条数据</p>
-</li>
-<li><p>Btree一般指的是B+树，数据全部存放在叶子节点中。</p>
-</li>
-<li><p>B+树中查询任意的数据次数：n次（B+树的高度）</p>
-<span id="more"></span></li>
-</ol>
-<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><ol>
-<li>单值索引    单列的索引，一个表可以有多个单值索引</li>
-<li>唯一索引    不能重复    可以为null</li>
-<li>符合索引    多个列构成的索引</li>
-<li>主键索引    不能重复，不能为null</li>
-</ol>
-<h4 id="SQL性能问题"><a href="#SQL性能问题" class="headerlink" title="SQL性能问题"></a>SQL性能问题</h4><ol>
-<li>分析sql的执行计划（explain）,可以模拟SQL优化器执行sql语句</li>
-<li>Mysql查询优化会干扰我们的优化。</li>
-</ol>
-<h4 id="explain-参数解析："><a href="#explain-参数解析：" class="headerlink" title="explain 参数解析："></a>explain 参数解析：</h4><ol>
-<li><p>id:编号  </p>
-<ul>
-<li><p>id值相同，从上往下顺序执行;</p>
-</li>
-<li><p>id值越大越优先查询 (本质：在嵌套子查询时，先查内层 再查外层)</p>
-</li>
-</ul>
-</li>
-<li><p>select_type 查询类型</p>
-<ul>
-<li><p>PRIMARY:包含子查询SQL中的 主查询 （最外层）</p>
-</li>
-<li><p>SUBQUERY：包含子查询SQL中的 子查询 （非最外层）</p>
-</li>
-<li><p>simple:简单查询（不包含子查询、union）</p>
-</li>
-<li><p>derived:衍生查询(使用到了临时表)</p>
-<ul>
-<li><p>在from子查询中只有一张表</p>
-<blockquote>
-<p>explain select  cr.cname 	from ( select * from course where tid in (1,2) ) cr ;</p>
-</blockquote>
-</li>
-<li><p>在from子查询中， 如果有table1 union table2 ，则table1 就是derived,table2就是union</p>
-<blockquote>
-<p>explain select  cr.cname 	from ( select * from course where tid &#x3D; 1  union select * from course where tid &#x3D; 2 ) cr ;</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>table</p>
-</li>
-<li><p>partitions  </p>
-</li>
-<li><p>type  类型（索引类型）</p>
-<ul>
-<li>system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;all  其中：system,const只是理想情况；实际能达到 ref&gt;range</li>
-<li>system（忽略）: 只有一条数据的系统表 ；或 衍生表只有一条数据的主查询</li>
-<li>const:仅仅能查到一条数据的SQL ,用于Primary key 或unique索引  （类型 与索引类型有关）</li>
-<li>eq_ref:唯一性索引：对于每个索引键的查询，返回匹配唯一行数据（有且只有1个，不能多 、不能0）;常见于唯一索引 和主键索引</li>
-<li>非唯一性索引，对于每个索引键的查询，返回匹配的所有行（0，多）</li>
-</ul>
-</li>
-<li><p>possible_keys  预测用到的索引</p>
-</li>
-<li><p>key   实际使用的索引</p>
-</li>
-<li><p>key_len   实际使用的索引的长度</p>
-</li>
-<li><p>ref    表之间的引用</p>
-</li>
-<li><p>rows  通过索引查询到的数据量</p>
-</li>
-<li><p>filtered </p>
-</li>
-<li><p>Extra  额外的信息</p>
-</li>
-</ol>
-<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><ol>
-<li>聚集索引：页节点包含了完整的数据记录。（innoDB的主键索引）</li>
-<li>非聚集索引  （myISAM的主键索引）</li>
-</ol>
-<h4 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><ol>
-<li><p>为什么InnoDB表必须有主键，并且推荐使用整形的自增主键。</p>
-<p>InnoDB的索引和数据存在同一个<code>表名.ibd</code>文件中</p>
-<p>自增：可以减少B+树的分裂。</p>
-</li>
-</ol>
-]]></content>
   </entry>
   <entry>
     <title>SpringBoot异常处理</title>
@@ -9533,6 +9528,80 @@ $ <span class="token function">rsync</span> <span class="token parameter variabl
 ]]></content>
   </entry>
   <entry>
+    <title>springboot之bean别名</title>
+    <url>/2023/03/11/springboot-zhi-bean-bie-ming/</url>
+    <content><![CDATA[<h2 id="事件起因"><a href="#事件起因" class="headerlink" title="事件起因"></a>事件起因</h2><p>近期在工作中，遇到了相同的bean映射到多个名称的需求；经过了一番资料查找和研究，最后找到了解决方法，遂做一下记录。</p>
+<p>程序原先的逻辑是这样的：程序中会有多种资源，每种资源都会有创建和销毁操作，但各个资源的具体操作是不相同的，为了避免使用过多的if…else…判断，增加系统的扩展性，采用了模版方法和简单工厂模式，创建了抽象的处理类，每种资源都有对应的实现类来实现对应的创建和销毁逻辑，代码示例如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Operation</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">/**
+	 * 执行方法
+	 * @param param 参数
+	 */</span>
+	<span class="token keyword">void</span> <span class="token function">op</span><span class="token punctuation">(</span><span class="token class-name">Param</span> param<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span><span class="token string">"XXX_CREATE"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">XXXCreateOperation</span> <span class="token keyword">implements</span> <span class="token class-name">Operation</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">op</span><span class="token punctuation">(</span><span class="token class-name">Param</span> param<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"xxx"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建一个工厂类，用来根据名称获取对应的具体bean实例。类中使用了springboot的map注入，会根据@Component的名称，建立名称和实例一一对应的映射关系。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OperationFactory</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Operation</span><span class="token punctuation">></span></span> operationMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Operation</span> <span class="token function">getOperation</span><span class="token punctuation">(</span><span class="token class-name">RequestOpEnum</span> requestOpType<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    	<span class="token keyword">if</span><span class="token punctuation">(</span>requestOpType <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+			<span class="token keyword">return</span> operationMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"default"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token class-name">Operation</span> operation <span class="token operator">=</span> operationMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>requestOpType<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>operation <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">return</span> operationMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"default"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">return</span> operation<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但现在遇到一个问题，有一种操作多个资源都会涉及，并且处理逻辑也是同样的，就需要有一个Operation实例bean对应多个名称，这种情况该怎么处理呢？</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>通过查找资料了解到，springboot中的bean是有别名这个概念的，但@Component注解只能配置一个名称，但@Bean注解是可以配置别名的，当只写一个值的时候，只有名称没有别名。但是当你写多个值的时候，除了第一个是名称，后面的全都是别名。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"aaa"</span><span class="token punctuation">,</span> <span class="token string">"bbb"</span><span class="token punctuation">,</span> <span class="token string">"ccc"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">object</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>名称的问题解决了，那spingboot能不能帮我们把别名也注入到map中呢，通过代码实验，很遗憾并不能，接下来就要解决这个问题。</p>
+<p>经过一下午的努力，搜了很多文章，也看了springboot的有关注入源码，都没有找到解决方法，很郁闷，到了晚上的时候，无意间搜到了一篇英文论坛在讨论这个问题，思路瞬间打开了，我为什么一定要用map注入呢？springboot不是提供了通用的获取bean的方法么，可不可以用这个方法替换掉工厂中的map注入方法，来获取bean实例呢？带着激动的心情立马写段代码验证了一下，果然是可以的，最终修改工厂类代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OperationFactory</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token class-name">ApplicationContext</span> applicationContext<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Operation</span> <span class="token function">getOperation</span><span class="token punctuation">(</span><span class="token class-name">RequestOpEnum</span> requestOpType<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>requestOpType <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span>requestOpType<span class="token punctuation">.</span>name<span class="token punctuation">,</span><span class="token class-name">Operation</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">Operation</span> operation <span class="token operator">=</span> applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span>taskType<span class="token punctuation">,</span><span class="token class-name">Operation</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>requestOpType <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"default"</span><span class="token punctuation">,</span><span class="token class-name">Operation</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> operation<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上，该问题得到解决。以后解决问题时，应该把思路多发散一些，可以各个方向都思考一下，也许会有意想不到的收获。</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>springboot</tag>
+        <tag>bean</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>springboot学习1</title>
     <url>/2019/10/08/springboot-xue-xi-1/</url>
     <content><![CDATA[]]></content>
@@ -12531,6 +12600,39 @@ numChildren <span class="token operator">=</span> <span class="token number">2</
       </tags>
   </entry>
   <entry>
+    <title>设计模式-模板方法模式</title>
+    <url>/2018/10/05/she-ji-mo-shi-mo-ban-fang-fa-mo-shi/</url>
+    <content><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法的某些步骤。</p>
+<span id="more"></span>
+
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul>
+<li>一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。</li>
+<li>各个子类中公共的行为被提取出来并集中到一个公共父类中，从而避免代码重复。</li>
+</ul>
+<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20181114203753.png"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>优点<ol>
+<li>提高复用性。</li>
+<li>提高扩展性。</li>
+<li>符合开闭原则。</li>
+</ol>
+</li>
+<li>缺点<ol>
+<li>类数目增加。</li>
+<li>增加了系统实现的复杂度。</li>
+<li>继承关系自身缺点，如果父类添加新的抽象方法，所有子类都要改一遍。</li>
+</ol>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式-策略模式</title>
     <url>/2018/11/11/she-ji-mo-shi-ce-lue-mo-shi/</url>
     <content><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义了算法家族，分别封装起来，让他们之间可以互相替换，此模式让算法的变化不会影响到使用算法的用户。</p>
@@ -12554,39 +12656,6 @@ numChildren <span class="token operator">=</span> <span class="token number">2</
 <li>客户端必须知道所有的策略类，并自行决定使用哪一种策略类。</li>
 <li>产生很多策略类。</li>
 </ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式-模板方法模式</title>
-    <url>/2018/10/05/she-ji-mo-shi-mo-ban-fang-fa-mo-shi/</url>
-    <content><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法的某些步骤。</p>
-<span id="more"></span>
-
-<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ul>
-<li>一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。</li>
-<li>各个子类中公共的行为被提取出来并集中到一个公共父类中，从而避免代码重复。</li>
-</ul>
-<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p><img src="https://raw.githubusercontent.com/haominglfs/images/master/20181114203753.png"></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>优点<ol>
-<li>提高复用性。</li>
-<li>提高扩展性。</li>
-<li>符合开闭原则。</li>
-</ol>
-</li>
-<li>缺点<ol>
-<li>类数目增加。</li>
-<li>增加了系统实现的复杂度。</li>
-<li>继承关系自身缺点，如果父类添加新的抽象方法，所有子类都要改一遍。</li>
-</ol>
 </li>
 </ul>
 ]]></content>
